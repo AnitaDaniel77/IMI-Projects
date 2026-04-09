@@ -103,3 +103,51 @@ Examples:
 ### Key takeaway
 Match your quotes to what's inside the string.
 If the text has an apostrophe, use double quotes on the outside.
+
+## Lesson 3: Operators - Exercises
+
+### Exercise 1 - AND &&
+Both conditions must be true.
+Capitec teller example - bank must be open AND customer must have ID.
+var bankIsOpen = true;
+var hasID = true;
+console.log(bankIsOpen && hasID); // true
+// one false makes the whole thing false
+
+### Exercise 2 - OR ||
+At least one condition must be true.
+ATM example - customer needs card OR phone to get cash.
+var hasCard = false;
+var hasPhone = true;
+console.log(hasCard || hasPhone); // true
+// only false when both sides are false
+
+### Exercise 3 - NOT !
+Flips the value from true to false or false to true.
+var isSuspicious = true;
+isSuspicious = !isSuspicious; // now false - transaction cleared
+
+### Exercise 4 - Modulus %
+Returns the remainder after division.
+var customers = 13;
+var tellers = 4;
+console.log(customers % tellers); // 1 - one customer waiting
+
+### Exercise 5 - String concatenation
++ joins strings and variables together.
+var firstName = "Anita";
+var balance = 5000;
+console.log("Welcome, " + firstName + "! Your balance is R" + balance);
+// Welcome, Anita! Your balance is R5000
+
+### Exercise 6 - += building a string
+Builds a string piece by piece.
+\n means new line - like pressing Enter.
+var receipt = "";
+receipt += "Capitec Bank\n";
+receipt += "Amount: R500\n";
+receipt += "Status: Approved";
+
+### Exercise 7 - Operator precedence
+Works like BODMAS - multiplication before addition.
+5 * 12 + 10 = 70 (not 110)

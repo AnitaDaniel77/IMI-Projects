@@ -32,3 +32,47 @@ Price of bread = double
 True/False answer = boolean
 Letter grade = char
 Country population = long (too big for int)
+
+## Lesson 2: Operators - Exercises
+
+### Exercise 1 - AND &&
+boolean bankIsOpen = true;
+boolean hasID = false;
+System.out.println(bankIsOpen && hasID); // false - customer has no ID
+
+### Exercise 2 - OR ||
+boolean hasCard = false;
+boolean hasPhone = true;
+System.out.println(hasCard || hasPhone); // true - phone is enough
+
+### Exercise 3 - NOT !
+boolean isSuspicious = true;
+isSuspicious = !isSuspicious; // flipped to false - transaction cleared
+
+### Exercise 4 - Modulus %
+int customers = 13;
+int tellers = 4;
+System.out.println(customers % tellers); // 1 - one customer waiting
+
+### Exercise 5 - String concatenation
+String firstName = "Anita"; // String has capital S - it's an object not a primitive
+int balance = 5000;
+System.out.println("Welcome, " + firstName + "! Your balance is R" + balance);
+
+### Exercise 6 - += building a string
+String receipt = "";
+receipt += "Capitec Bank\n";
+receipt += "Amount: R500\n";
+receipt += "Status: Approved";
+
+### Exercise 7 - Operator precedence
+int monthlyFee = 5;
+int months = 12;
+int bonus = 10;
+System.out.println(monthlyFee * months + bonus); // 70 - BODMAS, * before +
+
+### Key difference from JavaScript
+Java requires the type declared upfront.
+JavaScript: var bankIsOpen = true;
+Java: boolean bankIsOpen = true;
+String in Java has a capital S because it is an object, not a primitive.

@@ -151,3 +151,44 @@ receipt += "Status: Approved";
 ### Exercise 7 - Operator precedence
 Works like BODMAS - multiplication before addition.
 5 * 12 + 10 = 70 (not 110)
+
+## Lesson 3: Operator Exercises - Coursera Tasks
+
+### Task 1 - AND operator
+var score = 8;
+console.log("Mid-level skills:", score > 0 && score < 10); // true
+
+### Task 2 - OR operator
+var timeRemaining = 0;
+var energy = 10;
+console.log("Game over:", timeRemaining == 0 || energy == 0); // true
+
+### Task 3 - Modulus to check even numbers
+var num1 = 2;
+var num2 = 5;
+var test1 = num1 % 2;
+var test2 = num2 % 2;
+var result1 = test1 == 0;
+var result2 = test2 == 0;
+console.log("Is", num1, "an even number?", result1); // true
+console.log("Is", num2, "an even number?", result2); // false
+
+### Task 4 - Addition
+console.log(5 + 10); // 15
+
+### Task 5 - Concatenation
+var now = "Now in ";
+var three = 3;
+var d = "D!";
+console.log(now + three + d); // Now in 3D!
+
+### Task 6 - += accumulating values
+var counter = 0;
+counter += 5;
+counter += 3;
+console.log(counter); // 8
+
+### Mistake I made
+/n counter = += 5
+Wrong on two counts - /n is for strings only, and += doesn't need = before it.
+Fix: counter += 5

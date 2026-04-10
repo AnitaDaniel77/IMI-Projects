@@ -31,3 +31,8 @@ img {
 p {
     text-align: center;
 }
+
+#login-heading {
+    font-size: 36px;
+    letter-spacing: 2px;
+}

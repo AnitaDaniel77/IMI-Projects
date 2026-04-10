@@ -192,3 +192,46 @@ console.log(counter); // 8
 /n counter = += 5
 Wrong on two counts - /n is for strings only, and += doesn't need = before it.
 Fix: counter += 5
+
+## Lesson 4: Conditional Statements
+
+### if else
+Use when there are two outcomes or a small number of conditions.
+
+var age = 10;
+if (age >= 65) {
+    console.log("You get your income from your pension");
+} else if (age < 65 && age >= 18) {
+    console.log("Each month you get a salary");
+} else if (age < 18) {
+    console.log("You get an allowance");
+} else {
+    console.log("The value of the age variable is not numerical");
+}
+
+### switch
+Use when there are many specific exact matches.
+Always use colon : after each case, not semicolon ;
+Always add break after each case or it falls through to the next one.
+
+var day = "Sunday";
+switch(day) {
+    case "Monday":
+        console.log("Go to the gym");
+        break;
+    case "Sunday":
+        console.log("Go to the kizomba social");
+        break;
+    default:
+        console.log("There is no such day");
+}
+
+### Mistakes I made
+1. Used comma instead of && in else if condition
+   Fix: else if (age < 65 && age >= 18)
+2. Used semicolon after case instead of colon
+   Fix: case "Monday": not case "Monday";
+
+### When to use which
+if else - binary choice, two outcomes, range checks (age > 18)
+switch - many specific options, exact matches, cleaner to read

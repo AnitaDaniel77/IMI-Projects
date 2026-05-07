@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Little Lemon Sign Up</title>
+</head>
+<body>
+
+    <!-- method="post" sends data securely to the server -->
+    <form method="post">
+
+        <!-- div wraps each field so it displays as its own block -->
+
+        <div>
+            <!-- for="user_first_name" links label to input with matching id -->
+            <label for="user_first_name">First Name:</label><br>
+            <input type="text" id="user_first_name" name="user_first_name">
+        </div>
+
+        <div>
+            <label for="user_last_name">Last Name:</label><br>
+            <input type="text" id="user_last_name" name="user_last_name">
+        </div>
+
+        <div>
+            <!-- type="email" validates email format automatically -->
+            <label for="user_email">Email Address:</label><br>
+            <input type="email" id="user_email" name="user_email">
+        </div>
+
+        <div>
+            <!-- type="password" hides characters as user types -->
+            <label for="user_password">Password:</label><br>
+            <input type="password" id="user_password" name="user_password">
+        </div>
+
+        <div>
+            <label for="user_confirm_password">Confirm Password:</label><br>
+            <input type="password" id="user_confirm_password" name="user_confirm_password">
+        </div>
+
+        <div>
+            <!-- type="submit" sends the form data to the server -->
+            <button type="submit">Sign Up</button>
+        </div>
+
+    </form>
+
+</body>
+</html>

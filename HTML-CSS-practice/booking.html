@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Little Lemon — Book a Table</title>
+</head>
+<body>
+
+    <form>
+
+        <!-- fieldset groups the table size radio buttons -->
+        <fieldset id="size">
+
+            <!-- label wraps input and text so clicking text selects the button -->
+            <label>
+                <input type="radio" name="size" value="2">
+                Two-person table
+            </label>
+
+            <!-- checked sets four-person as the default selection -->
+            <label>
+                <input type="radio" name="size" value="4" checked>
+                Four-person table
+            </label>
+
+            <label>
+                <input type="radio" name="size" value="6">
+                Six-person table
+            </label>
+
+        </fieldset>
+
+        <!-- fieldset groups the location radio buttons -->
+        <fieldset id="location">
+
+            <!-- checked sets indoors as the default selection -->
+            <label>
+                <input type="radio" name="location" value="indoors" checked>
+                Indoors
+            </label>
+
+            <label>
+                <input type="radio" name="location" value="outdoors">
+                Outdoors
+            </label>
+
+        </fieldset>
+
+        <!-- submit button to book the table -->
+        <button type="submit">Book Table</button>
+
+    </form>
+
+</body>
+</html>

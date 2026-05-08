@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>iFrame Cheat Sheet</title>
+</head>
+<body>
+
+    <h1>iFrame Cheat Sheet</h1>
+
+    <!-- Basic iframe -->
+    <h2>Basic iframe</h2>
+    <iframe src="https://example.com" width="400" height="300"></iframe>
+
+    <!-- allow attribute - single feature -->
+    <h2>Allow - Single Feature</h2>
+    <iframe src="https://example.com" allow="fullscreen"></iframe>
+
+    <!-- allow attribute - multiple features -->
+    <h2>Allow - Multiple Features</h2>
+    <iframe src="https://example.com" allow="camera; microphone"></iframe>
+
+    <!-- name attribute -->
+    <h2>Name</h2>
+    <iframe name="My Frame" width="400" height="300"></iframe>
+
+    <!-- referrerpolicy attribute -->
+    <h2>Referrer Policy</h2>
+    <iframe src="https://example.com" referrerpolicy="no-referrer"></iframe>
+    <iframe src="https://example.com" referrerpolicy="origin"></iframe>
+    <iframe src="https://example.com" referrerpolicy="strict-origin"></iframe>
+
+    <!-- sandbox attribute - all restrictions -->
+    <h2>Sandbox - All Restrictions</h2>
+    <iframe src="https://example.com" sandbox></iframe>
+
+    <!-- sandbox attribute - specific permissions -->
+    <h2>Sandbox - Allow Forms and Scripts</h2>
+    <iframe src="https://example.com" sandbox="allow-forms allow-scripts"></iframe>
+
+    <!-- sandbox attribute - all permission tokens -->
+    <h2>Sandbox - All Permission Tokens</h2>
+    <iframe src="https://example.com" 
+        sandbox="allow-downloads 
+                 allow-forms 
+                 allow-modals 
+                 allow-orientation-lock
+                 allow-popups 
+                 allow-presentation 
+                 allow-scripts">
+    </iframe>
+
+    <!-- src vs srcdoc -->
+    <h2>src - Load External Page</h2>
+    <iframe src="https://example.com"></iframe>
+
+    <h2>srcdoc - Load Inline HTML</h2>
+    <iframe srcdoc="<p>My inline html</p>"></iframe>
+
+    <!-- loading attribute -->
+    <h2>Loading - Eager (loads immediately)</h2>
+    <iframe src="https://example.com" loading="eager"></iframe>
+
+    <h2>Loading - Lazy (loads when visible)</h2>
+    <iframe src="https://example.com" loading="lazy"></iframe>
+
+    <!-- title attribute for accessibility -->
+    <h2>Title - Accessibility</h2>
+    <iframe src="https://example.com" title="Little Lemon Restaurant Location Map"></iframe>
+
+</body>
+</html>

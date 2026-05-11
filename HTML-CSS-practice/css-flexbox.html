@@ -1,0 +1,76 @@
+<!-- Search bar container holds three elements together -->
+<div class="container">
+    <span class="search-icon">🔍</span> <!-- icon -->
+    <input type="text" class="search-box"> <!-- input field -->
+    <button class="search-btn">Search</button> <!-- button -->
+</div>
+
+/* Container ties all three elements together in a line */
+.container {
+    display: inline-flex; /* behaves like inline element, not full width block */
+    align-items: center;  /* lines everything up vertically in the middle */
+}
+
+/* Clips text that overflows the search box */
+.search-box {
+    overflow: hidden; /* hides text that goes beyond the box boundary */
+}
+
+<!-- Unordered list becomes a horizontal nav menu -->
+<ul class="nav-container">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Events</a></li>
+    <li><a href="#">Gallery</a></li>
+    <li><a href="#">Contact</a></li>
+</ul>
+
+/* Universal selector — resets browser default styles */
+* {
+    margin: 0;  /* removes default spacing from all elements */
+    padding: 0; /* removes default padding from all elements */
+}
+
+/* Nav container */
+.nav-container {
+    display: flex;
+    flex-flow: row wrap;      /* shorthand for direction + wrap behaviour */
+    justify-content: stretch; /* items stretch to fill the full width */
+}
+
+/* Individual nav items */
+.nav-container li {
+    list-style: none; /* removes bullet points */
+}
+
+.nav-container a {
+    text-decoration: none; /* removes underline from links */
+}
+
+<!-- Gallery container holds all images -->
+<div class="container">
+    <img src="event1.jpg" alt="Event 1">
+    <img src="event2.jpg" alt="Event 2">
+    <img src="event3.jpg" alt="Event 3">
+    <img src="event4.jpg" alt="Event 4">
+    <img src="event5.jpg" alt="Event 5">
+    <img src="event6.jpg" alt="Event 6">
+</div>
+
+/* Reset browser defaults */
+* {
+    margin: 0;  /* no default spacing */
+    padding: 0; /* no default padding */
+}
+
+/* Reset image defaults */
+img {
+    border: 0; /* removes default image border */
+}
+
+/* Gallery container */
+.container {
+    display: flex;
+    flex-wrap: wrap;            /* images wrap to next row when space runs out */
+    justify-content: space-between; /* equal space between each image */
+    padding: 10px;              /* breathing space around the gallery */
+}

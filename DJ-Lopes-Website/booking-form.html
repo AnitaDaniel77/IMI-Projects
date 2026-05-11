@@ -1,0 +1,79 @@
+<form action="booking.php" method="POST">
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ Lopes — Book Now</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<form method="post">
+
+    <!-- Full name -->
+    <label for="name">Full Name:</label>
+    <input type="text" id="name" name="name"
+        required minlength="2" maxlength="50">
+
+    <!-- Email -->
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <!-- SA phone number -->
+    <label for="phone">Phone:</label>
+    <input type="tel" id="phone" name="phone"
+        required pattern="^(\+27|0)[6-8][0-9]{8}$">
+
+    <!-- Event date picker -->
+    <label for="eventDate">Event Date:</label>
+    <input type="date" id="eventDate" name="eventDate" required>
+
+    <!-- Number of guests -->
+    <label for="guests">Number of Guests:</label>
+    <input type="number" id="guests" name="guests"
+        min="10" max="500" required>
+
+    <!-- Venue datalist -->
+    <label for="venue">Venue:</label>
+    <input type="text" id="venue" name="venue" list="venues">
+    <datalist id="venues">
+        <option value="Arturo Melville">
+        <option value="Zor Dainfern">
+    </datalist>
+
+    <!-- Music preference with optgroup -->
+    <label for="music">Music Preference:</label>
+    <select id="music" name="music">
+        <optgroup label="Afro Latin">
+            <option value="kizomba">Kizomba</option>
+            <option value="zouk">Zouk</option>
+            <option value="salsa">Salsa</option>
+            <option value="tarraxinha">Tarraxinha</option>
+            <option value="semba">Semba</option>
+            <option value="kompa">Kompa</option>
+        </optgroup>
+        <optgroup label="Other">
+            <option value="house">House</option>
+            <option value="rnb">R&B</option>
+            <option value="hiphop">Old School Hip Hop</option>
+        </optgroup>
+    </select>
+
+    <!-- File upload -->
+    <label for="moodboard">Upload Inspiration Images:</label>
+    <input type="file" id="moodboard" name="moodboard" multiple>
+
+    <!-- Special requests -->
+    <label for="message">Special Requests:</label>
+    <textarea id="message" name="message"
+        rows="5" cols="30" maxlength="300">
+    </textarea>
+
+    <button type="submit">Book DJ Lopes</button>
+
+</form>
+
+</body>
+</html>

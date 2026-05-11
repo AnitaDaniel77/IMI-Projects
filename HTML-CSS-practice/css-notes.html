@@ -13,4 +13,129 @@
     display: grid; /* like a table but more powerful */
 }
 
+<!-- ========================================
+     FLEXBOX NOTES
+     ======================================== -->
 
+<!-- STEP 1: Basic HTML structure for flexbox -->
+<div class="flex-container">
+    <!-- each box is a flex item inside the container -->
+    <div class="box box1">One..</div>
+    <div class="box box2">Two..</div>
+    <div class="box box3">Three..</div>
+    <div class="box box4">Four..</div>
+    <div class="box box5">Five..</div>
+    <div class="box box6">Six..</div>
+    <div class="box box7">Seven..</div>
+</div>
+
+<style>
+
+/* STEP 2: Style each box — applies to all boxes */
+.box {
+    background-color: aquamarine; /* box colour */
+    border-radius: 5px;           /* rounded corners */
+    margin: 2px;                  /* space outside the box */
+    padding: 10px;                /* space inside the box */
+}
+
+/* STEP 3: Turn the container into a flexbox */
+.flex-container {
+    display: flex; /* items now sit side by side in a row */
+}
+
+/* STEP 4: Centre items along the main axis (horizontal) */
+.flex-container {
+    display: flex;
+    justify-content: center; /* pushes items to the centre */
+}
+
+/* STEP 5: Wrap items when they run out of space */
+.flex-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* items move to next row instead of overflowing */
+}
+
+/* STEP 6: Change main axis from row to column */
+.flex-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column; /* items now stack vertically */
+    flex-wrap: wrap;
+}
+
+/* STEP 7: Align items on the cross axis */
+.flex-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-end; /* pushes items to the right side */
+}
+
+/* STEP 8: Override alignment on one specific item */
+.flex-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+.box3 {
+    background-color: blanchedalmond; /* different colour for box 3 only */
+    align-self: center; /* overrides align-items just for this box */
+}
+
+/* STEP 9: Add spacing between items */
+.flex-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 10px; /* adds space between each item */
+}
+.box3 {
+    background-color: blanchedalmond;
+    align-self: center;
+}
+
+/* STEP 10: Shorthand flex property — grow, shrink, basis */
+.flex-container {
+    flex: 0 1 auto;
+    /* 0 = do not grow beyond natural size */
+    /* 1 = allowed to shrink if needed */
+    /* auto = size based on content */
+}
+
+/* STEP 11: Make one item grow to fill all available space */
+.box3 {
+    background-color: blanchedalmond;
+    align-self: center;
+    flex: 1 1 auto;
+    /* 1 = grow to fill available space */
+    /* 1 = allowed to shrink */
+    /* auto = base size on content */
+}
+
+</style>
+
+<!--
+QUICK REFERENCE — FLEXBOX PROPERTIES
+justify-content  = align along MAIN axis (horizontal by default)
+align-items      = align along CROSS axis (vertical by default)
+align-self       = override alignment for ONE specific item
+align-content    = control spacing between multiple rows
+flex-direction   = change main axis to column or row
+flex-wrap        = allow items to wrap to next line
+gap              = space between items
+flex: grow shrink basis = control how items resize
+
+DJ LOPES WEBSITE EXAMPLE:
+- flex-container on the events section = items sit side by side
+- justify-content: center = event cards are centred on the page
+- flex-wrap: wrap = cards wrap to next row on smaller screens
+- gap: 10px = breathing space between each event card
+- align-self on featured event = make one event card stand out
+-->

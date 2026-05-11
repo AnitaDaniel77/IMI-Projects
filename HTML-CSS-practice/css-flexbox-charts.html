@@ -1,0 +1,94 @@
+<!-- Each row = one survey result -->
+<div class="row">
+
+    <!-- Label on the left -->
+    <div class="label">Preferred Dishes</div>
+
+    <!-- Container holds all the bars -->
+    <div class="container">
+
+        <!-- Each dish is a flex item, width set by flex-basis -->
+        <div class="dish pasta">35%</div>   <!-- 35% of the bar -->
+        <div class="dish pizza">50%</div>   <!-- 50% of the bar -->
+        <div class="dish burrito">15%</div> <!-- 15% of the bar -->
+
+    </div>
+</div>
+
+/* Outermost container — makes label and bars sit side by side */
+.row {
+    display: flex;        /* activates flexbox */
+    align-items: stretch; /* items stretch to fill the full height */
+}
+
+/* Label on the left side */
+.row .label {
+    flex: 0 1 auto;      /* don't grow, can shrink, size based on content */
+    font-family: Arial;  /* clean readable font */
+}
+
+/* Bar container — holds all dish bars */
+.container {
+    display: flex;
+    justify-content: flex-start; /* bars start from the left */
+}
+
+/* Individual bar items */
+.dish {
+    display: flex;
+    align-items: center;  /* centres the percentage text vertically */
+    justify-content: center; /* centres the percentage text horizontally */
+}
+
+/* Individual dish colours and widths */
+.pasta {
+    background-color: #D2691E; /* brown */
+    flex-basis: 35%;            /* takes up 35% of the bar */
+}
+
+.pizza {
+    background-color: #FF6347; /* tomato red */
+    flex-basis: 50%;            /* takes up 50% of the bar */
+}
+
+.burrito {
+    background-color: #90EE90; /* light green */
+    flex-basis: 15%;            /* takes up 15% — total must equal 100% */
+}
+
+/* Outermost container stacks rows vertically */
+.columns {
+    display: flex;
+    flex-direction: column; /* stacks male and female on top of each other */
+}
+
+/* Each bar container */
+.container {
+    display: flex;
+    justify-content: flex-start; /* bars grow from the left */
+}
+
+/* Individual bars */
+.bar {
+    display: flex;
+    align-items: center;
+}
+
+/* Male bar */
+.male {
+    background-color: #4169E1; /* royal blue */
+    flex-basis: 60%;            /* 60% of the row */
+}
+
+/* Female bar */
+.female {
+    background-color: #FF69B4; /* pink */
+    flex-basis: 40%;            /* 40% of the row */
+}
+
+/* flex: grow shrink basis */
+flex: 0 1 auto;
+/* 0 = do not grow */
+/* 1 = allowed to shrink */
+/* auto = size based on content */
+

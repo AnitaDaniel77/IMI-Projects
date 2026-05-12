@@ -1,0 +1,90 @@
+/* ELEMENT SELECTOR — targets all elements of that type */
+p {
+    color: black; /* styles every paragraph on the page */
+}
+
+/* ID SELECTOR — targets one unique element */
+#dj-name {
+    font-size: 2rem; /* only the element with id="dj-name" */
+}
+
+/* CLASS SELECTOR — targets all elements with that class */
+.event-card {
+    background-color: #495E57; /* all elements with class="event-card" */
+}
+
+/* Targets all elements that have a class attribute */
+[class] {
+    color: green; /* any element with a class defined */
+}
+
+/* Targets all links containing the word "meta" */
+[href*="meta"] {
+    color: green; /* * means "contains" */
+}
+
+/* Targets one specific link */
+[href="https://meta.com/about"] {
+    color: blue; /* exact match only */
+}
+
+/* Real life example: like filtering your contacts —
+   [class] = show everyone with a job title
+   [href*="meta"] = show everyone who works at Meta
+   [href="exact"] = show only this one specific person */
+
+
+ /* Target the second list item */
+li:nth-of-type(2) {
+    color: aqua; /* only the second li element */
+}
+
+li:nth-child(2) {
+    color: aqua; /* same result in this case */
+}
+
+/* Target every second item */
+li:nth-child(even) {
+    background-color: lightgrey; /* alternating rows — like a spreadsheet */
+}
+
+/* Real life example: like a queue at a club —
+   nth-child(2) = the second person in line
+   nth-child(even) = every second person gets a wristband */
+   
+ /* Universal selector — resets ALL browser default styles */
+* {
+    margin: 0;  /* removes default spacing from everything */
+    padding: 0; /* removes default padding from everything */
+}
+
+/* Real life example: like a factory reset on your phone —
+   wipes all default settings before you apply your own */
+   
+   /* Instead of writing separate rules for each */
+h1 {
+    color: #495E57;
+}
+p {
+    color: #495E57;
+}
+
+/* Group them with a comma — saves time */
+h1, p {
+    color: #495E57; /* same rule applies to both h1 and p */
+}
+
+/* Real life example: like a group booking at a restaurant —
+   instead of booking tables one by one,
+   you book for everyone at once */
+
+   p { }              /* element — all paragraphs */
+#id { }            /* ID — one unique element */
+.class { }         /* class — all with that class */
+[attr] { }         /* attribute — has that attribute */
+[attr*="value"] { }/* attribute contains value */
+[attr="value"] { } /* attribute exact match */
+li:nth-child(2) { }/* second child element */
+li:nth-of-type(2){ }/* second element of that type */
+* { }              /* star — every element on the page */
+h1, p { }          /* group — applies to both */

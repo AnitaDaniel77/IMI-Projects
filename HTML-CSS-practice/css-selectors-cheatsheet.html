@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CSS Selectors Cheat Sheet</title>
+</head>
+<body>
+
+<!-- ================================
+     SIMPLE SELECTORS
+     ================================ -->
+<style>
+div { }        /* element selector */
+.alpha { }     /* class selector */
+#alpha { }     /* ID selector */
+* { }          /* universal selector */
+
+/* Variations */
+.alpha.beta { }  /* element must have BOTH classes */
+p.alpha { }      /* p elements with class alpha */
+p, div { }       /* all p AND all div elements */
+p div { }        /* all divs INSIDE a p */
+</style>
+
+<!-- ================================
+     COMBINATION SELECTORS
+     ================================ -->
+<style>
+div p { }    /* descendant — all p inside div */
+div > p { }  /* child — direct p children of div */
+div + p { }  /* adjacent sibling — p directly after div */
+div ~ p { }  /* general sibling — all p after div */
+</style>
+
+<!-- ================================
+     ATTRIBUTE SELECTORS
+     ================================ -->
+<style>
+[href] { }              /* has href attribute */
+[lang="fr"] { }         /* lang equals exactly "fr" */
+[input~=hello] { }      /* contains word "hello" */
+[lang|=en] { }          /* equals "en" or starts with "en-" */
+a[href^="https"] { }    /* href starts with "https" */
+a[href$=".docx"] { }    /* href ends with ".docx" */
+a[href*="meta"] { }     /* href contains "meta" */
+</style>
+
+<!-- ================================
+     PSEUDO-CLASSES
+     ================================ -->
+<style>
+/* User action states */
+a:link { }       /* unvisited link */
+a:visited { }    /* visited link */
+a:hover { }      /* mouse over element */
+a:active { }     /* element being clicked */
+input:focus { }  /* element in focus */
+
+/* Form states */
+input:checked { }   /* checked checkbox */
+input:disabled { }  /* disabled input */
+input:enabled { }   /* enabled input */
+input:valid { }     /* valid input value */
+input:invalid { }   /* invalid input value */
+input:required { }  /* has required attribute */
+input:optional { }  /* no required attribute */
+
+/* Position based */
+p:first-child { }        /* first child of parent */
+p:last-child { }         /* last child of parent */
+p:first-of-type { }      /* first p of parent */
+p:last-of-type { }       /* last p of parent */
+p:nth-child(3) { }       /* third child */
+p:nth-last-child(3) { }  /* third from last child */
+p:nth-of-type(2) { }     /* second p sibling */
+p:only-child { }         /* only child of parent */
+p:only-of-type { }       /* only p inside parent */
+
+/* Other */
+:not(div) { }    /* everything that is NOT a div */
+:root { }        /* root element of the document */
+div:empty { }    /* div with no children */
+:fullscreen { }  /* element in fullscreen mode */
+</style>
+
+<!-- ================================
+     PSEUDO-ELEMENTS
+     ================================ -->
+<style>
+p::before { }         /* adds content before p */
+p::after { }          /* adds content after p */
+p::first-letter { }   /* styles first letter of p */
+p::first-line { }     /* styles first line of p */
+::selection { }       /* styles highlighted text */
+::marker { }          /* styles list bullet points */
+input::placeholder { }/* styles placeholder text */
+</style>
+
+</body>
+</html>

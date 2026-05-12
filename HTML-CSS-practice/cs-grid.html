@@ -1,0 +1,101 @@
+/* ================================
+   FLEXBOX CONTAINER SETUP
+   ================================ */
+
+.container {
+    display: flex;        /* activates flexbox, items sit in a row */
+    /* display: inline-flex; makes flexbox behave like inline element */
+}
+
+/* ================================
+   DIRECTION — which way items flow
+   ================================ */
+
+.container {
+    flex-direction: row;            /* left to right (default) */
+    flex-direction: row-reverse;    /* right to left */
+    flex-direction: column;         /* top to bottom */
+    flex-direction: column-reverse; /* bottom to top */
+}
+
+/* Real life example: like reading direction —
+   row is like reading English (left to right),
+   column is like reading a shopping list (top to bottom) */
+
+/* ================================
+   WRAPPING — what happens when space runs out
+   ================================ */
+
+.container {
+    flex-wrap: wrap;   /* items move to next row when space runs out */
+    flex-wrap: nowrap; /* items stay in one line no matter what (default) */
+}
+
+/* flex-flow is shorthand for direction + wrap */
+.container {
+    flex-flow: row wrap; /* items go left to right and wrap when needed */
+}
+
+/* ================================
+   ALIGNMENT — container level
+   ================================ */
+
+.container {
+    /* Main axis alignment (horizontal by default) */
+    justify-content: flex-start;    /* items start from left */
+    justify-content: flex-end;      /* items start from right */
+    justify-content: center;        /* items centred */
+    justify-content: space-between; /* first and last touch edges, rest evenly spaced */
+    justify-content: space-evenly;  /* equal space between all items and edges */
+    justify-content: space-around;  /* equal space around each item */
+
+    /* Cross axis alignment (vertical by default) */
+    align-items: flex-start; /* items sit at top */
+    align-items: flex-end;   /* items sit at bottom */
+    align-items: center;     /* items centred vertically */
+    align-items: stretch;    /* items stretch to fill container height */
+}
+
+/* ================================
+   FLEX ITEM PROPERTIES
+   ================================ */
+
+.item {
+    flex-grow: 1;    /* item grows to fill available space */
+    flex-shrink: 1;  /* item shrinks when space is tight */
+    flex-basis: auto; /* item's starting size before grow/shrink */
+
+    /* shorthand: flex: grow shrink basis */
+    flex: 1 1 auto;  /* grow, shrink, auto size */
+    flex: 0 1 auto;  /* don't grow, can shrink, auto size (default) */
+
+    order: 1; /* changes visual order without changing HTML */
+
+    align-self: center; /* overrides align-items just for this item */
+}
+
+/* ================================
+   DJ LOPES WEBSITE EXAMPLE
+   ================================ */
+
+/* Navigation bar */
+.nav {
+    display: flex;
+    flex-direction: row;          /* links sit side by side */
+    justify-content: space-around; /* equal space around each link */
+    align-items: center;           /* links centred vertically */
+    flex-wrap: wrap;               /* stacks on small screens */
+}
+
+/* Event cards row */
+.event-cards {
+    display: flex;
+    flex-wrap: wrap;              /* cards wrap to next row on small screens */
+    justify-content: space-between; /* space between cards */
+    gap: 15px;                    /* breathing room between cards */
+}
+
+/* Featured event card grows to fill space */
+.featured-card {
+    flex: 2 1 auto; /* grows twice as much as other cards */
+}

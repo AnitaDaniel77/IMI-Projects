@@ -88,3 +88,62 @@ li:nth-child(2) { }/* second child element */
 li:nth-of-type(2){ }/* second element of that type */
 * { }              /* star — every element on the page */
 h1, p { }          /* group — applies to both */
+
+/* Targets ALL h1 elements anywhere inside #blog */
+#blog h1 {
+    color: blue; /* grandchildren, great grandchildren — all of them */
+}
+
+/* Real life example: "everyone in the building wearing a red shirt"
+   doesn't matter which floor they're on */
+
+   /* Targets ALL h1 elements anywhere inside #blog */
+#blog h1 {
+    color: blue; /* grandchildren, great grandchildren — all of them */
+}
+
+/* Real life example: "everyone in the building wearing a red shirt"
+   doesn't matter which floor they're on */
+
+   /* Targets only h1 elements that are DIRECT children of #blog */
+#blog > h1 {
+    color: blue; /* only immediate children, not grandchildren */
+}
+
+/* Real life example: "only your own kids, not your grandkids"
+   one level deep only */
+
+   /* Targets ALL p elements that come AFTER an h1 */
+h1 ~ p {
+    color: blue; /* all paragraphs after the h1, not before */
+}
+
+/* Real life example: "all younger brothers"
+   everyone who comes after, not the ones before */
+
+/* Practical use — box shadow on all lists after a div */
+div ~ ul {
+    background-color: white;
+    box-shadow: 1px 1px 3px gray;
+    /* horizontal offset, vertical offset, blur, colour */
+}
+
+/* Targets only the FIRST p element immediately after an h1 */
+h1 + p {
+    color: blue; /* only the very next paragraph, nothing else */
+}
+
+/* Real life example: "only your next younger brother"
+   just one, the one right after */
+
+/* Practical use — style image captions */
+img + p {
+    font-size: 0.8em;   /* smaller text for caption */
+    text-align: center; /* centred like a caption */
+}
+/* Only the first paragraph after each image gets caption styling */
+
+#blog h1    { } /* descendant — space — any level deep */
+#blog > h1  { } /* child — > — direct children only */
+h1 ~ p      { } /* general sibling — ~ — all following siblings */
+h1 + p      { } /* adjacent sibling — + — only the next one */

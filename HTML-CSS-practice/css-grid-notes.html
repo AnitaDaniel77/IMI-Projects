@@ -1,0 +1,119 @@
+Container  = the grid wrapper
+Rows       = horizontal tracks (left to right)
+Columns    = vertical tracks (top to bottom)
+Cell       = where a row and column intersect
+Gutter/Gap = space between the tracks
+fr         = fraction — divides the grid proportionally
+/* Grid container */
+.grid {
+    display: grid; /* activates CSS Grid */
+    grid-template-columns: 1fr 2fr 1fr; /* defines 3 columns with proportional widths */
+    grid-template-rows: auto; /* rows will size based on content */
+    gap: 10px; /* space between rows and columns */
+}
+/* Grid items */
+.item1 {
+    grid-column: 1; /* places item in the first column */
+    grid-row: 1;    /* places item in the first row */
+}           
+.item2 {
+    grid-column: 2; /* places item in the second column */
+    grid-row: 1;    /* places item in the first row */
+}
+.item3 {
+    grid-column: 3; /* places item in the third column */
+    grid-row: 1;    /* places item in the first row */
+}
+/* To span multiple columns or rows */
+.item4 {
+    grid-column: 1 / 3; /* spans from column 1 to column 3 (covers columns 1 and 2) */
+    grid-row: 2;        /* places item in the second row */
+}
+.item5 {
+    grid-column: 3;     /* places item in the third column */
+    grid-row: 2 / 4;   /* spans from row 2 to row 4 (covers rows 2 and 3) */
+}
+
+<!-- Container holds all grid items -->
+<div class="container">
+    <div class="box">A</div> <!-- grid item 1 -->
+    <div class="box">B</div> <!-- grid item 2 -->
+    <div class="box">C</div> <!-- grid item 3 -->
+    <div class="box">D</div> <!-- grid item 4 -->
+    <div class="box">E</div> <!-- grid item 5 -->
+</div>
+
+/* STEP 1: Style the boxes first */
+.box {
+    background-color: aquamarine; /* box colour */
+    border-radius: 5px;           /* rounded corners */
+    padding: 10px;                /* space inside each box */
+}
+
+/* STEP 2: Turn container into a grid */
+.container {
+    display: grid; /* activates grid layout */
+}
+
+/* STEP 3: Define columns and rows */
+.container {
+    display: grid;
+    grid-template-columns: 100px 200px 100px; /* 3 columns with fixed px sizes */
+    grid-template-rows: 2fr 1fr;              /* 2 rows — first row 2x taller than second */
+}
+
+/* Real life example: like a newspaper — 
+   3 columns of different widths, 
+   top row bigger for main story, 
+   bottom row smaller for secondary stories */
+
+/* STEP 4: Using fr (fraction) instead of px */
+.container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr; /* middle column is twice as wide */
+    grid-template-rows: 2fr 1fr;        /* first row is twice as tall */
+}
+
+/* STEP 5: Add gap between cells */
+.container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 2fr 1fr;
+    gap: 10px;              /* space between all cells */
+    background-color: red;  /* shows the grid gaps in red */
+}
+
+/* STEP 6: Auto rows — browser decides row height */
+.container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-auto-rows: 100px; /* every row automatically 100px tall */
+    gap: 10px;
+}
+
+/* STEP 7: repeat() function — less code, same result */
+.container {
+    display: grid;
+    /* repeat(3, 1fr) = 1fr 1fr 1fr — three equal columns */
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 100px;
+    gap: 10px;
+}
+
+/* STEP 8: minmax() function — sets min and max row size */
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* row is at least 150px tall, max auto adjusts */
+    grid-auto-rows: minmax(150px, auto);
+    gap: 10px;
+}
+
+/* repeat() — saves you writing the same value multiple times */
+grid-template-columns: repeat(3, 1fr);
+/* same as writing: 1fr 1fr 1fr */
+
+/* minmax() — sets a size range */
+grid-auto-rows: minmax(150px, auto);
+/* row is minimum 150px, grows automatically if content is taller */
+

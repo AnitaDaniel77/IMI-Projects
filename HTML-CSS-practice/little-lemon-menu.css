@@ -1,0 +1,71 @@
+/* Properties for other selectors */
+* {
+    font-family: Monaco; /* applies Monaco font to everything on the page */
+}
+
+.menu, .ll {
+    text-align: center; /* centres both the title and menu heading */
+    color: #FA9F42;     /* orange colour for both */
+}
+
+.ll {
+    font-size: 30px;              /* large font for restaurant name */
+    margin-bottom: 20px;          /* space below the name */
+    border-bottom: 2px solid #495E57; /* dark green line under name */
+}
+
+.menu-container {
+    max-width: 800px;         /* never wider than 800px */
+    display: flex;            /* flexbox to arrange sections side by side */
+    justify-content: center;  /* centres the sections */
+    background-color: #E0E0E2;/* light grey background */
+}
+
+/* Add rules for the steps mentioned below */
+
+/* Step 2-3: padding inside each menu section */
+.section {
+    padding: 10px; /* breathing space inside each section */
+}
+
+/* Step 4-5: bold food item labels */
+.label {
+    font-weight: bold; /* makes item names stand out */
+}
+
+/* Step 6-8: italic description with top border */
+.description {
+    font-style: italic;            /* description in italics */
+    border-top: 2px solid #495E57; /* dark green line above description */
+}
+
+/* Step 9-10: spacing and font size for each item */
+.item-name {
+    margin: 25px;    /* space around each item */
+    font-size: 12px; /* smaller font for item details */
+}
+
+/* Step 11-14: price floats to the right side */
+b {
+    float: right;      /* pushes price to far right of the line */
+    margin-top: -15px; /* pulls price up to align with label */
+    color: darkcyan;   /* cyan colour for all prices */
+}
+
+/* Step 15-18: child combinator — h3 directly inside a div */
+div > h3 {
+    font-size: 20px;   /* section heading size */
+    margin: 20px;      /* space around heading */
+    text-align: center;/* centres the heading */
+    color: #495E57;    /* dark green heading colour */
+}
+
+/* Step 19: adjacent sibling — .low immediately after .label */
+.label + .low {
+    color: brown; /* only the price directly after a label turns brown */
+}
+
+/* Step 20: general sibling — all divs that follow another div */
+div ~ div {
+    color: rgb(90, 90, 90); /* dark grey for all sibling div content */
+}

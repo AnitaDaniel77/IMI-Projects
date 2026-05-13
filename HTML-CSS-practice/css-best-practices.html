@@ -93,3 +93,17 @@ div .alpha > p
 
 /* browser reads: p first, then .alpha, then div */
 /* useful to know when isolating which element has the problem */
+
+/* targets Chrome and webkit-based browsers */
+@media (-webkit-min-device-pixel-ratio: 1) {
+    p {
+        font-size: 16px; /* only applies in Chrome/Safari */
+    }
+}
+
+/* targets Safari only */
+@media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+        p { color: blue; } /* Safari only */
+    }
+}

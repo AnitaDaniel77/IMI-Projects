@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CSS Animation Cheat Sheet</title>
+</head>
+<body>
+<style>
+
+/* ================================
+   TRANSFORM PROPERTY
+   ================================ */
+
+/* No transform */
+.element { transform: none; }
+
+/* Rotate */
+.element { transform: rotate(45deg); }         /* 2D rotation */
+.element { transform: rotate3d(1, 1, 0, 45deg); } /* x, y, z, angle */
+.element { transform: rotateX(45deg); }        /* rotate on X axis */
+.element { transform: rotateY(45deg); }        /* rotate on Y axis */
+.element { transform: rotateZ(45deg); }        /* rotate on Z axis */
+
+/* Translate — moves element */
+.element { transform: translate(50px, 100px); }      /* x, y */
+.element { transform: translate3d(50px, 100px, 0); } /* x, y, z */
+.element { transform: translateX(50px); }             /* horizontal only */
+.element { transform: translateY(100px); }            /* vertical only */
+.element { transform: translateZ(20px); }             /* depth only */
+
+/* Scale — resizes element */
+.element { transform: scale(1.5); }            /* 1.5x bigger */
+.element { transform: scale3d(1.5, 1.5, 1); } /* x, y, z scale */
+.element { transform: scaleX(2); }             /* doubles width only */
+.element { transform: scaleY(0.5); }           /* halves height only */
+
+/* Skew — tilts element */
+.element { transform: skew(10deg, 20deg); } /* x and y tilt */
+.element { transform: skewX(10deg); }       /* horizontal tilt only */
+.element { transform: skewY(20deg); }       /* vertical tilt only */
+
+/* Matrix — combines multiple transforms in one */
+.element { transform: matrix(1, 0, 0, 1, 50, 100); }
+
+/* Global values */
+.element { transform: inherit; }  /* inherits from parent */
+.element { transform: initial; }  /* resets to default */
+.element { transform: unset; }    /* removes set value */
+
+/* ================================
+   MULTIPLE TRANSFORMS ON ONE ELEMENT
+   ================================ */
+
+/* combine rotate, scale and translate in one line */
+.element {
+    transform: rotate(45deg) scale(1.5) translate(50px, 100px);
+    /* all three effects applied together */
+}
+
+/* ================================
+   TRANSFORM ORIGIN
+   ================================ */
+
+/* sets the anchor point of the transform */
+.element {
+    transform-origin: top left;  /* rotates from top left corner */
+    transform-origin: center;    /* default — rotates from centre */
+    transform-origin: 50% 50%;   /* same as center using percentages */
+}
+
+/* ================================
+   TRANSITION PROPERTY
+   ================================ */
+
+/* shorthand: property duration timing-function delay */
+.element {
+    transition: margin-left 2s ease-in-out 0.5s;
+    /* which property, how long, timing, delay before starting */
+}
+
+/* individual sub-properties */
+.element {
+    transition-property: margin-left; /* which property to animate */
+    transition-duration: 2s;          /* how long */
+    transition-timing-function: ease-in-out; /* speed curve */
+    transition-delay: 0.5s;           /* wait before starting */
+}
+
+/* timing function values */
+.element {
+    transition-timing-function: ease;        /* slow-fast-slow (default) */
+    transition-timing-function: linear;      /* constant speed */
+    transition-timing-function: ease-in;     /* slow start */
+    transition-timing-function: ease-out;    /* slow end */
+    transition-timing-function: ease-in-out; /* slow start and end */
+}
+
+/* ================================
+   ANIMATION PROPERTY
+   ================================ */
+
+/* shorthand: name duration timing delay count direction fill-mode state */
+.element {
+    animation: bounce 2s linear 0s infinite alternate none running;
+}
+
+/* individual sub-properties */
+.element {
+    animation-name: bounce;              /* links to @keyframes name */
+    animation-duration: 2s;             /* how long one cycle takes */
+    animation-timing-function: linear;  /* speed curve */
+    animation-delay: 0s;                /* wait before starting */
+    animation-iteration-count: infinite;/* how many times to repeat */
+    animation-direction: alternate;     /* normal, reverse, alternate */
+    animation-fill-mode: none;          /* what state before/after */
+    animation-play-state: running;      /* running or paused */
+}
+
+/* ================================
+   @KEYFRAMES
+   ================================ */
+
+/* using from and to */
+@keyframes bounce {
+    from { transform: translate3d(0, 0, 0); }    /* start position */
+    to   { transform: translate3d(640px, 0, 0); } /* end position */
+}
+
+/* using percentages — more control */
+@keyframes myanimation {
+    0%   { width: 50px; }                    /* start */
+    50%  { background-color: aquamarine;
+           height: 20px; }                   /* midpoint — different property */
+    100% { width: 100px; }                   /* end */
+}
+
+/* ================================
+   MULTIPLE ANIMATIONS
+   ================================ */
+
+/* separate each animation with a comma */
+.element {
+    animation:
+        bounce 2s linear infinite,     /* first animation */
+        pulse 1.5s ease-in-out infinite; /* second animation */
+}
+
+/* ================================
+   DJ LOPES WEBSITE EXAMPLES
+   ================================ */
+
+/* Vinyl record spinning */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+.vinyl {
+    animation: spin 3s linear infinite; /* constant spin */
+    transform-origin: center;           /* spins from centre */
+}
+
+/* Hero title entrance */
+@keyframes heroEntrance {
+    0%   { opacity: 0; transform: scale(0.8) translateY(-20px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.hero-title {
+    animation: heroEntrance 1s ease-out forwards;
+}
+
+/* Event card hover with transition */
+.event-card {
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    /* two properties transitioning at the same time */
+}
+
+.event-card:hover {
+    transform: scale(1.05);
+    background-color: #495E57;
+}
+
+</style>
+</body>
+</html>

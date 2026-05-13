@@ -18,12 +18,7 @@
 @media (min-width: 440px) {
     .container {
     /* Add rules here */
-    grid-template-columns: 150px 1fr 150px;
-    grid-template-rows: auto 1fr auto;
-    grid-template-areas: 
-        "header header header"
-        "left   main   right"
-        "footer footer footer";
+    grid-template: "header header header" auto "left   main   right" 1fr "footer footer footer" auto / 150px 1fr 150px;
     }
 }
 

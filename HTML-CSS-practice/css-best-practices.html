@@ -68,3 +68,28 @@ p { color: blue; } /* pointless duplicate */
 /* CORRECT — write it once */
 p { color: blue; }
 
+/* comment out rules one by one */
+.container {
+    display: flex;
+    /* justify-content: center; */  /* disabled to test */
+    gap: 10px;
+}
+/* enable rules one at a time to find the culprit */
+
+/* temporarily add outline to see element boundaries */
+* {
+    outline: 1px solid red; /* shows every element's boundary */
+}
+
+/* always at top of CSS file */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* for this selector: */
+div .alpha > p
+
+/* browser reads: p first, then .alpha, then div */
+/* useful to know when isolating which element has the problem */

@@ -1,0 +1,70 @@
+/* missing closing bracket */
+.box {
+    color: red;
+/* forgot to close — everything below breaks */
+
+/* missing semicolon */
+.box {
+    color: red   /* no semicolon — next property may fail */
+    font-size: 16px;
+}
+
+/* unclosed HTML tag */
+<div>
+    <p>Hello
+/* missing </p> and </div> */
+
+/* WRONG — class name cannot start with a number */
+.1stItem { color: red; }
+
+/* CORRECT */
+.first-item { color: red; }
+
+/* confusing similar properties */
+color: red;            /* text colour */
+background-color: red; /* background colour */
+border-color: red;     /* border colour */
+
+/* WRONG — over specific, hard to read and maintain */
+div.container div.content ul li a { color: blue; }
+
+/* CORRECT — use a class instead */
+.nav-link { color: blue; }
+
+/* LONG — four separate properties */
+margin-top: 10px;
+margin-right: 20px;
+margin-bottom: 10px;
+margin-left: 20px;
+
+/* SHORT — one property */
+margin: 10px 20px; /* top/bottom left/right */
+
+/* removes all browser default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* WRONG — over specified */
+div.container div p.text a { color: blue; }
+
+/* CORRECT — keep it simple */
+.nav-link { color: blue; }
+
+/* WRONG — applying to each item */
+.item1 { font-family: Arial; }
+.item2 { font-family: Arial; }
+.item3 { font-family: Arial; }
+
+/* CORRECT — apply to container */
+.container { font-family: Arial; }
+
+/* WRONG — same rule applied twice */
+p { color: blue; }
+p { color: blue; } /* pointless duplicate */
+
+/* CORRECT — write it once */
+p { color: blue; }
+

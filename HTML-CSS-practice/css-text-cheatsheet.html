@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CSS Text Effects Cheat Sheet</title>
+</head>
+<body>
+<style>
+
+/* ================================
+   MAIN TEXT PROPERTIES
+   ================================ */
+
+p {
+    text-transform: uppercase;   /* ALL CAPS */
+    text-transform: lowercase;   /* all lowercase */
+    text-transform: capitalize;  /* First Letter Of Each Word */
+    text-transform: none;        /* no change */
+
+    font-style: normal;   /* regular text */
+    font-style: italic;   /* leaning text */
+    font-style: oblique;  /* similar to italic */
+
+    font-weight: normal;  /* regular weight */
+    font-weight: bold;    /* thick text */
+    font-weight: lighter; /* thinner than parent */
+    font-weight: bolder;  /* thicker than parent */
+    font-weight: 100;     /* thin — scale goes 100 to 900 */
+    font-weight: 900;     /* heaviest */
+
+    text-decoration: none;         /* removes decoration */
+    text-decoration: underline;    /* line below text */
+    text-decoration: overline;     /* line above text */
+    text-decoration: line-through; /* strikethrough */
+}
+
+/* ================================
+   ALIGNMENT PROPERTIES
+   ================================ */
+
+p {
+    text-align: left;    /* default */
+    text-align: center;  /* centred */
+    text-align: right;   /* right aligned */
+    text-align: justify; /* spreads text to fill full width */
+
+    text-align-last: justify; /* alignment of last line only */
+
+    text-indent: 20px; /* indents first line like a paragraph */
+}
+
+/* ================================
+   TEXT DECORATION DETAIL
+   ================================ */
+
+p {
+    text-decoration-color: red;   /* colour of the line */
+    text-decoration-line: underline overline; /* multiple lines */
+    text-decoration-style: wavy;  /* wavy, dotted, dashed, solid, double */
+    text-decoration-thickness: 3px; /* how thick the line is */
+    text-underline-position: under; /* position of underline */
+}
+
+/* ================================
+   TEXT SHADOW
+   ================================ */
+
+/* text-shadow: x y blur colour */
+h1 {
+    text-shadow: 2px 2px 5px black; /* basic shadow */
+}
+
+/* glow effect — no offset, just blur */
+.glow {
+    text-shadow: 0 0 10px #F4CE14, 0 0 20px #F4CE14;
+}
+
+/* ================================
+   OVERFLOW AND WRAPPING
+   ================================ */
+
+p {
+    text-overflow: ellipsis; /* shows ... when text overflows */
+    text-overflow: clip;     /* cuts text off with no indicator */
+
+    word-wrap: break-word;   /* breaks long words to next line */
+    word-wrap: normal;       /* default — no breaking */
+
+    word-break: break-all;   /* breaks at any character */
+    word-break: keep-all;    /* no breaking for CJK languages */
+    word-break: normal;      /* default */
+}
+
+/* ================================
+   WRITING MODE AND ORIENTATION
+   ================================ */
+
+p {
+    writing-mode: horizontal-tb; /* default left to right */
+    writing-mode: vertical-rl;   /* vertical right to left */
+    writing-mode: vertical-lr;   /* vertical left to right */
+
+    text-orientation: sideways;  /* rotates text sideways */
+    text-orientation: upright;   /* keeps text upright in vertical mode */
+}
+
+/* ================================
+   DJ LOPES WEBSITE EXAMPLES
+   ================================ */
+
+/* Event name uppercase */
+.event-title {
+    text-transform: uppercase;   /* AFROBEATS NIGHT */
+    font-weight: 700;            /* bold heading */
+    letter-spacing: 2px;         /* spaced out letters */
+}
+
+/* Long description clipped with ellipsis */
+.event-description {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* "Join us for an unforgettable..." */
+}
+
+/* Hero title glow */
+.hero-title {
+    text-shadow: 0 0 15px #F4CE14, 0 0 30px #F4CE14;
+    font-weight: 900; /* heaviest weight */
+}
+
+/* Vertical date display */
+.event-date {
+    writing-mode: vertical-rl; /* date runs vertically */
+}
+
+/* Wavy underline on nav links */
+.nav a {
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: #F4CE14;
+}
+
+</style>
+</body>
+</html>

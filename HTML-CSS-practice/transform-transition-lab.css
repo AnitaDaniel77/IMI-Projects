@@ -1,0 +1,45 @@
+/* Resets all default browser spacing and sets text pink */
+* {
+    padding: 0;
+    margin: 0;
+    color: pink;
+}
+
+/* Full height container with warm background */
+.container {
+    min-height: 100vh;        /* at least full screen height */
+    background-color: bisque; /* light orange-cream background */
+}
+
+/* Flexbox row of letters centred on the page */
+.letters {
+    display: flex;            /* letters sit side by side */
+    justify-content: center;  /* centred horizontally */
+    padding-top: 20px;        /* space from top */
+    margin-bottom: 20px;      /* space below */
+    text-transform: uppercase; /* forces all letters to CAPS */
+    font-size: 60px;          /* large letters */
+}
+
+/* Each letter box styled individually */
+.letters p {
+    text-align: center;                   /* centres letter inside box */
+    background-color: rgb(250, 150, 100); /* warm orange box colour */
+    width: 70px;                          /* fixed width for each box */
+    margin-right: 1.5px;                  /* tiny gap between boxes */
+    border-radius: 15%;                   /* rounded corners */
+    border-color: rgb(250, 125, 75);      /* slightly darker orange border */
+    border-style: solid;                  /* solid border line */
+}
+
+/* When hovering over the row — EVEN boxes spin on Y axis */
+.letters:hover p:nth-child(even) {
+    transform: rotateY(360deg); /* full spin left to right */
+    transition: 0.5s;           /* happens quickly in 0.5 seconds */
+}
+
+/* When hovering over the row — ODD boxes spin on X axis */
+.letters:hover p:nth-child(odd) {
+    transform: rotateX(360deg); /* full spin top to bottom */
+    transition: 1.5s;           /* happens slower in 1.5 seconds */
+}

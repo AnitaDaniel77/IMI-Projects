@@ -1,0 +1,32 @@
+// addTwo.js — method 1
+export default function addTwo(a, b) {
+    console.log(a + b);
+}
+
+// addTwo.js — method 2
+function addTwo(a, b) {
+    console.log(a + b);
+}
+export default addTwo;
+
+// mathOperations.js — method 1
+export function addTwo(a, b) {
+    console.log(a + b);
+}
+export function addThree(a, b, c) {
+    console.log(a + b + c);
+}
+
+// mathOperations.js — method 2
+function addTwo(a, b) { console.log(a + b); }
+function addThree(a, b, c) { console.log(a + b + c); }
+export { addTwo, addThree };
+
+// import default export — can use any name
+import addTwo from "./addTwo";
+
+// import named export — must use exact name in curly brackets
+import { addTwo } from "./addTwo";
+
+// import multiple named exports
+import { addTwo, addThree } from "./mathOperations";

@@ -1,19 +1,20 @@
 // Import Greeting component from its own file
 import Greeting from './Greeting.jsx'
 
+// Root component
 function App() {
   return (
-    // All JSX must be wrapped in one parent element
+    // One parent element wrapping everything
     <div>
       {/* Static heading */}
       <h1>Hello Anita</h1>
 
-      {/* Reusing same component with different prop values */}
+      {/* Same component reused with different props */}
       <Greeting name="Anita" />
       <Greeting name="Vito" />
     </div>
   )
 }
 
-// Export App so main.jsx can use it
+// Export so main.jsx can render it
 export default App

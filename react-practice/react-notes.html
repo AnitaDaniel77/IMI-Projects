@@ -30,3 +30,46 @@ import { addTwo } from "./addTwo";
 
 // import multiple named exports
 import { addTwo, addThree } from "./mathOperations";
+
+// Traditional website  — reloads entire page every time you navigate
+// SPA                  — loads once, updates only what changed
+//                        URL may not change but content updates
+
+// Benefits: speed, scalability, rich user interfaces
+// React — library for building user interfaces
+// ReactDOM — library for rendering React components to the DOM
+
+// Benefits:
+// - Reusable — build once, use anywhere
+// - Independent — components don't interfere with each other
+// - Team friendly — React's component model enables parallel development, allowing multiple developers to work on different components simultaneously
+// - Composable — simple components combine into complex ones
+
+// Functional components  — acts like a JavaScript function (focus here)
+// Class components       — acts like a JavaScript class (learn later)
+
+// heading.js
+function Heading() {
+    const title = "This is some heading text";
+    return (
+        <h1>{title}</h1>
+    );
+}
+
+export default Heading;
+
+/* HTML — static, cannot use variables */
+<h1>title</h1>  /* prints the word "title" */
+
+/* JSX — dynamic, variables in curly brackets */
+<h1>{title}</h1>  /* prints the VALUE of title */
+
+// Every React app has one root component — App
+// All other components live inside App
+// App is loaded into the HTML div with id="root"
+/* index.js */
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+
+ReactDOM.render(<App />, document.getElementById('root'));

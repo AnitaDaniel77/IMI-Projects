@@ -1,0 +1,48 @@
+// 1. Function declaration (ES5)
+function Nav(props) {
+    return (
+        <ul>
+            <li>{props.first}</li>
+        </ul>
+    )
+}
+
+// 2. Function expression
+const Nav = function(props) {
+    return (
+        <ul>
+            <li>{props.first}</li>
+        </ul>
+    )
+}
+
+// 3. Arrow function (ES6) — most common in React
+const Nav = (props) => {
+    return (
+        <ul>
+            <li>{props.first}</li>
+        </ul>
+    )
+}
+
+// No parameters — empty parentheses required
+const Nav = () => { return <ul><li>Home</li></ul> }
+
+// One parameter — parentheses optional
+const Nav = props => { return <ul><li>{props.first}</li></ul> }
+
+// Multiple parameters — parentheses required
+const Nav = (props, index) => { return <li>{props.first}</li> }
+
+// Implicit return — single line, no curly brackets or return needed
+const Nav = () => <ul><li>Home</li></ul>
+
+// ES5
+[10, 20, 30].map(function(item) {
+    return item * 10;
+})
+
+// ES6 arrow function — same result, shorter
+[10, 20, 30].map(item => item * 10)
+// output: [100, 200, 300]
+

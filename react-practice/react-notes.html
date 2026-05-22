@@ -143,4 +143,68 @@ function App() {
 /* Multiple classes */
 <div className="container main-content active">
 
-    
+
+// props.children receives whatever is placed between the tags
+function Bag(props) {
+    return (
+        <div className="bag">
+            {/* Renders whatever is passed between <Bag> tags */}
+            {props.children}
+        </div>
+    )
+}
+
+// Text as children
+<Example>Hello there</Example>
+
+// JSX as children
+<Bag>
+    <h2>Some content</h2>
+</Bag>
+
+// Component as children
+<Bag>
+    <Apples />
+</Bag>
+
+// Apples.jsx
+function Apples() {
+    return <h2>I have apples</h2>
+}
+
+// Pears.jsx
+function Pears() {
+    return <h2>I have pears</h2>
+}
+
+// Bag.jsx — wrapper component
+function Bag(props) {
+    return (
+        <div className="bag">
+            {props.children} {/* renders whatever is inside */}
+        </div>
+    )
+}
+
+// App.jsx — same Bag used with different children
+function App() {
+    return (
+        <>
+            {/* Bag wraps Apples */}
+            <Bag><Apples /></Bag>
+
+            {/* Same Bag wraps Pears */}
+            <Bag><Pears /></Bag>
+        </>
+    )
+}
+
+{/* Multiple levels of nesting */}
+<Trunk>
+    <Bag>
+        <Apples />
+        <Pears />
+    </Bag>
+</Trunk>
+
+

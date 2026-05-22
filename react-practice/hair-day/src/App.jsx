@@ -1,20 +1,30 @@
-// Import Greeting component from its own file
-import Greeting from './Greeting.jsx'
+// Import all components from the components folder
+import Nav from './components/Nav.jsx'
+import Promo from './components/Promo.jsx'
+import Intro1 from './components/Intro1.jsx'
+import Intro2 from './components/Intro2.jsx'
+import Intro3 from './components/Intro3.jsx'
+import Footer from './components/Footer.jsx'
 
-// Root component
+// Root component — renders all components together
 function App() {
   return (
-    // One parent element wrapping everything
     <div>
-      {/* Static heading */}
-      <h1>Hello Anita</h1>
+      {/* Navigation menu */}
+      <Nav />
 
-      {/* Same component reused with different props */}
-      <Greeting name="Anita" />
-      <Greeting name="Vito" />
+      {/* Promotional banner */}
+      <Promo />
+
+      {/* Blog post previews */}
+      <Intro1 />
+      <Intro2 />
+      <Intro3 />
+
+      {/* Footer */}
+      <Footer />
     </div>
   )
 }
 
-// Export so main.jsx can render it
 export default App

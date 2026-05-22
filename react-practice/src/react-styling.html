@@ -1,0 +1,32 @@
+/* External CSS — index.css */
+aside {
+    background-color: purple;
+    font-size: 20px;
+    border-top: 5px solid green;
+    padding: 10px;
+}
+
+// Sidebar.jsx — converted to JavaScript object
+function Sidebar() {
+
+    /* CSS rules converted to JS object:
+       - semicolons → commas
+       - hyphenated names → camelCase
+       - values → strings in double quotes */
+    const asideStyle = {
+        backgroundColor: "purple",   /* background-color → backgroundColor */
+        fontSize: "20px",             /* font-size → fontSize */
+        borderTop: "5px solid green", /* border-top → borderTop */
+        padding: "10px"               /* last item no comma */
+    }
+
+    return (
+        /* Pass style object using JSX expression */
+        <aside style={asideStyle}>
+            Sidebar content here
+        </aside>
+    )
+}
+
+export default Sidebar
+

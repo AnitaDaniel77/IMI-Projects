@@ -96,3 +96,51 @@ function Greeting({ name, age }) {
     )
 }
 
+// Anything inside { } is regular JavaScript
+function Nav({ menuItem1, menuItem2 }) {
+    return (
+        <nav>
+            <ul>
+                {/* Variables */}
+                <li>{menuItem1}</li>
+
+                {/* Calculations */}
+                <li>{2 + 2}</li>
+
+                {/* Props */}
+                <li>{menuItem2}</li>
+            </ul>
+        </nav>
+    )
+}
+// Multi-line JSX must be wrapped in parentheses
+function App() {
+    return (
+        <div>
+            <h1>Hello</h1>
+            <p>World</p>
+        </div>
+    )
+}
+
+// Must have ONE top level parent element
+// Use Fragment <> </> to avoid extra div in DOM
+function App() {
+    return (
+        <>
+            <h1>Hello</h1>
+            <p>World</p>
+        </>
+    )
+}
+
+/* HTML — uses class */
+<div class="container">
+
+/* JSX — uses className (class is reserved in JavaScript) */
+<div className="container">
+
+/* Multiple classes */
+<div className="container main-content active">
+
+    

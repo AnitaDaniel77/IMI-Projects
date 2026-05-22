@@ -73,3 +73,26 @@ import ReactDOM from 'react-dom';
 import App from './App';
 
 ReactDOM.render(<App />, document.getElementById('root'));
+
+
+// Parent passes data as HTML-like attributes
+function App() {
+    return (
+        <Greeting name="Anita" age={25} />
+    )
+}
+
+// Child receives props object
+function Greeting(props) {
+    return (
+        <h1>Hello {props.name}, you are {props.age}</h1>
+    )
+}
+
+// Or destructure props for cleaner code
+function Greeting({ name, age }) {
+    return (
+        <h1>Hello {name}, you are {age}</h1>
+    )
+}
+

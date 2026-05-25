@@ -46,3 +46,41 @@ const Nav = () => <ul><li>Home</li></ul>
 [10, 20, 30].map(item => item * 10)
 // output: [100, 200, 300]
 
+// if/else
+if (name == 'Bob') {
+    console.log('Hello, Bob')
+} else {
+    console.log('Hello, Friend')
+}
+
+// Same thing as ternary
+name == 'Bob' ? console.log('Hello, Bob') : console.log('Hello, Friend')
+
+// Structure
+condition ? valueIfTrue : valueIfFalse
+
+
+function Example() {
+    return (
+        <div>
+            {/* Ternary inside curly brackets */}
+            <h1>{Math.random() >= 0.5 ? "Over 0.5" : "Under 0.5"}</h1>
+        </div>
+    )
+}
+
+// Inline function call
+function Example2() {
+    return (
+        <h1>Random number: { Math.floor(Math.random() * 10) + 1 }</h1>
+    )
+}
+
+// Extracted to separate function — cleaner
+function Example3() {
+    const getRandomNum = () => Math.floor(Math.random() * 10) + 1
+
+    return (
+        <h1>Random number: { getRandomNum() }</h1>
+    )
+}

@@ -1,0 +1,39 @@
+const bool = false
+const str1 = "just"
+
+// Passing expressions as props
+function App() {
+    return (
+        <Example
+            toggleBoolean={!bool}              // NOT operator → true
+            math={10 + 20}                     // arithmetic → 30
+            str={str1 + " another string"}     // concatenation
+        />
+    )
+}
+
+// Receiving and displaying the props
+function Example({ toggleBoolean, math, str }) {
+    return (
+        <div>
+            {/* Convert boolean to string for display */}
+            <p>toggleBoolean: {toggleBoolean.toString()}</p>
+            <p>math: {math}</p>
+            <p>str: {str}</p>
+        </div>
+    )
+}
+
+// Output:
+// toggleBoolean: true
+// math: 30
+// str: just another string
+
+<Component
+    notOperator={!false}           // boolean expression
+    arithmetic={10 + 20}          // math
+    string={"hello " + "world"}   // string concatenation
+    ternary={age > 18 ? "adult" : "minor"}  // ternary
+    functionCall={getRandomNum()}  // function call
+    variable={myVar}               // variable
+/>

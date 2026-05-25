@@ -84,3 +84,31 @@ function Example3() {
         <h1>Random number: { getRandomNum() }</h1>
     )
 }
+
+src/
+└── avatar.png   ← paste image here
+
+// Import image at top of file
+import avatar from './avatar.png'
+
+// Logo component — uses imported image
+function Logo(props) {
+    // Assign JSX image element to variable
+    const userPic = <img src={avatar} alt="Avatar" />
+
+    // Return the image element
+    return userPic
+}
+
+// App component renders Logo
+function App() {
+    return (
+        <div>
+            <h1>Hello World</h1>
+            {/* Logo component renders the image */}
+            <Logo />
+        </div>
+    )
+}
+
+export default App

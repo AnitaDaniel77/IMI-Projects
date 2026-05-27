@@ -82,3 +82,35 @@ CORRECT → function Card(props) → works fine
 
 </body>
 </html>
+
+/* Uncommon — hard to read for complex logic */
+<button onClick={function() {
+    console.log("clicked")
+}}>
+    Click me
+</button>
+
+/* Common — good for simple one-line logic */
+<button onClick={() => console.log("clicked")}>
+    Click me
+</button>
+
+/* Good for complex logic — 20+ lines */
+function handleClick() {
+    console.log("clicked")
+}
+
+<button onClick={handleClick}>Click me</button>
+
+/* Most common — arrow function assigned to const */
+const handleClick = () => {
+    console.log("clicked")
+}
+
+<button onClick={handleClick}>Click me</button>
+
+Inline ES5        → function() {}         uncommon
+Inline ES6        → () =>                 simple logic
+Function declaration → function name() {} complex logic
+Function expression  → const name = () => most common
+

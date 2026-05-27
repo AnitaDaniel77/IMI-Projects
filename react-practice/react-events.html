@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>React Events Notes</title>
+</head>
+<body>
+
+<!-- ================================
+     EVENTS IN REACT
+     ================================ -->
+<pre>
+## Events in React
+
+Events = actions triggered by user or browser interaction
+React listens for these and runs code in response
+
+HTML vs React events:
+onclick        → onClick
+onmouseover    → onMouseOver
+onkeydown      → onKeyDown
+
+Event groups:
+Mouse     → onClick, onDoubleClick, onMouseOver
+Keyboard  → onKeyDown, onKeyUp
+Clipboard → onCopy, onCut, onPaste
+Form      → onChange, onSubmit, onFocus
+
+Basic event handler:
+function App() {
+    function handleClick() {
+        console.log("clicked!")
+    }
+    return (
+        &lt;button onClick={handleClick}&gt;Click me&lt;/button&gt;
+    )
+}
+
+<!-- ================================
+     HTML VS REACT EVENT HANDLING
+     ================================ -->
+
+HTML    → onclick="handleClick()"   lowercase, invoked
+JS      → addEventListener          manual DOM manipulation
+React   → onClick={handleClick}     camelCase, reference only
+
+WRONG  → onClick={handleClick()}   invokes immediately
+CORRECT→ onClick={handleClick}     runs only on click
+
+Passing handler as prop:
+function App() {
+    function handleClick() { console.log("clicked") }
+    return &lt;Counter onClick={handleClick} /&gt;
+}
+
+function Counter({ onClick }) {
+    return &lt;button onClick={onClick}&gt;Count&lt;/button&gt;
+}
+
+<!-- ================================
+     EVENT ERRORS
+     ================================ -->
+
+try...catch in event handler:
+function App() {
+    function handleClick() {
+        try {
+            (5).toUpperCase()
+        } catch(e) {
+            console.log("Error:", e)
+        }
+    }
+    return &lt;button onClick={handleClick}&gt;Click&lt;/button&gt;
+}
+
+Render errors  → React Error Boundaries
+Event errors   → try...catch inside handler
+
+Common error — typo in props:
+WRONG   → function Card(prop)  → ReferenceError
+CORRECT → function Card(props) → works fine
+</pre>
+
+</body>
+</html>

@@ -114,3 +114,54 @@ Inline ES6        → () =>                 simple logic
 Function declaration → function name() {} complex logic
 Function expression  → const name = () => most common
 
+function ModeToggler() {
+
+    // Boolean variable — controls which mode shows
+    let darkModeOn = true
+
+    // Text for each mode
+    const darkMode = <h1>Dark mode is on</h1>
+    const lightMode = <h1>Light mode is on</h1>
+
+    // Handler — toggles darkModeOn between true and false
+    function handleClick() {
+        // ! flips the boolean — true becomes false, false becomes true
+        darkModeOn = !darkModeOn
+
+        // Log current state to console
+        if (darkModeOn) {
+            console.log("Dark mode is on")
+        } else {
+            console.log("Light mode is on")
+        }
+    }
+
+    return (
+        <div>
+            {/* Ternary — shows dark or light based on darkModeOn value */}
+            {darkModeOn ? darkMode : lightMode}
+
+            {/* Button triggers handleClick on click */}
+            <button onClick={handleClick}>Click me</button>
+        </div>
+    )
+}
+
+export default ModeToggler
+
+Console log updates ✓
+Heading on screen does not update ✗
+
+Why? — changing a regular variable does not
+trigger a re-render in React.
+
+Solution — use React State (useState hook)
+You will learn this soon.
+
+!true  = false
+!false = true
+
+darkModeOn = !darkModeOn
+// if true  → becomes false
+// if false → becomes true
+

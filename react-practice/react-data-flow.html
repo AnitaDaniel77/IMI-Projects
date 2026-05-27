@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>React Data Flow Notes</title>
+</head>
+<body>
+<pre>
+## Parent-Child Data Flow in React
+
+Real life example:
+Like a head office sending a discount update to all branches.
+Change it once at head office (parent) and all branches
+(children) update automatically.
+
+--------------------------------------------
+PARENT-CHILD RELATIONSHIP
+--------------------------------------------
+
+Parent component  = Promo
+Child component   = PromoHeading
+
+/* Parent — single source of truth */
+const data = {
+    heading: "99% of all items",
+    callToAction: "Everything must go"
+}
+
+function Promo() {
+    return (
+        &lt;div&gt;
+            {/* Pass data down to child using props */}
+            &lt;PromoHeading
+                heading={data.heading}
+                callToAction={data.callToAction}
+            /&gt;
+        &lt;/div&gt;
+    )
+}
+
+/* Child — receives and displays props */
+function PromoHeading(props) {
+    return (
+        &lt;div&gt;
+            &lt;h1&gt;{props.heading}&lt;/h1&gt;
+            &lt;h2&gt;{props.callToAction}&lt;/h2&gt;
+        &lt;/div&gt;
+    )
+}
+
+--------------------------------------------
+KEY PRINCIPLES
+--------------------------------------------
+
+1. Single source of truth
+   Store data in parent — change once, updates everywhere
+
+2. DRY — Don't Repeat Yourself
+   Never duplicate the same data in multiple components
+
+3. Unidirectional data flow
+   Data flows parent → child only, never child → parent
+
+4. Props pass the data
+   Parent sends data via props
+   Child receives and displays it
+
+--------------------------------------------
+WHY THIS MATTERS
+--------------------------------------------
+
+Without single source of truth:
+- Update text in 3 components separately
+- Risk of typos
+- Boss changes discount again = 3 more updates
+
+With single source of truth:
+- Update data object once in parent
+- All child components update automatically
+- No risk of inconsistency
+
+--------------------------------------------
+DJ LOPES WEBSITE EXAMPLE
+--------------------------------------------
+
+/* Parent — stores event data */
+const eventData = {
+    name: "Afrobeats Night",
+    price: "R150",
+    venue: "Club Havana"
+}
+
+function EventPage() {
+    return (
+        &lt;div&gt;
+            &lt;EventCard
+                name={eventData.name}
+                price={eventData.price}
+                venue={eventData.venue}
+            /&gt;
+            &lt;EventBanner
+                name={eventData.name}
+            /&gt;
+            &lt;EventFooter
+                name={eventData.name}
+                venue={eventData.venue}
+            /&gt;
+        &lt;/div&gt;
+    )
+}
+/* Change eventData once — all three components update */
+</pre>
+</body>
+</html>

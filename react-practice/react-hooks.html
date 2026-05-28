@@ -118,3 +118,80 @@ function BookingForm() {
 
 </body>
 </html>
+
+<h2>useState with text input</h2>
+```jsx
+import { useState } from 'react'
+
+export default function InputComponent() {
+    const [inputText, setInputText] = useState('hello')
+
+    function handleChange(event) {
+        // event.target.value = whatever user typed
+        setInputText(event.target.value)
+    }
+
+    return (
+        <div>
+            <input value={inputText} onChange={handleChange} />
+            <p>You typed: {inputText}</p>
+            <button onClick={() => setInputText('hello')}>Reset</button>
+        </div>
+    )
+}
+```
+
+<h2>useState with object — registration form</h2>
+```jsx
+import { useState } from 'react'
+
+export default function RegisterForm() {
+    const [form, setForm] = useState({
+        firstName: 'Luke',
+        lastName: 'Jones',
+        email: 'lukeJones@sculpture.com'
+    })
+
+    function handleChange(event) {
+        const { name, value } = event.target
+        // spread keeps existing values, only updates changed field
+        setForm({ ...form, [name]: value })
+    }
+
+    return (
+        <div>
+            <input name="firstName" value={form.firstName} onChange={handleChange} />
+            <input name="lastName" value={form.lastName} onChange={handleChange} />
+            <input name="email" value={form.email} onChange={handleChange} />
+        </div>
+    )
+}
+```
+
+<h2>useRef hook — access DOM directly</h2>
+<p>Real life example: Like a remote pointing directly at one specific TV. useRef points directly at one specific DOM element.</p>
+
+```jsx
+import { useRef } from 'react'
+
+export default function TextInputWithFocusButton() {
+    const inputEl = useRef(null)
+
+    function handleClick() {
+        // directly accesses the input and puts cursor in it
+        inputEl.current.focus()
+    }
+
+    return (
+        <div>
+            <input ref={inputEl} type="text" />
+            <button onClick={handleClick}>Focus Input</button>
+        </div>
+    )
+}
+```
+
+<h2>Hook rules</h2>
+<p>1. Only call hooks at the top level of your component</p>
+<p>2. Never call hooks inside loops or conditions</p>
+<p>3. Only call hooks from React functions — not regular JavaScript functions</p>

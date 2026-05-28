@@ -175,3 +175,76 @@ Props are fixed   → child cannot modify received props
 Change at source  → update parent, children update automatically
 One direction     → never flows back up
 </pre>
+
+<!-- ================================
+     PROPS VS STATE
+     ================================ -->
+<pre>
+## Props vs State in React
+
+Real life example:
+Money from employer = props (comes from outside, you can't change it)
+Your own savings    = state (you control it, you can change it)
+
+--------------------------------------------
+TWO TYPES OF DATA IN REACT
+--------------------------------------------
+
+PROPS
+- Data from outside the component
+- Passed down from parent
+- Cannot be mutated by the child
+- Read only
+- Belongs to the parent
+
+STATE
+- Data inside the component
+- Component controls it
+- Can be mutated/changed
+- Belongs to the component itself
+
+--------------------------------------------
+WHY STATE MATTERS
+--------------------------------------------
+
+Without state:
+- Components just display data passed via props
+- No interactivity
+- Static templates
+
+With state:
+- Components can change their own data
+- React re-renders when state changes
+- Makes the app interactive
+
+--------------------------------------------
+SIMPLE EXAMPLE
+--------------------------------------------
+
+/* App.js — parent has state, passes as props */
+function App() {
+    /* state = current date (belongs to App) */
+    const currentDate = new Date().toString()
+
+    return (
+        /* Passes state data down as props */
+        &lt;Child message={currentDate} /&gt;
+    )
+}
+
+/* Child.js — receives props, cannot change them */
+function Child({ message }) {
+    return (
+        /* Just reads and displays the prop */
+        &lt;h1&gt;{message}&lt;/h1&gt;
+    )
+}
+
+--------------------------------------------
+KEY RULE
+--------------------------------------------
+
+Props  = outside data  → read only
+State  = inside data   → can change
+Data always flows parent → child via props
+</pre>

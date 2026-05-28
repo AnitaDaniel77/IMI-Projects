@@ -111,3 +111,67 @@ function EventPage() {
 </pre>
 </body>
 </html>
+
+<!-- ================================
+     UNIDIRECTIONAL DATA FLOW
+     ================================ -->
+<pre>
+## Data Flow in React — Reading Notes
+
+Data flows ONE WAY only:
+Root → Parent → Child → Grandchild
+
+Props are IMMUTABLE — cannot be changed by the child
+
+Benefits:
+1. Easier to understand component logic
+2. Simpler to debug — always know where data came from
+
+--------------------------------------------
+MULTI-LEVEL DATA FLOW EXAMPLE
+--------------------------------------------
+
+/* Parent — Dog */
+function Dog() {
+    return (
+        &lt;Puppy
+            name="Rex"
+            bowlShape="round"
+            bowlStatus="full"
+        /&gt;
+    )
+}
+
+/* Child — Puppy receives all props, passes some down */
+function Puppy({ name, bowlShape, bowlStatus }) {
+    return (
+        &lt;div&gt;
+            &lt;p&gt;{name}&lt;/p&gt;
+            {/* Passes only bowl props to grandchild */}
+            &lt;Bowl
+                bowlShape={bowlShape}
+                bowlStatus={bowlStatus}
+            /&gt;
+        &lt;/div&gt;
+    )
+}
+
+/* Grandchild — Bowl receives only what it needs */
+function Bowl({ bowlShape, bowlStatus }) {
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Shape: {bowlShape}&lt;/p&gt;
+            &lt;p&gt;Status: {bowlStatus}&lt;/p&gt;
+        &lt;/div&gt;
+    )
+}
+
+--------------------------------------------
+KEY RULES
+--------------------------------------------
+
+Props flow down   → parent to child to grandchild
+Props are fixed   → child cannot modify received props
+Change at source  → update parent, children update automatically
+One direction     → never flows back up
+</pre>

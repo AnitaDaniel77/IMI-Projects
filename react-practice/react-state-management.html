@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>React State Management Notes</title>
+</head>
+<body>
+
+<h1>Managing State Across Components</h1>
+
+<p>Real life example: Like a family WhatsApp group. Instead of each person calling each other separately (prop drilling), everyone gets the update in one place (context API).</p>
+
+<h2>The problem — sibling components</h2>
+```jsx
+// MealsList and Counter are siblings — not parent and child
+// Counter needs data from MealsList but cannot access it directly
+
+function App() {
+    return (
+        <div>
+            <MealsList />  // has the meals state
+            <Counter />    // needs the meals state — but how?
+        </div>
+    )
+}
+```
+
+<h2>Solution 1 — Lifting state up</h2>
+<p>Move state from MealsList up to App, then pass it down via props to both components.</p>
+
+```jsx
+function App() {
+    // state moved up to App — the common parent
+    const [meals, setMeals] = useState(todaysMeals)
+
+    return (
+        <div>
+            <MealsList meals={meals} />
+            <Counter meals={meals} />
+        </div>
+    )
+}
+```
+
+<h2>Problem with prop drilling</h2>
+<p>Prop drilling = passing state through many layers of components.</p>
+
+```jsx
+// Data has to travel through every level
+App → MealsList → MealItem → MealDetail
+// If data changes every level needs to update
+// Gets messy as the app grows
+```
+
+<h2>Solution 2 — React Context API</h2>
+<p>Cuts out the middleman. Any component that needs the data gets it directly from context.</p>
+
+```jsx
+// Without context — prop drilling
+App → MealsList → MealItem (passes meals at every level)
+
+// With context — direct access
+App (stores data in context)
+MealItem (gets data directly from context)
+Counter  (gets data directly from context)
+```
+
+<h2>Key concepts</h2>
+<p>Lifting state up = move state to the closest common parent</p>
+<p>Prop drilling = passing props through many layers — gets messy</p>
+<p>Context API = global state solution — any component accesses it directly</p>
+
+</body>
+</html>

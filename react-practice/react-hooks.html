@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>React Hooks Notes</title>
+</head>
+<body>
+
+<h1>React Hooks</h1>
+
+<h2>What are Hooks?</h2>
+<p>Functions introduced in React 16.8 that let you hook into React state and lifecycle features from components.</p>
+<p>Real life example: Like a TV remote control — hooks give you built-in buttons to control your component without building the electronics yourself.</p>
+
+<h2>Why use Hooks?</h2>
+<p>They solve the problem of unnecessary code reuse across components and make code more readable and simple.</p>
+
+<h2>useState — most common hook</h2>
+```jsx
+// Step 1 — import useState from React
+import { useState } from 'react'
+
+// Step 2 — declare state variable using array destructuring
+const [showMenu, setShowMenu] = useState(false)
+// showMenu    = current state value (starts as false)
+// setShowMenu = function to update the state
+// false       = initial value
+```
+
+<h2>Without array destructuring — why we don't do this</h2>
+```jsx
+// Long and confusing — avoid this
+const showMenuArray = useState(false)
+const showMenu = showMenuArray[0]
+const setShowMenu = showMenuArray[1]
+
+// Clean and simple — use this instead
+const [showMenu, setShowMenu] = useState(false)
+```
+
+<h2>useState can track any data type</h2>
+```jsx
+const [name, setName]         = useState("Anita")      // string
+const [count, setCount]       = useState(0)             // number
+const [isOpen, setIsOpen]     = useState(false)         // boolean
+const [items, setItems]       = useState([])            // array
+const [user, setUser]         = useState({})            // object
+```
+
+<h2>Tracking button clicks example</h2>
+```jsx
+import { useState } from 'react'
+
+function App() {
+    const [count, setCount] = useState(0)
+
+    function handleClick() {
+        setCount(count + 1)
+    }
+
+    return (
+        <div>
+            <p>Button clicked {count} times</p>
+            <button onClick={handleClick}>Click me</button>
+        </div>
+    )
+}
+```
+
+<h2>Light switch example</h2>
+```jsx
+import { useState } from 'react'
+
+function LightSwitch() {
+    const [lightOn, setLightOn] = useState(false)
+
+    function handleClick() {
+        setLightOn(!lightOn) // ! flips true to false and false to true
+    }
+
+    return (
+        <div>
+            <h1>{lightOn ? "Light is ON" : "Light is OFF"}</h1>
+            <button onClick={handleClick}>Toggle Light</button>
+        </div>
+    )
+}
+```
+
+<h2>Key rules</h2>
+<p>Call useState at the top level of your component — never inside loops or conditions.</p>
+<p>You can also build your own custom hooks to reuse logic across components.</p>
+
+<h2>DJ Lopes website example</h2>
+```jsx
+import { useState } from 'react'
+
+function BookingForm() {
+    const [isOpen, setIsOpen]     = useState(false)
+    const [guestCount, setGuestCount] = useState(1)
+
+    return (
+        <div>
+            <button onClick={() => setIsOpen(!isOpen)}>
+                {isOpen ? "Close" : "Book DJ Lopes"}
+            </button>
+            {isOpen && (
+                <div>
+                    <p>Guests: {guestCount}</p>
+                    <button onClick={() => setGuestCount(guestCount + 1)}>
+                        Add Guest
+                    </button>
+                </div>
+            )}
+        </div>
+    )
+}
+```
+
+</body>
+</html>

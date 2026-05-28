@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>React State Notes</title>
+</head>
+<body>
+
+<h1>React State</h1>
+
+<h2>What is State?</h2>
+<p>State is a component's internal data that determines its current behaviour. Like an alarm clock with built-in modes — on, off, snooze — no extra hardware needed, just push a button.</p>
+
+<h2>Props vs State recap</h2>
+<pre><code>
+Props  = data from outside  — parent controls it
+State  = data from inside   — component controls it
+</code></pre>
+
+<h2>Stateless component</h2>
+<pre><code>
+// No state — just renders static content
+function App() {
+    return (
+        &lt;h1&gt;A stateless component&lt;/h1&gt;
+    )
+}
+</code></pre>
+
+<h2>Stateful component — useState hook</h2>
+<pre><code>
+import React, { useState } from 'react'
+
+function App() {
+    // useState returns array of two things:
+    // 1. the state value
+    // 2. function to update the state
+    const [greet, setGreet] = useState("Hello")
+
+    return (
+        &lt;h1&gt;{greet}&lt;/h1&gt;
+    )
+}
+</code></pre>
+
+<h2>Array destructuring — how useState works</h2>
+<pre><code>
+// Regular array destructuring in JavaScript
+const fruits = ["apple", "pear", "plum"]
+const [fruit1, fruit2, fruit3] = fruits
+// fruit1 = "apple", fruit2 = "pear", fruit3 = "plum"
+
+// useState works the same way
+const [greet, setGreet] = useState("Hello")
+// greet    = "Hello"   (the state value)
+// setGreet = function  (used to update greet)
+</code></pre>
+
+<h2>Naming convention</h2>
+<pre><code>
+// State variable name    → update function name
+const [greet, setGreet]   = useState("Hello")
+const [darkMode, setDarkMode] = useState(false)
+const [count, setCount]   = useState(0)
+// Pattern: [name, setName]
+</code></pre>
+
+<h2>Key points</h2>
+<pre><code>
+1. State is internal to the component
+2. When state changes React re-renders the component
+3. State is initialised when component is created
+4. useState is a React Hook
+5. Parent sends state to children via props
+6. Components can be stateful or stateless
+</code></pre>
+
+<h2>DJ Lopes website example</h2>
+<pre><code>
+import { useState } from 'react'
+
+function BookingButton() {
+    // State — tracks if booking form is open
+    const [isOpen, setIsOpen] = useState(false)
+
+    return (
+        &lt;div&gt;
+            &lt;button onClick={() => setIsOpen(!isOpen)}&gt;
+                {isOpen ? "Close Form" : "Book DJ Lopes"}
+            &lt;/button&gt;
+            {isOpen && &lt;p&gt;Booking form here&lt;/p&gt;}
+        &lt;/div&gt;
+    )
+}
+</code></pre>
+
+</body>
+</html>

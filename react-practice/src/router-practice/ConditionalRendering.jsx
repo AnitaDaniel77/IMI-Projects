@@ -75,9 +75,33 @@ function LowBalanceWarning() {
   );
 }
 
+// CONDITIONAL COMPONENTS
+// A parent returns a different child component based on a condition
+// Real life: a Log In button that becomes a Log Out button once
+// Anita is signed into the Capitec app
+
+// the two child buttons
+function LoginButton() {
+  return <button>Log In</button>;
+}
+
+function LogoutButton() {
+  return <button>Log Out</button>;
+}
+
+// parent decides which child to render based on the isLoggedIn prop
+function LogInOutButton(props) {
+  // if logged in show Logout, otherwise show Login
+  if (props.isLoggedIn) {
+    return <LogoutButton />;
+  }
+  return <LoginButton />;
+}
+
 export {
   CurrentMessageTernary,
   CurrentMessageIf,
   CurrentMessageVariable,
   LowBalanceWarning,
+  LogInOutButton,
 };

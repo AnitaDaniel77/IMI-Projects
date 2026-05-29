@@ -1,9 +1,9 @@
-// CONDITIONAL RENDERING with ternary operators
-// Render one component or another based on a condition
+// CONDITIONAL RENDERING
+// Render components based on whether a condition is true or false
 //
-// Real life: like the Capitec app showing "Good morning Anita"
-// on weekday mornings but a different message on weekends —
-// same screen, different content based on a condition.
+// Real life: like the Capitec app showing different content on
+// the home screen depending on the situation — same screen,
+// different content based on a condition.
 
 // the two messages shown depending on the day
 function Workdays() {
@@ -14,12 +14,13 @@ function Weekends() {
   return <h1>Get some rest</h1>;
 }
 
-function CurrentMessage() {
-  // getDay returns the day as a number: 0 = Sunday, 6 = Saturday
+// APPROACH 1: ternary operator
+// shortest way for a simple true or false choice
+function CurrentMessageTernary() {
+  // getDay returns 0 to 6, where 0 is Sunday and 6 is Saturday
   const day = new Date().getDay();
 
-  // ternary: if day is between 1 and 5 (Mon-Fri) show Workdays
-  // otherwise show Weekends
+  // if Monday to Friday show Workdays, otherwise Weekends
   return (
     <div>
       {day >= 1 && day <= 5 ? <Workdays /> : <Weekends />}
@@ -27,14 +28,56 @@ function CurrentMessage() {
   );
 }
 
-// simpler example using a boolean
-function IsItSummerYet() {
-  const summer = true;
+// APPROACH 2: if statement
+// clear and readable for a simple two-way choice
+function CurrentMessageIf() {
+  const day = new Date().getDay();
 
-  // if summer is true show the beach message, otherwise stay home
+  // if Monday to Friday return Workdays
+  if (day >= 1 && day <= 5) {
+    return <Workdays />;
+  }
+  // otherwise return Weekends
+  return <Weekends />;
+}
+
+// APPROACH 3: element variables
+// separates the logic from the return statement, good for complex cases
+function CurrentMessageVariable({ day }) {
+  const weekday = (day >= 1 && day <= 5);
+  const weekend = (day === 0 || day === 6);
+  let message;
+
+  if (weekday) {
+    message = <Workdays />;
+  } else if (weekend) {
+    message = <Weekends />;
+  }
+
+  // the chosen message is rendered here
+  return <div>{message}</div>;
+}
+
+// APPROACH 4: logical AND operator
+// shows something or nothing, no else needed
+// Real life: only show a low balance warning IF Anita's balance is under 100
+function LowBalanceWarning() {
+  const balance = 50; // Anita's current balance
+
+  const isLow = balance < 100;
+
   return (
-    <h1>{summer ? "Let's go to the beach" : "Stay home"}</h1>
+    <div>
+      <h1>Anita's Account</h1>
+      {/* if balance is low show the warning, otherwise show nothing */}
+      {isLow && <h2>Warning: your balance is low</h2>}
+    </div>
   );
 }
 
-export { CurrentMessage, IsItSummerYet };
+export {
+  CurrentMessageTernary,
+  CurrentMessageIf,
+  CurrentMessageVariable,
+  LowBalanceWarning,
+};

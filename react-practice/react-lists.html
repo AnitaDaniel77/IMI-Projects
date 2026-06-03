@@ -52,3 +52,68 @@ const eventCards = eventsData.map(event => {
 
 </body>
 </html>
+
+<h2>Rendering Lists in JSX with map()</h2>
+
+<p>Real life example: Like a chef plating each dish the same way. One recipe (component), applied to every item on the list.</p>
+
+<h2>Transforming array into JSX elements</h2>
+```jsx
+const desserts = [
+    { id: 1, title: "Tiramisu", price: 5.99 },
+    { id: 2, title: "Cheesecake", price: 4.99 },
+    { id: 3, title: "Ice Cream", price: 3.99 }
+]
+
+function DessertList() {
+    // map returns JSX elements instead of plain data
+    const listItems = desserts.map(dessert => {
+        const itemText = dessert.title + " - $" + dessert.price
+        return (
+            <li>{itemText}</li>
+        )
+    })
+
+    return (
+        // embed listItems inside ul wrapper
+        <ul>{listItems}</ul>
+    )
+}
+```
+
+<h2>Shorter version — inline map in JSX</h2>
+```jsx
+function DessertList() {
+    return (
+        <ul>
+            {desserts.map(dessert => (
+                <li>{dessert.title} - ${dessert.price}</li>
+            ))}
+        </ul>
+    )
+}
+```
+
+<h2>DJ Lopes website example</h2>
+```jsx
+const events = [
+    { id: 1, name: "Afrobeats Night", price: 150 },
+    { id: 2, name: "Kizomba Evening", price: 120 },
+    { id: 3, name: "House Party", price: 100 }
+]
+
+function EventList() {
+    return (
+        <ul>
+            {events.map(event => (
+                <li>{event.name} - R{event.price}</li>
+            ))}
+        </ul>
+    )
+}
+```
+
+<h2>Key points</h2>
+<p>map() can return JSX elements — not just plain data</p>
+<p>Embed the result directly inside the return JSX using curly brackets</p>
+<p>Wrap list items in a ul or ol parent element</p>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>React Lists Notes</title>
+</head>
+<body>
+
+<h1>Transforming Lists with map()</h1>
+
+<p>Real life example: Like a waiter taking a full order sheet from the kitchen but only writing the dish name and price on the customer's bill. Same data, different shape.</p>
+
+<h2>Basic map() transformation</h2>
+```jsx
+const data = [
+    { id: 1, title: "Tiramisu", description: "Italian classic", price: 5.99 },
+    { id: 2, title: "Cheesecake", description: "New York style", price: 4.99 }
+]
+
+// map always returns a NEW array — never changes the original
+const topDesserts = data.map(item => {
+    return {
+        content: item.title + " - " + item.description,
+        price: item.price
+    }
+})
+
+// output:
+// { content: "Tiramisu - Italian classic", price: 5.99 }
+// { content: "Cheesecake - New York style", price: 4.99 }
+```
+
+<h2>DJ Lopes website example</h2>
+```jsx
+const eventsData = [
+    { id: 1, name: "Afrobeats Night", venue: "Club Havana", price: 150 },
+    { id: 2, name: "Kizomba Evening", venue: "The Venue", price: 120 }
+]
+
+// Extract only what we need
+const eventCards = eventsData.map(event => {
+    return {
+        title: event.name + " at " + event.venue,
+        price: event.price
+    }
+})
+```
+
+<h2>Key points</h2>
+<p>map() always returns a new array</p>
+<p>Use it to reshape API data into the format your component needs</p>
+<p>Most common method you will use when working with lists in React</p>
+
+</body>
+</html>

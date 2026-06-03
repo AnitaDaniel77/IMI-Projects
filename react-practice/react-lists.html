@@ -164,3 +164,46 @@ function DessertList() {
 <p>Use stable IDs from your data when possible</p>
 <p>Never use Math.random() — keys change on every render</p>
 <p>Avoid index if list can be sorted, added to, or removed from</p>
+
+
+<h2>Keys in Practice — Todo List Example</h2>
+
+<p>Real life example: Like name tags at a conference. If you use seat numbers instead of names as ID, swapping seats causes everyone to get the wrong name tag.</p>
+
+<h2>The problem — using index as key when order changes</h2>
+```jsx
+// WRONG — using index as key
+todos.map((todo, index) => (
+    <Todo key={index} id={todo.id} createdAt={todo.createdAt} />
+))
+
+// When list reverses:
+// key stays the same (index 0 is still 0)
+// React thinks nothing changed
+// input state does not move — bug!
+```
+
+<h2>The fix — use unique ID from data</h2>
+```jsx
+// CORRECT — using unique ID as key
+todos.map(todo => (
+    <Todo key={todo.id} id={todo.id} createdAt={todo.createdAt} />
+))
+
+// When list reverses:
+// key moves with the item
+// React correctly identifies each todo
+// input state moves with the correct item
+```
+
+<h2>Copying array before reversing — never mutate state</h2>
+```jsx
+function reverseOrder() {
+    // spread operator makes a copy first
+    // never mutate state directly
+    setTodos([...todos].reverse())
+}
+```
+
+<h2>Key takeaway</h2>
+<p>If your list can reorder, sort, add or remove items — always use a unique ID from your data as the key. Never use index.</p>

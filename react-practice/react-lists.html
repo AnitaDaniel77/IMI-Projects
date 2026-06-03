@@ -117,3 +117,50 @@ function EventList() {
 <p>map() can return JSX elements — not just plain data</p>
 <p>Embed the result directly inside the return JSX using curly brackets</p>
 <p>Wrap list items in a ul or ol parent element</p>
+
+<h2>Keys in React Lists</h2>
+
+<p>Real life example: Like numbered queue tickets at a bank. When a new person joins the front of the queue, React knows exactly who moved and who is new — without renumbering everyone.</p>
+
+<h2>Why keys matter</h2>
+<p>Keys help React identify which items changed, were added, or removed. Without keys React may recreate the entire list unnecessarily.</p>
+
+<h2>Adding keys to list items</h2>
+```jsx
+const desserts = [
+    { id: 1, name: "Tiramisu", calories: 300 },
+    { id: 2, name: "Ice Cream", calories: 200 },
+    { id: 3, name: "Cheesecake", calories: 600 }
+]
+
+function DessertList() {
+    return (
+        <ul>
+            {desserts.map(dessert => (
+                // key must be unique among siblings
+                <li key={dessert.id}>
+                    {dessert.name} - {dessert.calories} cal
+                </li>
+            ))}
+        </ul>
+    )
+}
+```
+
+<h2>Three key options — best to worst</h2>
+```jsx
+// 1. BEST — unique ID from your data
+<li key={dessert.id}>
+
+// 2. AVOID — random keys change on every render
+<li key={Math.random()}>
+
+// 3. LAST RESORT — index only if list never reorders
+<li key={index}>
+```
+
+<h2>Key rules</h2>
+<p>Keys must be unique among siblings — not globally</p>
+<p>Use stable IDs from your data when possible</p>
+<p>Never use Math.random() — keys change on every render</p>
+<p>Avoid index if list can be sorted, added to, or removed from</p>

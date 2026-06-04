@@ -100,3 +100,64 @@ function BookingForm() {
 
 </body>
 </html>
+
+
+<h2>Controlled vs Uncontrolled Inputs</h2>
+
+<p>Real life example: Controlled = waiter writes your order down immediately. Uncontrolled = you write your own order and hand it in at the end.</p>
+
+<h2>Uncontrolled input — DOM controls the value</h2>
+```jsx
+import { useRef } from 'react'
+
+function Form() {
+    const inputRef = useRef(null)
+
+    function handleSubmit() {
+        // pull value only when needed
+        const value = inputRef.current.value
+        console.log(value)
+    }
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <input ref={inputRef} type="text" />
+            <button type="submit">Submit</button>
+        </form>
+    )
+}
+```
+
+<h2>Controlled input — React controls the value</h2>
+```jsx
+import { useState } from 'react'
+
+function Form() {
+    const [value, setValue] = useState("")
+
+    function handleChange(e) {
+        setValue(e.target.value) // updates on every keystroke
+    }
+
+    return (
+        <form>
+            <input value={value} onChange={handleChange} />
+        </form>
+    )
+}
+```
+
+<h2>File input — always uncontrolled</h2>
+```jsx
+// file input is always uncontrolled — value is read only
+const fileInput = useRef(null)
+
+<input type="file" ref={fileInput} />
+// access files via fileInput.current.files
+```
+
+<h2>Feature comparison</h2>
+
+<h2>When to use each</h2>
+<p>Uncontrolled — simple form, just need the value on submit</p>
+<p>Controlled — validation, dynamic behaviour, instant feedback</p>

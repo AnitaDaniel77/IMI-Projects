@@ -71,3 +71,89 @@ Counter  (gets data directly from context)
 
 </body>
 </html>
+
+
+<h2>Context API — Sharing Global State</h2>
+
+<p>Real life example: Like a restaurant's WiFi password displayed at the entrance. Every table (component) can access it directly without the waiter (parent) having to tell each table individually.</p>
+
+<h2>When to use Context</h2>
+<p>When multiple components at different levels need the same data — theme, language, authenticated user, currency.</p>
+
+<h2>Step 1 — Create the context</h2>
+```jsx
+// UserContext.js
+import { createContext, useState, useContext } from 'react'
+
+// create context with default value
+const UserContext = createContext(undefined)
+
+// Provider component — wraps the app
+export function UserProvider({ children }) {
+    const [user, setUser] = useState({ name: "Anita", role: "admin" })
+
+    return (
+        // value prop is what gets shared with all consumers
+        <UserContext.Provider value={{ user, setUser }}>
+            {children}
+        </UserContext.Provider>
+    )
+}
+
+// Custom hook — convenient way to consume context
+export function useUser() {
+    return useContext(UserContext)
+}
+```
+
+<h2>Step 2 — Wrap the app with the Provider</h2>
+```jsx
+// App.js
+import { UserProvider } from './UserContext'
+
+function App() {
+    return (
+        // all components inside can now access user context
+        <UserProvider>
+            <Header />
+            <Page />
+        </UserProvider>
+    )
+}
+```
+
+<h2>Step 3 — Consume context in any component</h2>
+```jsx
+// Header.js — consumes context directly, no props needed
+import { useUser } from './UserContext'
+
+function LoggedInUser() {
+    const { user } = useUser()
+    return <p>Welcome, {user.name}</p>
+}
+
+// Page.js — also consumes context directly
+import { useUser } from './UserContext'
+
+function Page() {
+    const { user } = useUser()
+    return <p>Author: {user.name}</p>
+}
+```
+
+<h2>Props drilling vs Context</h2>
+```jsx
+// Props drilling — messy
+App → Header → Nav → LoggedInUser (passes user at every level)
+
+// Context — clean
+App (UserProvider wraps everything)
+LoggedInUser (gets user directly from context)
+Page (gets user directly from context)
+```
+
+<h2>Key points</h2>
+<p>createContext() — creates the context object</p>
+<p>Provider — wraps the app and shares the value</p>
+<p>useContext() — consumes the context in any component</p>
+<p>Still use props and state when possible — context is for global data only</p>

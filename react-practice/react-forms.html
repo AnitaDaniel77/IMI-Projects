@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>React Forms Notes</title>
+</head>
+<body>
+
+<h1>Controlled Components and Forms</h1>
+
+<p>Real life example: Like a hotel receptionist who controls the guest book. Instead of guests writing anything they want (DOM controls), the receptionist validates and controls every entry (React controls).</p>
+
+<h2>What is a controlled component?</h2>
+<p>A component where React state is the single source of truth for the form input value — not the DOM.</p>
+
+<h2>Basic controlled input</h2>
+```jsx
+import { useState } from 'react'
+
+function ReservationForm() {
+    const [name, setName] = useState('')
+
+    function handleChange(event) {
+        // event.target.value = what user typed
+        setName(event.target.value)
+    }
+
+    function handleSubmit(event) {
+        // prevents default HTML form submission
+        event.preventDefault()
+        console.log("Name submitted:", name)
+    }
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <input
+                value={name}         // React controls the value
+                onChange={handleChange} // updates state on every keystroke
+            />
+            <button type="submit">Reserve Table</button>
+        </form>
+    )
+}
+```
+
+<h2>How it works step by step</h2>
+```jsx
+// 1. User types a character
+// 2. onChange fires — handleChange runs
+// 3. setName updates state with new value
+// 4. React re-renders — input shows updated value
+// 5. React is always in control of what is displayed
+```
+
+<h2>Controlled vs Uncontrolled</h2>
+```jsx
+// Controlled — React controls the value
+<input value={name} onChange={handleChange} />
+
+// Uncontrolled — DOM controls the value
+<input defaultValue="hello" />
+```
+
+<h2>DJ Lopes website example</h2>
+```jsx
+import { useState } from 'react'
+
+function BookingForm() {
+    const [form, setForm] = useState({
+        name: '',
+        event: '',
+        date: ''
+    })
+
+    function handleChange(event) {
+        const { name, value } = event.target
+        setForm({ ...form, [name]: value })
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault()
+        console.log("Booking submitted:", form)
+    }
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <input name="name" value={form.name} onChange={handleChange} placeholder="Your name" />
+            <input name="event" value={form.event} onChange={handleChange} placeholder="Event type" />
+            <input name="date" value={form.date} onChange={handleChange} placeholder="Date" />
+            <button type="submit">Book DJ Lopes</button>
+        </form>
+    )
+}
+```
+
+<h2>Key points</h2>
+<p>value prop — React controls what is displayed</p>
+<p>onChange — updates state on every keystroke</p>
+<p>onSubmit — handles form submission</p>
+<p>event.preventDefault() — stops default HTML form behaviour</p>
+
+</body>
+</html>

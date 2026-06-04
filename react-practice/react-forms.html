@@ -224,3 +224,84 @@ DOM controls value →      React state controls value
 5. Accessibility               — htmlFor connects label to input
 ```
 
+
+
+<h2>Feedback Form — Range Input and Validation</h2>
+
+<p>Real life example: Like a restaurant feedback card. You rate the food on a scale and leave a comment — but if your score is low, a comment is required to help the chef improve.</p>
+
+<h2>Complete feedback form</h2>
+```jsx
+import { useState } from 'react'
+
+function FeedbackForm() {
+    // score starts at 10 — slider goes from 0 to 10
+    const [score, setScore] = useState(10)
+    const [comment, setComment] = useState('')
+
+    function handleSubmit(e) {
+        e.preventDefault()
+
+        // validation — comment required if score is 5 or below
+        if (score <= 5 && comment.length < 10) {
+            alert('Please provide a comment of at least 10 characters for a low score')
+            return
+        }
+
+        console.log("Feedback submitted!", { score, comment })
+
+        // reset form after submission
+        setScore(10)
+        setComment('')
+    }
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <h2>Feedback Form</h2>
+
+            {/* Range input — slider from 0 to 10 */}
+            <div>
+                <label>Score: {score} ⭐</label>
+                <input
+                    type="range"
+                    min="0"
+                    max="10"
+                    value={score}
+                    onChange={e => setScore(Number(e.target.value))}
+                />
+            </div>
+
+            {/* Textarea — for longer comments */}
+            <div>
+                <label>Comments</label>
+                <textarea
+                    value={comment}
+                    onChange={e => setComment(e.target.value)}
+                    placeholder="Tell the chef what you think..."
+                />
+            </div>
+
+            <button type="submit">Submit Feedback</button>
+        </form>
+    )
+}
+```
+
+<h2>Key points</h2>
+```jsx
+// range input — slider between min and max
+<input type="range" min="0" max="10" value={score} onChange={...} />
+
+// textarea — better than input for long text
+<textarea value={comment} onChange={...} />
+
+// custom validation — check before allowing submit
+if (score <= 5 && comment.length < 10) {
+    alert('Comment required')
+    return // stop submission
+}
+
+// reset form after submit
+setScore(10)
+setComment('')
+```

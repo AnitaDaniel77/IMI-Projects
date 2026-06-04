@@ -110,3 +110,45 @@ function BookingButton() {
 
 </body>
 </html>
+
+<h2>Props vs State — Key Differences</h2>
+
+<p>Real life example: Like restaurant blueprints. The blueprint (component) is the same for all locations. Props are the specific configurations each manager chooses (tables, chairs). State is what changes during the day (number of customers seated right now).</p>
+
+<h2>Quick comparison</h2>
+```jsx
+// Props — passed in from parent, like function parameters
+function Restaurant({ tablCount, chairs }) {
+    return <p>{tableCount} tables with {chairs} chairs</p>
+}
+
+// State — managed inside component, like local variables
+function Restaurant() {
+    const [seatedCustomers, setSeatedCustomers] = useState(0)
+    return <p>{seatedCustomers} customers seated</p>
+}
+```
+
+<h2>Key differences</h2>
+
+<h2>Stateless vs Stateful components</h2>
+```jsx
+// Stateless — only props, easy to test
+function EventCard({ name, price }) {
+    return <div>{name} - R{price}</div>
+}
+
+// Stateful — has both props and state
+function BookingForm({ eventId }) {
+    const [guestName, setGuestName] = useState('')
+    return (
+        <input
+            value={guestName}
+            onChange={e => setGuestName(e.target.value)}
+        />
+    )
+}
+```
+
+<h2>Best practice</h2>
+<p>Keep as few stateful components as possible. Move visualization and formatting logic into stateless components. State increases complexity — only use it when needed.</p>

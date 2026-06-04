@@ -161,3 +161,66 @@ const fileInput = useRef(null)
 <h2>When to use each</h2>
 <p>Uncontrolled — simple form, just need the value on submit</p>
 <p>Controlled — validation, dynamic behaviour, instant feedback</p>
+
+
+
+<h2>Building a Controlled Form — Step by Step</h2>
+
+<p>Real life example: Like a bouncer at a club — the form only lets you in (submit) if you meet the requirements (valid input).</p>
+
+<h2>Complete controlled form example</h2>
+```jsx
+import { useState } from 'react'
+
+function LoginForm() {
+    // Step 1 — create local state for input
+    const [name, setName] = useState('')
+
+    function handleChange(e) {
+        // Step 2 — update state on every keystroke
+        setName(e.target.value)
+    }
+
+    function handleSubmit(e) {
+        // Step 3 — prevent default page refresh
+        e.preventDefault()
+        console.log("Form submitted:", name)
+        // Step 4 — clear input after submission
+        setName('')
+    }
+
+    return (
+        <form onSubmit={handleSubmit}>
+            {/* htmlFor connects label to input — not for like HTML */}
+            <label htmlFor="name">Username</label>
+            <input
+                id="name"
+                value={name}
+                onChange={handleChange}
+            />
+            {/* Step 5 — disable button when input is empty */}
+            <button disabled={name === ''} type="submit">
+                Submit
+            </button>
+        </form>
+    )
+}
+```
+
+<h2>Key differences from HTML forms</h2>
+```jsx
+// HTML                   React
+for="name"         →      htmlFor="name"
+onsubmit="return false"→  e.preventDefault()
+DOM controls value →      React state controls value
+```
+
+<h2>Benefits of controlled forms</h2>
+```
+1. Prevent default page refresh — e.preventDefault()
+2. Clear input after submit    — setName('')
+3. Disable submit when empty   — disabled={name === ''}
+4. Instant validation          — check on every keystroke
+5. Accessibility               — htmlFor connects label to input
+```
+

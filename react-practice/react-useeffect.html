@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>React useEffect Notes</title>
+</head>
+<body>
+
+<h1>useEffect Hook</h1>
+
+<h2>What is a side effect?</h2>
+<p>Real life example: Like a chef who cooks a meal (pure function) but also calls the supplier to reorder ingredients (side effect). The cooking always produces the same dish, but the phone call reaches outside the kitchen.</p>
+
+<h2>Pure vs Impure functions</h2>
+```jsx
+// PURE — same input always gives same output
+function EstablishedYear({ year }) {
+    return <h1>Established year: {year}</h1>
+}
+
+// IMPURE — console.log is a side effect
+function ShoppingCart({ total }) {
+    console.log(total)  // reaches outside the function
+    return <h1>Total: {total}</h1>
+}
+```
+
+<h2>Side effects include</h2>
+
+<h2>useEffect — contains side effects properly</h2>
+```jsx
+import { useEffect } from 'react'
+
+function ShoppingCart({ total }) {
+    // side effect contained inside useEffect
+    useEffect(() => {
+        console.log(total)
+    }, [])
+
+    return <h1>Total: {total}</h1>
+}
+```
+
+<h2>useEffect syntax</h2>
+```jsx
+useEffect(
+    () => { },  // callback — contains the side effect
+    []          // dependency array — controls when effect runs
+)
+
+// runs once on mount
+useEffect(() => { }, [])
+
+// runs when count changes
+useEffect(() => { }, [count])
+
+// runs after every render
+useEffect(() => { })
+```
+
+<h2>Fetching data with useEffect</h2>
+```jsx
+import { useState, useEffect } from 'react'
+
+function EventList() {
+    const [events, setEvents] = useState([])
+
+    useEffect(() => {
+        // fetch runs once when component loads
+        fetch('https://api.djlopes.com/events')
+            .then(res => res.json())
+            .then(data => setEvents(data))
+    }, [])
+
+    return (
+        <ul>
+            {events.map(event => (
+                <li key={event.id}>{event.name}</li>
+            ))}
+        </ul>
+    )
+}
+```
+
+<h2>Key points</h2>
+<p>Pure function — same input, same output, no side effects</p>
+<p>Impure function — has side effects, reaches outside itself</p>
+<p>useEffect — the correct place to put side effects in React</p>
+<p>Dependency array — controls when the effect runs</p>
+
+</body>
+</html>

@@ -151,4 +151,57 @@ function BookingForm({ eventId }) {
 ```
 
 <h2>Best practice</h2>
+
 <p>Keep as few stateful components as possible. Move visualization and formatting logic into stateless components. State increases complexity — only use it when needed.</p>
+
+
+<h2>Working with Objects in useState</h2>
+
+<p>Real life example: Like updating a contact card. Don't rewrite the whole card just to change the phone number — copy it first, then update only what changed.</p>
+
+<h2>Basic object state</h2>
+```jsx
+const [greeting, setGreeting] = useState({ greet: "Hello, World" })
+```
+
+<h2>WRONG — cannot reassign const</h2>
+```jsx
+// TypeError: Assignment to constant variable
+greeting = { greet: "Hello, World-Wide Web" }
+setGreeting(greeting)
+```
+
+<h2>WRONG — mutating state directly</h2>
+```jsx
+// No error but UI never updates
+greeting.greet = "Hello, World-Wide Web"
+setGreeting(greeting)
+```
+
+<h2>CORRECT — spread operator to copy first</h2>
+```jsx
+function updateGreeting() {
+    const newGreeting = { ...greeting }  // copy the object
+    newGreeting.greet = "Hello, World-Wide Web"  // update copy
+    setGreeting(newGreeting)  // set the new copy
+}
+```
+
+<h2>CORRECT — update one property using arrow function</h2>
+```jsx
+const [greeting, setGreeting] = useState({
+    greet: "Hello",
+    place: "World"
+})
+
+function updatePlace() {
+    // prevState = previous value of greeting
+    setGreeting(prevState => ({
+        ...prevState,        // keep all existing properties
+        place: "World-Wide Web"  // only update place
+    }))
+}
+```
+
+<h2>Key rule</h2>
+<p>Never mutate state directly. Always copy with spread operator first, then update the copy.</p>

@@ -1,0 +1,197 @@
+<h2>Goals App — useState Practical Example</h2>
+
+<p>Real life example: Like a restaurant manager's goals board. Add a goal, set a deadline, see all goals listed. State tracks everything dynamically.</p>
+
+<h2>Three components</h2>
+```jsx
+// GoalForm   — captures new goal via form
+// ListOfGoals — displays all goals as a list
+// App        — connects both, manages shared state
+```
+
+<h2>GoalForm component</h2>
+```jsx
+function GoalForm({ onAdd }) {
+    const [formData, setFormData] = useState({ goal: "", by: "" })
+
+    function changeHandler(e) {
+        // spread copies existing state, bracket notation updates dynamically
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
+
+    function submitHandler(e) {
+        e.preventDefault()
+        onAdd(formData)  // passes form data up to App
+        setFormData({ goal: "", by: "" })  // reset form
+    }
+
+    return (
+        <form onSubmit={submitHandler}>
+            <input
+                type="text"
+                name="goal"
+                placeholder="Goal"
+                value={formData.goal}
+                onChange={changeHandler}
+            />
+            <input
+                type="text"
+                name="by"
+                placeholder="By when"
+                value={formData.by}
+                onChange={changeHandler}
+            />
+            <button type="submit">Add Goal</button>
+        </form>
+    )
+}
+```
+
+<h2>ListOfGoals component</h2>
+```jsx
+function ListOfGoals({ allGoals }) {
+    return (
+        <ul>
+            {allGoals.map(goal => (
+                <li key={goal.goal}>
+                    {goal.goal} — by {goal.by}
+                </li>
+            ))}
+        </ul>
+    )
+}
+```
+
+<h2>App component — manages shared state</h2>
+```jsx
+function App() {
+    const [allGoals, setAllGoals] = useState([])
+
+    function addGoal(goalEntry) {
+        // add new goal to existing list
+        setAllGoals([...allGoals, goalEntry])
+    }
+
+    return (
+        <div>
+            <h1>My Little Lemon Goals</h1>
+            <GoalForm onAdd={addGoal} />
+            <ListOfGoals allGoals={allGoals} />
+        </div>
+    )
+}
+```
+
+<h2>Key patterns used</h2>
+```jsx
+// Dynamic property update using bracket notation
+[e.target.name]: e.target.value
+// e.target.name = "goal" or "by" depending on which input fired
+
+// Add item to array state without mutating
+setAllGoals([...allGoals, goalEntry])
+```
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>React State Advanced Notes</title>
+</head>
+<body>
+
+<h1>Advanced State Patterns</h1>
+
+<h2>Working with Objects in useState</h2>
+
+<p>Real life example: Like updating a contact card. Don't rewrite the whole card just to change the phone number — copy it first, then update only what changed.</p>
+
+<h2>WRONG — cannot reassign const</h2>
+```jsx
+// TypeError: Assignment to constant variable
+greeting = { greet: "Hello, World-Wide Web" }
+setGreeting(greeting)
+```
+
+<h2>WRONG — mutating state directly</h2>
+```jsx
+// No error but UI never updates
+greeting.greet = "Hello, World-Wide Web"
+setGreeting(greeting)
+```
+
+<h2>CORRECT — spread operator to copy first</h2>
+```jsx
+function updateGreeting() {
+    const newGreeting = { ...greeting }
+    newGreeting.greet = "Hello, World-Wide Web"
+    setGreeting(newGreeting)
+}
+```
+
+<h2>CORRECT — update one property using arrow function</h2>
+```jsx
+setGreeting(prevState => ({
+    ...prevState,
+    place: "World-Wide Web"
+}))
+```
+
+<h2>Goals App — useState Practical Example</h2>
+
+<p>Real life example: Like a restaurant manager's goals board. Add a goal, set a deadline, see all goals listed.</p>
+
+<h2>GoalForm component</h2>
+```jsx
+function GoalForm({ onAdd }) {
+    const [formData, setFormData] = useState({ goal: "", by: "" })
+
+    function changeHandler(e) {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
+
+    function submitHandler(e) {
+        e.preventDefault()
+        onAdd(formData)
+        setFormData({ goal: "", by: "" })
+    }
+
+    return (
+        <form onSubmit={submitHandler}>
+            <input type="text" name="goal" value={formData.goal} onChange={changeHandler} />
+            <input type="text" name="by" value={formData.by} onChange={changeHandler} />
+            <button type="submit">Add Goal</button>
+        </form>
+    )
+}
+```
+
+<h2>App component</h2>
+```jsx
+function App() {
+    const [allGoals, setAllGoals] = useState([])
+
+    function addGoal(goalEntry) {
+        setAllGoals([...allGoals, goalEntry])
+    }
+
+    return (
+        <div>
+            <h1>My Little Lemon Goals</h1>
+            <GoalForm onAdd={addGoal} />
+            <ListOfGoals allGoals={allGoals} />
+        </div>
+    )
+}
+```
+
+<h2>Key patterns</h2>
+```jsx
+// Dynamic property update
+[e.target.name]: e.target.value
+
+// Add to array without mutating
+setAllGoals([...allGoals, goalEntry])
+```
+
+</body>
+</html>

@@ -89,3 +89,67 @@ function EventList() {
 
 </body>
 </html>
+
+<h2>useEffect — Dependency Array and Cleanup</h2>
+
+<h2>Three ways to use the dependency array</h2>
+```jsx
+// Runs after EVERY render — no array
+useEffect(() => {
+    document.title = 'Little Lemon'
+})
+
+// Runs ONCE on mount — empty array
+useEffect(() => {
+    document.title = 'Little Lemon'
+}, [])
+
+// Runs when version changes — specific dependency
+useEffect(() => {
+    document.title = `Little Lemon v${version}`
+}, [version])
+```
+
+<h2>Multiple effects — separate concerns</h2>
+```jsx
+function MenuPage({ id }) {
+    // Effect 1 — sets page title
+    useEffect(() => {
+        document.title = 'Little Lemon'
+    }, [])
+
+    // Effect 2 — fetches menu data
+    useEffect(() => {
+        fetch(`https://littlelemon/menu/${id}`)
+            .then(res => res.json())
+            .then(data => setData(data))
+    }, [id])
+}
+```
+
+<h2>Cleanup — return a function to free memory</h2>
+<p>Real life example: Like subscribing to a magazine. When you move house (component unmounts) you cancel the subscription (cleanup) so magazines stop arriving.</p>
+
+```jsx
+function LittleLemonChat({ chatId }) {
+    const [status, setStatus] = useState('offline')
+
+    useEffect(() => {
+        // subscribe when component mounts
+        LemonChat.subscribeToMessages(chatId, () => setStatus('online'))
+
+        // cleanup — runs when component unmounts
+        return () => {
+            setStatus('offline')
+            LemonChat.unsubscribeFromMessages(chatId)
+        }
+    }, [chatId])
+}
+```
+
+<h2>Key points</h2>
+<p>No array — runs after every render</p>
+<p>Empty array — runs once on mount</p>
+<p>With dependencies — runs when those values change</p>
+<p>Return function — cleanup when component unmounts</p>
+<p>Use multiple useEffect calls to separate unrelated logic</p>

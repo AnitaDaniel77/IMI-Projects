@@ -196,3 +196,73 @@ function App() {
     )
 }
 ```
+
+<h2>Data Fetching with useEffect</h2>
+
+<p>Real life example: Like ordering food at a restaurant. You place the order (fetch), the kitchen prepares it (API processes), and while waiting you see "order pending" until the food arrives (data renders).</p>
+
+<h2>Basic data fetching</h2>
+```jsx
+import { useState, useEffect } from 'react'
+
+export default function App() {
+    const [btcData, setBtcData] = useState({})
+
+    useEffect(() => {
+        fetch('https://api.coindesk.com/v1/bpi/currentprice.json')
+            .then(res => res.json())
+            .then(jsonData => setBtcData(jsonData.bpi.USD))
+            .catch(error => console.log(error))  // handle errors
+    }, [])  // empty array — runs once on mount
+}
+```
+
+<h2>Cleaner version — extract fetch to separate function</h2>
+```jsx
+export default function App() {
+    const [btcData, setBtcData] = useState({})
+
+    // extracted to named function — easier to read
+    const fetchData = () => {
+        fetch('https://api.coindesk.com/v1/bpi/currentprice.json')
+            .then(res => res.json())
+            .then(jsonData => setBtcData(jsonData.bpi.USD))
+            .catch(error => console.log(error))
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+}
+```
+
+<h2>Conditional rendering — handle loading and errors</h2>
+```jsx
+export default function App() {
+    const [btcData, setBtcData] = useState({})
+
+    useEffect(() => {
+        fetch('https://api.coindesk.com/v1/bpi/currentprice.json')
+            .then(res => res.json())
+            .then(jsonData => setBtcData(jsonData.bpi.USD))
+            .catch(error => console.log(error))
+    }, [])
+
+    return Object.keys(btcData).length > 0 ? (
+        // data arrived — show it
+        <div>
+            <h1>Bitcoin price:</h1>
+            <h2>{btcData.rate}</h2>
+        </div>
+    ) : (
+        // data not yet arrived — show loading
+        <h1>Data pending...</h1>
+    )
+}
+```
+
+<h2>Key points</h2>
+<p>Fetching data is a side effect — always use useEffect</p>
+<p>Empty dependency array — fetch once on mount</p>
+<p>Always add .catch() — handle failed requests</p>
+<p>Conditional render — show loading state while data arrives</p>

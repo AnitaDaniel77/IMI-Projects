@@ -153,3 +153,46 @@ function LittleLemonChat({ chatId }) {
 <p>With dependencies — runs when those values change</p>
 <p>Return function — cleanup when component unmounts</p>
 <p>Use multiple useEffect calls to separate unrelated logic</p>
+
+<h2>Fetch and Asynchronous JavaScript</h2>
+
+<p>Real life example: Like a post office clerk who doesn't wait for one task to finish before starting the next. They delegate to other clerks (browser APIs) and keep serving the queue (executing code).</p>
+
+<h2>Why asynchronous matters</h2>
+```jsx
+// JavaScript is single-threaded — can only do one thing at a time
+// Fetch delegates the server request to the browser API
+// JavaScript keeps running while waiting for the response
+
+console.log('another customer approaching')  // runs first
+
+fetch('https://randomuser.me/api/')          // delegates to browser API
+    .then(res => res.json())
+    .then(data => console.log(data))         // runs last — when data arrives
+
+console.log('our valued customer, please wait') // runs second
+```
+
+<h2>Output order</h2>
+
+<h2>Fetch in React with useEffect</h2>
+```jsx
+import { useState, useEffect } from 'react'
+
+function App() {
+    const [user, setUser] = useState(null)
+
+    useEffect(() => {
+        // fetch runs once on mount
+        fetch('https://randomuser.me/api/')
+            .then(res => res.json())
+            .then(data => setUser(data.results[0]))
+    }, [])
+
+    return (
+        <div>
+            {user ? <p>{user.name.first}</p> : <p>Loading...</p>}
+        </div>
+    )
+}
+```

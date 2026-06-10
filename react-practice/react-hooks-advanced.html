@@ -1,0 +1,57 @@
+<h2>useReducer Hook</h2>
+
+<p>Real life example: Like a bank account with multiple transaction types — deposit, withdraw, bonus. Instead of managing each separately with useState, useReducer handles all actions in one place.</p>
+
+<h2>useState vs useReducer</h2>
+```jsx
+// useState — simple, one value
+const [money, setMoney] = useState(100)
+
+// useReducer — better for complex state with multiple actions
+const [state, dispatch] = useReducer(reducer, initialState)
+```
+
+<h2>useReducer structure</h2>
+```jsx
+import { useReducer } from 'react'
+
+// Initial state
+const initialState = { money: 100 }
+
+// Reducer function — handles all actions
+function reducer(state, action) {
+    switch(action.type) {
+        case 'buy_ingredients':
+            return { money: state.money - 10 }
+        case 'sell_meal':
+            return { money: state.money + 10 }
+        case 'celebrity_visit':
+            return { money: state.money + 5000 }
+        default:
+            return state
+    }
+}
+
+function App() {
+    const [state, dispatch] = useReducer(reducer, initialState)
+
+    return (
+        <div>
+            <h1>Wallet: ${state.money}</h1>
+
+            {/* dispatch sends action to reducer */}
+            <button onClick={() => dispatch({ type: 'buy_ingredients' })}>
+                Shopping for veggies
+            </button>
+            <button onClick={() => dispatch({ type: 'sell_meal' })}>
+                Serve meal to customer
+            </button>
+            <button onClick={() => dispatch({ type: 'celebrity_visit' })}>
+                Celebrity visit
+            </button>
+        </div>
+    )
+}
+```
+
+<h2>Key differences</h2>

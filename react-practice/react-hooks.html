@@ -195,3 +195,68 @@ export default function TextInputWithFocusButton() {
 <p>1. Only call hooks at the top level of your component</p>
 <p>2. Never call hooks inside loops or conditions</p>
 <p>3. Only call hooks from React functions — not regular JavaScript functions</p>
+
+<h2>Rules of Hooks</h2>
+
+<p>Real life example: Like rules of the road. Break them and everything crashes — even if it seems to work at first.</p>
+
+<h2>The four rules</h2>
+```jsx
+// RULE 1 — only call hooks from React component functions
+// RULE 2 — only call hooks at the top level
+// RULE 3 — multiple hooks allowed
+// RULE 4 — always call hooks in the same order
+```
+
+<h2>Rule 1 — only call from React functions</h2>
+```jsx
+// WRONG — hook inside regular JavaScript function
+function nameLooper() {
+    const [name, setName] = useState('fluffy') // invalid
+}
+
+// CORRECT — hook at top level of component
+function App() {
+    const [petName, setPetName] = useState('fluffy') // valid
+
+    function nameLooper() {
+        setPetName('rexy') // state setter is fine anywhere
+    }
+}
+```
+
+<h2>Rule 2 — only call at top level</h2>
+```jsx
+// WRONG — hook inside condition
+function App() {
+    if (someCondition) {
+        useEffect(() => { }) // invalid
+    }
+}
+
+// CORRECT — condition inside the hook
+function App() {
+    useEffect(() => {
+        if (someCondition) {
+            // do something
+        }
+    })
+}
+```
+
+<h2>Rule 3 and 4 — multiple hooks in same order</h2>
+```jsx
+// CORRECT — multiple hooks always in same order
+function App() {
+    const [name, setName] = useState('')      // hook 1
+    const [age, setAge] = useState(0)         // hook 2
+    useEffect(() => { }, [name])              // hook 3
+    useEffect(() => { }, [age])               // hook 4
+    // order never changes between renders
+}
+```
+
+<h2>Key points</h2>
+<p>Never call hooks inside loops, conditions or nested functions</p>
+<p>State setter functions can be used anywhere — only the hook call must follow the rules</p>
+<p>Same hook order every render — React relies on this to track state correctly</p>

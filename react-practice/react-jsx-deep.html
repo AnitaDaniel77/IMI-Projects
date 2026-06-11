@@ -155,3 +155,72 @@ function Hello({ name }) {
 {props.desserts.length > 0 && <DessertList />}
 {!!props.desserts.length && <DessertList />}
 ```
+
+
+
+<h2>Spread Operator in React Props</h2>
+
+<p>Real life example: Like packing a suitcase. Instead of putting each item in one by one, you tip the whole drawer in (spread) and only swap out what needs to change.</p>
+
+<h2>Spread operator basics</h2>
+```jsx
+// Copy an object
+const order = { item: "pizza", price: 10 }
+const orderCopy = { ...order }
+
+// Merge and override
+const updatedOrder = { ...order, item: "calzone" }
+// { item: "calzone", price: 10 }
+```
+
+<h2>Spread props in React</h2>
+```jsx
+// Without spread — typing every prop manually
+function OrderList() {
+    return (
+        <Order id={1} userName="Anita" item="pizza" price={10} />
+    )
+}
+
+// With spread — cleaner
+function OrderList() {
+    const props = { id: 1, userName: "Anita", item: "pizza", price: 10 }
+    return <Order {...props} />
+}
+```
+
+<h2>Forwarding native props with spread</h2>
+```jsx
+// Button wraps native button — forwards all native props
+function Button({ type, children, ...nativeProps }) {
+    // type and children are custom/React props
+    // ...nativeProps captures all remaining native button props
+    const background = type === "primary" ? "green" : "red"
+
+    return (
+        <button
+            style={{ background }}
+            {...nativeProps}  // forwards onClick, disabled etc
+        >
+            {children}
+        </button>
+    )
+}
+```
+
+<h2>Order of spread matters</h2>
+```jsx
+// spread BEFORE — can be overridden by explicit props
+<Button {...props} onClick={newHandler} />  // newHandler wins
+
+// spread AFTER — overrides explicit props
+<Button onClick={originalHandler} {...props} />  // props.onClick wins
+```
+
+<h2>Key points</h2>
+<p>Spread operator makes components more flexible</p>
+<p>Use rest operator (...nativeProps) to separate custom props from native ones</p>
+<p>Order matters — last prop wins when there are duplicates</p>
+<p>Be conscious of spread order when designing components</p>
+
+---

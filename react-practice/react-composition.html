@@ -103,3 +103,66 @@ function App() {
 
 </body>
 </html>
+
+
+<h2>React.cloneElement and React.Children.map</h2>
+
+<p>Real life example: Like a photocopier that can copy a document and add a stamp to the copy — original stays unchanged, copy gets the new addition.</p>
+
+<h2>React.cloneElement — clone and modify an element</h2>
+```jsx
+// Clone element and add new props
+React.cloneElement(element, { newProp: value })
+
+// Example — add style to a child element
+React.cloneElement(child, {
+    style: { marginLeft: '32px' }
+})
+```
+
+<h2>React.Children.map — iterate over children</h2>
+```jsx
+// Similar to array .map() but for children prop
+React.Children.map(children, child => {
+    // transform each child
+    return React.cloneElement(child, { newProp: value })
+})
+```
+
+<h2>Row component — add spacing between children</h2>
+```jsx
+function Row({ children, spacing }) {
+    return (
+        <div style={{ display: 'flex' }}>
+            {React.Children.map(children, (child, index) => {
+                return React.cloneElement(child, {
+                    // add margin to all children except first
+                    style: {
+                        ...child.props.style,
+                        ...(index > 0 && { marginLeft: `${spacing}px` })
+                    }
+                })
+            })}
+        </div>
+    )
+}
+
+// Usage
+function App() {
+    return (
+        <Row spacing={32}>
+            <p>Pizza Margherita</p>
+            <p>x2</p>
+            <p>$24.00</p>
+            <p>12:30pm</p>
+            <p>Jennifer Smith</p>
+        </Row>
+    )
+}
+```
+
+<h2>Key points</h2>
+<p>Props are immutable — must clone element before modifying</p>
+<p>React.cloneElement — copy element and merge new props</p>
+<p>React.Children.map — iterate and transform children</p>
+<p>Second argument of cloneElement — new props to merge in</p>

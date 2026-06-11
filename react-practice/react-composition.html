@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>React Component Composition Notes</title>
+</head>
+<body>
+
+<h1>Component Composition</h1>
+
+<h2>What is composition?</h2>
+<p>Real life example: Like LEGO blocks. A generic base block (Dialog) can be combined with specific pieces (title, description, button) to build anything you need.</p>
+
+<h2>Two features of composition</h2>
+
+<h2>Containment — generic box using children prop</h2>
+```jsx
+// Dialog — generic container, doesn't know its children
+function Dialog({ children }) {
+    return (
+        <div className="modal">
+            {children}
+        </div>
+    )
+}
+
+// Use Dialog with any content
+function App() {
+    return (
+        <Dialog>
+            <h1>Delete Account</h1>
+            <p>You will miss the chef's recipes!</p>
+            <DeleteButton />
+        </Dialog>
+    )
+}
+```
+
+<h2>Specialization — specific version of generic component</h2>
+```jsx
+// Generic Button component
+function Button({ color, children }) {
+    return (
+        <button style={{ backgroundColor: color }}>
+            {children}
+        </button>
+    )
+}
+
+// DeleteButton — specialised version of Button
+function DeleteButton() {
+    return (
+        <Button color="red">
+            Delete
+        </Button>
+    )
+}
+```
+
+<h2>Full example — Delete Account dialog</h2>
+```jsx
+// Generic Alert box
+function Alert({ children }) {
+    return (
+        <div className="overlay">
+            <div className="modal">
+                {children}
+            </div>
+        </div>
+    )
+}
+
+// Generic Button
+function Button({ color, children }) {
+    return (
+        <button style={{ backgroundColor: color }}>
+            {children}
+        </button>
+    )
+}
+
+// Specialised DeleteButton
+function DeleteButton() {
+    return <Button color="red">Delete</Button>
+}
+
+// App — uses containment to fill Alert with content
+function App() {
+    return (
+        <Alert>
+            <h1>Delete Account</h1>
+            <p>You will miss the chef's delicious recipes!</p>
+            <DeleteButton />
+        </Alert>
+    )
+}
+```
+
+<h2>Key points</h2>
+<p>children prop — makes components generic and reusable</p>
+<p>Containment — use for sidebars, dialogs, generic boxes</p>
+<p>Specialization — specific component is a special case of a generic one</p>
+<p>Mix and match — components and DOM elements can be nested freely</p>
+
+</body>
+</html>

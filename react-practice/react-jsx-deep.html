@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>React JSX Deep Dive Notes</title>
+</head>
+<body>
+
+<h1>JSX, Elements and the Declarative Model</h1>
+
+<h2>What is JSX?</h2>
+<p>Real life example: Like an architect's blueprint. It looks like the final building (HTML) but it is actually a set of instructions (JavaScript) that tells React what to build.</p>
+
+<h2>Components vs Elements</h2>
+```jsx
+// Component — a function that returns JSX
+function SubmitButton() {
+    return <button>Submit</button>
+}
+
+// Element — a plain JavaScript object describing what to render
+{
+    type: 'button',      // DOM tag or component name
+    props: {
+        children: 'Submit'
+    }
+}
+```
+
+<h2>How React processes JSX</h2>
+
+<h2>Element tree example</h2>
+```jsx
+// JSX you write
+function LogOut() {
+    return (
+        <div>
+            <p>Are you sure?</p>
+            <SubmitButton />
+        </div>
+    )
+}
+
+// Element tree React creates
+{
+    type: 'div',
+    props: {
+        children: [
+            { type: 'p', props: { children: 'Are you sure?' } },
+            { type: SubmitButton, props: {} }
+        ]
+    }
+}
+```
+
+<h2>Virtual DOM</h2>
+
+<h2>Key points</h2>
+<p>Elements are plain JavaScript objects — cheap to create and compare</p>
+<p>Components and DOM nodes can be mixed in the element tree</p>
+<p>React keeps repeating until all components resolve to DOM tags</p>
+<p>This is what makes React fast — diffing objects is much faster than diffing the real DOM</p>
+
+</body>
+</html>

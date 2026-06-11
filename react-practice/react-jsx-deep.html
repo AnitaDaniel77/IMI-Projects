@@ -62,3 +62,96 @@ function LogOut() {
 
 </body>
 </html>
+
+<h2>Types of Children in JSX</h2>
+
+<h2>String literals</h2>
+```jsx
+// Simple string as children
+<MyComponent>Little Lemon</MyComponent>
+// children prop = "Little Lemon"
+
+// JSX removes extra whitespace and blank lines
+// All of these render the same thing
+<div>    Little Lemon   </div>
+<div>Little Lemon</div>
+```
+
+<h2>JSX elements as children</h2>
+```jsx
+// Nested components
+<Alert>
+    <Title />
+    <Body />
+</Alert>
+
+// Mix string and JSX elements
+<Alert>
+    <div>Are you sure?</div>
+    <Body />
+</Alert>
+```
+
+<h2>React Fragments — group without extra DOM node</h2>
+```jsx
+// Long syntax
+return (
+    <React.Fragment>
+        <li>Pizza margarita</li>
+        <li>Pizza diavola</li>
+    </React.Fragment>
+)
+
+// Short syntax — preferred
+return (
+    <>
+        <li>Pizza margarita</li>
+        <li>Pizza diavola</li>
+    </>
+)
+```
+
+<h2>JavaScript expressions as children</h2>
+```jsx
+// Expression in curly brackets
+<MyComponent>{'Little Lemon'}</MyComponent>
+
+// map() to render list
+function List() {
+    const desserts = ['tiramisu', 'ice cream', 'cake']
+    return (
+        <ul>
+            {desserts.map(dessert => (
+                <Item key={dessert} title={dessert} />
+            ))}
+        </ul>
+    )
+}
+
+// Mix expression with text
+function Hello({ name }) {
+    return <div>Hello {name}!</div>
+}
+```
+
+<h2>Booleans, null and undefined — render nothing</h2>
+```jsx
+// All render the same empty div
+<div>{false}</div>
+<div>{null}</div>
+<div>{undefined}</div>
+<div>{true}</div>
+
+// Useful for conditional rendering
+<div>{showModal && <Modal />}</div>
+```
+
+<h2>Common gotcha — 0 still renders</h2>
+```jsx
+// WRONG — renders 0 when array is empty
+{props.desserts.length && <DessertList />}
+
+// CORRECT — ensure expression is always boolean
+{props.desserts.length > 0 && <DessertList />}
+{!!props.desserts.length && <DessertList />}
+```

@@ -169,3 +169,90 @@ const Component = (props) => {
 <p>Always pass through unrelated props with spread</p>
 <p>Create enhanced components outside other components</p>
 <p>Use React.forwardRef when refs need to reach the wrapped component</p>
+
+
+
+<h2>HOC Practical Example — Mouse Position Tracker</h2>
+
+<p>Real life example: Like a security camera system feeding live footage to multiple monitors. One camera (HOC) captures the data, multiple screens (components) display it differently.</p>
+
+<h2>withMousePosition HOC</h2>
+```jsx
+import { useState, useEffect } from 'react'
+
+function withMousePosition(WrappedComponent) {
+    return function(props) {
+        const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+
+        useEffect(() => {
+            function handleMousePositionChange(e) {
+                setMousePosition({ x: e.clientX, y: e.clientY })
+            }
+
+            // subscribe to mouse move events
+            window.addEventListener('mousemove', handleMousePositionChange)
+
+            // cleanup — unsubscribe on unmount
+            return () => {
+                window.removeEventListener('mousemove', handleMousePositionChange)
+            }
+        }, [])
+
+        // pass mousePosition + all other props to wrapped component
+        return <WrappedComponent mousePosition={mousePosition} {...props} />
+    }
+}
+```
+
+<h2>Two presentation components</h2>
+```jsx
+function PanelMouseLogger({ mousePosition }) {
+    if (!mousePosition) return null
+    return (
+        <div className="panel">
+            X: {mousePosition.x}, Y: {mousePosition.y}
+        </div>
+    )
+}
+
+function PointMouseLogger({ mousePosition }) {
+    if (!mousePosition) return null
+    return (
+        <div
+            style={{
+                position: 'absolute',
+                left: mousePosition.x,
+                top: mousePosition.y
+            }}
+        >
+            •
+        </div>
+    )
+}
+```
+
+<h2>Enhancing components with the HOC</h2>
+```jsx
+// Create enhanced versions outside any component
+const PanelMouseTracker = withMousePosition(PanelMouseLogger)
+const PointMouseTracker = withMousePosition(PointMouseLogger)
+
+function App() {
+    return (
+        <div>
+            <h1>Little Lemon</h1>
+            <PanelMouseTracker />
+            <PointMouseTracker />
+        </div>
+    )
+}
+```
+
+<h2>Key flow</h2>
+```
+1. HOC tracks mouse position in its own state
+2. HOC subscribes to mousemove on mount
+3. HOC unsubscribes on unmount (cleanup)
+4. mousePosition passed as prop to wrapped component
+5. Both PanelMouseLogger and PointMouseLogger reuse same logic
+```

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Higher-Order Components Notes</title>
+</head>
+<body>
+
+<h1>Higher-Order Components (HOC)</h1>
+
+<h2>What are cross-cutting concerns?</h2>
+<p>Real life example: Like building security at an office complex. Every building (component) needs the same security checks, but security isn't part of any single business's work. It's shared infrastructure.</p>
+
+<p>Cross-cutting concerns: permissions, error handling, logging, data subscriptions — needed everywhere but not part of business logic.</p>
+
+<h2>The problem</h2>
+```jsx
+// LiveOrdersList — subscribes to orders data
+function LiveOrdersList() {
+    const [orders, setOrders] = useState([])
+
+    useEffect(() => {
+        dataSource.addChangeListener(setOrders)
+        return () => dataSource.removeChangeListener(setOrders)
+    }, [])
+
+    return <ul>{orders.map(o => <li key={o.id}>{o.name}</li>)}</ul>
+}
+
+// NewsletterList — almost identical pattern, different data
+function NewsletterList() {
+    const [users, setUsers] = useState([])
+
+    useEffect(() => {
+        dataSource.addChangeListener(setUsers)
+        return () => dataSource.removeChangeListener(setUsers)
+    }, [])
+
+    return <ul>{users.map(u => <li key={u.id}>{u.name}</li>)}</ul>
+}
+// Same subscription logic repeated — not DRY
+```
+
+<h2>What is a HOC?</h2>
+<p>A function that takes a component and returns a new component with extra capabilities.</p>
+
+```jsx
+// Component transforms props → UI
+// HOC transforms a component → another component
+
+function withSubscription(WrappedComponent, selectData) {
+    return function(props) {
+        const [data, setData] = useState(selectData(dataSource))
+
+        useEffect(() => {
+            function handleChange() {
+                setData(selectData(dataSource))
+            }
+            dataSource.addChangeListener(handleChange)
+            return () => dataSource.removeChangeListener(handleChange)
+        }, [])
+
+        // pass data + other props through to wrapped component
+        return <WrappedComponent data={data} {...props} />
+    }
+}
+```
+
+<h2>Using the HOC</h2>
+```jsx
+// Stateless components — no subscription logic needed
+function OrdersList({ data }) {
+    return <ul>{data.map(o => <li key={o.id}>{o.name}</li>)}</ul>
+}
+
+function NewsletterList({ data }) {
+    return <ul>{data.map(u => <li key={u.id}>{u.name}</li>)}</ul>
+}
+
+// Enhance each component with subscription via HOC
+const LiveOrdersList = withSubscription(OrdersList, source => source.orders)
+const LiveNewsletterList = withSubscription(NewsletterList, source => source.users)
+```
+
+<h2>Key points</h2>
+<p>HOC = function that takes a component, returns a new component</p>
+<p>Encapsulates shared logic in one place</p>
+<p>Wrapped components stay stateless and unchanged</p>
+<p>Convention — pass through other props to wrapped component</p>
+
+</body>
+</html>

@@ -89,3 +89,83 @@ const LiveNewsletterList = withSubscription(NewsletterList, source => source.use
 
 </body>
 </html>
+
+
+<h2>HOC Best Practices and Caveats</h2>
+
+<h2>1. Never mutate the wrapped component</h2>
+```jsx
+// WRONG — mutating the original component
+const HOC = (WrappedComponent) => {
+    WrappedComponent = () => { }  // never do this
+}
+
+// CORRECT — return a NEW component, never mutate
+const HOC = (WrappedComponent) => {
+    return (props) => {
+        return <WrappedComponent {...props} />
+    }
+}
+```
+
+<h2>2. Always pass unrelated props through</h2>
+```jsx
+// CORRECT — spreads all original props plus injects new one
+const withMousePosition = (WrappedComponent) => {
+    const injectedProp = { mousePosition: { x: 10, y: 10 } }
+
+    return (originalProps) => {
+        return (
+            <WrappedComponent
+                injectedProp={injectedProp}
+                {...originalProps}  // pass through unrelated props
+            />
+        )
+    }
+}
+```
+
+<h2>3. Maximize composability — Component => Component</h2>
+```jsx
+// Currying pattern — common in Redux
+const EnhancedComponent = connect(selector, actions)(WrappedComponent)
+
+// Broken down
+const HOC = connect(selector, actions)
+const EnhancedComponent = HOC(WrappedComponent)
+
+// Compose multiple HOCs together
+const enhance = compose(
+    withMousePosition,
+    withURLLocation,
+    connect(selector)
+)
+const EnhancedComponent = enhance(WrappedComponent)
+```
+
+<h2>Caveat 1 — never create HOC inside another component</h2>
+```jsx
+// WRONG — creates new component every render, loses state
+const Component = (props) => {
+    const EnhancedComponent = HOC(WrappedComponent)  // never do this
+    return <EnhancedComponent />
+}
+
+// CORRECT — create HOC outside component scope, once
+const EnhancedComponent = HOC(WrappedComponent)
+const Component = (props) => {
+    return <EnhancedComponent />
+}
+```
+
+<h2>Caveat 2 — refs are not passed through</h2>
+```jsx
+// ref points to outermost HOC, not the wrapped component
+// Solution: use React.forwardRef
+```
+
+<h2>Key takeaways</h2>
+<p>Never mutate the wrapped component — always return a new one</p>
+<p>Always pass through unrelated props with spread</p>
+<p>Create enhanced components outside other components</p>
+<p>Use React.forwardRef when refs need to reach the wrapped component</p>

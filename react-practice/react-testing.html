@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>React Testing Notes</title>
+</head>
+<body>
+
+<h1>Testing React Components</h1>
+
+<p>Real life example: Like a factory testing every product before it leaves the line. Catching bugs before delivery saves time, money, and customer complaints.</p>
+
+<h2>Why testing matters</h2>
+<p>Catches bugs before they reach users. Saves time and money. Builds confidence that the app works as intended.</p>
+
+<h2>Best practices</h2>
+<ul>
+    <li>Test behavior, not implementation details. Focus on what the user sees and does, not how the component is built.</li>
+    <li>Use descriptive test names. Clearly state what the test is verifying.</li>
+    <li>Keep tests isolated. Each test should only verify one thing.</li>
+    <li>Use test IDs or accessible roles to select elements. Avoid relying on class names or DOM structure.</li>
+
+    <h2>Two tools — Jest and React Testing Library</h2>
+
+    <h2>Basic test example</h2>
+```jsx
+import { render, screen } from '@testing-library/react'
+import App from './App'
+
+test('renders Little Lemon Restaurant link', () => {
+    // Step 1 — render the component
+    render(<App />)
+
+    // Step 2 — query the DOM for text
+    const linkElement = screen.getByText(/Little Lemon Restaurant/i)
+
+    // Step 3 — assert it exists in the document
+    expect(linkElement).toBeInTheDocument()
+})
+```
+
+<h2>How it works</h2>
+<p>1. Render the component into a virtual DOM. 2. Query the virtual DOM for elements. 3. Assert that the elements exist or have certain properties.</p>
+
+<h2>Key points</h2>
+<p>Mocking — replacing complex functions with simpler simulated versions for isolated testing</p>
+<p>Tests should read like how a real user interacts with the app</p>
+<p>A failing test that catches a real bug is exactly what testing is for</p>
+
+</body>
+</html>

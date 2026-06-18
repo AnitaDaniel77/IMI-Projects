@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>DJ Lopes Website - Setup Notes</title>
+</head>
+<body>
+
+<h1>DJ Lopes Website — Project Setup</h1>
+
+<h2>Why React + Vite + Tailwind?</h2>
+<p>Real life example: Like building a DJ booth. Vite is the fast-assembling rig (quick dev server, instant reload). React is the modular equipment — reusable components (Header, Hero, BookingCalendar) you can plug in anywhere. Tailwind is the lighting design system — pre-built utility classes instead of writing custom CSS from scratch every time.</p>
+
+<h2>Step 1 — Create the React app with Vite</h2>
+```bash
+npm create vite@latest dj-lopes-app -- --template react
+cd dj-lopes-app
+npm install
+```
+<p>This scaffolds a fast, modern React project. Vite replaced the older create-react-app tool because it's much faster during development.</p>
+
+<h2>Step 2 — Install Tailwind CSS (v4 — newer setup)</h2>
+```bash
+npm install -D tailwindcss postcss autoprefixer
+npm install @tailwindcss/vite
+```
+<p>Note: Tailwind v4 removed the old `npx tailwindcss init` command and the `tailwind.config.js` file that most tutorials show (those are for v3). Instead, v4 uses a Vite plugin directly.</p>
+
+<h2>Step 3 — Register the Tailwind plugin in vite.config.js</h2>
+```jsx
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+})
+```
+<p>This tells Vite to process Tailwind's utility classes while building the app.</p>
+
+<h2>Step 4 — Import Tailwind in index.css</h2>
+```css
+@import "tailwindcss";
+```
+<p>This single line replaces ALL of the old `@tailwind base; @tailwind components; @tailwind utilities;` lines used in Tailwind v3. It pulls in every utility class Tailwind offers.</p>
+
+<h2>Step 5 — Clean up the default Vite template</h2>
+<p>Removed default boilerplate from App.jsx (logos, demo counter, docs links) and deleted App.css since all styling now comes from Tailwind utility classes directly in the JSX.</p>
+
+```jsx
+function App() {
+  return (
+    <div>
+      <h1 className="text-4xl font-bold text-center mt-10">
+        DJ Lopes
+      </h1>
+    </div>
+  )
+}
+
+export default App
+```
+
+<h2>Understanding Tailwind class names</h2>
+
+<p>Instead of writing custom CSS rules, Tailwind gives pre-made utility classes you combine directly on the element. Faster to write, no separate CSS file needed for most things.</p>
+
+<h2>Project structure so far</h2>
+
+</body>
+</html>

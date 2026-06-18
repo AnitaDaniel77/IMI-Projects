@@ -48,3 +48,60 @@ test('renders Little Lemon Restaurant link', () => {
 
 </body>
 </html>
+
+
+<h2>Testing a Feedback Form — Practical Example</h2>
+
+<p>Real life example: Like a security guard checking ID before letting someone through a door. The test checks the form refuses entry (submission) when requirements aren't met.</p>
+
+<h2>Scenario</h2>
+<p>Submit button disabled if score is below 5 AND comment is less than 10 characters. Test verifies this logic works correctly.</p>
+
+<h2>Test file convention</h2>
+<p>Test files are named with a .test.js or .spec.js extension and placed in a __tests__ directory alongside the component they test.</p>
+
+<h2>Full test example</h2>
+```jsx
+import { render, screen, fireEvent } from '@testing-library/react'
+import FeedbackForm from './FeedbackForm'
+
+test('prevents submission when score is low and comment is missing', () => {
+    // Step 1 — create mock function to track calls
+    const mockSubmit = jest.fn()
+
+    // Step 2 — render component with mock as prop
+    render(<FeedbackForm onSubmit={mockSubmit} />)
+
+    // Step 3 — find the range input by its label
+    const scoreInput = screen.getByLabelText(/score/i)
+
+    // Step 4 — simulate changing the input value
+    fireEvent.change(scoreInput, { target: { value: 3 } })
+
+    // Step 5 — find the submit button by its role
+    const submitButton = screen.getByRole('button')
+
+    // Step 6 — simulate clicking the button
+    fireEvent.click(submitButton)
+
+    // Step 7 — assert mockSubmit was NOT called
+    expect(mockSubmit).not.toHaveBeenCalled()
+
+    // Step 8 — assert button is disabled
+    expect(submitButton).toHaveAttribute('disabled')
+})
+```
+
+<h2>Key React Testing Library utilities</h2>
+<p>render — renders a component into a virtual DOM for testing</p>
+<p>screen — provides methods to query the virtual DOM for elements</p>  
+<p>fireEvent — simulates user interactions like clicks and input changes</p>
+<p>jest.fn() — creates a mock function to track calls and arguments</p>
+<p>expect — assertion library to verify conditions in tests</p>
+
+<h2>Naming convention difference</h2>
+<h2>Key points</h2>
+<p>Mock functions track how external code calls a function</p>
+<p>Tests should simulate real user interaction — typing, clicking</p>
+<p>Test both the behaviour (function not called) and the UI state (button disabled)</p>
+

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Popular React Libraries Notes</title>
+</head>
+<body>
+
+<h1>Popular External Libraries</h1>
+
+<h2>Chakra UI — component library</h2>
+<p>Real life example: Like a pre-fab building kit. Instead of cutting wood from scratch, you get pre-built panels (components) and just assemble them.</p>
+
+<h2>Layout components</h2>
+```jsx
+// HStack — horizontal flex stack
+// VStack — vertical flex stack
+<HStack spacing="16px">
+    <Box h="40px" bg="yellow.200">1</Box>
+    <Box h="40px" bg="tomato">2</Box>
+    <Box h="40px" bg="pink.100">3</Box>
+</HStack>
+```
+
+<h2>Typography components</h2>
+```jsx
+<Heading as="h2" size="2xl">
+    Little Lemon
+</Heading>
+
+<Text fontSize="lg">Best restaurant in town</Text>
+```
+
+<h2>Style props — camelCase or shorthand</h2>
+```jsx
+// Full camelCase
+<Box backgroundColor="tomato" />
+
+// Shorthand — equivalent
+<Box bg="tomato" />
+```
+
+<h2>Formik and Yup — form management libraries</h2>
+<p>Formik handles form state, validation, and submission. Yup defines validation rules declaratively.</p>
+
+<h2>useFormik hook</h2>
+```jsx
+import * as Yup from 'yup'
+import { useFormik } from 'formik'
+
+const {
+    values,
+    errors,
+    touched,
+    getFieldProps,
+    handleSubmit
+} = useFormik({
+    initialValues: { comment: '' },
+    onSubmit: (values) => {
+        console.log(values.comment)
+    },
+    validationSchema: Yup.object({
+        comment: Yup.string().required('Required')
+    })
+})
+```
+
+<h2>Using getFieldProps to connect input</h2>
+```jsx
+// Spreads name, value, onChange, onBlur into the input automatically
+<input {...getFieldProps("comment")} />
+
+// Show error if field is touched and has an error
+{touched.comment && errors.comment && <p>{errors.comment}</p>}
+```
+
+<h2>Key returned properties from useFormik</h2>
+
+<h2>Key points</h2>
+<p>Chakra UI — pre-built accessible components for layout, typography, forms</p>
+<p>Formik — manages form state and submission</p>
+<p>Yup — declarative validation rules, works seamlessly with Formik</p>
+
+</body>
+</html>

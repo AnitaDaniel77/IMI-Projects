@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>DJ Lopes Website - Header Notes</title>
+</head>
+<body>
+<h1>DJ Lopes Website — Header Component</h1>
+<h2>What this component is</h2>
+<p>The Header is the sticky bar at the top of every screen: logo on the left, navigation links in the middle, social icons on the right, plus a hamburger menu on small screens. It lives in its own file, src/components/Header.jsx, and is imported into App.jsx. Keeping it separate means we can edit it without touching the rest of the site.</p>
+<h2>Icons: react-icons instead of lucide-react</h2>
+<p>We used react-icons because it includes brand logos for Instagram, Facebook and TikTok. Lucide, a common alternative, removed its brand icons, so it could not give us a TikTok logo. Install once with npm install react-icons, then import only the icons you need.</p>
+```jsx
+import { FaInstagram, FaFacebookF, FaTiktok, FaBars, FaXmark } from 'react-icons/fa6'
+```
+<h2>Storing links as data, then mapping over them</h2>
+<p>The nav links and social links are kept as arrays of objects, then .map() turns each one into a tag. Write the list once and render from data, so adding or removing a link means editing the array, not copy-pasting JSX.</p>
+```jsx
+const navLinks = [
+  { label: 'Home', href: '#home' },
+  { label: 'Services', href: '#services' },
+]
+```
+```jsx
+{navLinks.map((link) => (
+  <a key={link.href} href={link.href}>{link.label}</a>
+))}
+```
+<p>The key prop gives React a stable id for each list item so it updates efficiently. React warns if you forget it.</p>
+<h2>Why the icon key is capitalised</h2>
+<p>Each social object stores its icon under a capital-I key, Icon. React only treats a JSX tag as a component when its name starts with a capital letter. A lowercase tag name is read as a plain HTML element and would not render the React icon. That is why the rendered tag is capitalised.</p>
+```jsx
+{socials.map(({ label, href, Icon }) => (
+  <a key={label} href={href}><Icon size={20} /></a>
+))}
+```
+<h2>The mobile menu: useState and conditional rendering</h2>
+<p>useState(false) holds whether the menu is open. The hamburger button flips it with setMenuOpen. The dropdown is wrapped in a menuOpen check, meaning it only renders when menuOpen is true, the same conditional rendering pattern from Advanced React.</p>
+```jsx
+const [menuOpen, setMenuOpen] = useState(false)
+```
+```jsx
+{menuOpen && (
+  <nav>...mobile links...</nav>
+)}
+```
+<h2>Responsive design with Tailwind prefixes</h2>
+<p>Tailwind prefixes like md: apply a class only from a screen width up. hidden md:flex means hidden on phones, visible from tablet width. md:hidden is the reverse, used for the hamburger so it only shows on small screens. One component serves both phone and desktop layouts.</p>
+<h2>Sticky header and smooth scroll</h2>
+<p>sticky top-0 z-50 keeps the header pinned to the top as you scroll, above other content. The nav links point to section ids like #services and #about. Adding scroll-behavior smooth to the html element in index.css makes clicking a link glide to that section instead of jumping.</p>
+```css
+html {
+  scroll-behavior: smooth;
+}
+```
+<h2>Lesson: pasting code into Git Bash</h2>
+<p>Pasting multi-line code into Git Bash (MinTTY) can silently drop blank lines and very short lines, such as a line containing only an opening anchor tag. This broke the build twice. The fix was to write each anchor tag on one line with its attributes and content together, so no line was short enough to be dropped. If a paste fails again, run cat on the file and look for missing tags.</p>
+<h2>Note: logo shows a white box</h2>
+<p>The wordmark is a JPG, and JPGs cannot have transparent backgrounds, so it sits in a small white rectangle on the dark header. A transparent PNG export of the wordmark removes the box. Cosmetic only.</p>
+</body>
+</html>

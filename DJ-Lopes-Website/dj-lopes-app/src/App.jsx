@@ -1,11 +1,11 @@
+import Header from './components/Header'
+import Hero from './components/Hero'
 function App() {
   return (
-    <div>
-      <h1 className="text-4xl font-bold text-center mt-10">
-        DJ Lopes
-      </h1>
+    <div className="min-h-screen bg-neutral-950 text-white">
+      <Header />
+      <Hero />
     </div>
   )
 }
-
 export default App

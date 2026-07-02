@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Figma Layers Groups and Frames Notes</title>
+</head>
+<body>
+
+<h1>Lesson 23 — Figma: Layers, Groups and Frames</h1>
+
+<h2>Layer naming</h2>
+
+<p>When you name layers depends on where you are in the process. During
+ideation, don't bother — you're still generating ideas and a rectangle standing
+in for a button is fine. Once you're moving toward stakeholder review or team
+collaboration, name everything descriptively. A card is "card," a heading is
+"heading," a description field is "description." The goal is that someone else
+can open your file and immediately understand its structure.</p>
+
+<h2>Groups vs frames</h2>
+
+<p>Groups are the familiar bundling tool from most design apps. Select objects,
+hit Ctrl/Cmd G, and they collapse into one layer. The catch: a group's
+boundaries are defined by whatever's inside it. Move or resize a child object
+and the group's bounds shift with it. Groups must always be the same size as
+their contents.</p>
+
+<p>Frames look similar at first but behave differently. Create one with
+Ctrl-Alt-G (Windows) or Cmd-Option-G (Mac). The frame's size is independent
+of what's inside it — its children can be moved or resized without changing
+the frame itself. Think of it as a window you're looking through, not a
+wrapper around content.</p>
+
+<p>That independence is what unlocks Figma's more powerful features: internal
+padding, scroll interactions in prototypes, clipping overflow content, and
+auto-layout. Groups can't do any of that.</p>
+
+<h2>What frames can do that groups can't</h2>
+
+<p>Frames accept fills, strokes, shadows and rounded corners directly — so a
+button can be just a styled frame plus a text layer. With a group you'd need
+a separate background rectangle, which breaks auto-layout.</p>
+
+<p>Children inside a frame can be pinned using constraints: top, bottom, left,
+right, center, or scale. This controls how they behave when the frame resizes.
+Auto-layout takes this further by defining spacing between children, padding,
+and growth direction automatically.</p>
+
+<p>Grids and layout guides can be applied to any frame — from a full device
+artboard down to a small component. Frames can be nested inside other frames,
+each with its own resizing rules.</p>
+
+<p>One more thing: to create a component in Figma, all its layers must live
+inside a frame. If they're in a group, Figma converts it to a frame for you
+automatically when you hit "create component."</p>
+
+<h2>Practical takeaway</h2>
+
+<p>Default to frames over groups. Groups are fine for quick, rough ideation.
+Once you're building anything you plan to reuse, prototype or hand off to a
+developer, frames give you the control you need.</p>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Figma Responsive Grid System Notes</title>
+</head>
+<body>
+
+<h1>Lesson 26 — Figma: Responsive Grid System</h1>
+
+<p>Responsive design uses flexible layouts so one design adapts to any screen
+size — single column on mobile, two columns on tablet, full grid on desktop.
+Grids are the invisible structure that makes this work: columns and rows that
+organise content, create alignment and keep spacing consistent.</p>
+
+<h2>Setting up the desktop frame</h2>
+
+<p>Press F (or click the frame icon) to open the frames panel and select the
+desktop preset at 1440 x 1024. In the right sidebar, find the Layout Grid
+section and click the plus icon. A default 10x10 pixel grid appears. Clicking
+the nine-dot icon opens settings where you can adjust size and colour. This
+default grid is static — it won't move if you resize the frame.</p>
+
+<h2>Column grid</h2>
+
+<p>In the grid type dropdown, switch to Column. This changes the grid to
+horizontal columns with gutters (the gaps between columns) in between. Standard
+column counts are 12 on desktop, 8 on tablet, and 4 on mobile. Change the
+count to 12 and set the type to Stretch so columns grow or shrink when the
+frame is resized. Set the margin to 70 (the space between content and the left
+and right screen edges) and the gutter to 20px.</p>
+
+<h2>Row grid</h2>
+
+<p>To add vertical order, add a second layout grid on the same frame. Change
+the type to Row, set the count to 1000, height to 8, type to Top, and gutter
+to zero. This is the 8-point grid — most popular screen sizes are divisible
+by 8, so using it as your base keeps spacing consistent across the whole
+design.</p>
+
+<p>With both grids active, everything you place on the canvas snaps to the
+grid automatically. All measurements stay divisible by 8 without manual
+checking.</p>
+
+<h2>Toggling the grid</h2>
+
+<p>To view the frame without the grid: click the zoom percentage in the top
+right to open view settings and toggle grids off. Keyboard shortcut on Mac is
+Ctrl G, on Windows it's Ctrl Shift 4. Same shortcut brings it back.</p>
+
+<h2>Constraints</h2>
+
+<p>Select content blocks and apply constraints from the right panel. Constraints
+pin content to the left, right, top, bottom or center of the frame. Setting
+left and right constraints means if the frame is resized, the content resizes
+with it responsively rather than staying fixed in one position.</p>
+
+<h2>The takeaway</h2>
+
+<p>Grid plus constraints is what makes a Figma design actually responsive.
+The grid organises the content, constraints tell each element how to behave
+when the container changes size.</p>
+
+</body>
+</html>

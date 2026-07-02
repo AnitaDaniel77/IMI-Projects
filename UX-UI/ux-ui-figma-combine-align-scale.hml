@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Figma Combine Align and Scale Notes</title>
+</head>
+<body>
+
+<h1>Lesson 29 — Figma: Combine, Align and Scale</h1>
+
+<p>Basic shapes get you started, but most UI elements need shapes that don't
+exist out of the box. Figma's boolean operations let you build them by
+combining the ones you have.</p>
+
+<h2>Boolean operations</h2>
+
+<p>Select multiple shapes, then click the two-squares icon in the top center
+toolbar. Four options drop down.</p>
+
+<p>Union merges all selected shapes into one. Subtract removes the overlapping
+area of one shape from another — useful for cutting holes. Intersect keeps only
+the area where the shapes overlap and discards everything else. Exclude is the
+opposite: it removes the overlapping area and keeps everything outside it.</p>
+
+<h2>Aligning and distributing</h2>
+
+<p>Select the objects you want to align and go to the design panel on the right.
+The alignment tools sit at the top. The first six align elements relative to
+each other: left edges, horizontal centers, right edges, top edges, vertical
+centers, bottom edges. The last two distribute objects evenly across the
+vertical or horizontal axis, so spacing between them becomes consistent without
+manual adjustment.</p>
+
+<h2>Scaling</h2>
+
+<p>Dragging a corner resizes an object but doesn't scale everything inside it.
+Effects, strokes and text sizes stay fixed even when the container grows or
+shrinks. If you need everything to scale proportionally including those
+properties, use the scale tool in the top-left corner of the screen instead.
+Select the group or frame, click the scale tool, and drag. Everything inside,
+including strokes, effects and text, scales with it.</p>
+
+</body>
+</html>

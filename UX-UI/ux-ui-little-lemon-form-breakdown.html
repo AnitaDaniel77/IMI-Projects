@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Little Lemon Form Breakdown Notes</title>
+</head>
+<body>
+
+<h1>Lesson 19 — Little Lemon Form Breakdown</h1>
+
+<p>A form is frequently the only thing standing between a user and their goal.
+Little Lemon's checkout form has several problems worth unpacking as a case
+study in what not to do.</p>
+
+<h2>Layout problems</h2>
+<p>Text fields are centre-aligned instead of left-aligned. The checkout button
+isn't visible. There's no basket and no summary of what the user is buying.
+The user has no context for what they're confirming.</p>
+
+<h2>No progress indicator</h2>
+<p>Checkout is a multi-step process. Without a progress indicator the user has
+no idea how far they've come or how much is left. Add one. Let users go back
+and review previous steps.</p>
+
+<h2>Unnecessary fields</h2>
+<p>The form asks for Middle Initial, Evening Phone, Mobile Phone separately,
+three address lines plus City, and requires the email address to be typed
+twice. Luke Wroblewski put it clearly: every question you ask requires the
+user to parse it, formulate a response and enter it. Remove anything that
+isn't absolutely necessary.</p>
+
+<h2>Required fields and character limits</h2>
+<p>First Name had no asterisk marking it required, yet submitting triggered
+the error "First Name must be at least 4 characters." Two problems in one
+field. First, if a field is required, mark it with an asterisk. Second, a
+minimum of four characters excludes at least 220 real three-character names.
+That's not a validation rule, it's a design flaw that tells real people their
+name is invalid.</p>
+
+<p>The fix: remove the minimum character requirement entirely. Set a maximum
+of around 50 characters for security and storage reasons, which covers the
+vast majority of real names without excluding anyone.</p>
+
+<h2>Email confirmation</h2>
+<p>Asking users to type their email twice increases typos, not accuracy. The
+better approach is to send a confirmation link to the address they entered.
+Less effort for the user, same result.</p>
+
+<h2>CVV with no explanation</h2>
+<p>CVV and CVC are ambiguous acronyms. Most users don't know what they mean
+without a prompt. Add a small illustration or tooltip showing it's the three
+digits on the back of the card.</p>
+
+<h2>The common thread</h2>
+<p>Every problem in this form comes down to the same thing: the form was built
+around what the system needs, not what the user needs. Unclear errors, jargon,
+redundant fields, no feedback. If a user can't tell what they did wrong or how
+to fix it, they leave.</p>
+
+</body>
+</html>

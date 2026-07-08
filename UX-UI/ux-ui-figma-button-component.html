@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Figma Button Component Notes</title>
+</head>
+<body>
+
+<h1>Lesson 41 — Creating a Button Component in Figma</h1>
+
+<p>Any layer or object in Figma can be turned into a component — buttons,
+icons, layouts and more. Components have two characteristics: a master and
+an instance. The master is the original. An instance is a copy that inherits
+changes made to the master but can also have its own individual overrides.</p>
+
+<h2>Auto-layout</h2>
+
+<p>Before creating a component, apply auto-layout. This converts your element
+into its own frame and gives you more control over sizing and padding. Without
+it, if you change the text inside a button the background shape won't adjust
+automatically.</p>
+
+<p>How to apply it: select your element, then click the plus icon next to
+Auto Layout in the right sidebar. The button shape will automatically resize
+to fit the text. The layer icon in the layers panel changes to show it is now
+an auto-layout frame. You can then adjust the padding — the space between the
+text and the top, bottom and sides of the button.</p>
+
+<h2>Creating the master component</h2>
+
+<p>With auto-layout applied, click the Create Component icon in the top
+toolbar — it looks like four diamonds. This creates the master component.
+All future instances will inherit changes made to this master.</p>
+
+<h2>Creating instances</h2>
+
+<p>Duplicate the master by pressing Ctrl/Cmd D, or click and drag the master
+while holding Alt. The new layer appears in the layers panel with a single
+diamond icon — that tells you it's an instance, not the master.</p>
+
+<h2>Master vs instance — what changes what</h2>
+
+<p>Changes made to the master apply to all instances. For example, changing
+the corner radius on the master to 8 updates every instance automatically.</p>
+
+<p>Changes made inside a specific instance only affect that instance. For
+example, changing one instance's fill to yellow only updates that button —
+the master and other instances stay unchanged.</p>
+
+<h2>Real life example</h2>
+
+<p>Little Lemon menu category buttons — Starters, Mains, Desserts, À la carte.
+Create one master button with auto-layout. Duplicate it four times for each
+category. Change the text label inside each instance. If the brand colour
+changes later, update the master once and all four buttons update instantly.</p>
+
+</body>
+</html>

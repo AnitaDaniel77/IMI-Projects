@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Figma Prototype Scrolling and Sharing Notes</title>
+</head>
+<body>
+
+<h1>Lesson 44 — Figma Prototype: Scrolling and Sharing</h1>
+
+<p>This lesson covers three things: creating a toggle component for category
+buttons, adding horizontal scroll to a frame, and sharing the prototype with
+test participants.</p>
+
+<h2>Toggle component — category buttons</h2>
+
+<p>Create an auto-layout button and convert it to a component. Name it
+"master button". Right-click the component, go to Main component and select
+Add variant. A perforated outline appears around the new variant.</p>
+
+<p>Style the selected variant: change the button fill to a darker colour and
+the text fill to a lighter colour. This visually distinguishes the selected
+state from the default.</p>
+
+<p>In Prototype mode, double-click the first variant and drag the prototype
+arrow to the second. The interaction panel shows On click — Change to —
+Selected. Then double-click the second variant and drag back to the first.
+This creates a two-way toggle — clicking switches between states in both
+directions.</p>
+
+<p>To use it: go to the Assets tab, search "master button", drag it onto the
+auto-layout on the home screen. Test it in presentation mode — the button
+should toggle on and off when clicked.</p>
+
+<p>To create more category buttons: select the button and press Ctrl/Cmd D
+to duplicate. If they stack vertically, select both and apply auto-layout,
+then change the direction to horizontal in the auto-layout properties panel.
+Duplicate as many as needed and rename each one.</p>
+
+<h2>Horizontal scroll</h2>
+
+<p>Double-click the frame containing the category buttons. Rename it "dish
+category". Double-click into the frame and convert it to a component, then
+right-click and choose Frame selection. Scale the frame from the right edge
+to snap to the device window edge — this creates the overflow boundary.</p>
+
+<p>Switch to Prototype mode, click Overflow scrolling and select Horizontal
+scrolling. Test it — the buttons should now scroll left and right within the
+frame boundary while toggling on and off.</p>
+
+<p>Repeat the same process for the dish list but set it to Vertical scrolling
+so users can scroll down through menu items.</p>
+
+<h2>Sharing the prototype</h2>
+
+<p>Click the Share button in the top right of Figma. Copy the link and send
+it to test participants. They can open it in a browser without needing a
+Figma account and interact with the prototype as if it were a real app.</p>
+
+<h2>Key takeaway</h2>
+<p>Toggle interactions, scroll behaviour and shareable links are what turn a
+static design into a testable prototype. Each adds a layer of realism that
+helps users give meaningful feedback.</p>
+
+</body>
+</html>

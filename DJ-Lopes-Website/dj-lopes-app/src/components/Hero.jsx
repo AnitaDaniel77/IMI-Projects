@@ -1,8 +1,9 @@
-import heroImg from '../assets/hero.jpg'
+import heroImg from '../assets/IMG_20250525_142606.jpg'
+
 function Hero() {
   return (
-    <section id="home" className="relative flex min-h-[90vh] items-center justify-center overflow-hidden">
-      <img src={heroImg} alt="DJ Lopes performing" className="absolute inset-0 h-full w-full object-cover object-top" />
+    <section id="home" className="relative flex min-h-[70vh] items-center justify-center overflow-hidden">
+      <img src={heroImg} alt="DJ Lopes performing" className="absolute inset-0 h-full w-full object-cover object-[center_30%]" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-neutral-950"></div>
       <div className="relative z-10 mx-auto max-w-3xl px-6 text-center">
         <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-red-500">Afro Latin DJ and Sound</p>
@@ -16,4 +17,5 @@ function Hero() {
     </section>
   )
 }
+
 export default Hero

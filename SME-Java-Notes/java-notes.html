@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SME Session Notes - JDBC with H2</title>
+</head>
+<body>
+<h1>SME Session Notes - E12 Java</h1>
+<p><strong>Date:</strong> 23 July 2026</p>
+<p><strong>Facilitator:</strong> Hilbert Muchatibaya</p>
+<p><strong>Topic:</strong> JDBC with H2 - Connect, Create a Table, Insert, Query</p>
+<p><strong>Attendees included:</strong> Hilbert Muchatibaya, Tshepo Sekobile, Wesley Henry, Claudelle Francis, Siyasanga Blayi, Kayleigh Pepper, Athenkosi Mdebuka, Lucian Bredenkamp, Mia Mzimela, Zubaida Khan, Anita Daniel + 11 others (21 total)</p>
+
+<h2>1. What is H2?</h2>
+<p>H2 is a lightweight open-source SQL database written in Java. It runs inside your app (embedded) or as a small local server.</p>
+<p>Real-life example: think of it as a notebook that sits right next to your Java program - you write product lists into it and read them back later, no big library building required.</p>
+<p>Two modes:</p>
+<ul>
+<li>File-backed - data saved on disk, survives restart (what PayNest uses)</li>
+<li>In-memory - data lives only while the app runs, then disappears</li>
+</ul>
+<p>PayNest JDBC URL:</p>
+<pre><code class="language-text">jdbc:h2:file:./data/paynest;AUTO_SERVER=TRUE;TRACE_LEVEL_FILE=3</code></pre>
+
+<h2>2. Learning goals for the session</h2>
+<ul>
+<li>Connect to a file-backed H2 database with JDBC</li>
+<li>Create a table with SQL using CREATE TABLE</li>
+<li>Insert rows with a PreparedStatement</li>
+<li>Query rows with SELECT and read a ResultSet</li>
+<li>Inspect the same data in DBeaver</li>
+</ul>
+
+<h2>3. SQL schema shown - products table</h2>
+<pre><code class="language-sql">CREATE TABLE IF NOT EXISTS products (
+    id    INT PRIMARY KEY,     -- unique row identifier
+    name  VARCHAR(100) NOT NULL, -- product name, required
+    price DOUBLE NOT NULL        -- product price, required
+);
+</code></pre>
+<p>Real-life example: this is like designing a stock ledger page before you write anything in it - id is the row number, name and price are the two columns you're not allowed to leave blank.</p>
+
+<h2>4. Tools demonstrated</h2>
+<ul>
+<li>Docker Desktop - PayNest running as a container</li>
+<li>pgAdmin - PostgreSQL management tool (for future database work)</li>
+<li>DBeaver - database client used to inspect the H2 data alongside the Java app</li>
+<li>docker-compose.yml - shown to explain how PostgreSQL runs as a service with healthchecks</li>
+</ul>
+
+<h2>5. Live coding in PayNestApplication.java</h2>
+<p>JDBC was added directly to PayNestApplication alongside the existing Capstone 1 and Capstone 2 code.</p>
+<pre><code class="language-java">private static final String JDBC_URL =
+    "jdbc:h2:file:./data/paynest;AUTO_SERVER=TRUE;TRACE_LEVEL_FILE=3";
+    // private static final = one shared constant for the whole
+    // class, can't be reassigned - like a fixed address on a letter
+
+public static void main(String[] args) {
+    // ...existing Capstone 1/2 commerce engine code runs first...
+    runJdbcDemo(laptop, mouse);
+    // called last, so the database demo runs after the normal
+    // order flow has already been demonstrated
+}
+</code></pre>
+
+<h2>6. ProductCrudApp shown</h2>
+<p>A separate class showing Create, Read, Update, Delete operations on the products table. Data was visible live in the DBeaver database browser - Laptop R12000 and Mouse R200 confirmed in the table.</p>
+
+<h3>Update and Delete flows</h3>
+<pre><code class="language-java">private void updateProduct() {
+    // ...builds the update...
+    if (/* no row matches the given id */) {
+        throw new SQLException("No row with id " + product.getId());
+        // fails loudly instead of silently doing nothing
+    }
+    return "Updated #" + product.getId();
+}
+
+private void deleteProduct() {
+    Integer id = readIdOnly();
+    if (id == null) {
+        return; // guard clause - nothing to delete, so stop here
+    }
+
+    int confirm = JOptionPane.showConfirmDialog(
+        this,
+        "Delete product #" + id + "?",
+        "Confirm delete",
+        JOptionPane.OK_CANCEL_OPTION
+    );
+    // pops a yes/no dialog before anything is actually removed
+}
+</code></pre>
+<p>Real-life example: the confirm dialog is like a bank teller asking "are you sure?" before processing a withdrawal - one extra check so nothing gets deleted by accident.</p>
+
+<h2>7. Live query against the products table</h2>
+<pre><code class="language-sql">SELECT * FROM products;
+-- returns every column, every row - fine for a quick check,
+-- not something you'd leave in production code
+</code></pre>
+<p>Result:</p>
+<ul>
+<li>#1 Laptop R12000</li>
+<li>#2 Mouse R200</li>
+</ul>
+<p>Hilbert pointed out that DBeaver is reading the same database, not a separate copy:</p>
+<ul>
+<li>data file: data/paynest.mv.db - the real tables/rows</li>
+<li>trace file: data/paynest.trace.db - SQL debug log, not the database itself</li>
+</ul>
+<p>Real-life example: the trace file is like a security camera log of what happened at the bank, not the vault itself - useful for debugging, but it's not where your money actually lives.</p>
+
+<h2>8. OrderService.java reviewed</h2>
+<p>Hilbert walked through the existing OrderService showing createOrder and addProductsToOrder methods with full Javadoc comments explaining parameters and return values.</p>
+
+<h2>9. pom.xml walkthrough</h2>
+<pre><code class="language-xml">&lt;groupId&gt;com.paynestsystem&lt;/groupId&gt;
+&lt;artifactId&gt;paynest&lt;/artifactId&gt;
+&lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+&lt;packaging&gt;jar&lt;/packaging&gt;
+&lt;description&gt;A simplified fintech/ecommerce platform for teaching Java&lt;/description&gt;
+
+&lt;properties&gt;
+    &lt;maven.compiler.source&gt;21&lt;/maven.compiler.source&gt;
+    &lt;maven.compiler.target&gt;21&lt;/maven.compiler.target&gt;
+    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;junit.jupiter.version&gt;5.10.2&lt;/junit.jupiter.version&gt;
+    &lt;exec.mainClass&gt;com.paynestsystem.app.PayNestApplication&lt;/exec.mainClass&gt;
+&lt;/properties&gt;
+</code></pre>
+<p>Real-life example: pom.xml is like a recipe card for the whole project - it tells Maven exactly which Java version to compile against, which test framework to use, and which class is the "front door" to run.</p>
+
+<h2>10. Wrap-up</h2>
+<p>Wesley shared his repo link in chat: github.com/Umuzi-skillslab/merchant-order-desk-and-catalogue-engine-wesleyhenry-creator.git. Capstone 1 brief was reviewed on GitHub. Zubaida commented "Hilbert the GOAT" in chat.</p>
+</body>
+</html>

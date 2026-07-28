@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SME Session Notes - Java Fundamentals from Scratch</title>
+</head>
+<body>
+<h1>SME Session Notes - E12 Java</h1>
+<p><strong>Date:</strong> 28 July 2026</p>
+<p><strong>Facilitator:</strong> Hilbert Muchatibaya</p>
+<p><strong>Topic:</strong> Java Fundamentals from Scratch</p>
+<p><strong>Attendees included:</strong> Hilbert Muchatibaya, Anita Daniel, Zubaida Khan, Tshepo Sekobile, Claudelle Francis, Aridivhaho Nemadodzi, Wesley Henry, Mia Mzimela, Kayleigh Pepper + 11 others (20 total)</p>
+
+<h2>1. What is Java?</h2>
+<ul>
+<li>Strongly typed and flexible</li>
+<li>Expressive, readable</li>
+<li>Object-oriented</li>
+<li>Functional capabilities</li>
+<li>Incredibly backwards compatible</li>
+</ul>
+
+<h2>2. Live coding - starting from a blank App.java</h2>
+<pre><code class="language-java">public class App {
+    public static void main(String[] args) throws Exception {
+        // "static" here means the JVM can call main() without
+        // first creating an App object - it's the front door.
+        Integer numberOfStudents = 5;
+
+        if (numberOfStudents == 5) {
+            StartLecture(); // only fires once the class is full
+        }
+    }
+
+    private static void StartLecture() {
+        // private = only App itself can call this.
+        // Real-life parallel: a receptionist who only the
+        // front desk staff can page, not the public.
+        return;
+    }
+}
+</code></pre>
+<p>Real-life example: think of main as the front door of a building - everything starts there. numberOfStudents == 5 is like a bouncer checking if the room hit capacity before letting the "lecture start" announcement go out.</p>
+
+<h2>3. Growing the example into a mini domain model</h2>
+<pre><code class="language-java">var session = new Session();               // a new classroom, empty for now
+var student = new Person(name: "Hilbert");  // a person walks in
+var lecturer = new Lecturer(string: "Lecturer1");
+
+student.JoinSession(session.Id);
+// student doesn't carry the whole Session object around -
+// just its ID. Real-life parallel: you don't carry the whole
+// classroom with you, you just remember the room number.
+
+if (session.GetStudentCount() == 5) {
+    // ask the session itself how full it is, rather than
+    // trying to count from outside
+    lecturer.StartLecture();
+}
+</code></pre>
+<p>Hilbert's own explanation, paraphrased: a test student joins a session by passing in the session ID, the session reports back its student count, and once that hits five, the lecturer gets triggered to start - deliberately made a bit more complex than needed, just to make the example richer.</p>
+
+<h2>4. Person.java - evolving step by step</h2>
+
+<h3>First pass</h3>
+<pre><code class="language-java">public class Person {
+    private String name;  // private = nobody outside this
+    private String role;  // class can touch these directly
+
+    public Person(String name, String role) {
+        this.role = role; // "this.role" = the field,
+        this.name = name; // "role" = the parameter - this
+                           // is how Java tells them apart
+    }
+
+    public String getName() {
+        return name; // the only door in to read the name
+    }
+}
+</code></pre>
+<p>Real-life example: private fields are like a diary with a lock - getName() is the one page you're allowed to show people.</p>
+
+<h3>Second pass - overloaded constructor, default value</h3>
+<pre><code class="language-java">private String role = "Student"; // default if nothing's passed in
+
+public Person(String name) {
+    this.name = name; // shorter constructor - role stays "Student"
+}
+
+public String getRole() {
+    return role;
+}
+
+public String updateRole(String newRole) {
+    this.role = newRole;
+    return this.role; // hands back the new role so the
+                       // caller gets confirmation immediately
+}
+</code></pre>
+<p>Real-life example: it's like signing up for a gym with no membership type specified - you default to "Basic" until you upgrade.</p>
+
+<h3>Third pass - role becomes an Enum, backed by a new Roles.java</h3>
+<pre><code class="language-java">private Enum role; // now locked to a fixed list of options
+
+public Person(String name, Enum role) {
+    this.role = role;
+    this.name = name;
+}
+
+public String updateRole(Enum newRole) {
+    this.role = newRole;
+    return this.role;
+}
+</code></pre>
+<p>Used in App.java:</p>
+<pre><code class="language-java">var student = new Person(name: "Hilbert", Roles.STUDENT); // correct - enum
+var lecturer = new Person(name: "Jane", role: "Lecturuer"); // typo! still
+// String-based, so Java lets it through silently - this is
+// exactly the bug the enum switch was meant to prevent.
+</code></pre>
+<p>Real-life example: a String role is like writing your job title on a sticky note - anyone can misspell it and no one notices. An Enum is like a dropdown menu on a form - you can only pick from what's actually there, so "Lecturuer" wouldn't even be an option.</p>
+
+<h2>5. Java Platform</h2>
+<ul>
+<li>Built around the JVM - the most common scenario</li>
+<li>Compiles to bytecode rather than native code</li>
+<li>Just-in-time (JIT) compilation gives native-level performance</li>
+<li>Runs anywhere there's a JVM - platform independence</li>
+<li>Native executable binaries are an option too (platform-specific, fast startup, low resource use)</li>
+</ul>
+<p>Real-life example: bytecode + JVM is like a universal power adapter - you write the code once, and the JVM on each machine "translates" it to run there, instead of you needing a different plug for every country.</p>
+
+<h2>6. Community Driven</h2>
+<ul>
+<li>Open source (OpenJDK)</li>
+<li>Java Community Process</li>
+<li>Technology Compatibility Kit (TCK)</li>
+<li>Early access / interim versions</li>
+</ul>
+
+<h2>7. Java Development Kit (JDK)</h2>
+<p>Includes the JRE (runs programs), the compiler javac (turns source into bytecode), and tools like javadoc, jar, jdb.</p>
+<p><em>Think of it as:</em> a carpenter's toolbox - everything needed to build Java applications.</p>
+
+<h2>8. Java Community Process (JCP)</h2>
+<p>Companies, experts, open-source contributors, and Oracle propose changes as JSRs (Java Specification Requests) to evolve the language together.</p>
+<p><em>Think of it as:</em> a committee that decides how Java should evolve.</p>
+
+<h2>9. Technology Compatibility Kit (TCK)</h2>
+<p>A test suite any Java implementation must pass to be considered "Java compatible," protecting the "Write Once, Run Anywhere" promise.</p>
+<p><em>Think of it as:</em> the final exam proving an implementation follows the official rules.</p>
+</body>
+</html>

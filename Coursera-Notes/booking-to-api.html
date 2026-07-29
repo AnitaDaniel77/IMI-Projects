@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Exercise: Submitting the Booking to the API</title>
+</head>
+<body>
+<h1>Capstone Project - Reserve a Table Functionality</h1>
+<h2>Exercise: Submitting the Form and Confirming the Booking</h2>
+
+<h3>Scenario</h3>
+<p>The form already submits to <code>submitAPI</code>, but there's no confirmation page yet - customers currently get no feedback that their booking actually went through. This exercise adds a proper confirmation page and navigates there automatically on success.</p>
+
+<h3>Step 1 - ConfirmedBooking component and route</h3>
+<pre><code class="language-jsx">function ConfirmedBooking() {
+  return (
+    &lt;main className="confirmed-booking"&gt;
+      &lt;h1&gt;Booking Confirmed!&lt;/h1&gt;
+      &lt;p&gt;We look forward to seeing you at Little Lemon.&lt;/p&gt;
+    &lt;/main&gt;
+  );
+}
+</code></pre>
+<p>Real-life example: this page is like a receipt handed over after a purchase - it's not functional in the sense of doing more work, its whole purpose is reassurance that the transaction actually completed.</p>
+
+<h3>Step 2 - Navigating with code, not a click</h3>
+<pre><code class="language-jsx">import { useNavigate } from 'react-router-dom';
+
+function submitForm(formData) {
+  const navigate = useNavigate();
+  // useNavigate gives a function to change routes PROGRAMMATICALLY -
+  // different from &lt;Link&gt;, which only navigates on a user click
+
+  if (submitAPI(formData)) {
+    navigate('/booking-confirmed');
+    // this fires automatically after a successful submission,
+    // with no link or button click involved in the navigation itself
+  }
+}
+</code></pre>
+<p>Real-life example: <code>useNavigate</code> is like an usher walking a guest to their seat automatically once check-in succeeds, versus a signpost (<code>&lt;Link&gt;</code>) that only works if the guest actively decides to walk toward it themselves.</p>
+
+<h3>Important structural note</h3>
+<p><code>useNavigate()</code> is a hook, so it can only be called inside a component function during render - not inside a standalone helper function like the course's plain <code>submitForm</code> example suggests. In this project's actual code, <code>submitForm</code> needs to live inside <code>App</code> (or wherever it's called from), with <code>useNavigate()</code> called at the top of that component, and the resulting <code>navigate</code> function used inside <code>submitForm</code>.</p>
+
+<h3>Step 2 (continued) - Passing submitForm down</h3>
+<p>Same lifting-state-up pattern as before: <code>submitForm</code> gets defined in a parent component and passed down as a prop through <code>BookingPage</code> to <code>BookingForm</code>, which calls it instead of handling the API call directly itself.</p>
+
+<h3>Step 3 - Verifying it works</h3>
+<p>Submit the form and confirm the URL actually changes to the confirmation route and the confirmation message displays - not just that the console logs something.</p>
+
+<h3>What's still ahead</h3>
+<p>The lesson explicitly flags that submission working is not the finish line - testing and UX polish are still to come in later exercises.</p>
+</body>
+</html>

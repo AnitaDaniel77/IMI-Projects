@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Exercise: Connecting Bookings Page to the API</title>
+</head>
+<body>
+<h1>Capstone Project - Reserve a Table Functionality</h1>
+<h2>Exercise: Connecting to the Booking API</h2>
+
+<h3>Scenario</h3>
+<p>Without real availability data, two customers could book the same table at the same time - a genuinely bad experience. This exercise wires the booking form up to an actual API so availableTimes reflects real, current bookings instead of a hardcoded placeholder list.</p>
+
+<h3>Step 1 - The API's two functions</h3>
+<ul>
+<li><code>fetchAPI(date)</code> - takes a date, returns an array of available times for that date</li>
+<li><code>submitAPI(formData)</code> - takes the booking form data, returns true if submission succeeded</li>
+</ul>
+<p>These come from a script tag added to <code>index.html</code>, which the course provides separately (a small standalone JS file exposing these two functions globally).</p>
+
+<h3>Step 2 - Updating initializeTimes and updateTimes</h3>
+<pre><code class="language-jsx">export function initializeTimes() {
+  const today = new Date();
+  // fetchAPI comes from the script loaded in index.html - it's
+  // a GLOBAL function, not something imported like a normal module
+  return fetchAPI(today);
+}
+
+export function updateTimes(state, action) {
+  switch (action.type) {
+    case 'date_change':
+      // the date dispatched from BookingForm gets passed straight
+      // into fetchAPI, so times actually change based on selection
+      return fetchAPI(new Date(action.date));
+    default:
+      return state;
+  }
+}
+</code></pre>
+<p>Real-life example: this is like a restaurant host checking a live reservation book instead of reciting a memorized, fixed list of open tables - the moment a date changes, the host looks up that specific day's real availability instead of repeating the same answer regardless of what was asked.</p>
+
+<h3>Step 3 - Verifying it works</h3>
+<p>Change the date in the form and confirm the time dropdown's options actually change - if they stay identical no matter what date is picked, the dispatch isn't reaching <code>updateTimes</code> correctly, or the reducer isn't calling <code>fetchAPI</code> with the new date.</p>
+</body>
+</html>

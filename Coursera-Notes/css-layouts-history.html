@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - CSS Layout Techniques: A Brief History</title>
+</head>
+<body>
+<h1>Capstone Project - Styling Little Lemon</h1>
+<h2>Lesson: Revisiting CSS Layout Techniques</h2>
+
+<p>This lesson revisits styling in two parts: CSS in isolation first, then CSS from React's perspective. The goal is to apply the Little Lemon style guide and layouts designed earlier in the course.</p>
+
+<h2>A brief history of CSS layout techniques</h2>
+
+<h3>1. Table-based layouts (late 1990s)</h3>
+<p>The original approach - using HTML tables to arrange page content. Now considered outdated.</p>
+<p>Real-life example: it's like using a spreadsheet to design a poster - technically it holds things in place, but it wasn't built for that job, and it shows.</p>
+
+<h3>2. Floats (early 2000s)</h3>
+<pre><code class="language-css">.sidebar {
+    float: left; /* pulls the element out of normal document flow -
+                     text and other elements wrap around it instead
+                     of stacking below it */
+}
+</code></pre>
+<p>Floats were popular for a long time, but they were never actually designed for building layouts - they were repurposed for the job because nothing better existed yet.</p>
+<p>Real-life example: it's like using a paperclip to fix a broken zipper - it works well enough that people kept doing it for over a decade, but it was never actually the right tool.</p>
+
+<h3>3. First attempt at Flexbox (early 2010s)</h3>
+<p>The CSS Flexible Box Layout Module (Flexbox) is a one-dimensional layout technique for arranging items in rows or columns. The first attempt at standardizing it wasn't successful - the specification kept shifting, and browser support was inconsistent and spotty.</p>
+
+<h3>4. Flexbox, take two (second half of 2010s)</h3>
+<p>Flexbox got a new, stable specification and wide browser adoption.</p>
+
+<h3>5. CSS Grid (took off around 2018)</h3>
+<pre><code class="language-css">.page-layout {
+    display: grid; /* switches this element into Grid mode -
+                       children now line up on both rows AND
+                       columns at once, unlike Flexbox's one axis */
+    grid-template-columns: 1fr 2fr; /* two columns: second one
+                                        gets twice the space */
+}
+</code></pre>
+<p>CSS Grid is the part of the CSS spec built specifically for laying out web pages - a two-dimensional system (rows and columns together), unlike Flexbox's one dimension.</p>
+<p>It took off around 2018 for a simple reason: it took time for modern browsers to fully support the Grid spec, and for older browsers without that support to lose enough market share that developers could rely on Grid without worrying about compatibility.</p>
+<p>Real-life example: Grid becoming viable in 2018 is like a new type of plug becoming standard - it's not useful until enough outlets (browsers) actually support it and the old sockets fade out.</p>
+
+<h2>Flexbox vs Grid - not a replacement, a pairing</h2>
+<ul>
+<li>Grid is not a replacement for Flexbox - both still have their place</li>
+<li>Best case: know both, not just one</li>
+<li>Flexbox: one-dimensional (a single row or column) - real-life example: a single shelf, items arranged left to right</li>
+<li>Grid: two-dimensional, the most comprehensive and versatile layout tool in modern CSS - real-life example: a full bookcase, items placed by row AND column - this lesson's main focus</li>
+</ul>
+
+<h2>Why this history matters</h2>
+<p>Developers constantly face a judgment call: is this piece of code good enough, or does it need changing? A lot of that judgment comes from experience, but knowing the layout techniques and where each one belongs is part of being a well-rounded front-end developer. It helps with two things specifically:</p>
+<ul>
+<li>Choosing the right layout approach for a new piece of work</li>
+<li>Recognizing whether existing code in a project is up to modern standards, or still relying on outdated techniques like floats or tables</li>
+</ul>
+
+<p><strong>Focus for the rest of this lesson:</strong> building CSS layouts using CSS Grid.</p>
+</body>
+</html>

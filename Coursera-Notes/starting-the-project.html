@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Project - Module 1: Starting the Project</title>
+</head>
+<body>
+<h1>Meta Front-End Capstone: Little Lemon Reserve a Table</h1>
+<h2>Module 1 - Starting the Project</h2>
+
+<h3>Project brief</h3>
+<p>Little Lemon is a family-owned Mediterranean restaurant. The capstone asks for a "reserve a table" booking app built in React, covering the full front-end workflow from planning through deployment across the four modules: starting the project, project foundations, project functionality, and project assessment.</p>
+
+<h3>What this module covers</h3>
+<ul>
+<li>Defining the app's purpose and user stories (a guest wants to book a table for a given date, time, and party size)</li>
+<li>Setting up the project with a scaffolding tool</li>
+<li>Planning the component structure before writing code</li>
+<li>Deciding on state management approach for the booking form</li>
+</ul>
+
+<h3>Scaffolding</h3>
+<pre><code class="language-bash">npx create-react-app little-lemon
+# create-react-app scaffolds a full React project with a dev
+# server, build tooling, and testing all wired up already
+
+cd little-lemon
+npm start
+# starts the dev server at localhost:3000 and auto-reloads
+# whenever a file is saved
+</code></pre>
+<p>Real-life example: create-react-app is like ordering a furnished apartment instead of building one brick by brick - the wiring, plumbing, and structure are already done, you just move your own things in.</p>
+
+<h3>Planned component tree</h3>
+<pre><code class="language-text">App
+├── Nav
+├── Header
+├── Main
+│   ├── BookingForm
+│   └── BookingSlots (derived from availableTimes)
+└── Footer
+</code></pre>
+<p>Real-life example: this tree is like a restaurant's own org chart - App is the manager overseeing everything, and each component below it (Nav, Header, Main, Footer) has one clear job, the same way a host, a chef, and a waiter each own a different part of the experience.</p>
+
+<h3>Initial state design</h3>
+<pre><code class="language-jsx">import { useReducer } from "react";
+// useReducer manages state through a function (a "reducer")
+// instead of many separate useState calls - useful here since
+// booking times depend on which date is picked
+
+function updateTimes(state, action) {
+  switch (action.type) {
+    case "UPDATE_DATE":
+      return fetchAPI(action.date); // new date picked -> fetch
+                                     // that date's available times
+    default:
+      return state; // unrecognized action - state stays the same
+  }
+}
+
+const initializeTimes = () => fetchAPI(new Date());
+// runs once on first render, loading today's available times
+// before the user has picked anything
+</code></pre>
+<p>Real-life example: think of the reducer like a restaurant host's booking sheet - every time someone asks for a different date, the host doesn't throw out the whole sheet, they just look up that date's open slots and hand back the relevant page.</p>
+
+<h3>Notes to self</h3>
+<p>Keep the booking form dumb (controlled inputs only), push validation logic into a separate function so it's testable on its own, matching the pattern from the Course 6 capstone.</p>
+</body>
+</html>

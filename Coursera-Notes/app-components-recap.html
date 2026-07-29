@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Exercise: Setting up App Components</title>
+</head>
+<body>
+<h1>Capstone Project - Setting up Components and Routing</h1>
+<h2>Exercise: Components and Navigation</h2>
+
+<h3>Scenario</h3>
+<p>With the visual foundation done, this exercise adds actual routing and reusable components - so the same Nav, for example, works across the homepage, About page, and Bookings page instead of being rebuilt per page.</p>
+
+<h3>Step 1 - Components mapped from the Figma design</h3>
+<ul>
+<li>Nav (navbar) - already built</li>
+<li>CallToAction / Hero - already built (currently called Header)</li>
+<li>Homepage - the page that assembles Hero + Specials + Testimonials + About together</li>
+<li>Specials - already built, currently living inside Main</li>
+<li>CustomersSay (testimonials) - not yet built</li>
+<li>Chicago (about section) - already built, currently living inside Main</li>
+<li>BookingPage - not yet built - the actual reservations page</li>
+</ul>
+<p>Real-life example: mapping Figma to components 1-to-1 is like translating a floor plan into an actual building's rooms - each labeled space on the drawing becomes one real, buildable room, not something improvised on-site.</p>
+
+<h3>Step 2 - Adding real navigation with react-router-dom</h3>
+<pre><code class="language-bash">npm install react-router-dom
+# adds React Router - the library that makes Link and Routes
+# available; without it these are just undefined imports
+</code></pre>
+<pre><code class="language-jsx">import { Link } from 'react-router-dom';
+// Link renders an actual &lt;a&gt; tag under the hood, but intercepts
+// the click so React swaps pages WITHOUT a full browser reload -
+// that's the core benefit over a plain &lt;a href&gt;
+
+function Nav() {
+  return (
+    &lt;nav&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;Link to="/"&gt;Home&lt;/Link&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;Link to="/about"&gt;About&lt;/Link&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;Link to="/reservations"&gt;Reservations&lt;/Link&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-jsx">import { Routes, Route } from 'react-router-dom';
+// Routes looks at the current URL and renders whichever Route's
+// path matches it - like a switch statement for pages
+
+function Main() {
+  return (
+    &lt;Routes&gt;
+      &lt;Route path="/" element={&lt;Homepage /&gt;} /&gt;
+      &lt;Route path="/reservations" element={&lt;BookingPage /&gt;} /&gt;
+    &lt;/Routes&gt;
+  );
+}
+</code></pre>
+<p>Real-life example: <code>Routes</code>/<code>Route</code> work like a hotel's floor directory - the URL is the room number you typed into the elevator panel, and the router sends you straight to the matching floor without you needing to walk through every other room first (a full page reload).</p>
+
+<h3>Step 3 - Simple version first</h3>
+<p>The instructions are explicit: at this stage, components only need images and text - no interactivity or advanced logic yet. That comes in Module 3 (project functionality).</p>
+
+<h3>Step 4 - Styling the homepage components</h3>
+<p>Apply the existing style guide CSS (font size, color, background, line-height, letter-spacing, Grid/Flex, display, border, border-radius) to whatever's newly built. The lesson flags this can genuinely take a few hours - it's not a quick pass.</p>
+
+<h3>Applied to Little Lemon</h3>
+<p>Most of the visual components already exist from earlier modules - what's actually new here is: installing react-router-dom, wrapping the whole app in a Router, converting the plain <code>&lt;a href&gt;</code> tags to <code>&lt;Link&gt;</code>, adding a <code>&lt;Routes&gt;</code> block, and building out the still-missing CustomersSay (testimonials) and BookingPage components.</p>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Revisiting React Components</title>
+</head>
+<body>
+<h1>Capstone Project - Adding Components</h1>
+<h2>Lesson: Revisiting React Basics - Components</h2>
+
+<p>This lesson moves into the next foundational piece: components. It draws on the earlier React Basics course, covering components, styling, data/state, events, navigation, updating, and assets - but the actual focus here is just components, in preparation for setting up Little Lemon's own component structure.</p>
+
+<h3>Class-based components (the pre-Hooks era)</h3>
+<pre><code class="language-jsx">class Greeting extends React.Component {
+  render() {
+    // class components needed a render() method that
+    // returns the JSX to display
+    return &lt;h1&gt;Hello, {this.props.name}&lt;/h1&gt;;
+  }
+}
+</code></pre>
+<p>Before Hooks existed, components with state had to be written as JavaScript classes - these were called "stateful" class components. Function-based components existed too, but back then they had no way to hold state at all - they were purely "stateless."</p>
+<p>Real-life example: a stateless functional component from that era was like a vending machine with no memory - you put in the same input, you always get the same output, with nothing remembered between uses.</p>
+
+<h3>Hooks changed everything</h3>
+<p>Hooks are functions that let a function component "hook into" React's state and lifecycle features - the things only class components could do before. This opened the door to building components as functions while still having state.</p>
+<p>Real-life example: Hooks are like giving that same vending machine a memory chip - now it can remember how many of an item are left, without needing to be rebuilt as a completely different kind of machine (a class).</p>
+
+<h3>Where things stand now</h3>
+<p>Class components aren't obsolete - React still supports them - but the trend has moved strongly toward function components. In modern React conversations, people often just say "components" without bothering to distinguish function vs. class, since function components have become the default assumption.</p>
+
+<h3>Two ways to write a function component</h3>
+<pre><code class="language-jsx">// ES5-style function declaration - still works, less common now
+function Greeting(props) {
+  return &lt;h1&gt;Hello, {props.name}&lt;/h1&gt;;
+}
+
+// ES6 const + arrow function - the more modern, common approach
+const Greeting = (props) => {
+  return &lt;h1&gt;Hello, {props.name}&lt;/h1&gt;;
+};
+</code></pre>
+<p>Real-life example: these are like two different but equally valid ways of writing the same instruction on a form - one written out formally, one shorthand - the end result is identical, just a stylistic choice.</p>
+
+<h3>Components as "vehicles" for data</h3>
+<p>Components carry around data and state; events influence how those components render in the browser. This lesson isn't focused on state/events directly, though - it's specifically about components themselves, in preparation for setting up the Little Lemon app's component structure.</p>
+</body>
+</html>

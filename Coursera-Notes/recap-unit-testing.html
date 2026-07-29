@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Recap: Unit Testing</title>
+</head>
+<body>
+<h1>Capstone Project - Reserve a Table Functionality</h1>
+<h2>Reading: Recap - Unit Testing</h2>
+
+<p>Manual testing (clicking through the app in a browser to check everything by hand) is slow and error-prone. Unit testing, automated testing, and integration testing are the usual alternatives - this reading focuses on unit testing specifically.</p>
+
+<h3>What unit testing actually tests</h3>
+<p>Unit testing focuses on individual units of code - in a React app, that usually means testing one component at a time in isolation.</p>
+<p>Real-life example: unit testing a single component is like a chef tasting one sauce on its own before plating the whole dish - checking that this one piece works correctly by itself, before worrying about how it combines with everything else.</p>
+
+<h3>A simple counter component</h3>
+<pre><code class="language-jsx">function App() {
+  const [count, setCount] = useState(0);
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;{count}&lt;/p&gt;
+      &lt;button onClick={() => setCount(count + 1)}&gt;Increment&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+
+<h3>Writing the test (App.test.js)</h3>
+<pre><code class="language-jsx">import { render, screen, fireEvent } from '@testing-library/react';
+import App from './App';
+
+test('increments count on button click', () => {
+  render(&lt;App /&gt;);
+  // renders the component into a virtual DOM for testing, without
+  // needing an actual browser open
+
+  const button = screen.getByText('Increment');
+  // finds the button the same way a real user would - by its
+  // visible text, not by some internal implementation detail
+
+  fireEvent.click(button);
+  // simulates an actual click event, same as a user clicking it
+
+  expect(screen.getByText('1')).toBeInTheDocument();
+  // checks that "1" now appears on the screen after the click
+});
+</code></pre>
+<p>Real-life example: <code>fireEvent.click</code> is like a mystery shopper actually pressing a button in a store, rather than an inspector opening up the till and checking the wiring directly - the test behaves like a real user would, not like it's peeking at internals.</p>
+
+<h3>Running tests</h3>
+<pre><code class="language-bash">npm test
+# or
+npm run test
+# both commands do the same thing - watches for file changes and
+# re-runs relevant tests automatically
+</code></pre>
+
+<h3>Best practices</h3>
+<ul>
+<li>Avoid testing implementation details - test what the user sees/does, not internal variable names or state structure</li>
+<li>Work with DOM nodes - query by what's visibly rendered (text, labels, roles), not by digging into component internals</li>
+<li>Resemble software usage - write tests the way a real user would interact with the app</li>
+<li>Keep maintainability in mind - tests that break on every small refactor become a burden rather than a safety net</li>
+</ul>
+<p>Real-life example: "avoid implementation details" is like a driving test checking whether you can actually drive safely, not whether you know the exact wiring diagram of the car's engine - what matters is the behavior that's visible and real, not the internals underneath.</p>
+
+<h3>Further reading (linked in the course)</h3>
+<ul>
+<li>Why React Testing Library</li>
+<li>Writing the first test for your form</li>
+</ul>
+
+<h3>Next step</h3>
+<p>With this recap done, the next exercise is adding actual unit tests to the Little Lemon project.</p>
+</body>
+</html>

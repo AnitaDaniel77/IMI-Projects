@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Recap: Forms in React</title>
+</head>
+<body>
+<h1>Capstone Project - Reserve a Table Functionality</h1>
+<h2>Reading: Recap - Forms</h2>
+
+<p>Forms behave differently from other DOM elements in React - regular HTML form elements keep their own internal state by default, which clashes with how React normally wants to manage things.</p>
+
+<h3>Preventing the default form behavior</h3>
+<pre><code class="language-jsx">function BookingForm() {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // stops the browser's default behavior of reloading the
+    // page on submit - without this, the form would navigate
+    // away and React would lose all its state instantly
+  };
+
+  return (
+    &lt;form onSubmit={handleSubmit}&gt;
+      &lt;input type="number" /&gt;
+      &lt;button type="submit"&gt;Book&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}
+</code></pre>
+<p>Real-life example: <code>preventDefault()</code> is like intercepting a letter before it gets mailed - the browser's default instinct is to "submit and reload," but this stops that instinct so you can decide what actually happens with the data instead.</p>
+
+<h3>Controlled components</h3>
+<pre><code class="language-jsx">function ControlledInput() {
+  const [guests, setGuests] = useState(1);
+
+  return (
+    &lt;input
+      type="number"
+      value={guests}
+      onChange={(e) => setGuests(e.target.value)}
+      // every keystroke updates state, and state is what's
+      // actually displayed - React owns the value entirely
+    /&gt;
+  );
+}
+</code></pre>
+<p>Real-life example: a controlled component is like a live order ticket at a restaurant kitchen - the second a customer changes their order, the ticket on the wall updates instantly. There's never a gap where the ticket and the actual order disagree.</p>
+
+<h3>Uncontrolled components</h3>
+<pre><code class="language-jsx">function UncontrolledInput() {
+  const guestsRef = useRef(null);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(guestsRef.current.value);
+    // reads the value directly from the DOM only at the
+    // moment it's needed - React isn't tracking it as state
+    // the whole time
+  };
+
+  return (
+    &lt;form onSubmit={handleSubmit}&gt;
+      &lt;input type="number" ref={guestsRef} /&gt;
+    &lt;/form&gt;
+  );
+}
+</code></pre>
+<p>Real-life example: an uncontrolled component is like a suggestion box - people write things down without anyone watching in real time, and you only check the box's contents when you actually open it. The information exists the whole time, just not tracked continuously.</p>
+
+<h3>Which to use</h3>
+<p>Uncontrolled components can help when integrating React with other front-end libraries that expect direct DOM access. That said, the official React docs recommend controlled components as the default approach most of the time.</p>
+
+<h3>Further reading (linked in the course)</h3>
+<ul>
+<li>What are controlled components?</li>
+<li>Controlled components vs. uncontrolled components</li>
+<li>Creating a form component in React</li>
+<li>Create a controlled form component</li>
+</ul>
+
+<h3>Next step</h3>
+<p>With forms recapped, the next exercise is defining the New Booking page for Little Lemon.</p>
+</body>
+</html>

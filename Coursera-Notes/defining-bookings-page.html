@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Exercise: Defining the Bookings Page</title>
+</head>
+<body>
+<h1>Capstone Project - Reserve a Table Functionality</h1>
+<h2>Exercise: Defining the Bookings Page</h2>
+
+<h3>Scenario</h3>
+<p>Right now visitors can't actually reserve a table - this exercise builds the real BookingForm as a controlled component, with Date, Time, Number of guests, Occasion, and a submit button.</p>
+
+<h3>Step 1 - Components and routes</h3>
+<p>Need a BookingPage (the page) that contains a BookingForm (the actual form) - plus confirming the nav and routes can actually reach it.</p>
+
+<h3>Step 2 - Form structure, HTML to JSX</h3>
+<pre><code class="language-jsx">&lt;label htmlFor="res-date"&gt;Choose date&lt;/label&gt;
+{/* htmlFor, not for - "for" is a reserved word in JavaScript,
+    so JSX renames the HTML attribute to avoid the clash */}
+&lt;input type="date" id="res-date" /&gt;
+{/* self-closing - JSX requires every tag to close itself or
+    have a matching closing tag, unlike loose HTML5 */}
+</code></pre>
+<p>Real-life example: <code>htmlFor</code> vs <code>for</code> is like a form that has two different words meaning the same thing depending on which office you're in - same intent, different accepted spelling depending on the "building" (HTML vs JSX) you're standing in.</p>
+
+<h3>Step 3 - Connecting state to the form</h3>
+<pre><code class="language-jsx">const [date, setDate] = useState('');
+// one state variable per field - each input becomes fully
+// "controlled" by pairing it with its own useState
+
+&lt;input
+  type="date"
+  value={date}
+  onChange={(e) => setDate(e.target.value)}
+  /* value ties the input to state; onChange updates state on
+     every keystroke/change - together these make it controlled */
+/&gt;
+</code></pre>
+<p>Real-life example: pairing <code>value</code> and <code>onChange</code> on one field is like a thermostat with both a display and a dial wired to the same number - turning the dial (onChange) updates what's shown (value), and nothing can get out of sync between them.</p>
+
+<h3>availableTimes as its own state</h3>
+<pre><code class="language-jsx">const [availableTimes, setAvailableTimes] = useState(['17:00', '18:00', '19:00', '20:00']);
+// stored as state (not a hardcoded array in the render) because
+// this list needs to change later once it's connected to
+// something dynamic - simply hardcoded for now
+
+&lt;select&gt;
+  {availableTimes.map((time) => (
+    &lt;option key={time} value={time}&gt;{time}&lt;/option&gt;
+    /* .map() turns the array into a list of JSX elements -
+       key={time} helps React track which option is which
+       when the list changes later */
+  ))}
+&lt;/select&gt;
+</code></pre>
+<p>Real-life example: keeping <code>availableTimes</code> in state now, even though it's just a fixed list today, is like leaving a parking space open before the delivery truck arrives - the structure is ready for something that will actually change later (an API response), instead of needing to be rebuilt from scratch when that day comes.</p>
+
+<h3>What's next</h3>
+<p>The lesson flags that this form is now ready to talk to an API eventually - and that the very next lesson covers "lifting state up," connecting this component's state to a wider part of the app rather than keeping it isolated.</p>
+</body>
+</html>

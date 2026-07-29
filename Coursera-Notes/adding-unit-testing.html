@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Exercise: Adding Unit Tests</title>
+</head>
+<body>
+<h1>Capstone Project - Reserve a Table Functionality</h1>
+<h2>Exercise: Testing BookingForm and the Reducer Functions</h2>
+
+<h3>Scenario</h3>
+<p>Two tests this time: one confirming static text renders correctly in BookingForm, and two confirming the reducer functions (initializeTimes, updateTimes) return what's expected.</p>
+
+<h3>Step 1 - Testing static text in BookingForm</h3>
+<pre><code class="language-jsx">import { render, screen } from '@testing-library/react';
+import BookingForm from './BookingForm';
+
+test('Renders the Choose date label', () => {
+  render(
+    &lt;BookingForm availableTimes={['17:00', '18:00']} dispatch={() => {}} /&gt;
+    // BookingForm now needs availableTimes and dispatch as props
+    // since state was lifted up to App - a dummy dispatch (does
+    // nothing) is enough here since this test isn't checking
+    // dispatch behavior
+  );
+
+  const labelElement = screen.getByText('Choose date');
+  // getByText looks for that exact visible text in the rendered
+  // output - this is testing what a REAL USER would see, not
+  // some internal variable name
+
+  expect(labelElement).toBeInTheDocument();
+});
+</code></pre>
+<p>Real-life example: this test is like checking a printed menu actually has "Choose date" written on it - it doesn't care how the kitchen prepares anything behind the scenes, just that the label a customer would read is genuinely there.</p>
+
+<h3>Step 2 - Testing initializeTimes</h3>
+<pre><code class="language-jsx">import { initializeTimes } from './App';
+// exporting these functions from App.js so the test file can
+// import and check them directly, separately from any component
+
+test('initializeTimes returns the correct starting times', () => {
+  const result = initializeTimes();
+  expect(result).toEqual(['17:00', '18:00', '19:00', '20:00', '21:00']);
+  // toEqual checks the ARRAY CONTENTS match, not that it's the
+  // exact same array reference in memory (that would be toBe)
+});
+</code></pre>
+
+<h3>Testing updateTimes</h3>
+<pre><code class="language-jsx">import { updateTimes } from './App';
+
+test('updateTimes returns the same state for now', () => {
+  const currentState = ['17:00', '18:00'];
+  const action = { type: 'date_change', date: '2026-08-01' };
+
+  const result = updateTimes(currentState, action);
+  expect(result).toEqual(currentState);
+  // confirms the placeholder behavior - since date-based logic
+  // isn't implemented yet, this test locks in "unchanged for now"
+  // as the correct current behavior
+});
+</code></pre>
+<p>Real-life example: testing the placeholder behavior now is like taking a "before" photo before renovating a room - later, when the real date-based logic is added, this test will need updating too, and having it in place means you'll know exactly when that change actually happens rather than it slipping by unnoticed.</p>
+
+<h3>Why this matters going forward</h3>
+<p>If either test fails unexpectedly later, it points directly at where something broke - rather than needing to manually click through the whole app trying to spot what changed.</p>
+</body>
+</html>

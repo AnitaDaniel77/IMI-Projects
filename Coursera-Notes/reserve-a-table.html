@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Module 3: Reserve a Table Functionality</title>
+</head>
+<body>
+<h1>Capstone Project - Project Functionality</h1>
+<h2>Lesson: Introducing the Reserve a Table Functionality</h2>
+
+<p>This lesson covers three React concepts needed to build the actual booking feature: state, forms, and unit tests.</p>
+
+<h3>Why state matters</h3>
+<p>Without state, components would just be a way to split one big HTML page into smaller, easier-to-read chunks - useful for organization, but with zero interactivity. State is what makes a component actually respond to what a user does, rather than just display fixed content. Components and state are described as "inextricably linked" in modern React - one without the other loses most of the point.</p>
+<p>Real-life example: a component without state is like a printed menu - readable, organized, but it can't change no matter what the customer does. State is what turns that menu into something a waiter can actually update in response to what's ordered.</p>
+
+<h3>The classic counter example</h3>
+<pre><code class="language-jsx">import { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  // count = the current value; setCount = the only way to change it
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;{count}&lt;/p&gt;
+      &lt;button onClick={() => setCount(count + 1)}&gt;+&lt;/button&gt;
+      {/* clicking calls setCount, which triggers a re-render
+          showing the new value */}
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<p>This simple example is used constantly in teaching because it touches rendering, the <code>useState</code> hook, and event handling all at once - the same three pieces needed for the actual booking form.</p>
+
+<h3>Controlled vs. uncontrolled form components</h3>
+<pre><code class="language-jsx">// Controlled: React's state IS the source of truth for the input's value
+function ControlledInput() {
+  const [name, setName] = useState('');
+  return (
+    &lt;input
+      value={name}
+      onChange={(e) => setName(e.target.value)}
+      /* every keystroke updates state, and state drives what's shown */
+    /&gt;
+  );
+}
+</code></pre>
+<pre><code class="language-jsx">// Uncontrolled: the DOM itself holds the value, React just reads it when needed
+import { useRef } from 'react';
+
+function UncontrolledInput() {
+  const inputRef = useRef(null);
+  // ref gives direct access to the actual DOM node, bypassing state
+
+  const handleSubmit = () => {
+    console.log(inputRef.current.value); // read the value only when needed
+  };
+
+  return &lt;input ref={inputRef} /&gt;;
+}
+</code></pre>
+<p>Real-life example: a controlled input is like a live scoreboard that updates the instant a point is scored - React's state and the display are always in sync. An uncontrolled input is like a tally sheet on a clipboard - the real record lives on the paper (the DOM) itself, and you only check it when you actually need the number.</p>
+
+<h3>Why unit tests matter here</h3>
+<p>The core questions this lesson raises: how do you know the app actually meets requirements, and how do you know new features haven't broken something that used to work? Unit tests are the answer to both - a way to verify behavior automatically, rather than manually re-checking everything by hand every time something changes.</p>
+
+<h3>A note on difficulty</h3>
+<p>The lesson explicitly flags that combining state, forms, and testing together isn't trivial, and recommends budgeting real time for it - plus revisiting earlier course material if needed.</p>
+</body>
+</html>

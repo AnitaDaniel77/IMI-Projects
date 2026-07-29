@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Recap: Querying APIs in React</title>
+</head>
+<body>
+<h1>Capstone Project - Reserve a Table Functionality</h1>
+<h2>Reading: Recap - Querying APIs in React</h2>
+
+<h3>What JSON actually is</h3>
+<p>JSON (JavaScript Object Notation) is a data interchange format and file extension - not unique to React at all. Any Node.js project has a <code>package.json</code>, and that file is a real, everyday example of JSON syntax already sitting in every project.</p>
+<p>Real-life example: JSON is like a shipping label format used across every courier company - it's not something React invented, it's just a common, agreed-upon way to package data so anything can read it, the same way a shipping label format works no matter which company printed it.</p>
+
+<h3>fetch() as a side effect</h3>
+<pre><code class="language-js">// A side effect = anything happening OUTSIDE React itself
+console.log('side effect');       // side effect
+document.title = 'New title';    // side effect
+fetch('https://api.example.com'); // side effect
+</code></pre>
+<p>Because <code>fetch()</code> reaches outside React's own rendering system to talk to a real server, it has to run inside <code>useEffect</code> - not directly in the component body.</p>
+<p>Real-life example: side effects are like a waiter stepping outside the restaurant to grab something from a delivery truck - it's necessary, but it's clearly a separate action from serving tables (rendering), which is why it needs its own designated moment (useEffect) rather than happening in the middle of everything else.</p>
+
+<h3>What to do once data arrives</h3>
+<pre><code class="language-jsx">useEffect(() => {
+  fetch('https://api.example.com/times')
+    .then((res) => res.json())
+    .then((data) => setAvailableTimes(data));
+    // 1. update state with the received data
+}, []);
+
+return (
+  &lt;select&gt;
+    {availableTimes.map((time) => (
+      &lt;option key={time}&gt;{time}&lt;/option&gt;
+      // 2. loop over the data (usually with .map()) to actually
+      //    render something from it
+    ))}
+  &lt;/select&gt;
+);
+</code></pre>
+<p><code>.map()</code> being the go-to looping tool is exactly why data arriving as an array of objects is so convenient - it's the shape <code>.map()</code> is built for.</p>
+
+<h3>A simpler local approach</h3>
+<pre><code class="language-js">// Instead of fetching from a real server while prototyping,
+// just define the data as a plain JS array and import it directly
+export const availableTimes = ['17:00', '18:00', '19:00', '20:00', '21:00'];
+</code></pre>
+<p>This is essentially what's already been done in this project so far - the hardcoded array in <code>initializeTimes()</code> is exactly this "simpler approach," standing in for a real API call during early development. No side effects, no useEffect needed, no network dependency - ideal for prototyping before the real API integration is built.</p>
+<p>Real-life example: this is like rehearsing a play with placeholder props before the real set pieces arrive - the actors (the rest of the app) get to practice their actual lines and blocking without needing the real, more complicated equipment to be ready yet.</p>
+
+<h3>Further reading (linked in the course)</h3>
+<ul>
+<li>What are the rules of hooks?</li>
+<li>What you need to know before fetching data</li>
+<li>Data fetching using hooks</li>
+<li>Fetching data - Putting it all together</li>
+</ul>
+
+<h3>Next step</h3>
+<p>With this recap done, the next exercise connects the Bookings page to actual live data.</p>
+</body>
+</html>

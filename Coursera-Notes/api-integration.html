@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Connecting the Booking Form to an API</title>
+</head>
+<body>
+<h1>Capstone Project - Reserve a Table Functionality</h1>
+<h2>Lesson: Sending Reservation Data to an API</h2>
+
+<p>This lesson covers sending the actual reservation data somewhere real, which means revisiting async JavaScript, promises, fetch, and the useEffect hook - all outside React itself, since React is just built on top of plain JavaScript.</p>
+
+<h3>How JavaScript actually handles async work</h3>
+<p>JavaScript itself is synchronous and single-threaded - it doesn't truly "handle" async operations on its own. Instead, it delegates work to browser APIs (also called web APIs) built into the browser, and picks the result back up once that work finishes.</p>
+<p>Real-life example: this is like a chef (JavaScript) who can only do one task at a time, but hands off the laundry to a separate laundry service (the browser API) instead of standing there waiting - the chef keeps cooking, and picks up the clean laundry whenever it's actually ready.</p>
+
+<h3>fetch and promises</h3>
+<pre><code class="language-js">fetch('https://api.example.com/times')
+  // fetch is a facade function - it LOOKS like a normal JS
+  // function call, but under the hood it's the browser's XHR
+  // API doing the actual work, not the JS engine itself
+  .then((response) => response.json())
+  // .then() only runs once the promise is FULFILLED - this
+  // step converts the raw response into usable JSON
+  .then((data) => console.log(data));
+  // this second .then() runs after the first, once JSON
+  // parsing is done, using the actual parsed data
+</code></pre>
+<p>A promise has exactly 3 possible states: pending (still waiting), fulfilled (succeeded), or rejected (failed). Chained <code>.then()</code> calls only run once the promise reaches "fulfilled."</p>
+<p>Real-life example: a promise is like a food delivery tracking number - "pending" while it's on the way, "fulfilled" once it actually arrives at your door, "rejected" if the order gets cancelled. You can't eat the food (run the <code>.then()</code> code) until delivery status says fulfilled.</p>
+
+<h3>Why fetching data needs useEffect</h3>
+<pre><code class="language-jsx">import { useEffect, useState } from 'react';
+
+function BookingForm() {
+  const [availableTimes, setAvailableTimes] = useState([]);
+
+  useEffect(() => {
+    // fetch() is a SIDE EFFECT - something happening outside of
+    // React's normal render process (talking to a real server).
+    // useEffect is React's designated place for side effects,
+    // separate from the actual rendering logic
+    fetch('https://api.example.com/times')
+      .then((response) => response.json())
+      .then((data) => setAvailableTimes(data));
+  }, []); // empty array = run this once, after the first render only
+
+  return (
+    &lt;select&gt;
+      {availableTimes.map((t) => &lt;option key={t}&gt;{t}&lt;/option&gt;)}
+    &lt;/select&gt;
+  );
+}
+</code></pre>
+<p>Real-life example: <code>useEffect</code> is like a note on a restaurant's kitchen door that says "after the dining room opens (renders), go check the delivery truck (fetch data)" - it's a clearly separated step, not mixed into the actual business of seating customers (rendering the UI).</p>
+
+<h3>What's still ahead in this lesson</h3>
+<ul>
+<li>Submitting form data TO an API (not just fetching FROM one)</li>
+<li>Writing unit tests specifically for the API-related code</li>
+<li>Committing progress with Git, as usual</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Recap: State in React</title>
+</head>
+<body>
+<h1>Capstone Project - Reserve a Table Functionality</h1>
+<h2>Reading: Recap - State in React</h2>
+
+<p>State is the foundation of making React apps interactive - same for the actual table booking feature. State is an object, controlled through the <code>useState</code> hook.</p>
+
+<h3>Object destructuring</h3>
+<pre><code class="language-jsx">import React, { useState } from "react";
+// pulling useState out of the React object directly, so you
+// can write useState() instead of React.useState() everywhere
+// else in the file
+</code></pre>
+<p>Real-life example: object destructuring is like being handed a toolbox and only taking out the screwdriver you actually need, instead of carrying the whole box around every time you want to use one tool.</p>
+
+<h3>Array destructuring of useState</h3>
+<pre><code class="language-jsx">const [tasks, setTasks] = useState();
+// useState always returns an array with exactly 2 items:
+// [currentValue, functionToUpdateIt] - you can name them
+// anything you want, since array destructuring goes by
+// POSITION, not by matching a specific key name
+</code></pre>
+<p>Real-life example: array destructuring is like unpacking a delivery box by position - "first item goes on the left shelf, second item goes on the right shelf" - regardless of what the items are labeled inside. Object destructuring, by contrast, is like a delivery where each item is labeled and you have to grab the one with the matching name.</p>
+
+<h3>Initial state as an array of objects</h3>
+<pre><code class="language-jsx">const [tasks, setTasks] = useState([
+  { id: 1, task: "Go shopping", done: true },
+  { id: 2, task: "Wash dishes", done: false },
+]);
+</code></pre>
+<p>An array of objects is convenient because it makes create/read/update/delete operations on individual items straightforward - and it's such a common pattern that many real APIs return data shaped exactly like this.</p>
+<p>Real-life example: this is like a restaurant's order board - each order is its own card (an object) with its own details, and all the cards together form one list (the array) that's easy to scan, add to, or cross items off of.</p>
+
+<h3>Passing state down as props</h3>
+<pre><code class="language-jsx">return (
+  &lt;TaskList tasks={tasks} /&gt;
+  // the tasks array (state) gets handed down to TaskList as
+  // a prop - TaskList itself never touches useState directly,
+  // it just receives the data and displays it
+);
+</code></pre>
+<p>Real-life example: this is like a manager (the parent component) handing a prepared report (state) to an assistant (the child component) to read out loud - the assistant doesn't write the report, just presents what was handed to them.</p>
+
+<h3>Further reading (linked in the course)</h3>
+<ul>
+<li>What is state</li>
+<li>Observing state</li>
+<li>Managing state</li>
+<li>Data Flow in React</li>
+<li>What you know about props and state</li>
+<li>Revising useState hook</li>
+<li>Working with complex data in useState</li>
+<li>Using the useState hook</li>
+</ul>
+
+<h3>Next step</h3>
+<p>With this recap done, the next exercise is Adding Table-Booking State - applying all of this directly to the Little Lemon reservation feature.</p>
+</body>
+</html>

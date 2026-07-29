@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Recap: React Basics</title>
+</head>
+<body>
+<h1>Capstone Project - Adding Components</h1>
+<h2>Reading: Recap - React Basics</h2>
+
+<h3>What is React?</h3>
+<p>React is a declarative, component-based JavaScript library for building user interfaces - built and composed component by component.</p>
+<p>Real-life example: composability is like building with toy blocks - complex structures come from combining simple, individual pieces, not from one giant single piece trying to do everything.</p>
+
+<h3>Naming components</h3>
+<pre><code class="language-jsx">function Header() {
+  // Capitalized name - this tells JSX "this is a custom
+  // component," not a plain HTML tag
+  return &lt;header&gt;Little Lemon&lt;/header&gt;;
+}
+</code></pre>
+<p>Capitalization is the actual mechanism JSX uses to tell components apart from regular HTML elements - lowercase means a built-in tag (like <code>&lt;div&gt;</code>), capitalized means a custom component.</p>
+
+<h3>Parent and child components</h3>
+<pre><code class="language-jsx">import Header from './Header';
+// App imports Header -> App is the "parent" here,
+// Header is the "child" once it's rendered inside App
+
+function App() {
+  return (
+    &lt;div&gt;
+      &lt;Header /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<p>Real-life example: parent/child here works like a restaurant's org chart - App is the manager who decides which staff (components) are on shift and in what order, but doesn't do their individual jobs itself.</p>
+
+<h3>Props vs. state</h3>
+<pre><code class="language-jsx">// Props: data passed IN from a parent - read-only from the
+// child's perspective, can't be changed by the child itself
+function Greeting(props) {
+  return &lt;p&gt;Hello, {props.name}&lt;/p&gt;;
+}
+
+// State: data that lives INSIDE a component, and that
+// component can change it itself
+import { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  return &lt;button onClick={() => setCount(count + 1)}&gt;{count}&lt;/button&gt;;
+}
+</code></pre>
+<p>Real-life example: props are like a delivery you receive from someone else - you can use it, but you don't get to alter what was sent. State is like your own notebook - it's yours, and you're the one allowed to write in it.</p>
+
+<h3>Event handlers - HTML vs. React syntax</h3>
+<pre><code class="language-html">&lt;!-- Plain HTML: lowercase, uses parentheses to call the function --&gt;
+&lt;button onclick="handleClick()"&gt;Click me&lt;/button&gt;
+</code></pre>
+<pre><code class="language-jsx">{/* React: camelCase, passes a reference to the function -
+     no parentheses, or it would call the function immediately
+     on render instead of waiting for the actual click */}
+&lt;button onClick={handleClick}&gt;Click me&lt;/button&gt;
+</code></pre>
+<p>Real-life example: the parentheses difference is like the difference between handing someone a phone number to call later versus dialing it yourself right now - <code>onClick={handleClick}</code> hands over the reference for React to call later, on click; <code>onClick={handleClick()}</code> would dial it immediately during render.</p>
+
+<h3>Further reading (linked in the course)</h3>
+<ul>
+<li>Creating React components</li>
+<li>Transpiling JSX</li>
+<li>Types of events</li>
+<li>Parent-child data flow</li>
+<li>What is state?</li>
+</ul>
+
+<h3>Next step</h3>
+<p>With this recap done, the next lesson item is the exercise: setting up components for the Little Lemon project.</p>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Recap: CSS Grids</title>
+</head>
+<body>
+<h1>Capstone Project - Setting up CSS Grid</h1>
+<h2>Reading: Recap - CSS Grids</h2>
+
+<p>This reading recaps CSS Grid before setting one up in the Little Lemon project. CSS Grid is a two-dimensional layout system, well-supported across browsers, and an alternative to Flexbox and tables. Columns are vertical tracks, rows are horizontal tracks.</p>
+
+<h3>Turning on Grid</h3>
+<pre><code class="language-css">.container {
+    display: grid; /* switches this element into Grid mode -
+                       its direct children become grid items */
+    grid-template-columns: 200px 200px 200px; /* 3 fixed-width
+                                                   columns */
+    grid-template-rows: 100px 100px; /* 2 fixed-height rows */
+}
+</code></pre>
+<p>Real-life example: <code>display: grid</code> is like flipping a light switch - it doesn't do anything by itself, but it turns on the wiring (rows and columns) that everything else in this lesson depends on.</p>
+
+<h3>The fraction unit (fr)</h3>
+<pre><code class="language-css">.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* 3 equal-width columns -
+                                            each gets 1 "share" of
+                                            the available space */
+}
+</code></pre>
+<p><code>fr</code> stands for fraction - a way to divide the grid proportionally rather than in fixed pixels. Fraction and pixel values can be mixed freely in the same grid:</p>
+<pre><code class="language-css">.container {
+    display: grid;
+    grid-template-columns: 200px 1fr 2fr; /* fixed sidebar, then
+                                              remaining space split
+                                              1:2 between the other
+                                              two columns */
+}
+</code></pre>
+<p>Real-life example: <code>fr</code> is like splitting a pizza by "shares" instead of exact centimeters - if one person gets 1 share and another gets 2, the second person's slice is always twice the first's, no matter how big the pizza is.</p>
+
+<h3>The repeat function</h3>
+<pre><code class="language-css">/* Without repeat() - repetitive */
+.container {
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+}
+
+/* With repeat() - same result, less typing */
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    /* first value = how many columns (3),
+       second value = width of each one (100px) */
+}
+</code></pre>
+<p>Real-life example: <code>repeat()</code> is like saying "set 3 places at the table, same plate each time" instead of describing each individual place setting one by one.</p>
+
+<h3>The minmax function</h3>
+<pre><code class="language-css">.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(150px, auto);
+    /* every row is at least 150px tall, but will grow taller
+       automatically if the content inside needs more room */
+}
+</code></pre>
+<p>Real-life example: <code>minmax(150px, auto)</code> is like a stretchy waistband - it holds a minimum size (150px) but expands automatically if there's more to fit, instead of clipping the content or leaving awkward empty space.</p>
+
+<h3>Further reading (linked in the course)</h3>
+<ul>
+<li>Grids and Flexbox cheat sheet</li>
+<li>Grid showcase</li>
+<li>Grid template

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Exercise: Styling Elements</title>
+</head>
+<body>
+<h1>Capstone Project - Styling Elements</h1>
+<h2>Exercise: Applying Visual Styles from the Figma Design</h2>
+
+<h3>Scenario</h3>
+<p>With the layout in place, this exercise is about the visual details - font sizes, spacing, line height, colors, backgrounds, borders - matching what was actually designed in Figma, not just structural positioning.</p>
+
+<h3>Design questions worth answering first</h3>
+<ul>
+<li>Common theme: Mediterranean restaurant - warm, earthy, food-forward</li>
+<li>Colors: already defined as CSS variables - green, yellow, peach, cream</li>
+<li>Font sizes: Markazi Text for display/headings (large, serif), Karla for body/nav (smaller, sans-serif)</li>
+<li>Border radius: rounded, not sharp - the Figma cards and images all use rounded corners (16px), not 0</li>
+<li>Shadows: the Figma design doesn't show drop shadows on cards - flat design with color/spacing doing the visual separation instead</li>
+</ul>
+
+<h3>Step 2 - Base heading, paragraph, and span styles</h3>
+<pre><code class="language-css">h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display); /* every heading defaults
+                                           to the display font,
+                                           not just specific ones */
+    margin: 0; /* removes the browser's default heading margin -
+                   spacing is controlled per-section instead */
+    color: var(--color-highlight-dark);
+}
+
+p {
+    font-family: var(--font-body);
+    line-height: 1.5; /* comfortable reading spacing between
+                          lines, applied everywhere by default */
+    color: var(--color-highlight-dark);
+}
+
+span {
+    font-family: inherit; /* spans take on whatever font their
+                              parent element already has, unless
+                              overridden - keeps inline text
+                              consistent with its surroundings */
+}
+</code></pre>
+<p>Real-life example: setting these at the element level (not a class) is like painting the walls of every room the same base color before adding individual furniture - it's the shared foundation everything else sits on top of.</p>
+
+<h3>Step 3 - Navigation elements</h3>
+<pre><code class="language-css">nav {
+    font-family: var(--font-body);
+}
+
+nav ul {
+    list-style: none; /* removes the default bullet points -
+                          browsers add these to every ul/li
+                          automatically */
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    display: inline-block; /* makes list items sit side by side
+                                instead of stacking vertically,
+                                which is the <li> default */
+}
+</code></pre>
+
+<h3>Step 4 - Images</h3>
+<pre><code class="language-css">img {
+    max-width: 100%; /* images never overflow their container,
+                          regardless of their original size */
+    display: block; /* removes the small gap browsers leave
+                         under inline images by default */
+    border-radius: 16px; /* matches the Figma design's rounded
+                              corners - nothing in this project
+                              uses sharp 0px corners */
+}
+</code></pre>
+<p>Real-life example: <code>max-width: 100%</code> on images is like framing a photo to fit the wall space you have, rather than hanging an oversized print that spills past the frame's edges.</p>
+
+<h3>Step 6 - Verify</h3>
+<ol>
+<li>Run <code>npm start</code></li>
+<li>Check headings, paragraphs, nav, and images all read correctly at desktop width</li>
+<li>Switch to responsive mode in DevTools and re-check at mobile width</li>
+</ol>
+
+<p><strong>Note from the lesson:</strong> this step often gets revisited repeatedly as the app develops further - it's not a one-time pass.</p>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Recap: Styling Elements</title>
+</head>
+<body>
+<h1>Capstone Project - Styling Elements</h1>
+<h2>Reading: Recap - Styling Elements</h2>
+
+<h3>Default CSS styling</h3>
+<p>Even with zero CSS written, a browser still displays HTML - it ships with pre-built styles for every single tag. Block elements like <code>&lt;h1&gt;</code>-<code>&lt;h6&gt;</code>, <code>&lt;p&gt;</code>, and <code>&lt;div&gt;</code> already come with <code>display: block</code> set by default. Nothing on a page appears with zero CSS - the browser is always applying something, even if it's invisible to you as the developer.</p>
+<p>Real-life example: this is like a rental apartment that comes with basic furniture already in it - even before you move anything in yourself, it's not an empty shell; there's a default layout the landlord (the browser) already set up.</p>
+
+<h3>Practical CSS styling - overriding the defaults</h3>
+<pre><code class="language-css">.container {
+    display: grid; /* no HTML element is display: grid by
+                       default - this line switches it on,
+                       overriding the browser's own default
+                       (which would otherwise be display: block
+                       for a div) */
+}
+</code></pre>
+<p>Writing your own CSS is really just overriding specific defaults, not building styling from nothing. You keep everything the browser already gives you, and only change what you actually need to.</p>
+
+<h3>CSS selectors - precision matters</h3>
+<pre><code class="language-css">/* Bad - targets EVERY div on the entire page */
+div {
+    display: grid;
+}
+</code></pre>
+<p>Real-life example: styling by element tag alone is like giving an instruction to "everyone wearing a shirt" when you only meant to talk to one specific person - it's technically true for them, but it also applies to everyone else in the room.</p>
+
+<pre><code class="language-css">/* Good - only targets divs with this specific class */
+.grid-container {
+    display: grid;
+}
+</code></pre>
+<pre><code class="language-html">&lt;div class="grid-container"&gt;
+  &lt;!-- only this div gets the grid styling --&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Real-life example: a class selector is like addressing a letter to a specific name instead of just "resident" - it reaches exactly who it's meant for, and nobody else.</p>
+
+<h3>Further reading (linked in the course)</h3>
+<ul>
+<li>Selecting and styling</li>
+<li>Alignment basics</li>
+<li>Box model introduction</li>
+</ul>
+
+<h3>Next step</h3>
+<p>With this recap done, the next lesson item is the exercise: actually styling elements.</p>
+</body>
+</html>

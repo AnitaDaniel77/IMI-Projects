@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Exercise: Setting up the CSS Layout</title>
+</head>
+<body>
+<h1>Capstone Project - Setting up the CSS Layout</h1>
+<h2>Exercise: Responsive CSS Grid/Flexbox Layout</h2>
+
+<h3>Scenario</h3>
+<p>Little Lemon visitors will view the site on everything from phones to desktops, so the layout needs to be responsive - not just built once for a laptop screen and left to break on smaller devices.</p>
+
+<h3>Step 1 - Decide Grid vs Flexbox per section</h3>
+<p>Not every section needs the same tool. The rule of thumb from the recap: Grid for two-dimensional layouts (rows AND columns together), Flexbox for one-dimensional ones (a single row or column that just needs to wrap or align).</p>
+<ul>
+<li>Hero, Specials cards, About section - already Grid, since these have real column structure</li>
+<li>Nav bar, Footer link groups - good Flexbox candidates, since they're really just a row of items that needs to align and wrap</li>
+</ul>
+
+<h3>Step 2 - Add responsive breakpoints</h3>
+<p>The part that was missing before: none of the existing CSS had a way to adapt when the screen gets narrower. A media query is the fix - it lets a rule apply only below a certain width.</p>
+<pre><code class="language-css">/* Default: desktop layout, 3 columns */
+.specials__cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+/* Tablet and below: drop to 2 columns */
+@media (max-width: 900px) {
+    .specials__cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile: stack into a single column */
+@media (max-width: 600px) {
+    .specials__cards {
+        grid-template-columns: 1fr;
+    }
+}
+</code></pre>
+<p>Real-life example: a media query is like a store rearranging its shelves for a smaller shop - the same products (content) get displayed, just in a layout that fits the space available.</p>
+
+<h3>Step 3 - Verify in the browser</h3>
+<ol>
+<li>Run <code>npm start</code></li>
+<li>Open <code>localhost:3000</code></li>
+<li>Open DevTools (F12), toggle the device toolbar (responsive mode), and drag through different widths</li>
+<li>Confirm nothing overlaps, text doesn't get cut off, and images scale down instead of overflowing</li>
+</ol>
+
+<h3>Applied to Little Lemon</h3>
+<p>Since the actual Little Lemon project already has Grid set up for hero/specials/about, this exercise is really about adding the missing breakpoints and converting the nav/footer to Flexbox, rather than starting from scratch.</p>
+</body>
+</html>

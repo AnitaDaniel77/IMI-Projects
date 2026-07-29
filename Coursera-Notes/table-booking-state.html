@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Exercise: Adding Table Booking State</title>
+</head>
+<body>
+<h1>Capstone Project - Reserve a Table Functionality</h1>
+<h2>Exercise: Lifting State Up + useReducer</h2>
+
+<h3>Scenario</h3>
+<p>The BookingForm currently manages its own state in isolation. For available times to actually respond to the selected date (and eventually be shared with other parts of the app), that state needs to live higher up, in a common parent component, and be passed down as props.</p>
+
+<h3>Step 1 - Lifting state up</h3>
+<p>The course example assumes BookingForm's parent is Main. In this project's actual structure, BookingForm lives inside BookingPage, and Main/BookingPage are separate route-level components under App - so the true common ancestor is App itself. Lifting state up always means moving it to the nearest shared parent, whatever that happens to be in your specific component tree - not necessarily "Main" by name.</p>
+<p>Real-life example: lifting state up is like moving a shared calendar from one person's desk drawer to the office notice board - anyone in the office (any component that needs it) can now see and update it, instead of only the one person whose drawer it was hidden in.</p>
+
+<h3>Step 2 - useReducer instead of useState</h3>
+<pre><code class="language-jsx">function updateTimes(state, action) {
+  // reducers always take the CURRENT state plus an action
+  // describing what happened, and return the NEW state
+  switch (action.type) {
+    case 'date_change':
+      return state; // for now, always return the same list -
+                     // real date-based logic comes later
+    default:
+      return state;
+  }
+}
+
+function initializeTimes() {
+  // runs once, on first render, to set up the starting state
+  return ['17:00', '18:00', '19:00', '20:00', '21:00'];
+}
+
+const [availableTimes, dispatch] = useReducer(updateTimes, undefined, initializeTimes);
+// 3 arguments: the reducer function, an initial arg (undefined
+// here since initializeTimes doesn't need input), and the
+// initializer function that builds the real starting state
+</code></pre>
+<p>Real-life example: a reducer is like a restaurant's official request form - instead of just changing something directly, every request goes through one specific process ("what type of change is this, and what data comes with it?") so there's a single, predictable place where all state changes get decided, no matter how many different parts of the app trigger them.</p>
+
+<h3>Dispatching from BookingForm</h3>
+<pre><code class="language-jsx">&lt;input
+  type="date"
+  value={date}
+  onChange={(e) => {
+    setDate(e.target.value);
+    dispatch({ type: 'date_change', date: e.target.value });
+    // sends both WHAT happened (date_change) and the actual
+    // new value along with it, so the reducer has what it
+    // needs to eventually recalculate available times
+  }}
+/&gt;
+</code></pre>
+<p>Real-life example: dispatching an action is like submitting a specific form at a government office rather than just shouting a request across the room - the form has a clear type and the relevant details attached, so whoever processes it (the reducer) knows exactly what to do with it.</p>
+
+<h3>What's still a placeholder</h3>
+<p>The reducer's <code>date_change</code> case just returns the same list for now - actually varying available times by date is explicitly out of scope for this exercise, left for later.</p>
+
+<h3>A note on scale</h3>
+<p>The lesson flags that more robust state management (like Redux or Zustand) would be preferred for larger, more complex apps - useReducer here is appropriate specifically because this capstone project is relatively simple.</p>
+</body>
+</html>

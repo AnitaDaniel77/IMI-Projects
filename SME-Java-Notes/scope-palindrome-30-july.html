@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SME Session Notes - Java Syntax, Scope, and Palindrome Check</title>
+</head>
+<body>
+<h1>SME Session Notes - E12 Java</h1>
+<p><strong>Date:</strong> 30 July 2026</p>
+<p><strong>Facilitator:</strong> Hilbert Muchatibaya</p>
+<p><strong>Topic:</strong> Java Syntax, Scope, and the Palindrome Check Exercise</p>
+<p><strong>Attendees included:</strong> Hilbert Muchatibaya, Zubaida Khan, Kayleigh Pepper, Mia Mzimela, Aridivhaho Nemadodzi, Wesley Henry, Claudelle Francis, Siyasanga Blayi, Chuma Gqodi, Odirile Motshwaedi, Tshepo Sekobile, Nolwazi Mrobongwane, Tshifhiwa Makherana, Anita Daniel + others (20-21 total)</p>
+
+<h2>1. Java follows strict grammar rules</h2>
+<pre><code class="language-java">class Greeting {
+    public static void main(String[] args) {
+        System.out.println("Hello, Java!");
+    }
+}
+</code></pre>
+<ul>
+<li>Think of syntax as language grammar</li>
+<li>Classes are like book chapters</li>
+<li>Braces {} group related instructions</li>
+<li>Semicolons act like periods in sentences</li>
+</ul>
+<p>Real-life example: every brace, semicolon, and keyword has a job - get the grammar wrong and Java simply won't understand you, the same way a missing full stop can make a sentence confusing.</p>
+
+<h2>2. Printing - System.out.println</h2>
+<pre><code class="language-java">System.out.println("Hello, Java!");
+</code></pre>
+<ul>
+<li>Think of it as a megaphone for your code</li>
+<li>System.out.println is the megaphone</li>
+<li>Code runs exactly as written - the computer follows your instructions literally</li>
+<li>Text must be inside double quotes</li>
+</ul>
+
+<h2>3. Comments are notes</h2>
+<pre><code class="language-java">// This prints a greeting
+System.out.println("Hello!");
+
+/*
+  This block explains
+  the code below in detail.
+*/
+System.out.println("Done.");
+</code></pre>
+<ul>
+<li>Like sticky notes in a recipe - Java ignores these during execution</li>
+<li>// for single-line notes</li>
+<li>/* */ for longer explanations</li>
+</ul>
+<p><strong>Tip for reading code:</strong> when you open an unfamiliar file, read the comments first before the code itself - a good comment tells you what a block is trying to do, so you can then check whether the code actually does that, rather than reverse-engineering intent from raw logic alone.</p>
+
+<h2>4. Variables are labeled</h2>
+<pre><code class="language-java">type name = value;
+
+int age = 25;
+String name = "Sam";
+double price = 9.99;
+</code></pre>
+<ul>
+<li>Give data a name to remember</li>
+<li>Think of them as labeled jars</li>
+<li>Declare the type, then the name</li>
+<li>Assign values using the equals sign</li>
+</ul>
+
+<h2>5. Live coding - exploring variable scope</h2>
+<p>First version - a global (class-level) variable read from inside a method:</p>
+<pre><code class="language-java">public class App {
+    private static int session_id = 3;
+    // "static" here = belongs to the class itself, not one
+    // specific object - this is why every method in the class
+    // can reach it without creating anything first
+
+    public static void main(String[] args) throws Exception {
+        CheckGlobal();
+    }
+
+    private static void CheckGlobal() {
+        System.out.println(session_id);
+        // reads session_id even though it was never passed in -
+        // this works because session_id is declared OUTSIDE any
+        // method, at class level, making it globally reachable
+        // from anywhere inside this class
+    }
+}
+</code></pre>
+<p>Real-life example: a global/class-level variable is like a notice board pinned up in a shared office - anyone in that office (any method in the class) can walk up and read it without someone having to hand them a copy directly.</p>
+<p>Hilbert's explanation, paraphrased: global scope means a variable can be accessed from anywhere within that class. He demonstrated that trying to re-declare a variable with the same name inside a smaller/inner scope (like inside an if block) when one with that name already exists at the outer scope causes a conflict - Java won't let you shadow it that way in the same block.</p>
+<p><strong>Tip for reading scope bugs:</strong> when you see "variable already defined" or similar errors, draw the braces { } on paper as nested boxes. Whichever box a variable is declared in, it's visible in that box and every box drawn inside it - but not outside it. This one visual trick solves most scope confusion.</p>
+
+<h2>6. Passing an object instead of relying on class-level state</h2>
+<pre><code class="language-java">var person = new Person(name: "Hilbert", Roles.LECTURER);
+person.updateRole(Roles.STUDENT);
+CheckGlobal(person);
+// person is now passed IN as a parameter, rather than
+// CheckGlobal reaching out to a class-level variable itself
+
+private static void CheckGlobal(Person person) {
+    System.out.println(person.getName() + person.getRole());
+}
+</code></pre>
+<p>This threw a real compile error in the session: <code>Type mismatch: cannot convert from Enum to String</code> - happened because updateRole expected an Enum (Roles) parameter, but somewhere in the call a String was passed instead.</p>
+<p>Real-life example: passing the object in as a parameter is like handing someone the actual notice directly, instead of telling them "go check the board" - more explicit, and it's now clear exactly what data the method is working with.</p>
+<p><strong>Tip for reading type-mismatch errors:</strong> these almost always tell you two things directly in the error text - what type was expected, and what type was actually given. Read those two words first before reading anything else in the stack trace; the fix is usually just making the two sides match.</p>
+
+<h2>7. While loop - counting</h2>
+<pre><code class="language-java">int count = 0;
+while (count <= 5) {
+    System.out.println(count);
+    count++;
+}
+</code></pre>
+<p>Output: 0 1 2 3 4 5</p>
+<p><strong>Pseudocode:</strong></p>
+<pre><code class="language-text">set count to 0
+WHILE count is less than or equal to 5:
+    print count
+    increase count by 1
+</code></pre>
+<p>Real-life example: a while loop is like a security guard doing rounds - "keep checking the door, and as long as the condition holds (still my shift), keep doing the round" - the loop only stops once the condition becomes false.</p>
+<p><strong>Tip for reading loops:</strong> trace it by hand with a small table - one column for the variable, one row per pass through the loop. Write down count's value before and after each line runs. This catches off-by-one errors (like &lt;= vs &lt;) faster than just reading the code silently.</p>
+
+<h2>8. The Palindrome Check exercise - built up in stages</h2>
+<p>A palindrome reads the same forwards and backwards (example given: "LEVEL" - L E V E L, length 5).</p>
+
+<h3>Stage 1 - stub, always returns true (placeholder)</h3>
+<pre><code class="language-java">private static boolean IsPalindrome(String text) {
+    int right = 0;
+    int left = text.length() - 1;
+    return true; // placeholder - real logic not written yet
+}
+</code></pre>
+
+<h3>Stage 2 - attempted comparison, incomplete</h3>
+<pre><code class="language-java">private static boolean IsPalindrome(String text) {
+    int left = 0;
+    int right = text.length() - 1;
+    var textToLower = text.toLowerCase();
+    text.equalsIgnoreCase(anotherString: text);
+    // this line doesn't actually do the comparison needed -
+    // equalsIgnoreCase checks if two WHOLE strings match,
+    // not whether a string reads the same backwards
+
+    while (right > left) {
+        // loop body still empty at this point in the session
+    }
+}
+</code></pre>
+
+<h3>Final working version</h3>
+<pre><code class="language-java">private static boolean IsPalindrome(String s) {
+    s = s.toLowerCase();
+    // normalizes case first, so "Level" and "level" are
+    // treated as equivalent
+
+    int i = 0, j = s.length() - 1;
+    // i = left pointer, starts at the beginning
+    // j = right pointer, starts at the end
+
+    while (i < j) {
+        if (s.charAt(i) != s.charAt(j)) {
+            return false; // mismatch found - definitely not a palindrome
+        }
+        i++; // move left pointer inward
+        j--; // move right pointer inward
+    }
+    return true; // pointers met/crossed with no mismatches found
+}
+</code></pre>
+
+<p><strong>Pseudocode (as written live in the session):</strong></p>
+<pre><code class="language-text">When you receive a string of length n:
+1. Create a left pointer that points at the beginning
+2. Point at the end of the string (right pointer)
+3. If the left character is not equal to the right character, return false
+4. Else continue checking the next pair:
+   increment left, decrement right, continue
+</code></pre>
+<p>Real-life example: the two-pointer technique is like two people starting at opposite ends of a line of people and walking toward each other, checking that each pair they pass matches - if any pair on the way doesn't match, the whole line isn't symmetric, and you can stop immediately without checking the rest.</p>
+<p><strong>Tip for understanding two-pointer problems generally:</strong> before writing any code, draw the string out with index numbers underneath each character, then physically mark where i and j start and which direction each one moves. This makes it obvious when the loop should stop (i &lt; j) and prevents the classic off-by-one mistake of using i &lt;= j or forgetting to move both pointers each iteration.</p>
+
+<h2>9. Chat highlights</h2>
+<ul>
+<li>Zubaida asked about the difference between the print-outs during the debugging back-and-forth</li>
+<li>Athenkosi mentioned losing track of a question she'd been holding onto - Hilbert responded with a link to a two-pointer technique article on GeeksforGeeks</li>
+<li>Anita's comment on her own code comments being "diabolical" but still helpful for remembering her own logic - a good real-world example of comments serving the author, not just other readers</li>
+</ul>
+
+<h2>10. Debug session and timing</h2>
+<p>A debug run was shown taking noticeably longer ("took 2m 25s") compared to normal runs ("took 18s", "took 22s") - worth remembering that debug mode (with breakpoints and stepping) is inherently slower than a plain run, since the JVM is pausing execution at each breakpoint rather than running straight through.</p>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Recap: UX/UI Usability Evaluation</title>
+</head>
+<body>
+<h1>Capstone Project - Reserve a Table Functionality</h1>
+<h2>Reading: Recap - UX and UI Usability Evaluation</h2>
+
+<h3>What heuristics actually are</h3>
+<p>Heuristics are rules/benchmarks for measuring usability - not rigid guarantees of success, since UX design has no foolproof formula. They're most useful as a way to evaluate a design BEFORE real user testing, and become even more powerful when combined with actual usability testing afterward.</p>
+<p>Real-life example: heuristics are like a pre-flight checklist a pilot runs through - it doesn't guarantee a perfect flight, but it catches the common, predictable problems before they become real ones, and works best alongside the pilot's own judgment in the moment (equivalent to real user testing).</p>
+
+<h3>Three major frameworks referenced</h3>
+
+<h4>Dieter Rams - 10 Principles of Good Design</h4>
+<p>German industrial designer who led product design at Braun. Created roughly 50 years ago, sometimes called "the ten commandments" of design, and still referenced today - a sign the underlying ideas weren't tied to any particular era of technology.</p>
+
+<h4>Ben Shneiderman - 8 Golden Rules of Interface Design</h4>
+<p>Computer science researcher at the University of Maryland's Human-Computer Interaction Lab. Known for direct manipulation of interfaces as a concept, alongside the 8 golden rules themselves.</p>
+
+<h4>Jakob Nielsen - 10 Usability Heuristics</h4>
+<p>Co-founder of the Nielsen Norman Group (with Don Norman, former VP of research at Apple). Developed with Rolf Molich in 1990, and described as probably the most widely used usability heuristics for UI design specifically - the most relevant of the three for evaluating a web app's actual interface.</p>
+
+<h3>Applying this to Little Lemon</h3>
+<p>Nielsen's heuristics are the most directly applicable framework for a web app like the reservation system - things like visibility of system status (does the user know their booking succeeded?), error prevention (the validation work already done), and consistency (the same nav/button styling across every page) all map onto heuristics from his list.</p>
+
+<h3>Pseudocode for a heuristic self-evaluation</h3>
+<pre><code class="language-text">FOR each screen in the app (homepage, booking form, confirmation page):
+    walk through Nielsen's 10 heuristics one at a time
+    FOR each heuristic:
+        does this screen clearly satisfy it? note yes/no/partial
+        IF partial or no:
+            write down specifically what's missing
+</code></pre>
+<p><strong>Tip for doing this properly:</strong> evaluate one heuristic across the WHOLE app before moving to the next one, rather than one screen against all 10 heuristics at once - it's much easier to spot an inconsistency (like error messages appearing everywhere except one page) when you're focused on a single principle at a time.</p>
+
+<h3>Further reading (linked in the course)</h3>
+<ul>
+<li>Evaluation cheat sheets (Dieter Rams' 10 principles, Shneiderman's 8 golden rules, Nielsen's 10 heuristics)</li>
+</ul>
+
+<h3>Next step</h3>
+<p>With this recap done, the next exercise applies a heuristic evaluation directly to the Little Lemon reserve-a-table interface.</p>
+</body>
+</html>

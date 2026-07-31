@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Exercise: Evaluating and Revising the UX</title>
+</head>
+<body>
+<h1>Capstone Project - Reserve a Table Functionality</h1>
+<h2>Exercise: Heuristic Evaluation Using Nielsen's 10 Heuristics</h2>
+
+<h3>Scenario</h3>
+<p>An abridged heuristic evaluation of the actual Little Lemon reserve-a-table app, using Nielsen's 10 usability heuristics. The goal isn't a precise diagnosis - it's spotting where users might struggle to find information, complete tasks, or use the site effectively.</p>
+
+<h3>Step 1 - Template 1: usability problems + severity</h3>
+<p>Severity scale:</p>
+<ul>
+<li><strong>S0</strong> - violates a heuristic, but not really a usability issue</li>
+<li><strong>S1</strong> - cosmetic, easily overcome, low priority</li>
+<li><strong>S2</strong> - minor, more frequent/harder to overcome, low priority</li>
+<li><strong>S3</strong> - major, frequent and persistent, high priority to fix</li>
+<li><strong>S4</strong> - catastrophic, blocks use entirely, must fix before release</li>
+</ul>
+
+<h3>Step 2 - Template 2: same heuristics, easy-to-fix rating</h3>
+<ul>
+<li><strong>E0</strong> - maximum effort, needs more investigation</li>
+<li><strong>E1</strong> - considerable effort, but solution is understood</li>
+<li><strong>E2</strong> - concentrated effort, solution is understood</li>
+<li><strong>E3</strong> - easy, single developer, minor effort</li>
+<li><strong>E4</strong> - trivial to implement</li>
+</ul>
+
+<h3>Pseudocode for running this evaluation properly</h3>
+<pre><code class="language-text">FOR each of Nielsen's 10 heuristics:
+    walk through EVERY screen of the app with that ONE heuristic in mind
+    IF a violation is found:
+        write down the specific problem (not just "fails heuristic X")
+        assign a severity rating (S0-S4)
+        assign an easy-to-fix rating (E0-E4)
+</code></pre>
+<p><strong>Tip:</strong> a good usability problem description names the exact screen, the exact action, and what a user would actually experience - "the submit button is disabled with no visible reason why" is useful; "form has issues" is not specific enough to act on.</p>
+</body>
+</html>

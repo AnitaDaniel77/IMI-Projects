@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Exercise: Unit Tests for Form Validation</title>
+</head>
+<body>
+<h1>Capstone Project - Reserve a Table Functionality</h1>
+<h2>Exercise: Testing Validation and Submission</h2>
+
+<h3>Scenario</h3>
+<p>Tests written now protect against regressions later - if someone accidentally removes the <code>min="1"</code> on guests, or breaks the <code>isFormValid</code> logic while adding a new feature, a test should catch it immediately rather than the bug reaching a real user.</p>
+
+<h3>Step 1 - Testing that HTML5 attributes are actually present</h3>
+<pre><code class="language-jsx">import { render, screen } from '@testing-library/react';
+import BookingForm from './BookingForm';
+
+const defaultProps = {
+  availableTimes: ['17:00', '18:00'],
+  dispatch: () =&gt; {},
+  addBooking: () =&gt; {},
+  submitForm: () =&gt; {},
+};
+
+test('guests input has correct min/max/required attributes', () =&gt; {
+  render(&lt;BookingForm {...defaultProps} /&gt;);
+
+  const guestsInput = screen.getByLabelText('Number of guests');
+  // getByLabelText finds the input connected to that &lt;label&gt;
+  // via htmlFor - the same way a real user would locate it
+  // by reading the label, not by digging into markup structure
+
+  expect(guestsInput).toHaveAttribute('min', '1');
+  expect(guestsInput).toHaveAttribute('max', '10');
+  expect(guestsInput).toBeRequired();
+});
+
+test('date input has a min attribute set to today or later', () =&gt; {
+  render(&lt;BookingForm {...defaultProps} /&gt;);
+  const dateInput = screen.getByLabelText('Choose date');
+  expect(dateInput).toBeRequired();
+  expect(dateInput).toHaveAttribute('min');
+  // just confirms the attribute EXISTS - checking the exact
+  // date value would make the test fail every day it runs,
+  // since "today" changes daily
+});
+</code></pre>
+<p>Real-life example: testing that an attribute exists (rather than its exact value, where that value changes daily) is like checking a shop actually has a "closed after 9pm" sign up, without needing to verify the sign says the literal current date - the rule matters, not the day it happens to be checked.</p>
+
+<h3>Step 2 - Testing both valid AND invalid states</h3>
+<pre><code class="language-jsx">import { render, screen, fireEvent } from '@testing-library/react';
+
+test('submit button is disabled when guests is out of range', () =&gt; {
+  render(&lt;BookingForm {...defaultProps} /&gt;);
+
+  const guestsInput = screen.getByLabelText('Number of guests');
+  fireEvent.change(guestsInput, { target: { value: '15' } });
+  // simulates a real user typing 15 into the field
+
+  const submitButton = screen.getByText('Submit reservation');
+  expect(submitButton).toBeDisabled();
+  // INVALID state - confirms the button correctly blocks
+  // an out-of-range guest count
+});
+
+test('submit button is enabled when all fields are valid', () =&gt; {
+  render(&lt;BookingForm {...defaultProps} /&gt;);
+
+  const dateInput = screen.getByLabelText('Choose date');
+  const guestsInput = screen.getByLabelText('Number of guests');
+
+  fireEvent.change(dateInput, { target: { value: '2026-08-15' } });
+  fireEvent.change(guestsInput, { target: { value: '4' } });
+
+  const submitButton = screen.getByText('Submit reservation');
+  expect(submitButton).not.toBeDisabled();
+  // VALID state - confirms the button correctly allows
+  // submission once everything checks out
+});
+</code></pre>
+<p><strong>Tip for understanding why both tests matter:</strong> a test that only checks the "happy path" (valid data) can pass even if the validation logic is completely broken and lets EVERYTHING through, invalid data included. Testing the invalid case specifically proves the validation is actually doing something, not just that the form works when given good data anyway.</p>
+<p>Real-life example: testing only the valid case is like a lock company only testing that the right key opens the door - you also need to test that the WRONG key fails to open it, otherwise you don't actually know if the lock does anything at all.</p>
+
+<h3>Pseudocode for the overall test coverage goal</h3>
+<pre><code class="language-text">FOR each input field:
+    TEST that its HTML5 validation attributes exist
+
+FOR the form as a whole:
+    TEST that invalid data -&gt; submit button stays disabled
+    TEST that valid data -&gt; submit button becomes enabled
+</code></pre>
+
+<h3>Step 3 - Running everything</h3>
+<pre><code class="language-bash">npm test
+</code></pre>
+<p>All tests (BookingForm rendering, App reducer functions, and the new validation tests) should pass together.</p>
+
+<h3>What's next</h3>
+<p>With functionality and tests complete, the next lesson shifts to evaluating the actual user experience - not just whether the code works, but whether it's genuinely usable.</p>
+</body>
+</html>

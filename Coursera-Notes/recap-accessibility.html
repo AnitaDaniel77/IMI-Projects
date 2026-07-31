@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Recap: Accessibility</title>
+</head>
+<body>
+<h1>Capstone Project - Reserve a Table Functionality</h1>
+<h2>Reading: Recap - Accessibility</h2>
+
+<h3>What web accessibility actually covers</h3>
+<p>Making websites usable for people with disabilities, impairments, or limits - blindness, poor vision, learning difficulties, cognitive impairments, deafness, hearing loss, speech impairments. This isn't optional in most developed countries - it's a legal requirement, not just good practice.</p>
+<p>Real-life example: accessibility is like a building having both stairs and a ramp - the ramp isn't a bonus feature, it's what makes the building actually usable for everyone who needs to get in.</p>
+
+<h3>The four WCAG principles (POUR)</h3>
+
+<h4>Perceivable</h4>
+<p>Content must be perceivable somehow - not necessarily seen with the eyes. Screen readers convert text to speech or braille for blind/low-vision users.</p>
+<pre><code class="language-jsx">&lt;img src={heroImage} alt="Little Lemon signature dish" /&gt;
+{/* alt text is what makes an image PERCEIVABLE to someone
+    using a screen reader - without it, the image is just
+    invisible to that user, not just unseen */}
+</code></pre>
+<p>Real-life example: alt text is like a museum audio guide describing a painting for a visitor who can't see it - the content still reaches them, just through a different channel.</p>
+
+<h4>Operable</h4>
+<p>Every feature must be usable by all - navigation, menu links, play/pause controls. Simple, uncluttered sites tend to be the most operable, since unnecessary complexity is what tends to block users with disabilities.</p>
+<pre><code class="language-jsx">&lt;button onClick={handleSubmit}&gt;Submit reservation&lt;/button&gt;
+{/* a real &lt;button&gt; is keyboard-operable by default (Tab
+    to focus, Enter/Space to activate) - a &lt;div onClick={...}&gt;
+    styled to look like a button is NOT keyboard-operable
+    unless extra work is done to make it so */}
+</code></pre>
+<p>Real-life example: operability is like a door that opens whether you push it, use a wheelchair-accessible button, or ask someone to hold it - multiple ways to achieve the same action, none of them blocked.</p>
+
+<h4>Understandable</h4>
+<p>Content and navigation should be clear and logically organized. Overly complex language restricts access for people with cognitive differences and non-native speakers alike. Navigation should stay consistent and accessible across pages.</p>
+<p>Real-life example: understandable design is like airport signage using simple icons and short words instead of dense paragraphs - clarity benefits literally everyone passing through, not just people who "need" the simpler version.</p>
+
+<h4>Robust</h4>
+<p>Content should work reliably across assistive technologies - a screen reader (or any other tool) should be able to parse and present it correctly, not just a typical browser.</p>
+<pre><code class="language-jsx">&lt;nav&gt;{/* semantic nav landmark - screen readers can jump
+         straight to "navigation" as a recognized region */}
+  &lt;ul&gt;
+    &lt;li&gt;&lt;Link to="/"&gt;Home&lt;/Link&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+</code></pre>
+<p>Real-life example: robustness is like a document that opens correctly whether it's read on a phone, a laptop, or converted to audio - the structure holds up regardless of what's reading it.</p>
+
+<h3>Pseudocode for an accessibility self-check</h3>
+<pre><code class="language-text">FOR each image on the page:
+    does it have meaningful alt text?
+
+FOR each interactive element (buttons, links, form fields):
+    can it be reached and activated using ONLY a keyboard?
+    does it have a visible focus state?
+
+FOR each form field:
+    is it properly linked to its label (htmlFor / id)?
+
+FOR the page overall:
+    is heading structure logical (h1 -&gt; h2 -&gt; h3, not skipped)?
+    does color alone convey any required information?
+</code></pre>
+<p><strong>Tip for applying this practically:</strong> the fastest real test isn't reading a checklist, it's literally unplugging your mouse and trying to use the whole booking flow with only Tab, Shift+Tab, Enter, and arrow keys. Anywhere you get stuck or lost is exactly where a keyboard-only or screen-reader user would get stuck too.</p>
+
+<h3>Why this matters beyond compliance</h3>
+<p>Beyond the legal requirement, strong accessibility

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Exercise: Adding Form Validation</title>
+</head>
+<body>
+<h1>Capstone Project - Reserve a Table Functionality</h1>
+<h2>Exercise: HTML5 and React Form Validation</h2>
+
+<h3>Scenario</h3>
+<p>With every feature built, this exercise adds a safety net: preventing invalid data from being submitted at all, both for the customer's experience and for the API's data integrity.</p>
+
+<h3>Step 1 - HTML5 validation attributes</h3>
+<pre><code class="language-jsx">&lt;input
+  type="date"
+  id="res-date"
+  required
+  /* required - browser blocks submission if this is empty,
+     no JavaScript needed for this check */
+  min={new Date().toISOString().split('T')[0]}
+  /* min - stops the browser's own date picker from allowing
+     a date before today */
+/&gt;
+
+&lt;input
+  type="number"
+  id="guests"
+  min="1"
+  max="10"
+  required
+  /* min/max here enforce the actual business rule directly -
+     the guest count literally cannot go below 1 or above 10
+     through the native input controls */
+/&gt;
+</code></pre>
+<p>Real-life example: HTML5 validation is like a form with a physically shaped slot - a coin slot literally can't accept a banknote, so some invalid inputs are prevented by the shape of the input itself before any "checking" even happens.</p>
+
+<h3>Pseudocode for the overall validation flow</h3>
+<pre><code class="language-text">ON every field change:
+    update that field's state
+    check if ALL required fields currently hold valid values
+    update a single "isFormValid" flag accordingly
+
+ON render:
+    disable the submit button IF isFormValid is false
+
+ON submit:
+    prevent default page reload
+    IF isFormValid is true:
+        call submitAPI with the form data
+</code></pre>
+
+<h3>Step 2 - React-level validation</h3>
+<pre><code class="language-jsx">const [guests, setGuests] = useState(1);
+const [isFormValid, setIsFormValid] = useState(true);
+
+const handleGuestsChange = (e) =&gt; {
+  const value = Number(e.target.value);
+  setGuests(value);
+  setIsFormValid(value &gt;= 1 &amp;&amp; value &lt;= 10 &amp;&amp; date !== '');
+  /* re-checks validity on every change, not just on submit -
+     this is what allows disabling the button live, rather
+     than only catching problems after the user tries to submit */
+};
+
+&lt;button type="submit" className="btn-primary" disabled={!isFormValid}&gt;
+  Submit reservation
+&lt;/button&gt;
+</code></pre>
+<p><strong>Tip for understanding this pattern:</strong> HTML5 attributes (like <code>required</code>, <code>min</code>, <code>max</code>) stop the browser's native submit behavior, but they don't control whether your own submit <em>button</em> is clickable - that's a separate, React-controlled state (<code>isFormValid</code>) that you calculate yourself. Both layers work together: HTML5 catches a raw form submission attempt, React controls the button's disabled state and can react instantly as the user types.</p>
+<p>Real-life example: disabling the button until the form is valid is like an elevator door that won't close until the weight sensor reads within a safe range - it's a physical prevention, not a warning shown after something already went wrong.</p>
+
+<h3>Step 3 - Verifying it works</h3>
+<p>Test both directions: confirm the submit button is genuinely disabled with invalid data (e.g. 0 guests, empty date), and confirm it becomes clickable and actually submits once every field holds a valid value.</p>
+</body>
+</html>

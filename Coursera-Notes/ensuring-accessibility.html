@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Course - Exercise: Ensuring Accessibility</title>
+</head>
+<body>
+<h1>Capstone Project - Reserve a Table Functionality</h1>
+<h2>Exercise: Semantic Markup, ARIA Attributes, and Form Labels</h2>
+
+<h3>Scenario</h3>
+<p>Three concrete accessibility improvements this time: reviewing semantic markup, adding ARIA attributes, and confirming form labels are properly linked to their inputs.</p>
+
+<h3>Step 1 - Semantic markup review</h3>
+<p>Since semantic HTML was already a focus back in Module 2 (nav, header, main, footer, article for cards), this step is largely already covered in the Little Lemon project - it's a check-back rather than new work.</p>
+
+<h3>Step 2 - ARIA attributes</h3>
+<pre><code class="language-jsx">&lt;button
+  className="btn-primary"
+  aria-label="On Click"
+  /* aria-* attributes use hyphen-case even in JSX, unlike
+     every other JSX prop which uses camelCase - this is a
+     deliberate exception, not an inconsistency to "fix" */
+&gt;
+  Reserve a Table
+&lt;/button&gt;
+</code></pre>
+<p>ARIA attributes give assistive technology extra context that plain HTML alone doesn't always convey - <code>aria-label</code> specifically overrides what a screen reader announces for an element, useful when the visible text alone isn't descriptive enough on its own.</p>
+<p>Real-life example: <code>aria-label</code> is like a museum placard next to an abstract sculpture - the object itself might not make its purpose obvious, so the label fills in the missing context directly for anyone who needs it.</p>
+
+<h3>Step 3 - Labeling forms correctly</h3>
+<pre><code class="language-jsx">&lt;label htmlFor="res-date"&gt;Choose date&lt;/label&gt;
+&lt;input type="date" id="res-date" /&gt;
+{/* htmlFor="res-date" matches id="res-date" exactly - this
+    pairing is what makes clicking the LABEL text focus the
+    INPUT automatically, not just visual proximity on the page */}
+</code></pre>
+<p><strong>Tip for checking this works:</strong> click directly on a form's label text (not the input itself) - if the cursor jumps into the input field, the label/id pairing is correct. If nothing happens, the <code>htmlFor</code> and <code>id</code> don't actually match.</p>
+<p>Real-life example: the label/id link is like a claim ticket matching a coat check tag - the two need the exact same number to connect properly, and if they don't match, you can't retrieve the right coat even though both objects exist.</p>
+
+<h3>Pseudocode for an accessibility pass</h3>
+<pre><code class="language-text">FOR each interactive element (buttons, links):
+    does its visible/accessible text clearly describe its action?
+    IF not, add aria-label with clearer wording
+
+FOR each form input:
+    confirm a &lt;label&gt; exists
+    confirm label's htmlFor EXACTLY matches the input's id
+
+FOR the page structure overall:
+    confirm nav, header, main, footer are used instead of generic divs
+</code></pre>
+
+<h3>Further reading</h3>
+<ul>
+<li>Web accessibility (Introduction to Front-End Development)</li>
+<li>Designing for accessibility (Principles of UX/UI Design)</li>
+<li>React docs - Accessibility page</li>
+</ul>
+</body>
+</html>

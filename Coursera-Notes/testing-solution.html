@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Coding Interview Preparation - Testing Your Solution</title>
+</head>
+<body>
+<h1>Coding Interview Preparation</h1>
+<h2>Reading: Testing Your Solution</h2>
+
+<p>Testing tends to get pushed to the end and cut when deadlines loom - Test Driven Development (TDD) exists specifically to avoid that pattern. Two contexts covered here: take-home assignments and live coding interviews.</p>
+
+<h3>Take-home assignment - more time, more test types available</h3>
+<ul>
+<li><strong>Integration tests</strong> - how different components interact with each other; external dependencies get simulated rather than using real instances. Broader/more global than unit tests, which check individual lines of code.</li>
+<li><strong>Functional tests</strong> - automated proof that the system behaves as expected, focused on capability.</li>
+<li><strong>Regression tests</strong> - confirm a new change hasn't broken existing, already-working code.</li>
+</ul>
+<p>Real-life example: integration tests are like checking that a car's engine, brakes, and steering all work together on a test drive, while unit tests are like checking each individual part (the brake pads, the spark plugs) in isolation on a bench first.</p>
+<p>How much testing actually fits depends on time available - a genuinely working application matters most, and thorough testing is what demonstrates real thoroughness on top of that.</p>
+
+<h3>Coding interview - unit testing specifically</h3>
+<p>There's no time to write a full test suite live in an interview, but incorporating unit tests where possible demonstrates real attention to detail and good practice - even a small amount is a meaningful signal.</p>
+<p>Unit tests check individual components work as expected, rather than the whole system's overall behavior.</p>
+
+<h3>Three things to actually consider when writing tests</h3>
+<ul>
+<li><strong>Readability</strong> - tests should be clear to other developers (and to yourself later) - a test with an obvious purpose helps pinpoint a problem quickly and effectively documents what a piece of code is supposed to do</li>
+<li><strong>Clear/deterministic outcomes</strong> - a test should return the same result every time given the same conditions; a test that only fails under some combination of conditions is much harder to debug</li>
+<li><strong>Automation potential</strong> - tests should be runnable quickly and repeatedly whenever code changes - this is the actual foundation CI/CD pipelines are built on</li>
+</ul>
+
+<h3>Worked example - a number-guessing game</h3>
+<pre><code class="language-text">Pseudocode:
+1. Generate a random number
+2. Take in user input, store in a variable
+3. Compare input with the answer
+4. Return the result
+</code></pre>
+<p>With only a few minutes left in an interview, the priority becomes the most basic tests: assert-based cases confirming that given input produces expected output. Most languages have a built-in or standard library for this.</p>
+<pre><code class="language-python">assert isinstance(user_input, int), "Input should be an integer"
+assert 1 <= user_input <= 100, "Input should be within the valid range"
+# checking the RANDOM NUMBER is valid matters just as much as
+# checking user input - a bug in generation is just as real a
+# bug as a bug in validation
+assert isinstance(random_number, int)
+assert 1 <= random_number <= 100
+</code></pre>
+<p><strong>Priority order under time pressure, in this example:</strong></p>
+<ol>
+<li>User input validation first - was something actually entered, is it the correct type, does it avoid crashing the program, is it within bounds</li>
+<li>Random number validation second - correct type, within acceptable range</li>
+<li>Conditional outcome checks last - confirming the right result fires when the comparison logic runs</li>
+</ol>
+<p>Real-life example: prioritizing input validation first is like checking a delivery address is even valid before worrying about how fast the delivery truck can drive - garbage input makes everything downstream meaningless, no matter how well the rest works.</p>
+
+<h3>Why this matters for how you're perceived</h3>
+<p>Writing tests is often marginalized in favor of just implementing the solution. The practical fix: write tests as you go, not after. Even quick unit tests under time pressure signal real thoroughness and can genuinely strengthen how a candidate is perceived in an interview.</p>
+</body>
+</html>

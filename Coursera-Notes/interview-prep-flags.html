@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Coding Interview Preparation - How to Approach the Technical Interview</title>
+</head>
+<body>
+<h1>Coding Interview Preparation</h1>
+<h2>How to Approach a Technical Interview</h2>
+
+<p>A technical interview usually comes after a screening call that already confirmed soft skills - communication, work ethic, and fit with company values. The technical interview specifically tests whether you can actually do the job.</p>
+
+<h3>Four-step framework</h3>
+<ol>
+<li>Prepare to succeed</li>
+<li>Solve the problem conceptually first</li>
+<li>Employ appropriate tools</li>
+<li>Optimize the solution</li>
+</ol>
+
+<h3>1. Prepare to succeed</h3>
+<p>The nerves ("what if my mind blanks?") are normal - preparation is the actual counter to that, not just confidence. "Failing to prepare is preparing to fail."</p>
+
+<h3>2. Solve the problem conceptually first</h3>
+<p>Before writing any code: get clear on exactly what's being asked. Asking clarifying questions upfront is expected and welcomed, not a weakness. If a whiteboard is available, use it to jot down the major points before outlining a solution.</p>
+<pre><code class="language-text">1. Restate the problem in your own words to confirm understanding
+2. Ask clarifying questions (edge cases? input size? expected format?)
+3. Write pseudocode for the approach BEFORE any real code
+4. Talk through the pseudocode out loud, explaining WHY this approach
+</code></pre>
+<p>Demonstrating reasoning is described as "halfway" to solving the problem - interviewers can teach someone to code, but problem-solving ability is what's actually being evaluated. Equating a new problem to one you already know (or a known technique, like divide and conquer) is explicitly encouraged as a strategy.</p>
+<p>Real-life example: solving conceptually first is like a builder reviewing blueprints before laying a single brick - skipping straight to construction on a misunderstood plan means expensive rework later, whereas five minutes of clarity up front saves the whole project.</p>
+
+<h3>3. Employ appropriate tools - the "count the socks" example</h3>
+<p>Given an array representing sock colors by number: <code>1,2,2,1,1,3,5,1,4,4</code> (1=yellow, 2=blue, 3=red, 4=green, 5=orange) - how many matching pairs exist?</p>
+<pre><code class="language-text">Count how many times each number appears:
+  1 appears 4 times -> 2 pairs of yellow
+  2 appears 2 times -> 1 pair of blue
+  3 appears 1 time  -> 1 odd red sock, no pair
+  4 appears 2 times -> 1 pair of green
+  5 appears 1 time  -> 1 odd orange sock, no pair
+</code></pre>
+<p>The suggested approach: use a dictionary (hash map) with sock color as the key and count as the value, then scan for any odd counts. Using an existing, well-known data structure rather than building a custom manual solution is the actual point being demonstrated - familiarity with standard tools, not cleverness for its own sake.</p>
+<p>Real-life example: reaching for a dictionary here is like using a proper filing cabinet instead of a pile of loose papers to count how many of each document type you have - the right existing tool for the job beats inventing your own system from scratch.</p>
+<p><strong>Tip:</strong> before an interview, review the standard data structures and common sorting/searching algorithms specifically so they're available to reach for quickly, rather than reinventing something under time pressure.</p>
+
+<h3>4. Optimize the solution</h3>
+<p>Optimizing means minimizing memory/disk usage and CPU time/bandwidth. Concrete steps:</p>
+<ul>
+<li>State the time and space complexity of your solution out loud, then look for ways to improve it</li>
+<li>Look for repeated/overlapping code and modularize it into a reusable function (the DRY principle - Don't Repeat Yourself)</li>
+<li>Remove dead code left over from an approach that didn't pan out</li>
+<li>Avoid excessive/unnecessary loop calls - e.g. return or break as soon as a target value is found, rather than continuing to loop needlessly</li>
+<li>Avoid creating more variables than actually needed, for space efficiency</li>
+</ul>
+<pre><code class="language-text">// Unoptimized - keeps looping even after finding the target
+for each item in array:
+    if item equals target:
+        found = true
+    // loop continues regardless
+
+// Optimized - stops immediately once found
+for each item in array:
+    if item equals target:
+        return true  // exits immediately, no wasted iterations
+</code></pre>
+<p>Real-life example: terminating a loop early once a value is found is like stopping a search through a filing cabinet the instant you find the document you need - continuing to check every remaining folder afterward wastes time for no benefit.</p>
+
+<h3>Overall mindset</h3>
+<p>Even without full familiarity with a specific problem, or without reaching a complete answer in time, always demonstrate reasoning and best practices. Practicing with a consistent methodology across many different problems builds a comfortable, repeatable framework to fall back on regardless of what's actually asked.</p>
+</body>
+</html>

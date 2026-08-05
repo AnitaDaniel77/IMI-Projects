@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Coding Interview Preparation - Binary Numbers and Positional Encoding</title>
+</head>
+<body>
+<h1>Coding Interview Preparation</h1>
+<h2>Binary Numbers: How Computers Represent Everything</h2>
+
+<h3>Base ten, as a starting point</h3>
+<p>Counting with 10 digits (0-9) is base ten - a natural result of having 10 fingers. Once the range 0-9 is exhausted, a new digit is added on the left and the right resets to zero. Using position to represent progressively larger values is called positional notation - a simple idea that lets a small set of symbols represent infinite values.</p>
+<p>Real-life example: positional notation is like an odometer in a car - each wheel only shows 0-9, but as one wheel rolls over, it nudges the next wheel left, and that simple rolling mechanism can represent numbers into the millions using just ten symbols repeated in position.</p>
+
+<h3>Binary - the same idea, base two</h3>
+<p>Binary uses only two digits, 0 and 1. A byte is 8 bits, each either 0 or 1. Counting works exactly like decimal, just with a much smaller "reset point":</p>
+<pre><code class="language-text">0
+1
+10   (reset the 1s place, add 1 to the next position)
+11
+100  (both positions reset, add 1 to the next position)
+101
+110
+111
+1000 (all three positions reset, add a new position)
+</code></pre>
+<p>Real-life example: binary counting is like a row of light switches instead of a dial with ten settings - each switch is just on or off, but flip enough switches in the right pattern and you can represent any number, the same way the odometer's ten-symbol wheels can.</p>
+
+<h3>Why binary specifically - it matches electricity</h3>
+<p>Binary is a natural fit for computing because electrical signals are naturally two-state: signal present = 1, signal absent = 0. This is also exactly how Boolean values work - 1 for true, 0 for false.</p>
+
+<h3>ASCII - mapping binary to text</h3>
+<p>ASCII (American Standard Code for Information Interchange) maps specific binary numbers to specific characters - letters, digits, punctuation, even the space bar each get their own reserved binary value.</p>
+<p>Real-life example: ASCII is like a codebook where "01000001" always means the letter A - without an agreed-upon shared codebook, one computer's 1s and 0s would be meaningless to another.</p>
+
+<h3>Counting how many values a set of bits can represent - exponentiation</h3>
+<pre><code class="language-text">2^3 = 2 x 2 x 2 = 8
+</code></pre>
+<p>Worked example given: a lock with 4 digits, each digit either 0 or 1 (a binary lock). How many possible combinations?</p>
+<pre><code class="language-text">2^4 = 2 x 2 x 2 x 2 = 16 possible combinations
+</code></pre>
+<p>Each additional digit doubles the possibilities - a 5-digit version of the same lock would have 2^5 = 32 combinations.</p>
+
+<h3>Back to the original question - how many values in a byte?</h3>
+<pre><code class="language-text">A byte = 8 bits, each bit is 0 or 1
+2^8 = 256 possible combinations (values 0 through 255)
+</code></pre>
+<p><strong>Tip for remembering this pattern:</strong> whenever a problem involves "how many possible states/combinations," and each individual unit only has a fixed number of choices (2 for binary, 10 for decimal, 26 for letters, etc.), the answer is always (number of choices) raised to the power of (number of units). This same exponentiation logic applies well beyond binary - it's the same reasoning behind counting possible passwords, possible outcomes of flipping several coins, or possible combinations of any fixed set of options repeated a fixed number of times.</p>
+
+<h3>Why this matters for data structures generally</h3>
+<p>Understanding binary as the actual underlying representation gives a clearer picture of how the data structures covered later in the course (arrays, hash tables, etc.) actually store and reference information at a lower level - not just abstract containers, but real binary values in memory.</p>
+</body>
+</html>

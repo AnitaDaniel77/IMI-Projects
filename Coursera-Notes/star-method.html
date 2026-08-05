@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Coding Interview Preparation - Communication and the STAR Method</title>
+</head>
+<body>
+<h1>Coding Interview Preparation</h1>
+<h2>Verbal and Non-Verbal Communication</h2>
+
+<p>Interview success depends heavily on communication - conveying suitability clearly, both through what's said and how it's presented.</p>
+
+<h3>Non-verbal communication</h3>
+<ul>
+<li><strong>Punctuality</strong> - arrive around 10 minutes early, especially if the venue is unfamiliar; arriving flustered undercuts composure</li>
+<li><strong>Eye contact and active listening</strong> throughout</li>
+<li><strong>Appropriate dress</strong> - clean, neat, professional attire generally expected</li>
+<li><strong>Posture</strong> - avoid squirming, face-touching, or hand-wringing; nervous gestures can unintentionally read as unpreparedness</li>
+</ul>
+<p><strong>Tip:</strong> doing genuine research on the role and company beforehand is framed as the real cure for nerves - not just a box to check, but the actual mechanism that settles anxiety.</p>
+
+<h3>Verbal communication</h3>
+<p>The 80/20 rule: a good interviewer speaks roughly 20% of the time, letting the candidate speak the other 80%. Practical implications:</p>
+<ul>
+<li>Let the interviewer finish the full question before answering</li>
+<li>Keep answers clear and concise - resist the urge to dump everything you know on a topic, which leads to rambling; a focused answer leaves room for natural follow-up questions</li>
+<li>Avoid self-deprecating or negative framing</li>
+</ul>
+<pre><code class="language-text">Instead of: "I failed at that task."
+Try: "That task was challenging, and it gave me ideas for
+      areas I want to explore further."
+</code></pre>
+<p>Real-life example: reframing a setback this way is like a chef describing a dish that didn't work as "a good test of a new technique" rather than "a disaster" - same event, but one framing shows growth and the other just shows discouragement.</p>
+<p>Also avoid excessive slang, cursing, or inappropriate humor.</p>
+
+<h3>The STAR method</h3>
+<p>A structured way to answer behavioral/technical questions with real depth:</p>
+<ul>
+<li><strong>Situation</strong> - what was the context? What project, what challenge?</li>
+<li><strong>Task</strong> - what were your specific responsibilities in that situation?</li>
+<li><strong>Action</strong> - what did you actually do to address it?</li>
+<li><strong>Result</strong> - what was the outcome, and how did your approach shape that result?</li>
+</ul>
+<p>Real-life example: STAR is like a well-told story with a clear arc - setting, conflict, what the character does, and how it resolves. A rambling answer with no structure is like a story with no ending - the listener isn't sure what actually happened or why it mattered.</p>
+
+<h3>Applying STAR to a real example</h3>
+<p>A genuinely usable one from recent project work: debugging the React Router version mismatch and the fetchAPI global-scope issue in the Little Lemon capstone.</p>
+<ul>
+<li><strong>Situation</strong> - the booking page went completely blank after connecting the app to a real external API</li>
+<li><strong>Task</strong> - needed to identify why, since the error messages pointed in a few different directions across several attempts</li>
+<li><strong>Action</strong> - systematically isolated each layer: confirmed the script was loading (Network tab), checked whether the function existed globally (Console), and eventually traced it to a JavaScript scoping quirk (const vs var at global script scope) rather than a code logic bug</li>
+<li><strong>Result</strong> - fixed the actual root cause instead of just patching the symptom, and the fix held up cleanly through the rest of the project's testing</li>
+</ul>
+<p><strong>Tip:</strong> having 2-3 STAR-shaped stories ready ahead of time - not memorized word for word, just the shape of situation/task/action/result - makes it much easier to answer "tell me about a challenge you overcame" without freezing up in the moment.</p>
+
+<h3>Recap</h3>
+<p>Interviewers are watching for candidates who can clearly convey a concept - both verbally and non-verbally. STAR is presented as the reliable framework specifically for the questions that come up repeatedly across almost any interview.</p>
+</body>
+</html>

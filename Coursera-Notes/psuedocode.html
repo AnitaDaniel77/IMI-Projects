@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Coding Interview Preparation - Pseudocode Step by Step</title>
+</head>
+<body>
+<h1>Coding Interview Preparation</h1>
+<h2>Reading: Pseudocode Step by Step</h2>
+
+<h3>Why use pseudocode at all</h3>
+<p>Pseudocode is a legitimate first step in devising a solution - a high-level, code-shaped representation of ideas that highlights what elements a program actually needs, before worrying about real syntax.</p>
+<p>Each line forces a pause to consider what's actually required. Crucially, an early decision can constrain a later one - if step 3 settles on a data structure, and step 6 turns out to need several fast lookups, it's far cheaper to revisit step 3 while still in pseudocode than after real implementation has already begun.</p>
+<p>Real-life example: pseudocode is like sketching a floor plan before building a house - if you realize the kitchen needs to be bigger while it's still lines on paper, that's a five-minute fix. Realizing the same thing after the walls are built is a completely different, much more expensive problem.</p>
+
+<h3>When to actually reach for pseudocode</h3>
+<ul>
+<li>As a beginner, plotting out an approach before coding it</li>
+<li>As an experienced programmer, wrestling with a genuinely complex problem</li>
+<li>Conveying a concept to an influential audience - a team, potential clients</li>
+<li>Signposting work for future maintainers of the code</li>
+<li>In an interview, specifically to demonstrate reasoning ability</li>
+</ul>
+
+<h3>There's no single "correct" pseudocode style</h3>
+<p>Different organizations have different conventions - pseudocode is really just any textual outline of a program's operation. The style tends to resemble whatever real language the writer is most comfortable in.</p>
+
+<h3>Worked example - FizzBuzz</h3>
+<p>The challenge: iterate 1 to 40, print the number normally, except multiples of 3 print "Fizz", multiples of 5 print "Buzz", and multiples of both print "FizzBuzz".</p>
+
+<h4>First attempt - the flawed version</h4>
+<pre><code class="language-text">FOR each number from 1 to 40:
+    IF number is a multiple of 3:
+        print "Fizz"
+    IF number is a multiple of 5:
+        print "Buzz"
+    IF number is a multiple of 3 AND 5:
+        print "FizzBuzz"
+    ELSE:
+        print the number
+</code></pre>
+<p>Writing this out as pseudocode makes the bug visible before any real code exists: using separate <code>IF</code> statements instead of <code>ELSE IF</code> means the number 15 (a multiple of both 3 and 5) would trigger ALL THREE branches - printing "Fizz", then "Buzz", then "FizzBuzz", instead of just one correct output.</p>
+
+<h4>Corrected version - using exclusionary conditionals</h4>
+<pre><code class="language-text">FOR each number from 1 to 40:
+    IF number is a multiple of 3 AND 5:
+        print "FizzBuzz"
+    ELSE IF number is a multiple of 3:
+        print "Fizz"
+    ELSE IF number is a multiple of 5:
+        print "Buzz"
+    ELSE:
+        print the number
+</code></pre>
+<p>Two things fixed the bug: using <code>ELSE IF</code> instead of separate <code>IF</code>s (so only ONE branch can ever run per number), and ordering the "both 3 and 5" check FIRST, before the individual checks - otherwise a number like 15 would hit the "multiple of 3" branch and print "Fizz" before ever reaching the combined check.</p>
+
+<h3>Real code matching the corrected pseudocode</h3>
+<pre><code class="language-python">for number in range(1, 41):
+    if number % 3 == 0 and number % 5 == 0:
+        print("FizzBuzz")  # checked FIRST - most specific condition wins
+    elif number % 3 == 0:
+        print("Fizz")
+    elif number % 5 == 0:
+        print("buzz")
+    else:
+        print(number)
+</code></pre>
+<p><strong>Tip for this pattern generally:</strong> whenever a problem has overlapping conditions (a number can be BOTH a multiple of 3 and 5 at once), always check the most specific/combined condition first, and use <code>elif</code>/<code>else if</code> rather than separate <code>if</code> statements - otherwise multiple branches can fire when only one should.</p>
+<p>Real-life example: this ordering rule is like a triage system in an emergency room - the most specific, most urgent condition gets checked and handled first, so a patient with multiple overlapping symptoms doesn't get sorted into the wrong, less-specific queue first.</p>
+
+<h3>Who actually uses pseudocode, and when</h3>
+<p>Not just a beginner tool - junior engineers use it to understand how a program should flow, senior engineers use it to communicate ideas to a team. The style settled on tends to mirror whichever real language the person is most comfortable in.</p>
+</body>
+</html>

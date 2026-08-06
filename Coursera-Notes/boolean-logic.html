@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Coding Interview Preparation - Working in Binary: Boolean Logic, Truth Tables, Gates</title>
+</head>
+<body>
+<h1>Coding Interview Preparation</h1>
+<h2>Reading: Working in Binary</h2>
+
+<p>Two inputs seems restrictive at first, but combined with Boolean algebra and circuits it's genuinely versatile - this reading covers Boolean logic, truth tables, and logic gates as the mechanism that makes it so.</p>
+
+<h3>The four core Boolean functions</h3>
+<pre><code class="language-text">NOT(x)   - flips a single input: 0 becomes 1, 1 becomes 0
+OR(x, y) - outputs 1 if EITHER x or y is 1 (or both);
+           outputs 0 only if BOTH are 0
+AND(x, y)- outputs 1 ONLY if BOTH x and y are 1
+XOR(x, y)- outputs 1 if x and y are DIFFERENT from each other;
+           outputs 0 if they're the same
+</code></pre>
+<p>Real-life example: <code>AND</code> is like needing both a key AND a code to open a safe - missing either one means it stays locked. <code>OR</code> is like a door that opens with either a key OR a fingerprint - only one is needed. <code>XOR</code> is like a light controlled by two switches at opposite ends of a hallway - the light is on only when the switches are in DIFFERENT positions, which is exactly why flipping either one toggles it.</p>
+
+<h3>Boolean logic in real code</h3>
+<pre><code class="language-java">boolean x = false;
+
+do {
+    // keep running this block...
+} while (!x);
+// !x is NOT applied to x - the loop keeps going as long as
+// x is still false, and stops the moment x flips to true
+</code></pre>
+<p>Real-life example: this pattern is like repeatedly checking a kettle until it's boiled - "keep waiting while it's NOT yet boiling" - the loop's whole purpose is to keep going until a specific true/false condition flips.</p>
+
+<h3>Truth tables</h3>
+<p>Since Boolean functions only have a finite number of possible input combinations, every possible outcome can be laid out in a table:</p>
+<pre><code class="language-text">AND truth table:
+X | Y | Output
+0 | 0 |   0
+0 | 1 |   0
+1 | 0 |   0
+1 | 1 |   1
+
+OR truth table:
+X | Y | Output
+0 | 0 |   0
+0 | 1 |   1
+1 | 0 |   1
+1 | 1 |   1
+
+XOR truth table:
+X | Y | Output
+0 | 0 |   0
+0 | 1 |   1
+1 | 0 |   1
+1 | 1 |   0
+</code></pre>
+<p><code>NOT</code> only takes one input, so its table is just 2 rows (0->1, 1->0) rather than the 4-row tables the two-input functions need.</p>
+<p><strong>Tip for reading/writing truth tables quickly:</strong> for two-input functions, there are always exactly 4 rows (2 possible values for X times 2 possible values for Y = 4 combinations) - this is the same exponentiation idea from the binary numbers lesson (2^2 = 4), just applied to inputs instead of storage.</p>
+
+<h3>Gates - the physical implementation</h3>
+<p>A gate is an electronic circuit that produces a Boolean output from its inputs - the physical, hardware version of the logical functions above. Each of AND/OR/NOT/XOR has its own standard graphical symbol used in circuit diagrams, and its own algebraic formula.</p>
+<p>Inputs (commonly labeled A and B) represent an actual electrical current - possibly connected to a physical switch or button. Combining multiple gates together lets complex circuits build up a final output (commonly labeled Q) from several raw inputs (A, B, C, etc.).</p>
+<p>Real-life example: a single gate is like one simple decision point - "does the alarm sound if EITHER the door OR the window sensor triggers?" (an OR gate). Combining many gates together is like a full home security system built from many small OR/AND decisions wired together into one overall alert system.</p>
+
+<h3>Why this connects back to earlier lessons</h3>
+<p>Binary values (0/1) map directly onto Boolean values (false/true) - the same underlying representation from the previous binary numbers lesson is what powers every conditional statement, loop condition, and logical comparison written in real code.</p>
+</body>
+</html>

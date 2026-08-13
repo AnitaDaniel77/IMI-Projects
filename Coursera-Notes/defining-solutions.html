@@ -1,0 +1,43 @@
+<article>
+<h1>Defining Solutions</h1>
+<p><strong>Course:</strong> Coding Interview Preparation — Module 1</p>
+
+<h2>Overview</h2>
+<p>Computer science lets us model and test scenarios virtually before committing real resources — testing a plane's flight, predicting weather, or solving any problem without building the physical thing first. Defining a solution properly has three stages: articulate the problem statement, formulate a model, then finetune the solution.</p>
+
+<h2>1. Problem statement</h2>
+<p>Start by articulating the problem in the shape: <em>I need to achieve A, with tools T, given constraints C.</em></p>
+<p>Example: designing an app to entertain a child with a guessing game. Before writing anything, work through:</p>
+<ul>
+<li>How will the child interact with the computer?</li>
+<li>What level of questions should be asked?</li>
+<li>Where do the questions come from, and how are they stored?</li>
+<li>How are answers checked?</li>
+<li>How does the program start and end?</li>
+</ul>
+<p>Also weigh hardware/software constraints — age-appropriate safety, internet reliability, device compatibility, target OS or browser.</p>
+<p><em>Real-life analogy: it's like planning a road trip before checking the car has enough fuel, whether the roads are paved, and whether your phone will have signal — skipping this step means finding out the hard way, mid-journey.</em></p>
+
+<h2>2. Formulate a model</h2>
+<p>Once constraints are known, propose a model. For the guessing game: assume a computer-friendly-age child, laptop-only, local storage (no internet issues), keyboard input on the command line.</p>
+<p>An <strong>algorithm</strong> is a precise sequence of instructions to solve a problem. Sketch it first as pseudocode — a text-based description of requirements — before touching real code:</p>
+<blockquote>Generate a question → take in user input → compare input with answer → return a result</blockquote>
+<p>From there, work through the specifics: where do questions come from (dynamically generated vs. a pre-compiled bank)? How is input compared — exact match, or accounting for spelling/punctuation/capitalization? Would multiple-choice sidestep the matching problem entirely?</p>
+
+<h2>3. Finetune the solution</h2>
+<p>Reflection can reshape the whole approach — here, a trivia format is dropped in favour of a simpler, more universal number-guessing game: no external sources needed, works in nearly any language.</p>
+<blockquote>Generate random number → take input, store in variable → compare input with answer → return result</blockquote>
+<p>A flowchart of this pseudocode surfaces further questions:</p>
+<ul>
+<li>Does the program run once, or does it offer another guess after a wrong answer?</li>
+<li>Should the user get steering prompts ("too high"/"too low") instead of a flat failure message?</li>
+<li>What happens if the user enters a non-number?</li>
+</ul>
+<p>Working through these systematically — before implementation — is what catches issues early and can even change the scope of the whole project (e.g. shifting from "build the game for the child" to "build a framework so the child can build their own game").</p>
+
+<h2>Key takeaway</h2>
+<p>Problem statement → model → finetuning is a repeatable habit, not a one-off exercise. It applies as much to a professional application as to a toy project, and it's worth establishing early rather than skipping straight to code.</p>
+
+<h2>Pseudocode tip</h2>
+<p>Pseudocode is written as plain-language steps, not language syntax — it should read like a recipe, not code. Write it before touching an IDE: it forces you to spot missing logic (like the "what if input isn't a number?" case) while it's still cheap to fix.</p>
+</article>

@@ -1,0 +1,46 @@
+<article>
+<h1>Time Complexity and Big-O Notation</h1>
+<p><strong>Course:</strong> Coding Interview Preparation — Module 1</p>
+
+<h2>Why measure efficiency</h2>
+<p>Evaluating an algorithm usually looks at two things: time and space. This note covers time complexity — how long a task takes to complete, measured with Big-O notation. Big-O gives an estimate of how an algorithm's runtime scales as input size grows, not an exact number of seconds.</p>
+
+<h2>O(1) — constant time</h2>
+<p>Takes the same amount of computation no matter the input size. Example: printing the first item in an array. Whether the array has 5 items or 5 million, it's still one operation.</p>
+<p><em>Real-life analogy: grabbing the top book off a stack — doesn't matter how tall the stack is, it's always one action.</em></p>
+
+<h2>O(n) — linear time</h2>
+<p>Cost scales directly with input size. Example: looping through an array to check if a value exists. A 10-item array takes 10 checks worst case; a 100-item array takes 100. Double the input, double the work.</p>
+<p><em>Real-life analogy: checking every locker in a hallway for a lost item — twice as many lockers means twice as much searching.</em></p>
+
+<h2>O(log n) — logarithmic time</h2>
+<p>Grows slowly as input increases — better than O(n), not quite O(1). Classic example: binary search. Guessing a number between 1 and 100 using "too high / too low" feedback, halving the search space each guess (50 → 25 → 12/13...) finds the answer in ~6-7 guesses. Multiply the range by 10 and the guess count barely increases.</p>
+<p><em>Real-life analogy: finding a word in a dictionary by flipping to the middle, then narrowing left or right each time — not reading page by page.</em></p>
+<p>Pseudocode:</p>
+<pre>
+low = 0, high = n - 1
+while low <= high:
+    mid = (low + high) / 2
+    if target == array[mid]: return mid
+    elif target < array[mid]: high = mid - 1
+    else: low = mid + 1
+</pre>
+
+<h2>O(n²) — quadratic time</h2>
+<p>Heavy: work roughly doubles for every element. Typical cause: a loop inside a loop, each running n times, giving n × n = n². Example: comparing every element in an array against every other element (array of arrays).</p>
+<p><em>Real-life analogy: everyone at a party shaking hands with everyone else — add one more guest, and everyone else has one more handshake to do.</em></p>
+
+<h2>Visualizing it</h2>
+<p>On a graph with input size (x-axis) against time taken (y-axis): O(1) stays flat, O(log n) rises slowly, O(n) rises steadily, O(n²) curves up steeply. Best to worst: O(1) → O(log n) → O(n) → O(n²).</p>
+
+<h2>Best, worst, and average case</h2>
+<p>The same search-in-a-loop example illustrates why one Big-O label isn't the whole story:</p>
+<ul>
+<li><strong>Best case:</strong> item is first in the array — O(1)</li>
+<li><strong>Worst case:</strong> item is missing entirely, or last — O(n)</li>
+<li><strong>Average case:</strong> item is found roughly in the middle — O(n/2), which still simplifies to O(n)</li>
+</ul>
+
+<h2>Interview tip</h2>
+<p>Before coding a solution, ask: how many computations does this take, and is there a better way? Naming the Big-O of your approach out loud, and comparing it to alternatives, is exactly what interviewers listen for — it shows you're thinking about scale, not just correctness.</p>
+</article>

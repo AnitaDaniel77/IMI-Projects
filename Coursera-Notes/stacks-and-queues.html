@@ -1,0 +1,37 @@
+<article>
+<h1>Stacks and Queues in Different Programming Languages</h1>
+<p><strong>Course:</strong> Coding Interview Preparation — Module 2</p>
+
+<h2>Abstract data types</h2>
+<p>Both stacks and queues are abstract data types — there's no built-in version to just import. Certain behaviors must be enforced, but implementation is up to you.</p>
+
+<h2>Stacks — LIFO</h2>
+<p><em>Real-life analogy: a pile of plates on a washing board — each clean plate goes on top, and drying starts from the top down. The last plate placed is dried first; the first plate placed is dried last.</em></p>
+<p><strong>Real-world use:</strong> browser history. Hitting back loads the previously visited page, then adds it back onto the "forward" pile.</p>
+
+<h3>JavaScript implementation — container adapters</h3>
+<p>A common JS approach builds a stack using an array as the underlying container, restricting it to only behave like a stack. Using one data structure to build another this way is called a <strong>container adapter</strong> — the array is the container, and the adaptation forces stack-like behavior onto it.</p>
+<p>Core methods: <strong>push</strong> (add to top), <strong>pop</strong> (remove from top), <strong>peek</strong> (view top without removing), <strong>count</strong> (tracks where the last item sits in the array, needed for both push and pop to work correctly).</p>
+
+<h2>Queues — FIFO</h2>
+<p>Also linear, also strict about how items are added/removed — but first-in-first-out instead of last-in-first-out.</p>
+<p><em>Real-life analogy: a checkout queue — first person in line is served first, importance placed on arrival time.</em></p>
+<p><strong>Real-world use:</strong> CPU and disk scheduling — tasks handled in arrival order.</p>
+
+<h3>Swift implementation</h3>
+<p>Queue is also abstract in Swift — you build the structure yourself. Key terms: <strong>enqueue</strong> (add an item), <strong>dequeue</strong> (remove from the front). Simplest build: array as container adapter. Because queues only pop from the front, lookup time is a reliable <strong>O(1)</strong>.</p>
+<p>Core methods: peek, pop, push, size.</p>
+
+<h3>Python implementation — synchronization and priority queues</h3>
+<p>Python's queue classes are <strong>synchronized</strong> — access is managed so only one process touches the data at a time. Important for concurrent/cloud scenarios where multiple sources might read/write simultaneously.</p>
+<p>Beyond standard FIFO/LIFO, Python also offers a <strong>priority queue</strong> — service order is based on assigned importance rather than arrival order.</p>
+<p><em>Real-life analogy: the VIP line at a concert — skips the first-come-first-served rule entirely in favor of who matters more for that queue's purpose.</em></p>
+
+<h2>Choosing the right structure</h2>
+<table border="1" cellpadding="6">
+<tr><th>Need</th><th>Structure</th></tr>
+<tr><td>Track entry order, retrieve most-recent-first</td><td>Stack (LIFO)</td></tr>
+<tr><td>Maintain order, retrieve oldest-first</td><td>Queue (FIFO)</td></tr>
+<tr><td>Assign importance rather than strict order</td><td>Priority queue</td></tr>
+</table>
+</article>

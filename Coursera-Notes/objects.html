@@ -1,0 +1,37 @@
+<article>
+<h1>Objects</h1>
+<p><strong>Course:</strong> Coding Interview Preparation — Module 2</p>
+
+<h2>What an object is</h2>
+<p>A structure with both <strong>state</strong> and <strong>behavior</strong>. State (attributes) is the information the object holds — a person's age or name. Behavior is what the object can do — calling a method, like sorting an array or a person running.</p>
+<p><strong>Class:</strong> the blueprint. <strong>Object:</strong> an instance of that class.</p>
+
+<h2>Why objects — reusability</h2>
+<p>One class template can produce many independent instances. A football team needs only one <code>Player</code> class, then 11 separate objects with different speed, agility, and work rate — massively cutting code overhead versus writing each player from scratch.</p>
+
+<h2>Instance variables and independence</h2>
+<pre>
+Player player1 = new Player(agility = 54, speed = 88, fitness = 90);
+Player player2 = new Player(agility = 90, speed = 64, fitness = 83);
+</pre>
+<p>These characteristics (speed, agility, fitness) are <strong>instance variables</strong> — part of that object's own state, invisible to and unaffected by other instances. Changing <code>player1</code>'s fitness never touches <code>player2</code>'s.</p>
+
+<h2>Getters and setters</h2>
+<pre>player1.set_fitness(80)</pre>
+<p>Methods that change an attribute's value are called setters (and getters retrieve them). This only alters <code>player1</code> — other objects are untouched.</p>
+
+<h2>Behavior via methods</h2>
+<pre>player1.kick()</pre>
+<p>Calling a method makes that specific object perform an action — here, only <code>player1</code> kicks.</p>
+
+<h2>Inheritance</h2>
+<p>Need a referee who shares some traits with players (running, general appearance) but isn't a player? Create a shared <code>Human</code> class holding the common attributes/methods, and let <code>Player</code> and <code>Referee</code> both inherit from it — avoiding duplicated code for behavior they genuinely share.</p>
+<p><em>Real-life analogy: think of "Human" as a shared employee handbook — both "Player" and "Referee" follow the same base rules (how to walk onto the pitch, general conduct), but each role also has its own specific duties layered on top.</em></p>
+
+<h2>Polymorphism</h2>
+<p>One general concept manifesting in different forms. "Human" → Player, Referee, Manager, each with their own specifics. Classic example: a <code>Shape</code> class defining area, diameter, height conceptually — then <code>Square</code>, <code>Triangle</code>, <code>Circle</code> each implement those concepts differently for their own shape.</p>
+<p><em>This directly echoes the PaymentMethod interface pattern from Capstone 2 — one shared contract (Shape / PaymentMethod), multiple concrete implementations (Square, Circle / CardPayment, EftPayment) each doing their own version of the same behavior.</em></p>
+
+<h2>Key takeaway</h2>
+<p>Objects package state and behavior together. Classes define the blueprint once; objects are independent instances of it. Inheritance shares common structure; polymorphism lets one shared concept take multiple concrete forms — the same idea already put into practice with PaymentMethod's Card/EFT/Wallet implementations.</p>
+</article>

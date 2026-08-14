@@ -1,0 +1,54 @@
+<article>
+<h1>Arrays</h1>
+<p><strong>Course:</strong> Coding Interview Preparation — Module 2</p>
+
+<h2>What an array is</h2>
+<p>Stores related data together. Implementation varies by language — some require a single element type (int array, string array), others allow mixed elements. Some arrays are full objects with built-in functionality; others are plain storage with operations applied externally.</p>
+
+<h2>Initializing arrays</h2>
+<p><strong>Static languages:</strong> array kept on the stack, type must be specified upfront.<br>
+<strong>Dynamic languages:</strong> more flexible — size may need setting, but type often doesn't. Stored on the heap.</p>
+<p>Indexing starts at 0, increasing contiguously to the end of the array:</p>
+<pre>array_name[0]  // retrieves the first item</pre>
+<p>Requesting an index beyond the array's size throws an out-of-bounds error.</p>
+
+<h2>Iterating an array</h2>
+<pre>
+n <- size of array arr
+FOR (i <- 0; i < (n-1); i <- (i+1)) DO
+    process element arr[i]
+END
+</pre>
+<p>Same shape everywhere: get the size, use an incrementing index, loop through each element. Common size-access methods: <code>.size()</code>, <code>len(array)</code>, <code>.length()</code>.</p>
+
+<h2>Stack vs. heap storage</h2>
+<p><strong>Stack memory:</strong> created for a function's execution, discarded once it finishes — only available within that function.<br>
+<strong>Heap memory:</strong> created during execution, available more broadly, persists beyond a single function call.</p>
+<p>Risk: initializing an array on the stack, altering it, then returning it after the function ends can lead to corrupted memory — the stack it lived on is already gone. Dynamic languages sidestep this by keeping arrays on the heap instead, so they survive past the function's stack frame.</p>
+<p>Trade-off: stack memory is contiguous and fast to access; heap memory is less organized and slower to access. Classic size/convenience vs. speed/accessibility trade-off.</p>
+<p><em>Real-life analogy: the stack is like a whiteboard in a meeting room — wiped clean the moment the meeting ends. The heap is like a shared filing cabinet — stays put and accessible to whoever needs it later.</em></p>
+
+<h2>Deallocation and garbage collection</h2>
+<p>When a program's done with an array, that memory should be deallocated and freed up. How this is handled depends on the language; poor memory management causes leaks that can crash an app under repeated calls.</p>
+
+<h2>Shallow copy vs. deep copy</h2>
+<p><strong>Shallow copy:</strong> doesn't duplicate the array — just returns a reference/index location to the same data. Memory-efficient, but risky: changes via one variable can unexpectedly affect the other.<br>
+<strong>Deep copy:</strong> creates a genuinely new, independent array instance.</p>
+
+<h2>Matrices — joining arrays into 2D structures</h2>
+<p>A matrix is an array of arrays — a 2D table with rows (x) and columns (y). Access uses two indices:</p>
+<pre>Matrix[x][y]</pre>
+<p>Matrices are typically square (equal rows and columns), though they don't have to be — if not, the loop needs to account for that.</p>
+<pre>
+int[][] matrix = new int[5][7]
+for (int i = 0; i < matrix.length; i++) {
+    for (int j = 0; j < matrix[i].length; j++) {
+        doSomethingNeo(matrix[i][j])
+    }
+}
+</pre>
+<p>Here: outer array holds 5 elements (each an integer array), each inner array holds 7 integers. Using <code>.length</code> dynamically for the inner array (rather than hardcoding 7) prevents out-of-bounds errors if row sizes ever differ.</p>
+
+<h2>Key takeaway</h2>
+<p>Arrays are foundational everywhere, but details — type strictness, stack vs. heap, copy behaviour — differ enough by language that assumptions from one language can silently break in another.</p>
+</article>

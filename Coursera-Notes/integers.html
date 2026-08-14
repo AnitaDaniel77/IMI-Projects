@@ -1,0 +1,38 @@
+<article>
+<h1>Integers</h1>
+<p><strong>Course:</strong> Coding Interview Preparation — Module 2</p>
+
+<h2>What an integer is</h2>
+<p>Holds whole numeric values — no fractions. Can be <strong>signed</strong> (positive and negative) or <strong>unsigned</strong> (positive only). Represented in binary, commonly using 4 bytes, though depending on system/language it can be 1, 2, or 8 bytes.</p>
+
+<h2>Sign-magnitude representation</h2>
+<p>One way to represent signed integers in binary: use the leftmost bit as a polarity indicator.</p>
+<table border="1" cellpadding="6">
+<tr><th>Integer</th><th>Sign-magnitude</th></tr>
+<tr><td>2</td><td>0010</td></tr>
+<tr><td>1</td><td>0001</td></tr>
+<tr><td>+0</td><td>0000</td></tr>
+<tr><td>-0</td><td>1000</td></tr>
+<tr><td>-1</td><td>1001</td></tr>
+<tr><td>-2</td><td>1010</td></tr>
+</table>
+
+<h2>Fractions need a different type</h2>
+<p>Integers can't represent fractions — that's what decimal/float types are for. Floating-point numbers follow the <strong>IEEE 754</strong> standard, a common spec most languages use for representing them consistently.</p>
+<p>High-level languages like Python and JavaScript wrap number initialization into this fixed representation automatically — easy to use, but no control over memory optimization.</p>
+
+<h2>Memory allocation — statically typed languages</h2>
+<p>Languages like C++, Rust, Ada, and C let you customize integer size:</p>
+<ul>
+<li><strong>C++:</strong> <code>unsigned short int</code> uses only 2 bytes — meaningful savings at scale for apps with many positive, fraction-free numbers.</li>
+<li><strong>Rust:</strong> supports unsigned 1-byte integers, holding 0–255. Small range, but powerful for something like image processing — storing 8 pixel values for the memory cost of 1 standard integer is a major saving in a CPU-intensive process.</li>
+</ul>
+<p><em>Real-life analogy: like choosing a small padlock for a small box instead of a bank vault lock — using more "size" than the job needs just wastes resources.</em></p>
+
+<h2>Java's Integer wrapper class</h2>
+<p>Beyond the primitive <code>int</code>, Java offers the <code>Integer</code> wrapper class, giving access to extra methods — string-to-double conversion, comparisons, max/min values, etc. The <code>Integer</code> class is <strong>immutable</strong>, which makes it thread-safe.</p>
+<p>Trade-off: that extra functionality and safety costs memory — an <code>Integer</code> object takes <strong>16 bytes</strong> versus a primitive <code>int</code>'s smaller footprint.</p>
+
+<h2>When to care about this</h2>
+<p>High-level dynamic typing gets you moving fast but limits memory control. If building something resource-constrained — Arduino, other hobby electronics, or anything memory-premium — the ability to customize integer size can be the difference between functional and non-functional. For apps with generous memory headroom, using integers simply and not worrying about the byte-level detail is often the better trade.</p>
+</article>

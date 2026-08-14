@@ -1,0 +1,32 @@
+<article>
+<h1>Strings</h1>
+<p><strong>Course:</strong> Coding Interview Preparation — Module 2</p>
+
+<h2>What a string is</h2>
+<p>An ordered sequence of characters encased in matching single or double quotes. Most languages support ASCII (1 byte per character) and Unicode (variable bytes depending on encoding — UTF-8, UTF-16, etc).</p>
+
+<h2>Common operations</h2>
+<p>All languages support creating, copying, and assigning strings. Whether they can be modified in place depends on mutability (see below). Everyday operations: concatenation, appending, finding a substring, working with collections of strings.</p>
+<p>Many languages allow algebraic-style comparisons: <code>String_A == String_B</code> (true/false), <code>String_A < String_B</code> (alphabetical ordering).</p>
+<p>Some languages (PHP) allow variables embedded directly in strings; others (JavaScript) require curly braces: <code>{variable}</code>.</p>
+
+<h2>Escape characters</h2>
+<p>Backslash <code>\</code> lets you include special symbols — like quotation marks — inside a string without ending it early:</p>
+<pre>String = "the man said \"two more pints please\" to the barman"</pre>
+<p>Other common escape symbols: <code>#</code>, <code>%</code>, <code>'</code>, or a double quote nested inside a string wrapped in single quotes.</p>
+
+<h2>Tokenization</h2>
+<p>Converting a string into an array of smaller strings by splitting on a delimiter. E.g. splitting a paragraph into sentences using <code>.</code>, or a sentence into words using a space.</p>
+<p><strong>Watch out for false delimiters</strong> — the sentence "At 3.30 I went to the shop and spent $40.40." has three periods, but only one is a genuine sentence-ending delimiter; the other two are inside a time and a currency amount.</p>
+<p>Tokenizing structured, formatted data (CSV, TSV) is more predictable — this is called <strong>parsing</strong>. The returned array size equals the number of delimiters found, with the delimiters themselves removed. The newline character also acts as a delimiter unless stated otherwise (each row = new entry).</p>
+
+<h2>Immutability</h2>
+<p><strong>Mutable:</strong> a string can be changed after creation (Ruby, PHP).<br>
+<strong>Immutable:</strong> a string cannot be changed after creation — more common (Java, C#, JavaScript, Python, Go).</p>
+<p>Why immutability is common: memory savings via a <strong>string pool</strong>. Instead of every variable holding its own copy of a string's data, all instances of an identical string point to one shared location. Change "string" to "strings" and the variable doesn't overwrite the original — it gets pointed at a different (or newly pooled) immutable instance.</p>
+<p><em>Real-life analogy: like a library with one copy of a book that many readers reference, instead of printing a new copy for everyone who wants to read it — cheaper, as long as nobody needs to scribble in their own copy.</em></p>
+<p>Trade-off: if an application constantly changes text, every alteration pays a memory penalty (a new pooled instance each time), so immutability is a win for read-heavy use, a cost for write-heavy use.</p>
+
+<h2>Common real-world usage</h2>
+<p>Natural Language Processing (NLP) deals heavily with strings — reading text from Twitter, PDFs, text documents, Reddit, etc. Unusual symbol encodings from these sources can cause subtle, hard-to-debug issues if not handled carefully.</p>
+</article>

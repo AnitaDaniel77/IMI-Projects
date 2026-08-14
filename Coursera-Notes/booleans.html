@@ -1,0 +1,58 @@
+<article>
+<h1>Booleans</h1>
+<p><strong>Course:</strong> Coding Interview Preparation — Module 2</p>
+
+<h2>What a Boolean is</h2>
+<p>A value that's either true or false — the binary equivalent being 1 or 0. Simple on its own, but combined with conditionals and logical operators it can drive surprisingly complex decision-making.</p>
+
+<h2>Relational operators</h2>
+<table border="1" cellpadding="6">
+<tr><th>Operator</th><th>Meaning</th></tr>
+<tr><td>&gt;</td><td>Greater than</td></tr>
+<tr><td>&lt;</td><td>Less than</td></tr>
+<tr><td>&gt;=</td><td>Greater than or equal to</td></tr>
+<tr><td>&lt;=</td><td>Less than or equal to</td></tr>
+<tr><td>==</td><td>Equal to</td></tr>
+<tr><td>!=</td><td>Not equal to</td></tr>
+</table>
+<p>These let code interrogate data before choosing which branch to run — hence Boolean expressions are often called <strong>conditionals</strong>.</p>
+
+<h2>Conditional statements</h2>
+<p><code>if</code>, <code>elif</code>/<code>else if</code>, <code>else</code>, <code>while</code>. A conditional block runs one set of instructions under one condition, a different set under another.</p>
+<pre>
+if right > wrong:
+    doTheRightThing()
+elif wrong > right:
+    doTheWrongThing()
+else:
+    keepResearching()
+</pre>
+<p>The final <code>else</code> acts as a catch-all when no earlier condition matched.</p>
+<p><em>Real-life analogy: a Roomba deciding what to do — its "right vs wrong" is really "did a sensor detect a wall or an obstacle," triggering different motor responses.</em></p>
+
+<h2>Logical operators</h2>
+<table border="1" cellpadding="6">
+<tr><th>Operator</th><th>Meaning</th></tr>
+<tr><td>||</td><td>Logical OR</td></tr>
+<tr><td>&amp;&amp;</td><td>Logical AND</td></tr>
+<tr><td>!</td><td>Logical NOT</td></tr>
+</table>
+<p>Combining these with Boolean expressions expands what a single condition can check:</p>
+<pre>
+if condition_1 || condition_2:
+    doActionOne()
+elif condition_1 && condition_2:
+    doActionTwo()
+elif !condition_1:
+    doActionFour()
+else:
+    waitForInstruction()
+</pre>
+<p>Roomba example: proximity OR impact detection → stop and reverse. Proximity AND impact → trigger an alarm. No proximity detected → keep driving forward. None of the above → fail-safe code kicks in.</p>
+
+<h2>Boolean logic in circuit design</h2>
+<p>Logic gates (AND, NOT, OR, NAND) are physical implementations of these same operators — a signal travels through wires, and a gate only "fires" when its Boolean condition is met. AND: both input wires must be true to continue the signal. NAND: only fires when both inputs are false. Combined, these gates let a device make complex decisions purely from sensor input, without software.</p>
+
+<h2>Key takeaway</h2>
+<p>Two values — true/false — seems limiting on its own, but stacked with conditionals and logical operators, Booleans become the backbone of both program control flow and physical circuit design.</p>
+</article>

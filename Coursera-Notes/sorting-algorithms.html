@@ -1,0 +1,45 @@
+<article>
+<h1>Sorting Algorithms</h1>
+<p><strong>Course:</strong> Coding Interview Preparation — Module 3</p>
+
+<h2>Why sorting matters</h2>
+<p>Sorted data — via binary trees, heaps, or a plain sorted list — saves significant time downstream (faster searching, easier comparisons). A dataset just needs elements that can be ordered somehow: alphabetically, numerically, chronologically, by size, by color. The specific metric doesn't matter — what matters is that ascending/descending order is possible.</p>
+<p>Worth noting: sorting can either <strong>permute</strong> the original list (reorder it in place) or produce a <strong>sorted copy</strong> while leaving the original untouched.</p>
+
+<h2>Selection sort</h2>
+<p>Mimics how a person might sort by hand: repeatedly scan the whole list to find the smallest remaining element, then swap it into the correct position at the front.</p>
+<pre>
+for i from 0 to n-1:
+    find the smallest element in the unsorted remainder (from i to end)
+    swap it with the element at position i
+</pre>
+<p>Every pass requires scanning the entire remaining unsorted portion — even once the smallest element is found early on, the rest of the array still needs checking to confirm it really is the smallest.</p>
+
+<h2>Insertion sort</h2>
+<p>Builds up a sorted section from the left, one element at a time — compare each new element to its left neighbor, swapping leftward until it's in the right place.</p>
+<pre>
+for i from 1 to n-1:
+    key = array[i]
+    j = i - 1
+    while j >= 0 and array[j] > key:
+        array[j+1] = array[j]
+        j = j - 1
+    array[j+1] = key
+</pre>
+<p>Worked example: element 36 compared against 46 → swapped left. Element 9 compared against 46, then 36, then 35 → cascades left through all three. Process continues until the whole array's sorted, smallest to largest.</p>
+
+<h2>Quicksort</h2>
+<p>More sophisticated, more efficient. Works via <strong>pivots</strong>:</p>
+<pre>
+choose a pivot element
+move everything smaller than the pivot to its left
+move everything larger than the pivot to its right
+recursively apply the same process to each side
+</pre>
+<p>Worked example: pivot = 9. Elements smaller than 9 (6, 3) move left; larger elements move right. Then a new pivot (36) is chosen from the "larger" side, and the process repeats until every element is sorted.</p>
+<p><em>Real-life analogy: like sorting a messy bookshelf by picking one book as a rough size reference, putting all smaller books to its left and bigger ones to its right, then repeating that trick on each smaller pile.</em></p>
+
+<h2>Which to use</h2>
+<p>No single "best" sorting algorithm — each has trade-offs depending on the situation (data size, how sorted it already is, memory constraints). In practice, you'd rarely hand-write these — every language has solid built-in implementations. The value here is recognizing how they behave under the hood, so you can reason about which is a better fit, and explain your reasoning in an interview.</p>
+<p><em>Interview tip: Selection and Insertion sort are simple to explain and code from memory under pressure — good fallback answers. Quicksort is what interviewers want to hear you reach for when efficiency matters, even if you don't write out every line.</em></p>
+</article>

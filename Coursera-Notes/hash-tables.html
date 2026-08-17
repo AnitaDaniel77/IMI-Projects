@@ -1,0 +1,36 @@
+<article>
+<h1>Hash Tables</h1>
+<p><strong>Course:</strong> Coding Interview Preparation — Module 2</p>
+
+<h2>What a hash table is</h2>
+<p>A structure of slots/buckets holding key-value pairs. A <strong>hashing function</strong> — any algorithm that reduces a key to a fixed-size, unique-ish number — decides which bucket a value goes into.</p>
+<p><em>Real-life analogy: like compressing a file before sending it over the internet, then decompressing on the other end — hashing reduces a key to a small, manageable size that acts as an index.</em></p>
+<p>What gets hashed depends on the application — could be the raw data itself, the last four digits of an ID number, or a dictionary key. Most languages have built-in hash functions (MD5, SHA, CRC32), so implementing one is usually straightforward.</p>
+
+<h2>Why hash tables are fast</h2>
+<p>Big-O trade-off: speed vs. space. Hash tables prioritize speed, retrieving items in <strong>O(1)</strong> time.</p>
+<p>Compare to an array search: checking whether a value exists means comparing against every element — worst case O(n), if the value's at the end (or absent). A hash table skips this by mapping a key directly to its storage location via the hash function, so a lookup just recomputes the hash and goes straight there — like using a book's index instead of reading page by page.</p>
+<p>Common uses: caches, dictionaries, database indexes, sets.</p>
+
+<h2>Worked example</h2>
+<p>10 keys (0-9), hashing function = modulus 20:</p>
+<pre>
+0 mod 20 = 0
+1 mod 20 = 1
+2 mod 20 = 2
+...
+</pre>
+<p>Each key maps to a unique slot — simple, but illustrates the mechanism. Problem: once key count exceeds 20, collisions start (e.g. 1 mod 20 = 1, and 21 mod 20 also = 1).</p>
+
+<h2>Collisions and the birthday paradox</h2>
+<p>A collision is when two different keys hash to the same value. Counter-intuitively likely to happen sooner than expected — the <strong>birthday paradox</strong>: in a random group of just 23 people, there's roughly a 50% chance two share a birthday. Applied to hashing: 24 employees hashed by birthday into 365 slots still has a >50% chance of a collision, despite 365 looking like plenty of room.</p>
+
+<h2>Handling collisions</h2>
+<ul>
+<li><strong>Grow the table:</strong> when a collision occurs, expand the table and increase hashing complexity, redistributing values to new slots — the table grows organically to match data size.</li>
+<li><strong>Chaining:</strong> store a linked list at the collision point instead of a single value — multiple values share a slot without overwriting each other.</li>
+</ul>
+
+<h2>Key takeaway</h2>
+<p>Hash tables trade some space/complexity for near-instant O(1) lookups. Collisions aren't a rare edge case — they're a near-certainty at scale, so any real implementation needs a collision strategy (table growth or chaining) built in from the start.</p>
+</article>

@@ -1,0 +1,36 @@
+<article>
+<h1>Dynamic Programming and Memoization</h1>
+<p><strong>Course:</strong> Coding Interview Preparation — Module 3</p>
+
+<h2>What dynamic programming is</h2>
+<p>An extension of divide and conquer plus recursion: break a problem into smaller sub-problems, solve them, and <strong>store the results</strong> for reuse. If a sub-problem comes up again, look up the stored answer instead of recomputing it — that technique is <strong>memoization</strong>.</p>
+
+<h2>Worked example — binary lock combinations</h2>
+<p>A 6-digit binary lock has 2⁶ = 64 combinations. Instead of computing 2×2×2×2×2×2 in one long chain, split it into two groups: 2×2×2 and 2×2×2 — i.e. 2³ × 2³ = 8 × 8 = 64.</p>
+<p>With memoization: compute 2³ once, store it, then reuse that stored result for the second 2³ instead of recomputing — cutting the total work needed.</p>
+
+<h2>What kind of problems fit this</h2>
+<p>Commonly combination or optimization problems:</p>
+<ul>
+<li><strong>Fibonacci sequence</strong> — a combination problem, classic memoization use case</li>
+<li><strong>Knapsack problem</strong> — both a combination and optimization problem</li>
+</ul>
+
+<h2>The knapsack problem</h2>
+<p>Packing for a camping trip: each item has a weight and a value (torch = 1kg/value 1, water = 2kg/value 2, tent = 3kg/value 3). Given a weight limit the knapsack can carry, find the combination of items that maximizes total value without exceeding that limit.</p>
+<p><em>Real-world parallel: resource allocation — given fixed CPU capacity and a set of tasks each with a "cost" and "value," find the best combination of tasks to run.</em></p>
+<p>Dynamic programming payoff: if you've already solved the optimum selection for a 7kg capacity, and the capacity later increases to 10kg, you don't need to rerun that entire computation from scratch — the earlier stored results save time.</p>
+
+<h2>Building a dynamic programming solution</h2>
+<ol>
+<li>Define the <strong>objective function</strong> — what does "optimum" actually mean for this problem?</li>
+<li>Break the problem into smaller steps — often via recursive functions</li>
+<li>Structure the solution so the objective can change without rewriting the underlying methods</li>
+</ol>
+
+<h2>Key takeaway</h2>
+<p>Dynamic programming = divide and conquer + recursion + memoization. It shines when sub-problems repeat or overlap across a larger computation — the win comes from never solving the same sub-problem twice.</p>
+
+<h2>Interview tip</h2>
+<p>If a problem sounds like Fibonacci or knapsack — "what's the optimal combination given a constraint," or "this smaller calculation keeps getting reused" — that's the signal to reach for dynamic programming, not just plain recursion. Mentioning memoization explicitly (storing sub-results, checking before recomputing) is usually what separates a working recursive solution from an efficient one in an interview answer.</p>
+</article>

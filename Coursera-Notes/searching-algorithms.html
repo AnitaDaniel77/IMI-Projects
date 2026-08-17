@@ -1,0 +1,45 @@
+<article>
+<h1>Searching Algorithms — Linear and Binary Search</h1>
+<p><strong>Course:</strong> Coding Interview Preparation — Module 3</p>
+
+<h2>Why searching needs care</h2>
+<p>Searching a dataset sounds simple, but the exact question matters — a key-value lookup, largest/smallest value, median value — each shapes the approach. A key design question: what happens if nothing matches? Returning null can break downstream code, so safeguards matter. (Tony Hoare, who invented the null reference, has called it his "billion-dollar mistake.") Also worth deciding upfront: does the search return the first match or the last?</p>
+
+<h2>Linear search</h2>
+<p>Start at the beginning of the array, check each element in order until found or the array ends.</p>
+<ul>
+<li><strong>Best case: O(1)</strong> — target is the first element</li>
+<li><strong>Worst case: O(n)</strong> — target is last, or absent entirely (every element must be checked to confirm)</li>
+</ul>
+<p>No requirement that the data be sorted.</p>
+
+<h2>Binary search</h2>
+<p>Requires <strong>sorted</strong> data. Checks the midpoint, compares to the target, and discards the half that can't contain it — repeating on the remaining half each time.</p>
+<pre>
+low = 0, high = n - 1
+while low <= high:
+    mid = (low + high) / 2
+    if target == array[mid]: return mid
+    elif target < array[mid]: high = mid - 1
+    else: low = mid + 1
+</pre>
+<ul>
+<li><strong>Best case: O(1)</strong> — target found on the first check</li>
+<li><strong>Worst case: O(log n)</strong> — search space halves each iteration until one element remains</li>
+</ul>
+<p><em>Real-life analogy: looking up a word in a printed dictionary — you don't start at page 1, you flip to roughly the middle and narrow left or right from there.</em></p>
+
+<h2>The catch — sorting has a cost</h2>
+<p>Binary search is faster than linear once the data's sorted, but sorting itself isn't free. It's worth it when data is <strong>read far more often than it's updated</strong> — sort once, search many times. If the data changes frequently, repeatedly re-sorting to keep binary search viable can outweigh the search speed gained.</p>
+
+<h2>Linear vs. binary — quick comparison</h2>
+<table border="1" cellpadding="6">
+<tr><th></th><th>Linear search</th><th>Binary search</th></tr>
+<tr><td>Requires sorted data</td><td>No</td><td>Yes</td></tr>
+<tr><td>Best case</td><td>O(1)</td><td>O(1)</td></tr>
+<tr><td>Worst case</td><td>O(n)</td><td>O(log n)</td></tr>
+</table>
+
+<h2>Interview tip</h2>
+<p>If asked "how would you search this data faster," the real answer often isn't "use binary search" alone — it's "is this data sorted, and if not, is sorting it once worth the cost given how often we'll search versus update it?" That trade-off reasoning is usually what's being tested.</p>
+</article>

@@ -1,0 +1,50 @@
+<article>
+<h1>Trees</h1>
+<p><strong>Course:</strong> Coding Interview Preparation — Module 2</p>
+
+<h2>What a tree is</h2>
+<p>A non-linear structure made of connected <strong>nodes</strong>. A node with children is a parent; a node with no children is a <strong>leaf</strong>. Nodes are linked by <strong>edges</strong> that model their relationships.</p>
+
+<h2>Terminology</h2>
+<ul>
+<li><strong>Root:</strong> the top-level node</li>
+<li><strong>Child:</strong> a node connected below another</li>
+<li><strong>Siblings:</strong> nodes sharing the same parent, on the same level</li>
+<li><strong>Path:</strong> a series of connected nodes; the shortest path between two nodes suggests how closely related they are</li>
+<li><strong>Depth:</strong> number of edges from a node up to the root</li>
+<li><strong>Height:</strong> number of edges from the topmost node down to the deepest node</li>
+<li><strong>Size:</strong> total number of nodes in the tree</li>
+</ul>
+<p><em>Real-life analogy: a book's table of contents — chapters are top-level nodes, subsections are their children, and sub-subsections branch further down. Sections under the same chapter (siblings) tend to share a theme; sections in different chapters are more loosely related.</em></p>
+
+<h2>Types of trees</h2>
+<p>Binary trees, B trees, B+ trees, Quad trees, AVL trees, among others — all share the general node/edge structure, but differ in implementation and use case.</p>
+
+<h2>Binary trees — ordering rule</h2>
+<p>Left node = lesser value, right node = greater value. Worked example inserting 23, 4, 1, 30, 24, 56:</p>
+<ul>
+<li>23 → root</li>
+<li>4 → less than 23 → left of 23</li>
+<li>1 → less than 23 and less than 4 → left of 4</li>
+<li>30 → greater than 23 → right of 23</li>
+<li>24 → less than 30 → left of 30</li>
+<li>56 → greater than 30 → right of 30</li>
+</ul>
+
+<h2>Traversal methods</h2>
+<ul>
+<li><strong>Depth-first:</strong> visit nodes top to bottom, sequentially down a branch</li>
+<li><strong>Breadth-first:</strong> visit every node on the current level before moving to the next level down</li>
+</ul>
+
+<h2>Why use a tree</h2>
+<ul>
+<li>Node connections naturally reflect relationships in the data</li>
+<li>Supports hierarchical storage — general info at the top, more specific info deeper down a branch</li>
+<li>Efficient insertion and deletion thanks to flexible structure</li>
+<li>Multiple traversal strategies suit different search needs</li>
+</ul>
+
+<h2>Real-world uses</h2>
+<p>File systems on a computer, Java class hierarchies, organizational hierarchies within a company.</p>
+</article>

@@ -1,0 +1,45 @@
+<article>
+<h1>Recursion</h1>
+<p><strong>Course:</strong> Coding Interview Preparation — Module 3</p>
+
+<h2>What recursion is</h2>
+<p>A function that calls itself with a smaller version of the problem, repeatedly, until an exit condition is met — an alternative to using a loop.</p>
+
+<h2>Three requirements</h2>
+<ol>
+<li><strong>Base case:</strong> the condition that stops the function from calling itself again</li>
+<li><strong>Diminishing structure:</strong> the input must shrink with each call, so it actually reaches the base case eventually</li>
+<li><strong>Recursive call:</strong> the function calling itself, passing in the reduced input</li>
+</ol>
+
+<h2>Worked example — exponentiation</h2>
+<pre>
+function power(x, n):
+    if n == 0:          // base case
+        return 1
+    return x * power(x, n - 1)   // recursive call with diminished n
+</pre>
+<p>Calling <code>power(2, 3)</code> creates three stacked instances on the call stack before resolving back down. Each function call has a real computational cost — more overhead than a plain loop — but the trade-off can be worth it (see below).</p>
+
+<h2>Binary search as recursion</h2>
+<p>Binary search naturally fits recursion: check the midpoint, then recursively search whichever half the target falls in, until found or the search space is empty. Same logic as the loop-based version, just expressed as self-calls instead of iteration.</p>
+
+<h2>Why choose recursion over a loop</h2>
+<ul>
+<li><strong>Readability:</strong> some problems (like Fibonacci) turn into much cleaner code recursively than as a sprawling loop with lots of manual state tracking.</li>
+<li><strong>Retained history:</strong> each call stays on the call stack with its own state, which is useful for hierarchical problems or anything where knowing "how did we get here" matters — like traversing a graph or tree.</li>
+<li><strong>Natural fit for divide and conquer:</strong> recursion is often how divide-and-conquer solutions are actually implemented — break the problem down, solve the smallest piece, let the calls unwind back into a full solution.</li>
+</ul>
+
+<h2>Fibonacci example</h2>
+<p>Sequence where the first two numbers are 0 and 1, and every subsequent number is the sum of the previous two. Recursive definition:</p>
+<pre>
+function fib(n):
+    if n <= 1:
+        return n
+    return fib(n-1) + fib(n-2)
+</pre>
+
+<h2>Interview tip</h2>
+<p>If a problem description sounds like "do X, then do X again on a smaller piece" — binary search, tree/graph traversal, Fibonacci, factorial — recursion is likely the expected approach. Always state the base case first when talking through a recursive solution out loud; interviewers listen for that as confirmation you understand why the recursion terminates.</p>
+</article>

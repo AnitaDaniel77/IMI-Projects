@@ -1,0 +1,45 @@
+<h1>How Java Works</h1>
+
+<h2>What Java is</h2>
+<p>Java is one of the few full multipurpose heavyweight languages still in wide use today — the main other one being C++. It was built to be readable and writable by humans, even though the syntax looks strange at first. Think of it like learning a foreign language: strange grammar rules, but it's just a way of expressing an idea, same as English does.</p>
+
+<h2>The pipeline: .java → .class → running program</h2>
+<p>Java code doesn't run directly. It goes through stages:</p>
+<ol>
+<li><strong>.java files</strong> — plain text files you write, using Java syntax. Could technically be written in Notepad, but you'll use VS Code.</li>
+<li><strong>javac (the compiler)</strong> — part of the JDK (Java Development Kit). It turns your .java text files into <strong>.class</strong> files (binary). In Eclipse this happens automatically when you hit Run — you never call javac by hand. In VS Code it's the same: your Run button triggers this behind the scenes.</li>
+<li><strong>.class files</strong> — one per class you write. Still not directly readable by your actual computer hardware.</li>
+<li><strong>JVM (Java Virtual Machine)</strong> — a simulated computer (CPU + memory) that actually runs the .class file.</li>
+</ol>
+
+<h3>Real-life analogy</h3>
+<p>Imagine writing a recipe in English (.java file), then translating it into a universal cooking-symbol language every kitchen understands (.class file). Any kitchen anywhere — gas stove, electric stove, wood fire — can follow the symbol version without you rewriting the recipe for each kitchen type. That's the JVM: it lets the same .class file run unchanged on Windows, Mac, or Linux.</p>
+
+<h2>Why the JVM exists</h2>
+<p>Other languages like C++ compile straight to machine code for one specific computer type — change machine, recompile from scratch. Java avoids that by compiling to .class files that run inside the JVM instead of on the raw hardware. The JVM is the same "shape" everywhere, so the .class file behaves identically no matter what's underneath it.</p>
+
+<h3>Logic to hold onto</h3>
+<pre>
+write .java (human-readable idea)
+      |
+   javac compiles it
+      v
+   .class (binary, one per class)
+      |
+   handed to the JVM
+      v
+   JVM runs it as an actual program
+</pre>
+
+<h2>JRE vs JVM vs JDK — the pieces</h2>
+<ul>
+<li><strong>JDK</strong> — the full toolkit for developers, includes javac (the compiler) plus everything needed to build Java programs.</li>
+<li><strong>JRE</strong> — the Java Runtime Environment. Installing it is what sets up and creates the JVM.</li>
+<li><strong>JVM</strong> — the actual "virtual computer" that executes your .class files.</li>
+</ul>
+
+<h3>Real-life analogy</h3>
+<p>JDK is the full workshop (tools to build the car). JRE is the fuel and ignition system that lets an existing car actually start. JVM is the engine itself doing the running.</p>
+
+<h2>One language, many targets</h2>
+<p>The core Java language stays the same whether you're targeting desktop, mobile (Android SDK), or embedded devices — only the JDK/JRE variant changes for the target platform. This course sticks to plain console-output programs using Java Standard Edition (SE), which is exactly what you need for the Capitec-context self-study goal: core language fundamentals, not platform-specific extras.</p>

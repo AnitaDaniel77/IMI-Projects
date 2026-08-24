@@ -1,0 +1,43 @@
+<h1>Building Quality Software</h1>
+
+<h2>Six common processes</h2>
+<p>Requirements gathering, design, coding for quality, testing, releases, and documenting. These sit alongside the SDLC phases from the last lesson but focus specifically on what makes the output <em>quality</em> software, not just finished software.</p>
+
+<h2>1. Requirements gathering (SRS)</h2>
+<p>Collecting and documenting what the software needs to do — often including use cases that describe business needs and user flows. Requirements fall into four categories: functional, external/UI, system features, and non-functional (covered in more depth in a later lesson).</p>
+
+<h2>2. Design</h2>
+<p>Transforms requirements into a structure developers can actually build from. The technical lead breaks requirements into related components with defined behaviors, boundaries, and interactions — this becomes the system architecture. Design covers system functions, performance, security, platform characteristics, business rules, application logic, API design (how apps talk to each other or to a database), user interfaces, and database design.</p>
+
+<h3>Real banking example</h3>
+<p>API design is directly relevant to your work — every time a Capitec app screen needs account data, it's calling an API that talks to a backend database. Understanding that this "conversation design" happens deliberately in the design phase, not improvised during coding, explains why API contracts get reviewed before implementation starts.</p>
+
+<h2>3. Coding for quality</h2>
+<p>Quality code is maintainable, readable, testable, and secure — it meets requirements without defects, stays clean and consistent, is documented, and runs efficiently. Practices that get you there: following coding standards/conventions/patterns, using linters (automated tools that catch programmatic and stylistic errors), and commenting code so others can understand and modify it.</p>
+
+<h3>Real banking example</h3>
+<p>This is exactly why your inline `//` comments on every line matter beyond just helping you learn — in a real Capitec codebase, another developer inheriting your code six months from now relies on those same habits to understand and safely modify what you wrote.</p>
+
+<h2>4. Testing</h2>
+<p>Verifies the software matches requirements and is free of bugs — catching errors, gaps, or missing requirements. Can be automated or manual. Levels, in order: <strong>unit</strong> (smallest isolated component, usually done by the developer who wrote it), <strong>integration</strong> (once components are combined), <strong>system</strong> (once the full product is complete), and <strong>user acceptance testing / UAT</strong> (tested by actual intended end users, sometimes called beta testing). Testing types broadly split into functional, non-functional, and regression (detailed in a later lesson).</p>
+
+<h2>5. Releases</h2>
+<p>Three stages, each for a different audience:</p>
+<ul>
+<li><strong>Alpha</strong> — first functioning version, given to a select group of stakeholders. Likely still has bugs and may be missing features; design changes can still happen here.</li>
+<li><strong>Beta</strong> (limited release) — given to stakeholders outside the developing organization, tested under real conditions to surface remaining bugs. Should meet all functional requirements by this point.</li>
+<li><strong>GA (General Availability)</strong> — released to all users, after beta feedback has been addressed and the version is stable.</li>
+</ul>
+
+<h3>Real banking example</h3>
+<p>Think of a new Capitec app feature going to an internal staff test group first (alpha), then a small pilot group of real customers (beta), before rolling out to every Capitec app user nationally (GA). Each stage exists to catch problems before they hit the widest possible audience.</p>
+
+<h2>6. Documenting</h2>
+<p>Split into two audiences:</p>
+<ul>
+<li><strong>System documentation</strong> — for technical users (engineers, developers, architects). Includes README files, inline comments, architecture/design documents, verification info, and maintenance guides.</li>
+<li><strong>User documentation</strong> — for non-technical end-users. Includes user guides, instructional videos/manuals, online help, and inline help.</li>
+</ul>
+
+<h2>Logic to hold onto</h2>
+<p>These six processes aren't a separate cycle from the SDLC phases — they're the quality-focused practices that happen *within* those phases. Requirements gathering lives inside Planning, design lives inside Design, coding-for-quality lives inside Development, and so on. The SDLC tells you *when* things happen; this lesson tells you *how* to do each of those things well.</p>

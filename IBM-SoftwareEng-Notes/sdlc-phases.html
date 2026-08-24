@@ -1,0 +1,32 @@
+<h1>Phases of the SDLC</h1>
+
+<h2>The six phases</h2>
+<p>Planning, Design, Development, Testing, Deployment, Maintenance. Each phase is discrete — tasks from one phase don't overlap into the next. Note: different organizations use different names for the same phases (e.g. "Planning" might be called "Requirements," "Strategy," or "Analysis"), and some orgs add or drop stages entirely.</p>
+
+<h2>1. Planning</h2>
+<p>Requirements are gathered, analyzed, documented, and prioritized. Key factors considered: who the users are, the solution's overall purpose, data inputs/outputs, legal and regulatory compliance, risk identification, quality assurance requirements, human/financial resource allocation, and scheduling. Labor and material costs get estimated against time constraints, and the project team is identified with proposed roles.</p>
+<p>If stakeholders struggle to articulate what they actually need, a <strong>prototype</strong> (a small-scale replica of the end product) can be built here to test basic design ideas and pull requirements out of vague ideas. Once requirements are gathered, they're compiled into a <strong>Software Requirements Specification (SRS)</strong> document — this needs to be clearly understood and approved by all stakeholders, developers included.</p>
+
+<h3>Real banking example</h3>
+<p>Before Capitec builds something like a new fraud-alert feature, planning would nail down: who sees the alert (customer app, call centre staff, or both), what regulatory rules apply (POPIA, FICA), what data triggers an alert, and who owns building it. Skipping this and jumping straight to code is exactly the ad hoc pattern the SDLC exists to prevent.</p>
+
+<h2>2. Design</h2>
+<p>Requirements from the SRS get turned into actual software architecture. Multiple team members collaborate here, and stakeholders review the resulting architecture. Prototypes can also happen at this stage — this time as preliminary mock-ups of the system for demonstration purposes, not just requirement-gathering tools. Output of this phase: a <strong>design document</strong>, which developers use in the next phase.</p>
+
+<h2>3. Development</h2>
+<p>Also called "building" or "implementation." Coding starts once the design document is ready. Project planners use that document to assign specific coding tasks. This phase involves actual programming tools, languages, and software stacks — plus whatever internal coding standards the organization enforces.</p>
+
+<h3>Real banking example</h3>
+<p>This is the phase you're personally living in right now, whenever you write a `.java` file for a capstone or PayNest task — but note it's meant to happen *after* planning and design are locked down, not as the first step.</p>
+
+<h2>4. Testing</h2>
+<p>Code gets thoroughly tested for stability, security, and whether it actually meets what the SRS specified. Testing can be manual, automated, or hybrid. Bugs get reported, tracked, fixed, and retested until stable. Common testing levels: unit testing, integration testing, system testing, and acceptance testing (each gets its own deeper lesson later).</p>
+
+<h2>5. Deployment</h2>
+<p>The application is released into the production environment, made available to actual users. Often staged: first released to a User Acceptance Testing (UAT) environment, and only pushed to full production once the customer signs off on it working correctly. Applies to websites, mobile app stores, or internal corporate distribution servers alike.</p>
+
+<h2>6. Maintenance</h2>
+<p>Happens after deployment. This is where remaining bugs surface, UI issues get identified, and requirements missed in the original SRS come to light. Code enhancements can be flagged here too. High-priority bugs found at this stage may need immediate fixes; lower-priority ones often get folded into requirements for the *next* SDLC cycle — meaning the whole process can loop back to Planning again.</p>
+
+<h2>Logic to hold onto</h2>
+<p>Each phase produces a specific artifact that becomes the input for the next: Planning produces the SRS → Design produces the design document → Development produces working code → Testing produces stable, verified code → Deployment produces a live product → Maintenance produces feedback that can restart the whole cycle. If you can name the artifact each phase hands off, you understand the SDLC's actual mechanics, not just the phase names.</p>

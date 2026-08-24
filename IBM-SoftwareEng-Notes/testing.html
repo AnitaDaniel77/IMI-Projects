@@ -1,0 +1,39 @@
+<h1>Software Testing</h1>
+
+<h2>What testing is for</h2>
+<p>Testing integrates quality checks throughout the SDLC — its purpose is checking that the software matches expected requirements and is error-free. Teams write <strong>test cases</strong> to verify functionality, each containing: steps, inputs, data, and the expected output. Regardless of test type or methodology (Agile, Waterfall), test cases should always be written after requirements are finalized — you can't test against a target that isn't defined yet.</p>
+
+<h2>Three categories of testing</h2>
+
+<h3>Functional testing</h3>
+<p>Usually done as <strong>black box testing</strong> — testing without looking at source code or internal structure, only checking inputs against expected outputs of the system under test (SUT). Entirely based on functional requirements: does the app do what it's supposed to do, is it usable and accessible, and does it handle user errors or edge cases gracefully with proper error messages. Can be manual or automated.</p>
+
+<h3>Non-functional testing</h3>
+<p>Tests attributes like performance, security, scalability, and availability. Answers questions like: how does it behave under stress, what happens with many simultaneous users, is documentation consistent with actual behavior, does it work the same across operating systems, how does it handle disaster recovery, and how secure is it.</p>
+
+<h3>Regression testing</h3>
+<p>Also called maintenance testing. Confirms that a recent change (like a bug fix) hasn't broken existing functionality elsewhere. Happens whenever requirements change or defects get fixed. Since re-running every single test case every time isn't practical, teams select and prioritize which cases to re-run — commonly prioritizing cases that: have frequent defects, touch frequently-used functionality, cover recently changed features, are complex or edge cases, or have historically been inconsistent (sometimes pass, sometimes fail).</p>
+
+<h3>Real banking example</h3>
+<p>If a Capitec team fixes a bug in how interest gets calculated on a savings account, regression testing would specifically re-check anything connected to that calculation — statements, notifications, the app's balance display — to confirm the fix didn't quietly break something adjacent, even though those other features weren't directly touched.</p>
+
+<h2>Four testing levels</h2>
+<p>These exist to avoid overlap and keep testing efficient, each happening at a different point in the SDLC.</p>
+
+<h3>1. Unit testing</h3>
+<p>Tests a specific, small section of code — usually at the function level. Done by the developer themselves during the development phase. Goal: catch construction errors before the code gets integrated with anything else. This is the earliest, cheapest place to catch a mistake.</p>
+
+<h3>2. Integration testing</h3>
+<p>Happens once individually unit-tested modules get combined. It's another form of black-box testing, and it's specifically looking for bugs that only appear when pieces interact — mismatched logic between modules, poor exception handling, or communication issues with other modules, databases, or external hardware. A module that passed unit testing perfectly can still fail here if it doesn't play well with others.</p>
+
+<h3>3. System testing</h3>
+<p>Happens after integration testing, on the complete, fully assembled system. Evaluates the whole thing against the original specified requirements — both functional and non-functional. Done in a staging environment meant to closely mirror production.</p>
+
+<h3>4. Acceptance testing</h3>
+<p>Formal testing against actual user needs, requirements, and business processes — checking whether the system genuinely satisfies users, customers, and other stakeholders. Typically done by the customer or stakeholders themselves, during the maintenance stage of the SDLC.</p>
+
+<h3>Real banking example</h3>
+<p>For a new Capitec transfer feature: unit testing checks the individual function that validates an account number format; integration testing checks that this validation function works correctly alongside the actual payment-processing module; system testing checks the whole transfer flow end-to-end in a staging environment; acceptance testing has actual Capitec staff or a pilot customer group try real transfers and confirm it does what they actually need.</p>
+
+<h2>Logic to hold onto</h2>
+<p>The three <em>categories</em> (functional, non-functional, regression) describe <em>what</em> you're checking. The four <em>levels</em> (unit, integration, system, acceptance) describe <em>at what scale and when</em> you're checking it. They're two separate axes, not a single list — a regression test, for example, could run at the unit level or the system level depending on what changed.</p>

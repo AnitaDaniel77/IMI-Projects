@@ -1,0 +1,33 @@
+<h1>Software Versions</h1>
+
+<h2>What version numbers are for</h2>
+<p>Version numbers track the history of a piece of software — when it was released, when it was updated, and what kind of changes (major, minor, patches) happened along the way. They help both users (knowing what they're running) and developers (communicating what changed).</p>
+
+<h2>Format basics</h2>
+<p>Version numbers can be 2, 3, or 4 number sets, each separated by a period. A first release is typically <strong>1.0</strong>, meaning no updates or patches yet. A version still in beta/testing can sit below 1, like <strong>0.9</strong>, signaling it's not considered a full stable release yet. Software with many updates over time tends to grow longer version numbers.</p>
+<p>Some developers use dates instead of pure sequential numbers — e.g. Ubuntu 18.04.2 encodes 2018, April as the release date, with the third number (.2) marking an additional update on top of that release.</p>
+
+<h2>Semantic versioning (semver)</h2>
+<p>The common 4-part pattern, each number meaning something specific:</p>
+<ul>
+<li><strong>1st number</strong> — major changes (a new release, potentially with breaking changes)</li>
+<li><strong>2nd number</strong> — minor changes (new features, generally non-breaking)</li>
+<li><strong>3rd number</strong> — patches / minor bug fixes</li>
+<li><strong>4th number</strong> — build number or build date, minor/internal changes</li>
+</ul>
+<p>Not every piece of software follows this exact 4-part structure — this is a common convention, not a universal rule.</p>
+
+<h3>Real banking example</h3>
+<p>If Capitec's internal Java services follow semantic versioning, a jump from <code>2.4.1</code> to <code>3.0.0</code> signals a major change — potentially something that could break integrations depending on the old version, which is exactly the kind of thing a team would need to plan around carefully in a banking environment where multiple systems depend on each other. A jump from <code>2.4.1</code> to <code>2.4.2</code> is just a small patch, safe to apply with minimal risk.</p>
+
+<h2>Finding a version number</h2>
+<p>Usually under "About" or "Help" in the software itself. Example for Chrome: click the three dots (top right) → Help → About Google Chrome, and the version displays there. Most software follows a similar pattern.</p>
+
+<h2>Compatibility</h2>
+<p>Old and new versions aren't always compatible with each other — this is a genuinely common problem. Checking the version number is often the first troubleshooting step when something isn't working right; updating to a newer version sometimes resolves the issue. Some software is <strong>backwards compatible</strong>, meaning older files/programs/systems still work correctly even after an update — but this isn't guaranteed by default, it's a deliberate design choice developers have to build in.</p>
+
+<h3>Real banking example</h3>
+<p>This is directly relevant to Java itself — code you write targeting JDK 8 (like your Udemy course setup) may not run correctly, or may behave differently, on a newer JDK version without adjustments. Understanding version numbers is exactly how you'd diagnose "why does this work on my machine but not on a teammate's" — check both JDK versions first.</p>
+
+<h2>Logic to hold onto</h2>
+<p>Version numbers aren't arbitrary — they're a compressed history of a project. Reading <code>4.2.1</code> under semver tells you: major version 4 (significant evolution from version 1), 2 feature updates since then, 1 bug-fix patch on top of that. Learning to read that number at a glance is a genuinely useful debugging and compatibility-checking habit, not just trivia.</p>

@@ -1,0 +1,42 @@
+<h1>Software Documentation</h1>
+
+<h2>What documentation is</h2>
+<p>Information describing what a product is and how to use it — written, video, or graphical. It spans every phase of the SDLC and gets written for different audiences: end users, developers, QA engineers, system administrators, and other stakeholders.</p>
+
+<h2>Two categories: product vs process</h2>
+<ul>
+<li><strong>Product documentation</strong> — relates to the product's functionality (what it does, how it's built).</li>
+<li><strong>Process documentation</strong> — describes how to complete a task, and should provide requirements for correctly executing a business process.</li>
+</ul>
+
+<h2>Five types of product documentation</h2>
+
+<h3>1. Requirements documentation</h3>
+<p>Written during the Planning phase, for the development team (developers, architects, QA). Describes expected features and functionality. Includes the SRS, SysRS, and user acceptance specifications covered earlier.</p>
+
+<h3>2. Design documentation</h3>
+<p>Written by architects and the development team, explaining how the software will actually be built to satisfy the requirements. Includes both conceptual and technical design documents.</p>
+
+<h3>3. Technical documentation</h3>
+<p>Code comments that help other developers understand behavior, plus working papers explaining how the code works and documents capturing engineers' thinking during implementation.</p>
+
+<h3>4. Quality assurance documentation</h3>
+<p>Everything related to the testing team's strategy, progress, and metrics: test plans, test data, test scenarios, test cases, test strategies, and <strong>traceability matrices</strong> — documents that map test cases back to the specific requirements they're verifying.</p>
+
+<h3>5. User documentation</h3>
+<p>For end-users — explains how to operate, install, or troubleshoot the software. Includes FAQs, installation/help guides, tutorials, and user manuals.</p>
+
+<h3>Real banking example</h3>
+<p>Your own note-taking habit already mirrors two of these: the inline code comments you write are technical documentation, and the notes files themselves (like this one) function as personal requirements/design documentation for your own learning trail. At Capitec, a traceability matrix would matter for something like a compliance feature — proving every regulatory requirement has a corresponding test case that verifies it, which auditors could check directly.</p>
+
+<h2>Standard Operating Procedures (SOPs)</h2>
+<p>SOPs accompany process documentation but go into far more detail. Where process documentation gives an overview, an SOP is step-by-step, organization-specific instructions for a common but complex task. The example given: checking in code via a repository is general knowledge, but the *specific* steps an organization requires to actually get code merged into main — that level of detail is what an SOP captures. SOPs can be a flowchart, a hierarchical outline, or plain step-by-step instructions.</p>
+
+<h3>Real banking example</h3>
+<p>Your own memory notes on "how git push works at Capitec" — `cd` into the repo root, `git add`, `git commit -m`, `git push origin main` — are functionally an SOP: general git knowledge exists everywhere, but the exact sequence tied to your specific repo setup is the organization-specific detail an SOP would capture.</p>
+
+<h2>Keeping documentation current</h2>
+<p>Documentation has to be actively maintained — if a UI changes, the accompanying user manual has to be updated too, and businesses need to allocate real time/resources for this. Within the SDLC, documentation updates happen during the Maintenance phase, and ideally get periodically reviewed for accuracy even outside of active changes.</p>
+
+<h2>Logic to hold onto</h2>
+<p>Product vs. process is the first split (what it does vs. how to do a task), and the five documentation types are all sub-categories of *product* documentation specifically — process documentation and SOPs sit in their own separate lane. Stale documentation is arguably worse than no documentation at all, since it actively misleads instead of just being absent — which is exactly why Maintenance includes documentation upkeep as a real, ongoing responsibility, not a one-time task.</p>

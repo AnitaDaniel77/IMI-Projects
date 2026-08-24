@@ -1,0 +1,56 @@
+<h1>Requirements</h1>
+
+<h2>The six-step requirement gathering process</h2>
+<ol>
+<li>Identify stakeholders</li>
+<li>Establish goals and objectives</li>
+<li>Elicit requirements from stakeholders</li>
+<li>Document the requirements</li>
+<li>Analyze and confirm the requirements</li>
+<li>Prioritize</li>
+</ol>
+<p>Steps 3-5 (eliciting, documenting, confirming) usually happen iteratively, not as a strict one-pass sequence — you go back and forth as things get clarified.</p>
+
+<h3>1. Stakeholders</h3>
+<p>People from the requesting organization, ideally with a representative from every group the product affects: decision-makers, end-users, system administrators, engineering, marketing, sales, and customer support.</p>
+
+<h3>2. Goals vs objectives</h3>
+<p>Goals are broad, long-term outcomes (customer outcomes, business goals). Objectives are more specific, actionable, and measurable steps that actually achieve those goals — goals are the destination, objectives are the directions to get there.</p>
+
+<h3>3-5. Elicit, document, confirm</h3>
+<p>Elicitation happens through surveys, questionnaires, and interviews. As requirements surface, they get documented in a way stakeholders and the project team can actually understand — then analyzed for consistency, clarity, and completeness, and shared back with stakeholders for approval.</p>
+
+<h3>6. Prioritize</h3>
+<p>Requirements get labeled — must-have, highly desired, nice to have — and ideally ordered within each category too.</p>
+
+<h3>Real banking example</h3>
+<p>If Capitec were building a new "instant loan pre-approval" feature, stakeholders would include risk/compliance (must approve the logic), the call centre team (will field questions about it), and actual customers (end users). "Must-have" might be regulatory compliance checks; "nice to have" might be a fancy progress animation while the check runs.</p>
+
+<h2>The three documents</h2>
+
+<h3>SRS — Software Requirements Specification (most common)</h3>
+<p>Captures what functionalities the software should perform, plus performance benchmarks/service levels. Structure:</p>
+<ul>
+<li><strong>Purpose</strong> — intended use, audience, scope</li>
+<li><strong>Constraints, assumptions, and dependencies</strong> — constraints are operating limits (standards to follow, hardware limitations); assumptions are things needed for the software to function (a required OS, specific hardware); dependencies are other software products it relies on</li>
+<li><strong>Requirements</strong>, split into four categories: functional, external interface, system features, non-functional</li>
+</ul>
+<p>The four requirement categories:</p>
+<ul>
+<li><strong>Functional</strong> — what the software actually does</li>
+<li><strong>External interface</strong> — how it behaves toward external entities: users, other hardware, other software</li>
+<li><strong>System features</strong> — a subset of functional requirements; the features the system absolutely needs to function at all</li>
+<li><strong>Non-functional</strong> — performance, safety, security, quality standards</li>
+</ul>
+
+<h3>URS — User Requirements Specification</h3>
+<p>Describes the business need and what end-users expect from the system, usually written as user stories or use cases that answer three questions: who is the user, what function do they need, and why do they want it. User acceptance testing is what checks whether these requirements got met. In practice, URS often gets folded directly into the SRS rather than kept as a separate document.</p>
+
+<h3>SysRS — System Requirements Specification</h3>
+<p>Broader in scope than the SRS — covers the entire system, not just the software. Includes system capabilities, interfaces, user characteristics, plus policy, regulation, personnel, performance, security requirements, system acceptance criteria, and hardware expectations. Often used interchangeably with SRS in casual conversation, but most software projects only actually produce an SRS, not a full SysRS.</p>
+
+<h3>Real banking example</h3>
+<p>For something like a new ATM software rollout, you'd likely need a SysRS, not just an SRS — because it involves hardware requirements (the physical ATM), security requirements (physical + digital), and regulatory requirements (banking compliance), not just the software logic itself. A pure app feature like a budgeting tool inside the Capitec app would typically only need an SRS.</p>
+
+<h2>Logic to hold onto</h2>
+<p>Think of it as scope, narrowing: SysRS covers the whole system (hardware + software + policy + people), SRS covers just the software's functionality and behavior, and URS covers just what the user personally needs and why. Most day-to-day app features only ever need an SRS — SysRS shows up when hardware, regulation, or organizational policy are genuinely part of what's being built, not just the code.</p>

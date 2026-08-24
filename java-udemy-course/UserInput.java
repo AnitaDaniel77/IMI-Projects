@@ -5,7 +5,7 @@ public class UserInput {
     public static void main(String[] args) {
 
         // create scanner object, connected to standard keyboard input
-        Scanner input = new Scanner(System.in);
+        try (Scanner input = new Scanner(System.in)) {
 
         // output the prompt
         System.out.println("enter a line of text");
@@ -33,5 +33,6 @@ public class UserInput {
 
         // tell them what they entered
         System.out.println("you entered " + doubleValue);
+        }
     }
 }

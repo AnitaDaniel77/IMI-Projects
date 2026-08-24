@@ -1,0 +1,43 @@
+<h1>Software Development Methodologies</h1>
+
+<h2>Why methodology matters</h2>
+<p>A methodology is the specific approach a team follows to move through the SDLC — it shapes how the team communicates, when information gets shared, and how rigid or flexible the process is. Three common ones: Waterfall, V-shape, and Agile.</p>
+
+<h2>Waterfall</h2>
+<p>The original SDLC approach. Purely sequential — output of one phase becomes input for the next, and work on the next phase only starts once the previous one is fully complete. All planning (requirements, architecture) happens upfront. The customer typically doesn't see the product until it hits the testing phase. Major releases repeat this whole process, which means long gaps — sometimes years — between releases.</p>
+<p><strong>Pros:</strong> easy to understand, discrete well-defined stages so everyone knows their role, easier to estimate budget/resources since planning is all upfront.</p>
+<p><strong>Cons:</strong> inflexible — if a requirement changes or was missed, it's hard to work back in later. Since planning happens once at the start, unforeseen complications or shifting needs are painful to accommodate.</p>
+
+<h2>V-shape model</h2>
+<p>Named for its shape: the left side going down is "verification," the right side going up is "validation," meeting at the bottom in coding. Each verification phase pairs with a matching validation phase:</p>
+<ul>
+<li>Planning ↔ Acceptance testing</li>
+<li>System design ↔ System testing</li>
+<li>Architecture design ↔ Integration testing</li>
+<li>Module design ↔ Unit testing</li>
+<li>Coding sits at the very bottom, the pivot point</li>
+</ul>
+<p>Tests are actually written during the verification (left) phases, then executed during the matching validation (right) phases — so test plans exist before coding even starts.</p>
+<p><strong>Pros:</strong> simple, writing test plans early saves real time during coding and validation.</p>
+<p><strong>Cons:</strong> even more rigid than Waterfall — once in testing, going back to change functionality is extremely difficult. Same core weakness as Waterfall: poor accommodation of changing requirements.</p>
+
+<h2>Agile</h2>
+<p>A genuinely different approach — collaborative and iterative instead of linear. Work happens in short cycles called sprints (typically 1-4 weeks). Unit testing happens within every sprint to catch problems early and often. Instead of a single "maintenance" phase at the very end like traditional SDLC, each sprint ends with a feedback stage. At the end of a sprint, working code gets shown to stakeholders at a "sprint demo," feedback gets collected, and the whole cycle repeats for the next sprint.</p>
+<p>After several sprints, teams often reach a <strong>Minimum Viable Product (MVP)</strong> — a basic but functional feature set stakeholders can react to, used to validate assumptions about the software before investing further.</p>
+
+<h3>The Agile Manifesto — four core values</h3>
+<ul>
+<li>Individuals and interactions over processes and tools</li>
+<li>Working software over comprehensive documentation</li>
+<li>Customer collaboration over contract negotiation</li>
+<li>Responding to change over following a plan</li>
+</ul>
+
+<p><strong>Pros:</strong> handles new or changing requirements quickly and easily since planning happens fresh at the start of every sprint, not once at the beginning of the whole project. Modular design (breaking work into smaller integratable chunks) supports this well.</p>
+<p><strong>Cons:</strong> upfront budgeting and scheduling is genuinely harder, since the overall scope isn't locked down early the way it is in Waterfall.</p>
+
+<h3>Real banking example</h3>
+<p>A brand-new core banking system overhaul at Capitec — something huge, regulatory-heavy, with fixed compliance requirements known well in advance — might actually suit Waterfall or V-shape reasonably well, since the requirements are stable and testing needs to be rigorously pre-planned for audit purposes. But a customer-facing feature like tweaking the app's budgeting tool based on ongoing user feedback fits Agile far better, since customer needs and UI preferences shift and get refined sprint over sprint.</p>
+
+<h2>Logic to hold onto</h2>
+<p>The core dividing line is sequential vs. cyclical. Waterfall and V-shape assume you can nail requirements once, upfront, and build in a straight line from there — that assumption breaks down the moment requirements change. Agile assumes requirements *will* shift, so it rebuilds planning into every sprint instead of doing it once. Waterfall/V-shape trade flexibility for predictability; Agile trades predictability for flexibility. Neither is objectively "better" — the right fit depends on how stable the requirements actually are.</p>

@@ -1,0 +1,40 @@
+<h1>Pair Programming</h1>
+
+<h2>What it is</h2>
+<p>Two developers working side-by-side at one computer — either physically together (preferred) or virtually via screen share/video call. It's an Agile technique where both people continually plan and discuss ideas as they build, generally producing a better end result than either working alone.</p>
+
+<h2>Three styles</h2>
+
+<h3>1. Driver / Navigator (most common)</h3>
+<p>The <strong>driver</strong> types the code. The <strong>navigator</strong> reviews it as it's written, gives direction on where to go next, and keeps an eye on the bigger picture the driver might miss while focused on syntax. Roles should be swapped regularly so both people stay engaged across the whole task.</p>
+
+<h3>2. Ping-Pong (test-driven)</h3>
+<p>One developer writes a failing test; the other writes the code to make it pass. Roles swap for each new task — whoever wrote the test last time writes the implementation next time. At the end of each task, both developers refactor the passing code together to refine it.</p>
+
+<h3>3. Strong-style</h3>
+<p>Designed for junior engineers learning from more experienced ones. The rule: for an idea to go from your head into the computer, it must go through someone else's hands — meaning the more experienced person is the navigator, and the driver (junior) types based on the navigator's direction, learning by directly implementing their thinking. Important nuance: the driver shouldn't challenge ideas mid-implementation — interrupting breaks the navigator's flow of thought. Discussion happens after, not during.</p>
+
+<h3>Real banking example</h3>
+<p>Your SME session with Hilbert live-coding the Capitec 1 fixes was essentially strong-style pairing in miniature — he had more context on what "good" looked like for that fix, you were implementing based on his direction, and that's exactly the learning mechanism this style is built around.</p>
+
+<h2>Benefits</h2>
+<ul>
+<li>Shares knowledge and skills between developers, and helps new team members ramp up on a project quickly</li>
+<li>Builds soft skills (communication, problem-solving) alongside technical ones</li>
+<li>Fewer typos, logic errors, and bugs — two sets of eyes catch more</li>
+<li>Enables informal, on-the-fly code review (doesn't replace formal reviews, but adds an extra layer)</li>
+<li>Surfaces multiple initial approaches, often converging on the optimal one earlier than solo work would</li>
+<li>Takes longer upfront than solo coding, but typically saves time overall through less review, testing, and bug-fixing needed afterward</li>
+</ul>
+
+<h2>Challenges</h2>
+<ul>
+<li>Requires long, sustained focus from both people — genuinely tiring</li>
+<li>Personal or work commitments can disrupt a pair's shared schedule</li>
+<li>One person can end up dominating, turning it into a "typist and programmer" dynamic instead of true collaboration — losing most of the actual benefit</li>
+<li>Personality mismatches between specific pairs can make it work poorly</li>
+<li>Multiple pairs working simultaneously in one space can get noisy for everyone else nearby</li>
+</ul>
+
+<h2>Logic to hold onto</h2>
+<p>All three styles solve a different specific problem: driver/navigator balances typing speed against big-picture thinking, ping-pong enforces test-first discipline through role-swapping, and strong-style deliberately transfers experience from senior to junior by controlling who's allowed to type. Picking the right style depends on what you're actually optimizing for — code quality, test discipline, or mentorship — not just personal preference.</p>

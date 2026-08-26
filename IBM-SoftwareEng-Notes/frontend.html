@@ -1,0 +1,45 @@
+<h1>Front-End Development</h1>
+
+<h2>The house analogy</h2>
+<p>HTML builds the physical structure of a website — think of it as construction. CSS is the interior design — style, color, layout, appeal. JavaScript is what makes it actually work interactively — the login button doesn't just look clickable, it actually does something when clicked.</p>
+
+<h2>HTML</h2>
+<p>Creates the physical structure: text, links, images, videos, page dividers, buttons. Ensures formatting stays consistent so browsers display the page the same way.</p>
+
+<h2>CSS</h2>
+<p>Defines and manages style — colors, fonts, layout, look and feel — consistently across the whole site. Also enables cross-browser compatibility: the same site rendering correctly on different browsers and devices (PC, mobile, tablet).</p>
+
+<h2>JavaScript</h2>
+<p>Object-oriented, adds actual interactivity on top of HTML's structure and CSS's styling. Classic example: HTML creates the login button, CSS styles it, JavaScript makes it actually log you in when clicked.</p>
+
+<h3>Real banking example</h3>
+<p>On the Capitec website, HTML lays out the "Apply for a card" page's structure, CSS makes it match Capitec's brand (colors, fonts, spacing), and JavaScript handles things like validating that you've entered a valid ID number before letting you submit the form — catching the error instantly rather than waiting for a server round-trip.</p>
+
+<h2>CSS extensions: SASS and LESS</h2>
+<ul>
+<li><strong>SASS</strong> — extension of CSS, backward compatible with it. Adds variables, nested rules, inline imports — keeps larger stylesheets organized and faster to write.</li>
+<li><strong>LESS</strong> — similar idea, also backward compatible with CSS. LESS.js is the JavaScript tool that converts LESS code into standard CSS.</li>
+</ul>
+<p>Both exist to solve the same problem: plain CSS gets messy and repetitive on large sites, so these add programming-like conveniences (variables, nesting) on top of it.</p>
+
+<h2>Adaptive vs responsive design</h2>
+<ul>
+<li><strong>Adaptive</strong> — serves a specific pre-built version of the site depending on the screen size detected (e.g. a simplified mobile version vs a fuller desktop version).</li>
+<li><strong>Responsive</strong> — one single layout that automatically resizes and rearranges itself to fit whatever screen it's opened on.</li>
+</ul>
+
+<h3>Real banking example</h3>
+<p>The Capitec website adjusting its layout when you shrink the browser window, versus the mobile app being a genuinely separate, purpose-built experience — that distinction mirrors responsive (one flexible layout) versus adaptive (multiple pre-built experiences) design.</p>
+
+<h2>JavaScript frameworks</h2>
+<ul>
+<li><strong>Angular</strong> — maintained by Google, open-source. Full-featured: renders HTML efficiently, has built-in routing and form validation.</li>
+<li><strong>React.js</strong> — maintained by Facebook/Meta. A library, not a complete framework — builds and renders components, but things like routing need a separate third-party tool added on top.</li>
+<li><strong>Vue.js</strong> — community-maintained, focused on the UI layer (buttons, visual components). Flexible and adaptable enough to function either as a lightweight library or a fuller framework depending on how it's used.</li>
+</ul>
+
+<h3>Real banking example</h3>
+<p>This directly matches what you're already learning — React Basics is a course in your own syllabus, and the distinction here (React needing extra tools for routing, unlike Angular) explains why your course track likely also touches on routing separately rather than assuming React handles it out of the box.</p>
+
+<h2>Logic to hold onto</h2>
+<p>Every front-end technology in this lesson exists to solve one of exactly three problems: what's on the page (HTML), how it looks (CSS/SASS/LESS), or what it does when you interact with it (JavaScript/frameworks). When you're unsure which category a new front-end tool belongs to, ask which of those three jobs it's actually doing — that's usually enough to place it correctly.</p>

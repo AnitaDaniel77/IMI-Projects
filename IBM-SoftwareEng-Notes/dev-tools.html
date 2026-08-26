@@ -1,0 +1,29 @@
+<h1>Application Development Tools</h1>
+
+<h2>Version control</h2>
+<p>Tracks what changes were made, when, and by whom, and resolves conflicts between different people's changes. Genuinely useful even as a solo developer — it lets you revert to an older version if something breaks, and gives you a history of how your code evolved. Version control is generally tied to a storage system, which is why using a code repository (like Git/GitHub) is recommended even for beginners.</p>
+<p><strong>Git</strong> stores files in repositories where you can track changes, split code into separate branches for focused work, and merge those branches back into the main codebase once finished.</p>
+
+<h3>Real banking example</h3>
+<p>This is your daily reality already — every `git add`, `git commit`, `git push` you run for a Udemy lesson or a capstone fix is exactly this mechanism. The reason you can always go back and see what your Capitec 1 code looked like before the peer-review fixes is version control doing its job.</p>
+
+<h2>Libraries</h2>
+<p>Collections of reusable code — standard programs and subroutines you can call instead of writing something from scratch. Example: needing a carousel feature, and pulling in a library that already provides it rather than building it yourself. Multiple libraries can be combined into one project as needed. Critically: <strong>you stay in control</strong> — you decide when to call a library's method, and once that subroutine finishes, control returns back to your own code's flow.</p>
+<p>Examples: <strong>jQuery</strong> (simplifies JavaScript DOM manipulation), <strong>EmailValidator</strong> (checks email format validity), <strong>Apache Commons</strong> (a repository of reusable Java components).</p>
+
+<h2>Frameworks</h2>
+<p>Provide a standard structure for building and deploying applications — like a skeleton you build your own code around, rather than a tool you call on demand. Key difference from libraries: a framework dictates the architecture and controls program flow — <strong>the framework calls your code</strong>, not the other way around. This is called <strong>inversion of control</strong>.</p>
+<p>Practical implication: a framework choice has to be made early in planning and used from the start — you can't retrofit a new framework into an existing project the way you can add a library mid-project.</p>
+<p>Examples: <strong>Angular</strong> and <strong>Vue.js</strong> (JavaScript frameworks), <strong>Django</strong> (Python).</p>
+
+<h3>The carpentry analogy</h3>
+<p>A framework is like the wooden frame of a house — it determines the shape everything else gets built around (walls, plasterboard, bricks). You're not free to build however you want; you're extending the frame that's already there.</p>
+
+<h2>Opinionated frameworks</h2>
+<p>Frameworks with strong inversion of control are called <strong>opinionated</strong> — they make many decisions for you (file structure, naming, workflow), removing choices you'd otherwise have to make yourself. This trades flexibility for standardization and speed — you spend less time on tedious configuration and more time on actual app logic, but you also have less freedom to deviate from the framework's expected patterns. Frameworks often bundle their own libraries internally too.</p>
+
+<h3>Real banking example</h3>
+<p>Your syllabus's later Spring Framework course fits directly here — Spring is an opinionated Java framework, meaning once you're building with it, Spring dictates a lot of your project's structure and flow, similar to how Django does for Python. Understanding "framework calls you, not the reverse" now will make Spring's structure click faster when you get there.</p>
+
+<h2>Logic to hold onto</h2>
+<p>The core distinction that separates all three tools: version control manages *history*, libraries give you *optional pieces* you call when needed, and frameworks give you a *structure* that calls you. If you're ever unsure whether something is a library or a framework, ask: do I call it, or does it call me? That answer tells you which one you're dealing with.</p>

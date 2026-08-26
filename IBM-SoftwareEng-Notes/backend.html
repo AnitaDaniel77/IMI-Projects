@@ -1,0 +1,39 @@
+<h1>The Importance of Back-End Development</h1>
+
+<h2>Front-end vs back-end roles</h2>
+<p>Front-end developers build what the user sees and interacts with (HTML, CSS, JavaScript). Back-end developers create and manage the server infrastructure that responds to those user requests — processing input, supplying data, and handling services securely. The two roles have to collaborate closely, understanding how their pieces connect before development even starts, and continuing to work together throughout the product's lifecycle.</p>
+
+<h2>Following data through a shopping journey</h2>
+<p>Walking through a real user flow shows how much of the experience is actually back-end work:</p>
+<ul>
+<li><strong>Searching for products</strong> — your search request goes to the web app, which queries a separate database and sends results back for display. This requires understanding both the app's language and how to correctly query the database.</li>
+<li><strong>Navigating restricted areas</strong> — logged-in-only sections require user account management, authentication (verifying who you are), and authorization (verifying what you're allowed to access) — all back-end responsibilities.</li>
+<li><strong>Checking out / paying</strong> — submitting sensitive data like your address and card number requires the back-end to securely handle and store that information.</li>
+</ul>
+
+<h3>Real banking example</h3>
+<p>This entire flow is exactly what happens every time someone logs into the Capitec app: authentication checks who you are, authorization determines whether you can see a specific account or feature, and every balance or transaction shown on screen was pulled from a database by back-end code and handed to the front-end to display. None of what looks like "just an app screen" happens without a back-end request behind it.</p>
+
+<h2>APIs, routes, and endpoints</h2>
+<ul>
+<li><strong>API</strong> — code that works with data, typically using JSON or XML, following a defined set of rules and structure.</li>
+<li><strong>Route</strong> — a path to a specific page or resource the user interacts with; generally takes user input and returns results based on it.</li>
+<li><strong>Endpoint</strong> — where a request actually lands and gets handled.</li>
+</ul>
+<p>When a front-end request arrives at the back-end, routing sends it to the correct service/endpoint. If no matching endpoint exists, the server returns a 404 error. Together, routes and APIs are what let the front-end "plug into the correct socket" on the back-end — and APIs specifically allow cloud apps, mobile apps, and other software to access back-end resources too, not just a website's own front-end.</p>
+
+<h3>Real banking example</h3>
+<p>If Capitec's mobile app calls an endpoint to fetch your account balance and that endpoint doesn't exist or is misconfigured, you'd see a 404-style failure — the app can't reach data that isn't correctly routed to it, even if the balance genuinely exists somewhere in the database.</p>
+
+<h2>Back-end languages and frameworks</h2>
+<ul>
+<li><strong>JavaScript</strong> — originally browser-only, now also used server-side. Frameworks: Node.js and Express.</li>
+<li><strong>Python</strong> — flexible, beginner-friendly, wide use (web pages, database connections, data analysis). Frameworks: Django and Flask.</li>
+</ul>
+<p>Note: this lesson doesn't mention Java directly, but your own track is building exactly this same back-end skill set — just using Java and (per your syllabus) the Spring Framework later on, instead of Node/Express or Django/Flask.</p>
+
+<h2>Databases and ORMs</h2>
+<p>Back-end developers regularly work with databases, so learning SQL is valuable. <strong>ORM</strong> (Object-Relational Mapping) tools connect application code to a database and retrieve data without writing raw queries by hand — but understanding the underlying database fundamentals still matters, since an ORM can hide complexity that you'll need to troubleshoot when something breaks.</p>
+
+<h2>Logic to hold onto</h2>
+<p>Every back-end responsibility in this lesson traces back to one core job: taking a request from the front-end, doing something safely and correctly with data because of it, and sending a response back. Authentication, routing, APIs, and databases are all just different pieces of machinery serving that one repeated pattern — request in, safe and correct handling, response out.</p>

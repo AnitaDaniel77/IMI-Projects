@@ -1,0 +1,37 @@
+<h1>Overview of Web and Cloud Development</h1>
+
+<h2>How a website actually gets to you</h2>
+<p>You open a browser (Chrome, Edge, Firefox, Safari), type a URL into the address bar, and the browser contacts that server, asking for the site's content. The server sends back a response — typically three things:</p>
+<ul>
+<li><strong>HTML</strong> — the structure of the page (plain, unstyled)</li>
+<li><strong>CSS</strong> — the styling and visual presentation</li>
+<li><strong>JavaScript</strong> — interactivity and dynamic behavior</li>
+</ul>
+
+<h2>Static vs dynamic content</h2>
+<p><strong>Static</strong> content is already stored on the server and sent as-is. <strong>Dynamic</strong> content gets generated fresh each time it's requested, often pulling in data from other systems like a database. Most real websites blend both — some content is pre-built, some is assembled on the fly per user or per request.</p>
+
+<h3>Real banking example</h3>
+<p>The Capitec app's marketing page ("Open an account") is largely static — same content for everyone. Your actual account dashboard showing your balance and recent transactions is dynamic — it's generated fresh each time you log in, pulling live data from Capitec's backend systems specifically for your account.</p>
+
+<h2>Cloud applications</h2>
+<p>Work the same basic way as websites (client requests, server responds), but are built to run on cloud infrastructure — cloud-based backend, cloud data storage/processing, and other cloud services. This is what gives them strong scalability (handling more users without a full infrastructure rebuild) and resilience (staying up even if part of the system has issues).</p>
+
+<h2>Front-end vs back-end vs full-stack</h2>
+<ul>
+<li><strong>Front-end</strong> — everything on the client side, what the user actually sees and interacts with. Built with HTML, CSS, JavaScript, and related frameworks/libraries/tools.</li>
+<li><strong>Back-end</strong> — everything happening on the server before data reaches the client. Handles logic, functionality, and authentication/security. Back-end developers often work with relational or NoSQL databases, sometimes alongside dedicated database administrators on larger projects.</li>
+<li><strong>Full-stack</strong> — skills and experience spanning both front-end and back-end.</li>
+</ul>
+
+<h3>Real banking example</h3>
+<p>This maps directly onto your own IMI Java track: you're building front-end skills through the Meta certificate (HTML/CSS/JS/React) while the Java side of the programme is pushing you toward back-end work — meaning the overall trainee path is deliberately shaping you into a full-stack developer, not just one or the other.</p>
+
+<h2>Tools of the trade</h2>
+<p>A code editor is usually the first tool developers pick up. An <strong>IDE</strong> (Integrated Development Environment) goes further — bundling code editing with build, compile, and debug capabilities. Good IDEs support multiple languages and integrate with version control tools like Git and GitHub, plus offer extensions/themes for customizing your workflow. Examples: Sublime Text, Atom, Vim, VS Code, Visual Studio, Eclipse, NetBeans.</p>
+
+<h3>Real banking example</h3>
+<p>This is literally the Eclipse-to-VS-Code switch you made earlier in your Udemy course — both are IDEs offering the same core capabilities (build, debug, Git integration), just with different interfaces and workflows. Picking the one that clicks for you matters more than which specific IDE it is.</p>
+
+<h2>Logic to hold onto</h2>
+<p>The client-server request/response cycle is the foundation everything else in web development sits on top of. Once you genuinely understand "browser asks, server answers, response contains HTML/CSS/JS," every more advanced topic — APIs, databases, cloud infrastructure — is really just adding detail to one side or the other of that same basic exchange.</p>

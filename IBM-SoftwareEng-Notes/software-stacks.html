@@ -1,0 +1,46 @@
+<h1>Introduction to Software Stacks</h1>
+
+<h2>What a software stack is</h2>
+<p>A combination of technologies — software and programming languages — stacked in a hierarchy that work together to run an application. Higher levels in the stack handle tasks/services for the user; lower levels interact directly with the computer hardware. A stack typically includes front-end tech (languages, frameworks, UI tools) and back-end tech (languages, frameworks, web servers, app servers, OS, messaging, databases).</p>
+
+<h2>Software stack vs technology stack</h2>
+<p>These terms often get used interchangeably, but a <strong>technology stack</strong> is broader — it includes hardware and infrastructure too (virtual machines, containers, storage, load balancers) on top of the software stack itself.</p>
+
+<h2>Basic structure</h2>
+<p>The simplest stack has three layers: presentation (what the user sees), business logic (the actual processing/rules), and data (storage). More complex applications add layers for virtualization, scheduling/orchestration, runtime environments, database connectivity, networking, and security. There's no formal required structure — the only rule is that everything included must support the application's development, functionality, or deployment. You only use the layers relevant to your specific solution.</p>
+
+<h2>Named stack examples</h2>
+<ul>
+<li><strong>Python Django</strong> — Python + Django framework, open source, common for large-scale, fast-changing web apps.</li>
+<li><strong>Ruby on Rails</strong> — Ruby + a server-side framework, strong with JSON/XML for data transfer, HTML/CSS/JS on the front end.</li>
+<li><strong>ASP.NET</strong> — Microsoft-centric: ASP.NET MVC framework, IIS web server, SQL Server, Azure.</li>
+</ul>
+
+<h2>LAMP</h2>
+<p><strong>L</strong>inux, <strong>A</strong>pache (web server), <strong>M</strong>ySQL (database), <strong>P</strong>HP (language). One of the earliest software stacks, built for websites and cloud apps. Fully open source and loosely coupled — pieces are swappable. Example: replace MySQL with PostgreSQL and it becomes the LAPP stack; swap PHP for Python and it changes again.</p>
+
+<h2>MEAN, MEVN, MERN family</h2>
+<ul>
+<li><strong>MEAN</strong> — MongoDB, Express.js, Angular, Node.js. Platform-agnostic, free, open source.</li>
+<li><strong>MERN</strong> — same as MEAN but React replaces Angular; flexible, high-performing front-end.</li>
+<li><strong>MEVN</strong> — same as MEAN but Vue.js replaces Angular; lighter-weight than Angular, sometimes better raw performance, but fewer available libraries since Vue is newer.</li>
+</ul>
+
+<h2>Trade-offs: MEAN vs MEVN vs LAMP</h2>
+
+<h3>MEAN</h3>
+<p><strong>Pros:</strong> everything runs on JavaScript, so developers only need one language across the whole stack. Open source, well-documented, huge library of free reusable Node.js modules speeds up development.</p>
+<p><strong>Cons:</strong> not ideal for very large-scale applications. With Express.js, business logic tends to live server-side, limiting reuse of some services (like batching operations). MongoDB handles unstructured data well but lacks the structured querying power of a relational database.</p>
+
+<h3>MEVN</h3>
+<p>Very similar tradeoffs to MEAN, but since Vue.js is newer than Angular, there's a smaller pool of existing reusable libraries to draw from.</p>
+
+<h3>LAMP</h3>
+<p><strong>Pros:</strong> open source with a large amount of reusable code available; being one of the oldest stacks, support and existing solutions are easy to find.</p>
+<p><strong>Cons:</strong> tied to Linux specifically, making it less flexible than the platform-agnostic MEAN/MEVN stacks. MySQL is relational, so it can't take advantage of unstructured data the way MongoDB can. Also, the back-end (PHP/Perl/Python) and front-end (JavaScript/HTML) use different languages, making it harder for a developer to move fluidly between LAMP and a JavaScript-only stack like MEAN.</p>
+
+<h3>Real banking example</h3>
+<p>Capitec's own stack, given your syllabus, is heavily Java-centric — Spring Framework on the back end, React on the front end. That's neither MEAN/MEVN/MERN (all JavaScript-based) nor LAMP — it's its own combination, chosen presumably because Java + Spring gives the structure, type-safety, and maturity a regulated banking environment needs, which lighter JavaScript-only stacks don't prioritize as heavily.</p>
+
+<h2>Logic to hold onto</h2>
+<p>Every stack choice is really a trade-off between three things: how many languages you need to learn (MEAN's single-language JavaScript advantage), how mature and well-documented the ecosystem is (LAMP's age advantage), and how well it fits the specific type of data and scale you're working with (structured/relational vs unstructured, small app vs large-scale). There's no universally "best" stack — only a best fit for a given problem.</p>

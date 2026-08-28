@@ -1,0 +1,58 @@
+<h1>More Application Development Tools</h1>
+
+<h2>CI/CD</h2>
+<p>Continuous Integration and Continuous Delivery/Deployment — a DevOps best practice for shipping frequent, reliable changes.</p>
+<ul>
+<li><strong>CI</strong> — run through a build-automation server, ensures all code components work together smoothly by integrating newly written code frequently (daily, sometimes hourly, depending on how fast the project moves).</li>
+<li><strong>CD</strong> — picks up where CI ends. Once CI has automatically built and tested the code, CD deploys those changes to a testing or staging environment.</li>
+</ul>
+
+<h3>Real banking example</h3>
+<p>At a bank, frequent small integrations catch problems early — if ten developers are all touching the same payments codebase, CI running daily (or hourly) means a broken change gets flagged within hours, not discovered weeks later when it's tangled up with dozens of other changes.</p>
+
+<h2>Build tools</h2>
+<p>Transform source code into the binaries needed for installation — organizing code, setting compile flags, and managing dependencies. Most critical in environments with many interconnected projects and multiple contributors, where manually tracking changes, order, and dependencies becomes unmanageable without automation.</p>
+<p>Build automation can handle: downloading dependencies, compiling source into binary, packaging that binary, running tests, and deploying to production. Can be triggered from the command line or an IDE.</p>
+<p>Two categories:</p>
+<ul>
+<li><strong>Build-automation utilities</strong> — generate build artifacts (executables) by compiling and linking source code.</li>
+<li><strong>Build-automation servers</strong> — run those utilities on a scheduled or triggered basis.</li>
+</ul>
+<p>Examples: Webpack (JavaScript module bundler), Babel (JavaScript compiler), WebAssembly (binary instruction format that runs in the browser).</p>
+
+<h3>Real banking example</h3>
+<p>This is exactly what Maven does for your PayNest capstones — it compiles your Java source, manages dependencies, and runs your test suite (like the 8/8 passing tests on Capstone 1) automatically, rather than you manually compiling and testing every file by hand each time.</p>
+
+<h2>Packages</h2>
+<p>Archive files bundling app files, installation instructions, and metadata together, so the end user has a simple, trouble-free install. Packages carry their own metadata: description, version, and dependencies (other packages that must be installed first).</p>
+
+<h2>Package managers</h2>
+<p>Handle finding, installing, maintaining, and uninstalling software packages on request. Package management systems specifically:</p>
+<ul>
+<li>Coordinate with file archivers to extract package archives</li>
+<li>Verify checksums and digital certificates to confirm integrity and authenticity</li>
+<li>Locate, download, install, or update software from a repository</li>
+<li>Manage dependencies, ensuring a package installs alongside everything it requires</li>
+</ul>
+
+<h3>OS-level package managers</h3>
+<ul>
+<li>Linux — DPKG (Debian), RPM (Red Hat)</li>
+<li>Windows — Chocolatey</li>
+<li>Android — Package Manager</li>
+<li>macOS — Homebrew, MacPorts</li>
+</ul>
+
+<h3>Language-level package managers</h3>
+<ul>
+<li>Node.js/JavaScript — npm</li>
+<li>Java — Gradle and Maven</li>
+<li>Ruby — RubyGems</li>
+<li>Python — Pip and Conda</li>
+</ul>
+
+<h3>Real banking example</h3>
+<p>Maven, listed here as a Java package manager, is the same tool referenced in your dev environment notes — it's both a build tool AND a package manager for Java, handling dependency resolution (the reason the Zscaler corporate proxy issue affects your capstone repo specifically) alongside compiling and testing your code.</p>
+
+<h2>Logic to hold onto</h2>
+<p>These four tools form a pipeline, not four separate unrelated things: build tools turn your source code into something runnable, packages wrap that runnable thing up for distribution, package managers handle getting that package onto someone's machine correctly (with dependencies satisfied), and CI/CD automates the whole chain so it happens reliably and frequently instead of manually and rarely.</p>

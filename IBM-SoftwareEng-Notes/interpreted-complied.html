@@ -1,0 +1,24 @@
+<h1>Interpreted vs Compiled Programming Languages</h1>
+
+<h2>Why programming languages exist</h2>
+<p>Computers only understand machine code — binary, ones and zeros. Programming languages exist to make communicating with computers human-readable, then get translated into machine code one way or another. The two broad categories for how that translation happens: interpreted and compiled.</p>
+
+<h2>Interpreted (scripting) languages</h2>
+<p>Run through an interpreter — either built into a web browser or a program on your computer — which translates the human-readable code into machine code as it runs. Examples: JavaScript (runs through a browser's interpreter), Python (popular for being easy to learn), Lua (lightweight, common in game scripting).</p>
+<p>Interpreted languages tend to be more versatile — the same script can run anywhere the correct interpreter exists, across different platforms, without needing to be rebuilt per platform.</p>
+
+<h2>Compiled languages</h2>
+<p>Used for larger, more complex programs — the kind you install and run directly (an operating system, a music app). A <strong>compiler</strong> converts the source code into machine code and packages it into one executable file. That file runs faster and can be run repeatedly without re-translating the code each time, since the translation work already happened once, upfront, at compile time.</p>
+<p>Examples: C, C++, C#, Java. Operating systems themselves — Windows, macOS, Linux, Android — are written in compiled languages. Android specifically is written in Java partly because Java works well across different computing platforms.</p>
+
+<h3>Real banking example</h3>
+<p>This lesson lists Java as compiled, and technically your Java programs do get compiled — `javac` (from the Udemy course, lesson 2) turns your `.java` files into `.class` bytecode files. Worth knowing as a nuance for later: Java is actually a bit of a hybrid — that bytecode then gets run by the JVM, which interprets/executes it rather than running as raw native machine code the way C does. For this course's purposes, the compiled-vs-interpreted split as taught here is the correct mental model to hold onto; the JVM detail is a refinement you'll pick up more naturally as you go deeper into Java specifically.</p>
+
+<h2>Quick distinction to hold onto</h2>
+<ul>
+<li><strong>Interpreted</strong> — translated on the fly, each time it runs; more versatile across platforms; good fit for scripts run repeatedly and often.</li>
+<li><strong>Compiled</strong> — translated once, upfront, into a standalone executable; faster to run repeatedly since the translation work is already done; good fit for larger, more complex programs.</li>
+</ul>
+
+<h2>Logic to hold onto</h2>
+<p>The core trade-off is when the translation work happens. Interpreted languages pay that translation cost every single time the program runs — more flexible, slightly slower per run. Compiled languages pay that cost once, at build time — less flexible across platforms without recompiling, but much faster every time after that. Neither is universally better; the right choice depends on what you're building and how often it needs to run.</p>

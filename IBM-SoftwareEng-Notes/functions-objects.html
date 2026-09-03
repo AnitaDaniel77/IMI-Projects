@@ -1,0 +1,39 @@
+<h1>Introduction to Programming Concepts, Part 2: Functions and Objects</h1>
+
+<h2>Functions</h2>
+<p>Functions come from modular programming — the idea of breaking a program into separate components, each doing one specific task, rather than one giant undivided block of code. A function is structured, stand-alone, reusable code that performs a single specific action. This lets developers turn a large, complex program into smaller, focused, manageable pieces.</p>
+<p>Different languages/contexts use different names for the same underlying idea: subroutines, procedures, methods, modules — but most modern languages just call them functions.</p>
+
+<h3>How functions work</h3>
+<p>Functions take data in as input, process it, and return a result as output. Two types exist:</p>
+<ul>
+<li><strong>Standard library functions</strong> — built into the language itself (e.g. `print`).</li>
+<li><strong>Custom functions</strong> — ones you write yourself, reusable as many times as needed once written.</li>
+</ul>
+<p>How a function's code block gets identified varies by language — some use braces, some use begin/end statements, others rely on indentation.</p>
+
+<h3>Steps to using a function</h3>
+<ol>
+<li><strong>Define (create)</strong> — provide a function keyword, a unique name, and the body of statements.</li>
+<li><strong>Call (invoke)</strong> — trigger the function to actually run, using any specified parameters.</li>
+</ol>
+<p>Some languages (C, C++) also require an explicit <strong>declare</strong> step before defining and calling.</p>
+
+<h3>Real banking example</h3>
+<p>Every `public static void main` you've written is technically a function definition, and the JVM "calling" it is what kicks off your program's execution. In real Capitec code, something like `calculateInterest(balance, rate)` would be a custom function — write it once, call it wherever interest needs calculating, rather than repeating that formula throughout the codebase.</p>
+
+<h2>Objects and Object-Oriented Programming (OOP)</h2>
+<p>OOP is a methodology focused on <strong>objects</strong> rather than functions — the opposite emphasis from procedural programming. An object bundles together data (properties/attributes) and code (procedures/methods) as one unit. The key distinction: procedural programming keeps methods and data structures separate, operating on data from the outside; OOP packages them together, so an object operates on its own internal data.</p>
+
+<h3>Two questions that define any object</h3>
+<p>For any real-world object — a car, a TV, a washing machine — ask: "What states can it be in?" and "What behaviors can it perform?" More complex objects have more possible states and more behaviors. Software objects work the same way conceptually: a Windows service, a user account, a database table, a system folder — all consist of states (properties) and behaviors (methods).</p>
+<ul>
+<li><strong>Properties</strong> are stored in <strong>fields</strong> (also called variables in some languages).</li>
+<li><strong>Behaviors</strong> are exposed through <strong>methods</strong> (also called functions in some languages).</li>
+</ul>
+
+<h3>Real banking example</h3>
+<p>This is exactly the `Product` and `Task` classes from your own PayNest capstones — a `Product` object has properties (price, id) and behaviors it can expose through methods. Its "states" are the specific values those properties hold at any given moment (price = R199.99, id = "PROD-001"), and its "behaviors" are whatever methods you've defined on it. This lesson is giving you the formal vocabulary for something you've already been building hands-on.</p>
+
+<h2>Logic to hold onto</h2>
+<p>Functions and objects solve related but different problems. Functions break a program into reusable actions — "do this specific thing." Objects bundle data and the actions that belong to that data into one unit — "this specific thing has its own data and knows how to act on itself." OOP doesn't eliminate functions; it just changes where functions live and what they operate on — instead of a function reaching out to grab data from elsewhere, the data and the function that acts on it travel together as one object.</p>

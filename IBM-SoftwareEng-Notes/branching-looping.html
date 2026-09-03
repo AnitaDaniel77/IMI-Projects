@@ -1,0 +1,39 @@
+<h1>Branching and Looping Programming Logic</h1>
+
+<h2>The two major types of programming logic</h2>
+<p>All programming logic boils down to two categories: <strong>branching</strong> (deciding what to do) and <strong>looping</strong> (deciding how many times to do it). Both rely on the same two building blocks: Boolean expressions and variables.</p>
+<ul>
+<li><strong>Boolean expression</strong> — a statement that only ever evaluates to true or false.</li>
+<li><strong>Variable</strong> — a value that can change depending on conditions or information passed into the program, used within functions or subroutines.</li>
+</ul>
+<p>Computers use Boolean logic to decide between actions: take one path if a condition is true, a different path if it's false.</p>
+
+<h2>Branching</h2>
+<p>Branching is where a program follows a different set of instructions depending on whether certain conditions are met while it's running. Each possible pathway is a "branch," and there's no hard limit on how many branches a program can have to represent complex logic. The values that determine which branch runs can come from user input or from the output of an earlier step in the program.</p>
+
+<h3>Common branching constructs</h3>
+<ul>
+<li><strong>if</strong> — executes one block of code if a condition is true.</li>
+<li><strong>if-then-else</strong> — extends `if` by guaranteeing something always runs: the true block or the false block, one or the other, always.</li>
+<li><strong>switch</strong> — lets the value of a variable/expression itself determine which path the program takes, mapping specific values to specific actions.</li>
+<li><strong>GoTo</strong> — a one-way jump straight to another line of code. Notably different from a function call, which returns control back to where it was called from.</li>
+</ul>
+
+<h3>Real banking example</h3>
+<p>Every if/else if/switch statement you've written in your Udemy course (login validation, FizzBuzz, day-name lookups) is branching logic in action — deciding *what action to take* based on a condition. Something like fraud detection at Capitec is fundamentally a massive branching structure: if transaction amount exceeds X, branch to a review flow; if location doesn't match the account's usual pattern, branch to an alert; otherwise, branch straight through to approval.</p>
+
+<h2>Looping</h2>
+<p>A loop is a sequence of instructions that repeats until a specific condition is reached. Typically: perform a process (like retrieving/updating data), check a condition (like whether a counter hit its target), and if not yet met, go back and repeat. Once the condition is satisfied, execution either falls through to the next instruction or exits the loop entirely.</p>
+
+<h3>The three basic loop types</h3>
+<ul>
+<li><strong>While</strong> — condition checked *before* the loop body runs; the body only executes if the condition is true.</li>
+<li><strong>For</strong> — initial value set once, then the condition is checked against a counter after each pass, stopping once it evaluates false.</li>
+<li><strong>Do-while</strong> — condition checked *after* the loop body runs (an "exit-controlled" loop), guaranteeing at least one execution.</li>
+</ul>
+
+<h3>Real banking example</h3>
+<p>This is a direct match to your own Udemy notes on `while`, `do-while`, and `for` — this lesson gives the formal industry vocabulary ("exit-controlled loop" for do-while) for concepts you've already built working code around, like the countdown example and the do-while user-input pattern.</p>
+
+<h2>Logic to hold onto</h2>
+<p>The cleanest way to remember the split: branching is a decision about *direction* (which path to take), looping is a decision about *duration* (how many times to repeat one path). Nearly every program you'll ever write is built entirely from combinations of these two ideas layered on top of each other — an if statement inside a for loop, a switch inside a while loop, and so on.</p>

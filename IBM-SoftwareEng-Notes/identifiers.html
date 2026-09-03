@@ -1,0 +1,34 @@
+<h1>Introduction to Programming Concepts, Part 1: Identifiers and Containers</h1>
+
+<h2>Identifiers</h2>
+<p>An identifier is a custom name a developer assigns to reference a program component — a stored value, a method, an interface, or a class. If an identifier stores data, it's either a <strong>constant</strong> or a <strong>variable</strong>.</p>
+
+<h2>Constants</h2>
+<p>A data item whose value never changes within the program — a numerical constant like pi, or a fixed text string like a game character's name. Constants (also called "named constants") get their value assigned once, when defined.</p>
+<p>Two main benefits of using constants instead of hardcoding raw values repeatedly:</p>
+<ul>
+<li><strong>Readability</strong> — `TAX_RATE` communicates intent far better than a bare `0.15` scattered through the code.</li>
+<li><strong>Single point of change</strong> — if the value ever needs updating, you change it once at the constant's definition, rather than hunting down every instance of that raw value throughout the codebase.</li>
+</ul>
+
+<h3>Real banking example</h3>
+<p>This is exactly the reasoning behind your Udemy course's `static final int LUCKY_NUMBER` and `Math.PI` examples — and directly relevant to banking: a constant like `MAX_LOGIN_ATTEMPTS` or `INTEREST_RATE` should live in exactly one place, so updating it for a policy change doesn't mean manually finding every reference to it across a large Capitec codebase.</p>
+
+<h2>Variables</h2>
+<p>The opposite of a constant — a value that can change during program execution, like a user's entered age or a game's current high score. Variables can hold text, numbers, or other data types. They let you reference things that are unknown ahead of time (a username, a file name) without hardcoding, which is considered poor practice.</p>
+<p>Variables can be declared with an initial value right away, or declared first and assigned a value later once the program runs and determines what that value should be.</p>
+
+<h2>Containers: arrays and vectors</h2>
+<p>Containers are special identifiers that reference multiple elements at once, so you don't need a separate variable for every individual item. Storing six integers with six separate variables is manageable; storing 1,000 integers that way would be completely unworkable — that's exactly the problem containers solve.</p>
+
+<h3>Arrays</h3>
+<p>A fixed number of elements of the same type, stored sequentially starting at index 0. Declaring one requires specifying the data type, the array's name, and its maximum size upfront.</p>
+
+<h3>Vectors (dynamic arrays)</h3>
+<p>Unlike arrays, vectors resize automatically as elements are added or removed — no fixed size needs to be declared upfront. That flexibility comes at a cost: vectors use more memory than arrays, and accessing their elements takes slightly longer since they're managed dynamically rather than sitting at fixed sequential positions.</p>
+
+<h3>Real banking example</h3>
+<p>This maps directly onto Java: your `String[] names` from the Udemy loops lesson is exactly an array — fixed size, declared upfront. A `List` or `ArrayList` in Java is the equivalent of what this lesson calls a vector — it grows and shrinks dynamically as you add or remove items, which is why `ArrayList` is used far more often in real Java code than plain fixed-size arrays, especially when you don't know in advance how many items (like transactions or account records) you'll need to store.</p>
+
+<h2>Logic to hold onto</h2>
+<p>The identifier landscape splits cleanly: constant vs. variable is about *whether the value can change*; array vs. vector is about *whether the size can change*. Once you can answer both questions for a piece of data you're working with — does its value change, and does the quantity of items change — you know exactly which of these four tools fits.</p>

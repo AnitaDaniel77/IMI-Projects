@@ -1,0 +1,35 @@
+<h1>Query and Assembly Programming Languages</h1>
+
+<h2>High-level vs low-level</h2>
+<p><strong>High-level</strong> languages use recognizable English-like syntax, making code easier to write, read, and debug. Examples: query languages (SQL), structured languages (Pascal), object-oriented languages (Python).</p>
+<p><strong>Low-level</strong> languages use a simpler set of symbols much closer to raw machine code. Examples: assembly languages (ARM, MIPS, x86).</p>
+
+<h2>Query languages</h2>
+<p>A <strong>query</strong> is a request for information from a database — the database searches its tables and returns results. Both the requesting application and the database need to speak the same query language for this to work. <strong>SQL</strong> (Structured Query Language) is by far the most common, though others exist (AQL, CQL, Datalog, DMX).</p>
+
+<h3>SQL vs NoSQL</h3>
+<ul>
+<li><strong>SQL databases</strong> — relational, structured, predefined schema.</li>
+<li><strong>NoSQL databases</strong> (Not Only SQL) — non-relational, dynamic schema, built for unstructured data.</li>
+</ul>
+
+<h3>CRUD</h3>
+<p>Query languages are mainly used to request data or perform <strong>CRUD</strong> operations — Create, Read, Update, Delete. Query statements (also called "statements") fall into two types:</p>
+<ul>
+<li><strong>Select queries</strong> — request/retrieve data</li>
+<li><strong>Action queries</strong> — manipulate data (create, insert, update)</li>
+</ul>
+<p>Statements can also handle admin tasks like creating users or modifying permissions, beyond just data operations.</p>
+
+<h3>Real banking example</h3>
+<p>Every time the Capitec app shows your transaction history, that's a SELECT query pulling rows from a transactions table. Every time you make a payment, an INSERT (or similar action query) writes a new row recording that transaction. Later in your syllabus (Java Development with Databases), you'll be writing exactly this kind of query from Java code rather than typing raw SQL by hand — but the underlying logic is the same CRUD pattern from this lesson.</p>
+
+<h2>Assembly languages</h2>
+<p>The least sophisticated category — a simple set of symbols representing the actual zeros and ones of machine code directly. Assembly is tightly tied to specific processor/CPU architecture, so each CPU type generally has its own assembly language (which is why many different assembly languages exist across hardware manufacturers).</p>
+<p>Structure: statements are written one per line, made up of an <strong>instruction/mnemonic</strong> (like `LOAD`, `ADD`, `OUTPUT`) plus <strong>operands/parameters</strong>, with optional comments. Mnemonics map to opcodes telling the processor what to do, and operands tell it where to find the relevant data.</p>
+
+<h3>Key distinction: assembler vs compiler/interpreter</h3>
+<p>Assembly language is translated by an <strong>assembler</strong>, not a compiler or interpreter. The key difference: one assembly statement translates into exactly <em>one</em> machine code instruction (a 1:1 relationship), whereas one line of a high-level language can expand into <em>multiple</em> machine code instructions during compilation or interpretation.</p>
+
+<h2>Logic to hold onto</h2>
+<p>Think of this as a spectrum of distance from raw machine code. Assembly sits closest to the hardware — one line, one instruction, tied to a specific CPU. High-level languages like SQL or Python sit furthest away — closer to how a human thinks, with one line potentially unpacking into many machine instructions behind the scenes. Query languages are a special-purpose high-level language focused entirely on one job: talking to a database, rather than general-purpose programming.</p>

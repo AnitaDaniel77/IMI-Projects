@@ -1,0 +1,45 @@
+<h1>Understanding Code Organization Methods</h1>
+
+<h2>Why organizing code matters</h2>
+<p>Well-planned software design leads to cleaner, more reliable code. Planning visually or logically before writing actual code reduces bugs and errors over the project's lifespan, and provides a consistent, logical format to work from. Two main methods exist: flowcharts and pseudocode.</p>
+
+<h2>Flowcharts</h2>
+<p>A pictorial representation of an algorithm (a step-by-step sequence for solving a problem), using shapes and arrows to show steps and their order. Main purpose: analyzing different ways to solve a problem or complete a process, and making the logic and relationships between parts easy to see at a glance.</p>
+
+<h3>Standard flowchart shapes</h3>
+<ul>
+<li><strong>Start/End</strong> — capsule shape</li>
+<li><strong>Process</strong> — rectangle</li>
+<li><strong>Decision</strong> — diamond</li>
+<li><strong>Data</strong> — parallelogram</li>
+<li><strong>Connectors</strong> — arrows</li>
+</ul>
+
+<h3>Example: adding two numbers</h3>
+<p>Start (capsule) → Input n1 and n2 (parallelogram) → Sum = n1 + n2 (rectangle) → Print Sum (parallelogram) → End (capsule), each step connected by arrows.</p>
+
+<p>Flowchart software: Microsoft Visio, Lucidchart, Draw.io, DrawAnywhere — these let you drag shapes into place and support team collaboration.</p>
+
+<p>Flowcharts work especially well for smaller concepts and problems, and are easier to create at the very start of a project than pseudocode is — making them a good communication tool early on.</p>
+
+<h2>Pseudocode</h2>
+<p>An informal, plain-language description of a program's logic — no strict syntax, no dependency on any specific programming language. System designers write pseudocode so programmers understand requirements and align their actual code to them. It outlines a program's flow at a high level, without technical implementation detail.</p>
+<p>Pseudocode acts as a bridge between how a person thinks through a problem and how a computer eventually executes it — letting you plan logically without worrying about syntax yet. It's especially good for beginners, since it removes the pressure of correct syntax while you're still figuring out the logic itself.</p>
+
+<h3>Advantages of pseudocode over flowcharts</h3>
+<ul>
+<li>Explains exactly what each line should do — lets the coder focus on logic, not syntax</li>
+<li>Language-independent — programmers using completely different languages can understand and discuss the same pseudocode</li>
+<li>Easier for non-programmers to read and review than actual code</li>
+<li>Quick to translate into any specific programming language</li>
+<li>More concise and easier to modify than a flowchart when the design changes</li>
+<li>Usually fits on less than one page, unlike some flowcharts</li>
+</ul>
+
+<p>Pseudocode tends to scale better for larger, more complex projects, while flowcharts are stronger for smaller, more visual concepts.</p>
+
+<h3>Real banking example</h3>
+<p>This lesson essentially validates something you've already been doing throughout your Udemy notes — writing pseudocode before every actual Java example. That's not just a study habit, it's an industry-standard first step: at Capitec, a system designer would likely hand a developer pseudocode or a flowchart for something like a new interest-calculation feature before any Java gets written, precisely so logic gets agreed on and reviewed before implementation details are locked in.</p>
+
+<h2>Logic to hold onto</h2>
+<p>Flowcharts and pseudocode solve the same underlying problem — thinking through logic before committing to code — but trade off differently. Flowcharts are visual and intuitive early on but get unwieldy for large, complex logic. Pseudocode scales better for bigger projects and is faster to translate directly into real code, but lacks the same instant visual clarity a flowchart gives someone seeing the process for the first time. Choosing between them is really a choice between visual clarity and scalability.</p>

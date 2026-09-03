@@ -1,0 +1,32 @@
+<h1>Insiders' Viewpoints: Types of Languages</h1>
+
+<h2>Compiled vs interpreted — the honest practitioner view</h2>
+<p>Multiple experts agree on something notably different from the textbook framing: for most day-to-day work, the compiled vs. interpreted distinction "doesn't really matter" — it mostly comes down to personal preference and how fast you want to get moving.</p>
+<p>Where it genuinely matters:</p>
+<ul>
+<li><strong>Performance-critical situations</strong> — squeezing out small, incremental performance gains, where compiling ahead of time has an edge over interpreting on the fly.</li>
+<li><strong>Deployment confidence</strong> — one engineer prefers compiled languages specifically because a compiler gives more of a guarantee that the code will deploy properly and do roughly what was intended — the compiler catches certain classes of mistakes before the program ever runs.</li>
+<li><strong>Flexibility vs safety trade-off</strong> — interpreted languages allow more creative, flexible runtime behavior; compiled languages stop you earlier with compiler errors, catching problems before deployment rather than discovering them live. One expert frames this as depending on your risk tolerance for potentially buggy code reaching production.</li>
+</ul>
+
+<h3>Real banking example</h3>
+<p>This directly explains why Capitec's stack leans Java (compiled) rather than something purely interpreted for core banking systems — the "compiler gives more of a guarantee it will deploy properly" point matters enormously when a bug reaching production could mean real financial impact. The flexibility of an interpreted language is a reasonable trade-off for a fast-moving startup's app; it's a much riskier trade-off for a payments system.</p>
+
+<h2>Object-oriented vs procedural — practitioner trade-offs</h2>
+<p>Benefits of object-oriented programming (OOP) mentioned:</p>
+<ul>
+<li>Anything can be modeled as an object, and OOP imposes hierarchies and patterns on those objects — this structure makes it easier to keep a design in mind and understand how different pieces interact.</li>
+<li>Maps naturally to real-world things and data models — the classic teaching example is a library system with books and a checkout process, which helps beginners bridge from thinking about physical objects to thinking in code.</li>
+</ul>
+<p>Risks of over-applying OOP, mentioned candidly by more than one expert:</p>
+<ul>
+<li>It's easy to "paint yourself into a wall" by imposing too much structure — resulting in an explosion of boilerplate code that adds ceremony without real value.</li>
+<li>Getting overly prescriptive with object design can become a genuine constraint rather than a help — the right amount of structure depends entirely on what you're building, and there's a balance to find between structure, flexibility, and how much your design should dictate how others interact with the code.</li>
+</ul>
+<p>Procedural programming, by contrast, was described by one expert as feeling more mathematical and closer to pure engineering — appealing to people who want to feel like they're directly "in the machine" rather than working through a layer of object abstraction. Which style fits better genuinely depends on how a given person's brain naturally thinks through problems — worth trying both rather than assuming one is objectively correct.</p>
+
+<h3>Real banking example</h3>
+<p>Your own PayNest capstones are a live example of the "right amount of structure" point — the `PaymentMethod` interface with `CardPayment`/`EftPayment`/`WalletPayment` implementations is a clean, purposeful use of OOP (real polymorphism solving a real problem: accepting any payment type without hardcoding logic for each). The caution here is a reminder not to over-engineer beyond that — adding classes and interfaces "because OOP" rather than because the structure actually earns its complexity.</p>
+
+<h2>Logic to hold onto</h2>
+<p>The consistent theme across both topics in this lesson: dogmatic rules ("always use compiled languages," "always use OOP") don't hold up in real practice. Experienced engineers choose based on the actual constraints of what they're building — risk tolerance, performance needs, how naturally the problem maps to objects — rather than treating either approach as inherently superior. The skill worth building is recognizing which situation you're in, not memorizing a fixed rule.</p>

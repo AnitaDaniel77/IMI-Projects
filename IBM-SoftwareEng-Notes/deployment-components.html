@@ -1,0 +1,41 @@
+<h1>Production Deployment Components</h1>
+
+<h2>The n-tier deployment structure</h2>
+<p>A typical production infrastructure diagram, top to bottom:</p>
+<ul>
+<li><strong>Presentation tier</strong> — front-end client applications. Everything below this sits behind a firewall.</li>
+<li><strong>Web tier</strong> — has a web load balancer distributing incoming traffic across multiple web servers.</li>
+<li><strong>Application server tier</strong> — has an app load balancer or proxy server routing traffic to different application servers.</li>
+<li><strong>Data tier</strong> — the database server, often with a high-availability replica for reliability.</li>
+</ul>
+<p>Not every deployment needs every component — some environments skip having both application servers and web servers separately, for example.</p>
+
+<h2>Firewall</h2>
+<p>A security device monitoring traffic between networks, permitting or blocking data based on security rules. Acts as a barrier protecting the internal network from viruses, malware, and unauthorized access/hackers.</p>
+
+<h2>Load balancer</h2>
+<p>Distributes network traffic efficiently across multiple servers (a "server farm"), sitting between clients and servers. Prevents any single server from becoming overloaded, maximizing availability and responsiveness by determining which servers can best handle incoming requests. Manages concurrent client requests, returning data quickly and reliably.</p>
+
+<h3>Real banking example</h3>
+<p>When millions of Capitec app users check their balance around payday simultaneously, a load balancer is what prevents that traffic spike from overwhelming any single server — spreading the requests across a whole server farm so the app stays responsive instead of crashing under the load.</p>
+
+<h2>Web servers vs application servers</h2>
+<ul>
+<li><strong>Web server</strong> — delivers content (web pages, files, images, videos) to a client, primarily responding to HTTP requests from a browser.</li>
+<li><strong>Application server</strong> — runs the actual business logic and provides the application itself to the client, rather than the client running the app locally. Enables interaction between the end user and server-side code — the logic that determines how data is created, stored, and changed (transaction outcomes, what gets written to or read from a database).</li>
+</ul>
+
+<h3>Real banking example</h3>
+<p>This is precisely the distinction between what a Capitec web page serves you (static marketing content, a web server's job) versus what actually processes a transfer request when you use the app (business logic on an application server deciding whether the transfer is valid, updating balances, and writing the result to a database).</p>
+
+<h2>Proxy server</h2>
+<p>An intermediate server sitting between two tiers, handling requests between them. Can serve multiple purposes: load balancing, system optimization, caching, acting as a firewall, obscuring the origin of a request, encryption, malware scanning. Improves efficiency, privacy, and security of data flowing through the network.</p>
+
+<h2>Database and DBMS</h2>
+<p>A database is a collection of related data stored so it can be accessed in various ways. It's controlled by a <strong>Database Management System (DBMS)</strong> — software that connects the database to users or programs. The database server manages the flow and storage of data; the DBMS is what lets an application actually retrieve or manipulate that data.</p>
+
+<h3>Real banking example</h3>
+<p>This directly previews your syllabus's "Java Development with Databases" course — the DBMS is the layer your Java application code will talk to when it needs to pull a customer's account balance or write a new transaction record, rather than your application code manipulating raw data files itself.</p>
+
+<h2>Logic to hold onto</h2>
+<p>Each component in this stack exists to solve a specific failure mode at scale: firewalls guard against unauthorized access, load balancers guard against any one server being overwhelmed, proxy servers add a flexible layer of control between tiers, and the DBMS guards against applications directly and chaotically manipulating raw data. None of these are optional extras for a toy project — they're what separates "code that runs on my machine" from "a system that can reliably serve millions of real users," which is exactly the gap between a personal capstone and genuine production banking infrastructure.</p>

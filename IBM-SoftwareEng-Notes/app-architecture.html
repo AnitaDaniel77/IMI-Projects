@@ -1,0 +1,56 @@
+<h1>Approaches to Application Architecture</h1>
+
+<h2>What a component is</h2>
+<p>An individual unit of encapsulated functionality that works alongside other components to form part of an application. Six defining characteristics:</p>
+<ul>
+<li><strong>Reusable</strong> — designed to be used across different applications, not just one.</li>
+<li><strong>Replaceable</strong> — can be swapped for another component without disruption.</li>
+<li><strong>Independent</strong> — doesn't depend on other components.</li>
+<li><strong>Extensible</strong> — new behavior can be added without changing other components.</li>
+<li><strong>Encapsulated</strong> — data and methods are bundled together, hiding internal state and implementation.</li>
+<li><strong>Non-context-specific</strong> — works across different environments; the data that sets its internal state is passed in, rather than baked into or reached for by the component itself.</li>
+</ul>
+
+<h3>Examples of components</h3>
+<ul>
+<li>A reusable API connecting a system to a specific database.</li>
+<li>A data access object — an interface for a database that can switch which database it talks to without the application even knowing the switch happened.</li>
+<li>A controller — decides which other components need to be called for a given event, controlling data flow between them.</li>
+</ul>
+
+<h2>Component-based architecture</h2>
+<p>Focuses on decomposing a system's design into these logical components. Provides a higher level of abstraction than plain object-oriented design — it defines, composes, and implements loosely coupled, independent components that work together to form the whole application.</p>
+
+<h3>Real banking example</h3>
+<p>Your PayNest `PaymentMethod` interface with `CardPayment`/`EftPayment`/`WalletPayment` hits several of these characteristics directly: replaceable (swap in a new payment type without touching `PaymentProcessor`), independent (each implementation doesn't depend on the others), and encapsulated (each payment type's internal logic is hidden behind the shared interface).</p>
+
+<h2>Services vs components</h2>
+<p>A service is also a unit of functionality, but designed to be <strong>deployed independently</strong> and reused by multiple systems, focused on solving a specific business need. The key distinction: a service has exactly one unique, always-running instance that multiple clients communicate with — a component doesn't necessarily have that "single running instance" property.</p>
+<p>Layering, from smallest to largest: <strong>objects</strong> make up <strong>components</strong>, and components make up <strong>services</strong>. A service is technically a type of component, just one meant to be deployed independently of the overall system.</p>
+<p>Examples of services: checking a customer's credit, calculating a monthly loan payment, processing a mortgage application.</p>
+
+<h3>Real banking example</h3>
+<p>"Calculating a monthly loan payment" as a named example service is directly relevant to Capitec — that's likely a genuinely independent, always-running service in their real architecture, callable by the mobile app, the website, and internal staff tools alike, all hitting the same single running instance rather than each having their own separate calculation logic.</p>
+
+<h2>Service-Oriented Architecture (SOA)</h2>
+<p>Services are loosely coupled and communicate with each other via a communication protocol over a network. SOA supports building distributed systems that deliver services to other applications through that protocol.</p>
+
+<h2>Distributed systems</h2>
+<p>Multiple services running on different machines, coordinating by passing messages over a protocol like HTTP. Despite running across multiple machines, a distributed system appears to the end user as one single, coherent system.</p>
+
+<h3>Key properties</h3>
+<ul>
+<li><strong>Shares resources</strong> — hardware, software, data.</li>
+<li><strong>Fault-tolerant</strong> — if one node or service fails, the system keeps running; the system can change during execution without interrupting service.</li>
+<li><strong>Concurrent</strong> — multiple activities run at once, reducing latency and increasing throughput.</li>
+<li><strong>Scalable</strong> — handles growth in users without a fundamental redesign.</li>
+<li><strong>Heterogeneous</strong> — the machines involved don't need matching hardware, operating systems, or even programming languages.</li>
+</ul>
+<p>A <strong>node</strong> is any device on the network that can recognize, process, and transmit data to other nodes. A distributed system is made of multiple interconnected nodes, each running one or more services in an SOA setup.</p>
+<p>Common base architectures for distributed systems: client-server, three-tier, peer-to-peer, microservices (each covered in more depth later).</p>
+
+<h3>Real banking example</h3>
+<p>Capitec's core banking infrastructure is almost certainly a distributed system by this definition — the app, ATMs, in-branch systems, and card payment processing all need to work together and appear seamless to you as a customer, even though they're realistically running as separate services across many machines. Fault tolerance matters enormously here: if one service (say, an ATM's connection) has an issue, the rest of the banking system shouldn't go down with it.</p>
+
+<h2>Logic to hold onto</h2>
+<p>The nesting relationship is the key thing to remember: objects → components → services → distributed systems, each level built from the one below it. A component becomes a service specifically when it's built to run as one independent, always-available instance shared across multiple clients — that single distinguishing property is what separates "a reusable piece of code" from "a service other systems can rely on."</p>

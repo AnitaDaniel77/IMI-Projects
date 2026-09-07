@@ -1,0 +1,41 @@
+<h1>Architectural Patterns in Software</h1>
+
+<h2>What an architectural pattern is</h2>
+<p>A repeatable solution to a common software architecture problem — highlighting shared internal structures and elements across systems. This lesson covers five: 2-tier, 3-tier, peer-to-peer, event-driven, and microservices (others exist too — model-view-controller, message-broker, blackboard, pipe-filter, controller-responder — but aren't covered here).</p>
+
+<h2>2-tier (client-server)</h2>
+<p>The server hosts, delivers, and manages most resources/services; the client's interface makes requests to the server for data or services. Typically multiple clients connect to one server over a network.</p>
+<p><strong>Example:</strong> a text messaging app — client sends a message via the server, server delivers it to the other client. Also: database clients connecting to database servers.</p>
+
+<h2>3-tier (n-tier)</h2>
+<p>The most common software architecture. Several horizontal tiers work together as one unit — each tier only talks to the tiers directly above and below it, and related components live in the same tier. Changes in one tier don't affect the others. The three logical/physical tiers:</p>
+<ul>
+<li><strong>Presentation tier</strong> — the user interface.</li>
+<li><strong>Middle/application tier</strong> — where business logic runs.</li>
+<li><strong>Data tier</strong> — where data is stored and managed.</li>
+</ul>
+<p><strong>Example:</strong> most web apps — a web server (UI), an application server (processes user input), and a database server (data management).</p>
+
+<h3>Real banking example</h3>
+<p>The Capitec app almost certainly follows a 3-tier pattern: the app's UI is the presentation tier, the Java/Spring backend processing your requests is the middle tier, and the database holding your account data is the data tier. This maps directly onto your syllabus's later coursework (Java App Development, Java Development with Databases, Spring Framework) — you're being trained to build the middle tier specifically.</p>
+
+<h2>Peer-to-peer (P2P)</h2>
+<p>A decentralized network of nodes that act as both clients and servers, with workload partitioned among them. Peers directly share resources (processing power, disk storage, bandwidth) with each other without central server coordination. Unlike client-server (where consumption is one-directional), peers both supply and consume resources.</p>
+<p><strong>Example:</strong> cryptocurrencies like Bitcoin and Ethereum — every computer in the blockchain acts as both server and client. Also useful for file sharing, instant messaging, collaboration, and high-performance computing.</p>
+
+<h2>Event-driven</h2>
+<p>An <strong>event</strong> is anything causing a change of state — a user action (like a mouse click) or something triggered elsewhere in the program. This architecture centers on <strong>producers</strong> (listen for and react to triggers) and <strong>consumers</strong> (process the resulting event). The producer publishes an event to an <strong>event router</strong>, which determines which consumer receives it via an <strong>event notification</strong>. Components stay loosely coupled, which fits well with modern distributed systems.</p>
+<p><strong>Example:</strong> ride-sharing apps like Uber/Lyft — a ride request is an event, routed to the appropriate consumer to fulfill it.</p>
+
+<h2>Microservices</h2>
+<p>Breaks an application's functionality into modular, independent components called services. An <strong>API</strong> defines how applications share/modify each other's data — APIs are what make a microservices architecture possible. An <strong>API Gateway</strong> routes requests from the client to the correct service; <strong>orchestration</strong> handles communication between the services themselves.</p>
+<p><strong>Example:</strong> social media platforms — one user account can trigger many independent services (friend requests, ad targeting, content display), each running as its own service.</p>
+
+<h2>Patterns can combine — with limits</h2>
+<p>These patterns aren't mutually exclusive — a 3-tier system can also be microservices-based, and peer-to-peer can also be event-driven. However, some combinations are logically impossible: peer-to-peer and 2-tier can't coexist, because peer-to-peer requires every machine to act as both client and server, while 2-tier requires the client and server roles to stay strictly separate. Choosing which patterns a system should follow is ultimately the system architect's decision.</p>
+
+<h3>Real banking example</h3>
+<p>A realistic large-scale system like Capitec's could combine 3-tier and microservices simultaneously — the overall presentation/application/data tier structure holds, while the application tier itself is internally broken into independent microservices (one for payments, one for account lookups, one for fraud checks), each callable through its own API.</p>
+
+<h2>Logic to hold onto</h2>
+<p>Each pattern answers a different structural question: 2-tier answers "who talks to whom" (client vs server, kept separate); 3-tier answers "how is responsibility layered" (presentation/logic/data); peer-to-peer answers "who owns the resources" (everyone, equally); event-driven answers "what triggers action" (events, not direct requests); microservices answers "how is functionality divided" (into small, independently deployable pieces). Knowing which question a given system needs answered tells you which pattern — or combination — actually fits.</p>

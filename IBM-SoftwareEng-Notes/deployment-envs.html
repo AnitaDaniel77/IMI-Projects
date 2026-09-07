@@ -1,0 +1,36 @@
+<h1>Application Deployment Environments</h1>
+
+<h2>What an application environment is</h2>
+<p>The combination of hardware and software needed to run an application: the code/binaries, the software stack it depends on (libraries, third-party apps, middleware), the operating system, networking infrastructure, and the physical or virtual hardware (compute, memory, storage).</p>
+
+<h2>Pre-production environments</h2>
+<p>The stages an application passes through before going live:</p>
+<ul>
+<li><strong>Development</strong> — where the application is actively being coded; often just the developer's own workstation.</li>
+<li><strong>QA (testing)</strong> — where the QA team tests the application's components.</li>
+<li><strong>Staging</strong> — as close a replica of production as possible, but not exposed to general users.</li>
+</ul>
+
+<h2>Production</h2>
+<p>The full solution stack — hardware, software, and infrastructure — that the live application runs on, intended for all real users. Unlike pre-production environments, production has to account for actual application <strong>load</strong> — potentially thousands or millions of simultaneous users for enterprise-level apps — plus non-functional requirements like security, reliability, and scalability. This makes production genuinely more complex than any pre-production stage.</p>
+
+<h3>Real banking example</h3>
+<p>This maps directly onto how your own capstone work should be thought about at scale: your `complete-website-AnitaDaniel` repo running locally in VS Code is your development environment. At Capitec, before a Java feature reaches customers, it would move through development → QA → staging, with staging specifically designed to catch anything that only shows up under production-like conditions (real data volume, real network setup) before millions of Capitec customers ever touch it.</p>
+
+<h2>Deployment options</h2>
+
+<h3>On-premises</h3>
+<p>The system and infrastructure live in-house, within the organization's own physical location, typically behind a firewall (which blocks unauthorized network access). The organization is fully responsible for the hardware, infrastructure, and maintenance. Chosen when greater security or control over the application and its data is needed — but it's generally more expensive than cloud deployment.</p>
+
+<h3>Cloud — three models</h3>
+<ul>
+<li><strong>Public cloud</strong> — infrastructure owned by a cloud provider, shared across multiple companies, accessed over the open internet. Providers: AWS, Microsoft Azure, Google Cloud, IBM Cloud. Most common option, due to scalability and cost.</li>
+<li><strong>Private cloud</strong> — provisioned for exclusive use by a single organization; can run on-premises or be owned/managed by a service provider (even AWS offers private cloud services). Main advantage: increased security, plus flexibility since it can be fully customized.</li>
+<li><strong>Hybrid cloud</strong> — a combination of public and private clouds working together, aiming to capture the advantages of both — cost, security, scalability, and flexibility — depending on which workload sits where.</li>
+</ul>
+
+<h3>Real banking example</h3>
+<p>A bank like Capitec is a strong candidate for a hybrid cloud approach — highly sensitive data (account records, transaction history) might sit in a private cloud or on-premises for maximum security and regulatory control, while less sensitive, high-traffic components (like the public marketing website or app store distribution) could run on public cloud infrastructure for cost and scalability benefits. This is exactly the kind of trade-off "on-premises vs public vs private vs hybrid" decisions come down to in a regulated financial environment.</p>
+
+<h2>Logic to hold onto</h2>
+<p>The pre-production stages exist to progressively de-risk a release: development catches basic mistakes, QA catches functional bugs, staging catches anything that only appears under near-production conditions. Production is where all of that risk-reduction work either pays off or gets tested against reality at scale. The deployment model choice (on-prem, public, private, hybrid) is a separate but related decision — it's about where that whole pipeline physically runs, driven by a trade-off between cost, control, security, and scalability specific to what the organization actually needs.</p>

@@ -1,0 +1,51 @@
+<h1>Key Features of Java</h1>
+
+<h2>Object-oriented programming</h2>
+<p>Java models real things as objects. A <strong>class</strong> defines what an object should have (properties) and what it can do (actions) — e.g. a `Cars` class defining color, speed, model, and behaviors like accelerating, turning, stopping. A specific car (a red Toyota Corolla) is an <strong>object</strong> created from that class.</p>
+
+<h3>The four OOP pillars, explained simply</h3>
+<ul>
+<li><strong>Inheritance</strong> — one class takes features from another; a `Car` class could inherit from a broader `Vehicle` class (wheels, engine).</li>
+<li><strong>Polymorphism</strong> — the same action behaves differently depending on the object; `start` could start a car's engine or turn on a boat's motor, despite being different objects.</li>
+<li><strong>Encapsulation</strong> — keeping certain details private so they can only be changed safely; a car's engine number stays private, changeable only by authorized methods, preventing tampering.</li>
+</ul>
+
+<h2>Platform independence</h2>
+<p>Made possible by the JVM. Compiled Java code becomes bytecode, runnable on any system with a JVM — write on Windows, run unmodified on macOS or Linux. This is exactly the WORA principle from the history lesson, now tied specifically to why it's technically possible.</p>
+
+<h2>Strong typing</h2>
+<p>Every variable must be declared with a specific data type before use. This catches type errors at compile time — you can't accidentally assign a string to a variable declared as an integer. Reduces bugs, especially valuable in large applications where type mistakes get harder to spot.</p>
+
+<h2>Automatic memory management (garbage collection)</h2>
+<p>The JVM automatically detects when an object is no longer needed and frees that memory — no manual memory management required from the developer. Example: a forgotten user-session object eventually gets reclaimed by the garbage collector once Java determines it's no longer in use.</p>
+
+<h2>Multi-threading</h2>
+<p>Multiple threads can run simultaneously within one program, enabling responsive applications. Example given: in an online banking app, one thread handles user input while another processes a transaction in the background — the user isn't stuck waiting.</p>
+
+<h3>Real banking example</h3>
+<p>That example is literally about your own industry — multi-threading is exactly why you can keep tapping around a banking app while a transfer processes in the background instead of the whole app freezing until it's done.</p>
+
+<h2>Comprehensive standard library</h2>
+<p>Pre-built classes and methods for common tasks — networking, data structures, file handling, and more. Example: handling HTTP requests/responses in a web app without writing that logic from scratch.</p>
+
+<h2>Built-in security</h2>
+<p>Bytecode verification and a security manager that checks permissions before executing operations. Historically prevented, for example, a malicious Java applet in a browser from accessing files or network resources without authorization.</p>
+
+<h2>Versatility across domains</h2>
+<ul>
+<li><strong>Web</strong> — frameworks like Spring build robust web applications.</li>
+<li><strong>Mobile</strong> — the primary language for Android development.</li>
+<li><strong>Enterprise</strong> — scalability and reliability make it suited to complex, large-scale systems.</li>
+</ul>
+
+<h2>Current trends</h2>
+<ul>
+<li>Cloud-native development and microservices — Spring Boot, Quarkus.</li>
+<li>Serverless architecture support — AWS Lambda, Google Cloud Functions.</li>
+<li>AI/ML — libraries like DeepLearning4J and DJL, leveraging Java's stability.</li>
+<li>Spring's continued evolution — Spring Boot 3.0, Spring Native 6.0 (better native image generation, cloud-native features, performance).</li>
+<li>IntelliJ IDEA, Eclipse, and VS Code remain the dominant IDEs.</li>
+</ul>
+
+<h2>Logic to hold onto</h2>
+<p>Every feature in this lesson solves a specific real-world development problem: OOP solves organizing complex systems into manageable pieces, platform independence solves "write once, deploy everywhere," strong typing solves catching mistakes before runtime, garbage collection solves memory leaks, multi-threading solves responsiveness under load, the standard library solves reinventing common solutions, and built-in security solves protecting users from malicious code. None of these are abstract "nice to haves" — each is Java's direct answer to a genuine pain point that shows up constantly in real production systems, including exactly the kind you'll be building at Capitec.</p>

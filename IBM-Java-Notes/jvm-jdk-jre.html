@@ -1,0 +1,42 @@
+<h1>Java Virtual Machine, Development Kit, and Runtime Environment</h1>
+
+<h2>JVM (Java Virtual Machine)</h2>
+<p>The abstract machine that makes Java platform-independent. When Java code compiles, it becomes <strong>bytecode</strong>. The JVM converts that bytecode into machine code the operating system understands — a process called <strong>JIT (just-in-time) compilation</strong>. The JVM also handles memory management through <strong>garbage collection</strong>, automatically freeing memory no longer in use, which helps prevent memory leaks.</p>
+
+<h3>Analogy</h3>
+<p>Writing a letter in English to someone who only speaks Spanish — they need a translator. The JVM is that translator, converting bytecode into machine code the OS can actually run.</p>
+
+<h2>JDK (Java Development Kit)</h2>
+<p>The full software package needed to build, compile, and run Java applications. Contains:</p>
+<ul>
+<li>The JRE (needed to execute programs)</li>
+<li>Development tools — the javac compiler, debuggers, other utilities</li>
+<li>Java APIs — reusable libraries for common tasks</li>
+</ul>
+<p>Workflow: write a `.java` file → compile it into bytecode using javac (part of the JDK) → run that bytecode via the JVM, which lets it run on any platform.</p>
+
+<h3>Analogy</h3>
+<p>A carpenter's full toolbox — the complete set of tools needed to build anything, from a simple program to a complex system.</p>
+
+<h2>JRE (Java Runtime Environment)</h2>
+<p>Provides the environment needed to actually execute Java applications — includes the JVM, core libraries, and other runtime components. Does <strong>not</strong> include development tools like compilers. Manages loading class files and executing them via the JVM. With just the JRE installed, you can run Java programs without needing the full JDK.</p>
+
+<h3>Analogy</h3>
+<p>A fully furnished room, ready to live in — everything needed to function is there (JVM, libraries), but if you need to build or renovate, those tools live in the JDK, not here.</p>
+
+<h2>How the three relate</h2>
+<ul>
+<li><strong>JVM</strong> — the engine that executes bytecode; included inside both the JDK and JRE.</li>
+<li><strong>JRE</strong> — provides what's needed to run applications (including the JVM), but no development tools.</li>
+<li><strong>JDK</strong> — the complete kit: JRE + development tools, used for actually building applications.</li>
+</ul>
+<p>Use the JDK when developing (coding, compiling, debugging). Use just the JRE when you only need to run existing Java applications without building or modifying them — it's lighter since it skips the development tooling.</p>
+
+<h3>Real banking example</h3>
+<p>This distinction matters practically: a developer's machine at Capitec needs the full JDK to write and compile Java code, but a production server running the finished application might only need the JRE installed — no reason to ship development tools onto a server that's just executing already-compiled code.</p>
+
+<h2>Version alignment</h2>
+<p>The JDK, JRE, and JVM are versioned and updated together — as of this lesson, the latest stable JDK is Java 23 (released September 2024), with the JRE and JVM aligned to match. JVM updates specifically also come through Oracle's quarterly and critical patch updates. Java evolves continuously, so version numbers will keep moving forward.</p>
+
+<h2>Logic to hold onto</h2>
+<p>Think of it as three nested layers, from broadest to narrowest: JDK (the whole toolkit) contains the JRE (the running environment) which contains the JVM (the actual execution engine). If you're only ever running finished Java programs, you technically only need the innermost two layers (JRE, which bundles the JVM). The moment you want to write or compile your own code, you need the full outer layer — the JDK.</p>

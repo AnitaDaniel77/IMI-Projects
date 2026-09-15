@@ -1,0 +1,40 @@
+<h1>Commercial vs Open Source Java</h1>
+
+<h2>Commercial Java</h2>
+<p>Commercially supported distributions offered by vendors like Oracle, Azul, and IBM — providing professional support and services beyond the base Java SE implementation. Many vendors offer free OpenJDK builds too, with optional paid support layered on top.</p>
+
+<h3>Advantages</h3>
+<ul>
+<li><strong>Professional support</strong> — dedicated technical support for quick issue resolution.</li>
+<li><strong>Long-term support (LTS)</strong> — extended support periods for specific versions, ensuring security and stability for enterprise use.</li>
+<li><strong>SLAs</strong> — service-level agreements guaranteeing response times and resolution.</li>
+<li><strong>Licensing and compliance</strong> — clearer legal usage guidance and indemnification.</li>
+</ul>
+
+<h2>Open Source Java</h2>
+<p>Freely available versions anyone can modify and distribute. <strong>OpenJDK</strong> is the official reference implementation of Java SE, licensed under GPL v2 with the Classpath Exception. Every modern Java distribution — commercial ones included — is actually built from the OpenJDK codebase.</p>
+
+<h3>Advantages</h3>
+<ul>
+<li><strong>Cost-effective</strong> — free, well suited to startups and budget-limited developers.</li>
+<li><strong>Community support</strong> — active forums, tutorials, collaborative resources.</li>
+<li><strong>Customization</strong> — source code can be edited and modified for specific needs.</li>
+<li><strong>Transparency</strong> — fully accessible code builds trust in security and performance.</li>
+</ul>
+
+<h2>Key differences</h2>
+<table border="1" cellpadding="6">
+<tr><th>Aspect</th><th>Commercial</th><th>Open Source</th></tr>
+<tr><td>Licensing</td><td>May require paid subscription for production use (varies by vendor/version)</td><td>Free under GPL v2 with Classpath Exception</td></tr>
+<tr><td>Support</td><td>Professional, with SLAs</td><td>Community or vendor-specific</td></tr>
+<tr><td>Support duration</td><td>Long-term support (LTS) available</td><td>May have shorter support cycles depending on distribution</td></tr>
+<tr><td>Legal protection</td><td>Includes indemnification and compliance guarantees</td><td>Not typically available</td></tr>
+</table>
+
+<p><strong>Important nuance:</strong> for modern Java (11+), commercial and open-source versions share the exact same codebase, language features, JVM capabilities, performance, and security — the differences are entirely about support, licensing, and legal protection, not the technology itself.</p>
+
+<h3>Real banking example</h3>
+<p>This is directly relevant to your future role — a bank like Capitec almost certainly runs a commercial Java distribution (or at minimum pays for support on an OpenJDK build), specifically for the SLA guarantees and legal indemnification. In a regulated industry, "we have a guaranteed response time if something breaks" and "we have legal protection if there's a licensing dispute" matter enormously — it's not about getting better code, it's about risk management.</p>
+
+<h2>Logic to hold onto</h2>
+<p>The choice between commercial and open-source Java isn't a technical decision at all — the underlying code is identical. It's a business decision about risk tolerance: how much does your organization need guaranteed support response times and legal protection versus how comfortable are you relying on community support and accepting more responsibility yourself. Startups often lean open-source for cost reasons; regulated enterprises like banks typically lean commercial for the support and compliance guarantees.</p>

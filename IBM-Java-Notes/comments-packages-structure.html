@@ -1,0 +1,44 @@
+<h1>Java Code Structure and Comments</h1>
+
+<h2>Comments — three types</h2>
+<ul>
+<li><strong>Single-line</strong> (`//`) — everything after it on that line is a comment.</li>
+<li><strong>Multi-line</strong> (`/* ... */`) — can span several lines, can also follow code on the same line.</li>
+<li><strong>Documentation comments</strong> (`/** ... */`) — a special multi-line format read by tools like Javadoc to auto-generate documentation, using `@param` and `@return` tags to describe a method's inputs and output.</li>
+</ul>
+
+<h2>Why comments matter</h2>
+<ul>
+<li><strong>Clarity</strong> — explains complex logic for others (and future you).</li>
+<li><strong>Maintenance</strong> — provides context when revisiting code later, reducing confusion.</li>
+<li><strong>Collaboration</strong> — helps team members understand each other's work.</li>
+</ul>
+
+<h2>Packages</h2>
+<p>Group related classes and interfaces together, avoiding naming conflicts and keeping large projects manageable. Declared with `package com.example.myapp;` at the very top of the file. The folder structure on disk must physically mirror the package name — `com.example.myapp` becomes nested folders `com/example/myapp/`.</p>
+
+<h2>File and naming conventions</h2>
+<ul>
+<li>Each public class lives in its own file, named exactly after the class (`Book` class → `Book.java`).</li>
+<li><strong>camelCase</strong> for variables and methods — first word lowercase, each following word capitalized.</li>
+<li>Every Java application needs an entry point — a `main` method inside a public class.</li>
+<li>Classes from other packages must be `import`ed at the top of the file (e.g. `import java.util.ArrayList;`).</li>
+</ul>
+
+<h3>Real banking example</h3>
+<p>This package structure is exactly why your PayNest capstone code lives under `com.paynestsystem.payment` — Capitec-scale projects have hundreds of classes, and packages are what keep a `Payment` class in the payments module from colliding with an unrelated `Payment` class someone else might create in a different module.</p>
+
+<h2>Best practices for beginners</h2>
+<ul>
+<li><strong>Meaningful names</strong> — `Customer` over `C1`; makes intent obvious to any reader.</li>
+<li><strong>Logical organization</strong> — group related classes into packages matching real project modules (e.g. separate folders for authentication vs product management).</li>
+<li><strong>Comment wisely, not obviously</strong> — explain *why* a decision was made, not what the code already visibly does (`i++` doesn't need "// incrementing i by 1").</li>
+<li><strong>Consistent formatting</strong> — indentation, spacing, brace placement, ideally enforced automatically by your editor.</li>
+<li><strong>Understand execution flow</strong> — Java runs top-to-bottom within a method, starting from `main` as the entry point.</li>
+</ul>
+
+<h2>Worked example</h2>
+<p>The lesson builds a small library system: a `Book` class (with `title`, `author` fields and a constructor) inside `com.example.library`, and a `Library` class that stores books in an `ArrayList`, adds them, and displays them — with `main` as the entry point that creates the library, adds a couple of books, and prints them out.</p>
+
+<h2>Logic to hold onto</h2>
+<p>Packages and file-naming rules aren't arbitrary bureaucracy — they're what lets thousands of files across a huge codebase stay organized and conflict-free. A comment's job is to answer a question the code itself can't answer just by being read — if the code already makes something obvious, the comment is noise; if the code hides a non-obvious reason behind a decision, that's exactly what the comment should capture.</p>

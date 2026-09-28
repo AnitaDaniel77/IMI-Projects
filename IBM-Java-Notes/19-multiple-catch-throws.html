@@ -1,0 +1,58 @@
+<h1>Code Summary: Multiple Try-Catch and the Throws Keyword</h1>
+<p>Code summary sheet. Full lesson notes to be added once the video lesson is covered.</p>
+
+<h2>Basic structure</h2>
+<pre><code>try {
+    // code that may throw an exception
+} catch (ExceptionType e) {
+    // handle it
+}</code></pre>
+
+<h2>Multiple catch blocks</h2>
+<pre><code>public class MultipleCatchExample {
+    public static void main(String[] args) {
+        int[] numbers = {1, 2, 3};
+        int index = 5; // invalid index
+
+        try {
+            System.out.println("Number: " + numbers[index]); // fails here first
+            int result = 10 / 0; // never reached in this run
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error: Index out of bounds.");
+        } catch (ArithmeticException e) {
+            System.out.println("Error: Division by zero.");
+        }
+    }
+}</code></pre>
+<p><strong>Note:</strong> only one catch block runs per exception. The array line fails first, so the division never happens. Swap the two lines and the second catch fires instead.</p>
+<p><strong>Real-life picture:</strong> a call centre routes each type of complaint to a different desk. A card problem goes to cards and a loan query goes to loans, and each call only reaches one desk.</p>
+
+<h2>The throws keyword</h2>
+<pre><code>import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class ThrowsExample {
+    public static void main(String[] args) {
+        try {
+            readFile("nonexistentfile.txt");
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    // throws: this method passes the problem up to whoever calls it
+    static void readFile(String fileName) throws IOException {
+        FileReader file = new FileReader(fileName);
+        BufferedReader fileInput = new BufferedReader(file);
+        System.out.println(fileInput.readLine());
+        fileInput.close();
+    }
+}</code></pre>
+<p><strong>Real-life picture:</strong> a junior consultant who can't approve a large withdrawal doesn't ignore it. They escalate it to the branch manager. That's what throws does.</p>
+
+<h2>How to read this code</h2>
+<ul>
+<li>Put more specific exceptions in earlier catch blocks and general ones later.</li>
+<li>Handle it where you can recover, and use throws where the caller is better placed to decide.</li>
+</ul>

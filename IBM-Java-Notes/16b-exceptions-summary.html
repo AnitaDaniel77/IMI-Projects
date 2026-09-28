@@ -1,0 +1,46 @@
+<h1>Code Summary: An Introduction to Exceptions</h1>
+<p>Quick reference card for lesson 16. Full explanation lives in the main notes.</p>
+
+<h2>Basic exception handling</h2>
+<pre><code>public class ExceptionExample {
+    public static void main(String[] args) {
+        int numerator = 10;
+        int denominator = 0; // this will cause an ArithmeticException
+
+        try {
+            int result = numerator / denominator; // risky line
+            System.out.println("Result: " + result);
+        } catch (ArithmeticException e) {
+            System.out.println("Error: Cannot divide by zero.");
+        } finally {
+            System.out.println("This block executes regardless of an exception.");
+        }
+    }
+}</code></pre>
+<p><strong>Real-life picture:</strong> try is attempting to withdraw cash, catch is the ATM telling you "insufficient funds" instead of swallowing your card, and finally is the screen resetting for the next customer either way.</p>
+
+<h2>Creating a custom exception</h2>
+<pre><code>class MyCustomException extends Exception {
+    public MyCustomException(String message) {
+        super(message); // hand the message up to Exception
+    }
+}
+
+public class CustomExceptionExample {
+    public static void main(String[] args) {
+        try {
+            throw new MyCustomException("This is a custom exception message.");
+        } catch (MyCustomException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}</code></pre>
+<p><strong>Real-life picture:</strong> a generic "something went wrong" error is like a bank teller saying "computer says no". A custom exception is the teller saying exactly which rule failed, like "daily transfer limit exceeded".</p>
+
+<h2>How to read this code</h2>
+<ul>
+<li>Code that might fail goes in <code>try</code>. Keep it small so you know which line caused the trouble.</li>
+<li>Each <code>catch</code> names the exception type it handles, so match it to what could actually go wrong.</li>
+<li><code>finally</code> is for cleanup only. No returns, no risky logic.</li>
+<li>Custom exceptions extend <code>Exception</code> (checked) or <code>RuntimeException</code> (unchecked).</li>
+</ul>

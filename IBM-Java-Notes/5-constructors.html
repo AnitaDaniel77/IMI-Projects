@@ -1,0 +1,50 @@
+<article>
+  <h1>Module 1: Constructors</h1>
+
+  <h2>What a constructor is</h2>
+  <p>A constructor is a special method that runs automatically when an object is created, and sets up its initial state. It shares the class's exact name, has no return type at all (not even void), and is called automatically the moment you use new.</p>
+  <p><strong>Real-life example:</strong> building a robot. Every part needs to be placed into position before it can actually function, the constructor is that assembly step, running once, before the object is ready to be used.</p>
+  <p><strong>Logic:</strong> a constructor's only job is to get the object into a valid starting state, not to do ongoing work, that's what regular methods are for.</p>
+
+  <h2>Default constructor</h2>
+  <p>If you don't write any constructor at all, Java silently gives the class one for free, taking no parameters and setting attributes to Java's own defaults (0, null, false, etc, depending on the type).</p>
+  <pre><code>class Dog:
+    name
+    // no constructor written, Java auto-generates one
+    // Dog myDog = new Dog() still works, name defaults to null</code></pre>
+
+  <h2>No-arg constructor</h2>
+  <p>This looks like the default constructor (no parameters) but is one you write yourself, so you control exactly what the default values are instead of relying on Java's blank defaults.</p>
+  <p><strong>Important rule:</strong> the moment you write any constructor of your own, Java stops auto-generating the default one. So if you still want a no-argument option after adding a parameterized constructor, you have to write it explicitly.</p>
+  <pre><code>class Car:
+    model
+    year
+
+    // written by hand, not auto-generated, sets real default values
+    function Car():
+        model = "default model"
+        year = 2020</code></pre>
+
+  <h2>Parameterized constructor</h2>
+  <p>Accepts arguments so the object can be initialised with specific, meaningful values right at creation, instead of generic defaults.</p>
+  <p><strong>Real-life example:</strong> instead of every Dog starting out as name = "unknown", `new Dog("Buddy")` gives that one dog its actual name immediately.</p>
+  <pre><code>class Dog:
+    name
+
+    function Dog(dogName):
+        name = dogName
+
+// myDog = new Dog("Buddy")  -> name is "Buddy" right away</code></pre>
+
+  <h2>Constructor overloading</h2>
+  <p>A class can have several constructors, as long as each has a different parameter list (different number or types of parameters). Java picks the right one to run based on what you pass to new.</p>
+  <p><strong>Logic:</strong> think of it like ordering coffee, "give me a coffee", "give me a coffee with milk", "give me a coffee with milk and sugar" are all valid requests, each maps to a different constructor depending on how much detail you give.</p>
+
+  <h2>Why use constructors, and best practices</h2>
+  <ul>
+    <li>They guarantee an object is properly initialised before anything else touches it.</li>
+    <li>Parameterized constructors let the same class be created in different valid starting states.</li>
+    <li>Keeping initialisation logic in the constructor (rather than scattered across setter calls after creation) makes the code easier to read and maintain.</li>
+  </ul>
+  <p>Keep constructors simple, focused only on initialisation, not complex logic or calculations. Prefer parameterized constructors when the object genuinely needs meaningful starting values. Avoid overloading with too many near-identical constructors just for the sake of it, it gets confusing fast.</p>
+</article>

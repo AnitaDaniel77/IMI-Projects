@@ -1,0 +1,58 @@
+<article>
+  <h1>Module 1: Encapsulation</h1>
+
+  <h2>What encapsulation is</h2>
+  <p>Encapsulation bundles an object's data (attributes) and the methods that act on that data into one unit, a class, and restricts direct access to some of that data so it can only be reached through specific methods.</p>
+  <p><strong>Real-life example:</strong> a coffee machine. You fill it with water and beans, press a button, and get coffee out. You never touch the heating element or grinder directly, the machine hides that complexity behind a couple of buttons.</p>
+  <p><strong>Logic:</strong> decide what the outside world actually needs to do with an object (fill it, press start), expose only that as public methods, and keep everything else about how it works internally private.</p>
+
+  <h2>Why it matters</h2>
+  <ul>
+    <li><strong>Control:</strong> data can only be changed through methods you write, so you can validate input before it's accepted.</li>
+    <li><strong>Flexibility:</strong> you can change how something works internally without breaking the other code that uses it, as long as the public methods stay the same.</li>
+    <li><strong>Security:</strong> sensitive data (like a bank account balance) isn't directly exposed to be read or changed by just anything.</li>
+  </ul>
+
+  <h2>Access modifiers, in the context of encapsulation</h2>
+  <ul>
+    <li><strong>private:</strong> only accessible inside the same class. This is what makes encapsulation actually enforce anything, it's the "locked door."</li>
+    <li><strong>public:</strong> accessible from anywhere. Usually the getters/setters, the "front door" the rest of the program is allowed to use.</li>
+    <li><strong>protected:</strong> accessible within the same package and by subclasses elsewhere.</li>
+    <li><strong>default</strong> (no modifier written): accessible only within the same package.</li>
+  </ul>
+
+  <h2>Getters, setters, and validation</h2>
+  <p>A getter reads a private attribute's value, a setter changes it, both are public methods that sit between the outside world and the actual data. Because a setter is just a method, it can validate the new value before accepting it.</p>
+  <p><strong>Real-life example:</strong> a Person class keeps name and age private. getName()/getAge() let other code read them, setName()/setAge() let other code update them, and setAge() specifically refuses a negative number instead of silently accepting bad data.</p>
+  <p><strong>Logic:</strong> a setter isn't just "store whatever value comes in", it's a checkpoint, check the value makes sense first, and only assign it if it passes.</p>
+  <pre><code>class Person:
+    private name
+    private age
+
+    function Person(initialName, initialAge):
+        name = initialName
+        age = initialAge
+
+    function getName():
+        return name
+
+    function getAge():
+        return age
+
+    function setName(newName):
+        name = newName
+
+    function setAge(newAge):
+        if newAge less than 0:
+            print "Error: age cannot be negative"
+        else:
+            age = newAge</code></pre>
+
+  <h2>Where this shows up in real systems</h2>
+  <ul>
+    <li><strong>Banking:</strong> account balance and details stay private, only accessible through controlled deposit/withdraw methods, never edited directly.</li>
+    <li><strong>APIs:</strong> only the necessary methods are exposed publicly, internal implementation can change later without breaking anyone using the API.</li>
+    <li><strong>Stateful systems:</strong> a thermostat manages its internal settings privately, the user just interacts with a simple set-temperature interface.</li>
+    <li><strong>Object-to-object communication:</strong> in a game, a Player class and an Inventory class can talk to each other through public methods without either needing to know how the other is built internally.</li>
+  </ul>
+</article>

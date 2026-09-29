@@ -1,0 +1,39 @@
+<article>
+  <h1>Module 1: Classes, Objects, and Modifiers</h1>
+
+  <h2>Classes and objects, recap in more detail</h2>
+  <p>A class is the blueprint (attributes and methods), an object is a specific instance built from it. Creating an object happens in three steps: declaration (a reference variable of the class type), instantiation (new keyword allocates memory), and initialisation (filling in the object's attribute values).</p>
+  <p><strong>Real-life example:</strong> Car is the design spec (color, model, year, displayInfo()). myCar is one actual car built from that spec, with its own color and year filled in.</p>
+  <p><strong>Logic:</strong> declare the variable, build the object with new, then set its values before using it, in that order.</p>
+  <pre><code>Car myCar             // declaration: a reference variable of type Car
+myCar = new Car()     // instantiation: allocate memory, create the object
+myCar.color = "red"   // initialisation: fill in attribute values
+myCar.model = "Sedan"
+myCar.year = 2024
+myCar.displayInfo()   // method call, prints the car's details</code></pre>
+
+  <h2>Subclasses (recap)</h2>
+  <p>A subclass inherits properties and methods from a superclass using extends, then can add its own on top.</p>
+  <p><strong>Real-life example:</strong> Dog extends Animal, so Dog gets everything Animal has, plus its own bark() method.</p>
+
+  <h2>Access modifiers</h2>
+  <p>Access modifiers control which other classes are allowed to see or use a piece of code. They exist to enforce encapsulation, deciding what's exposed to the outside world versus kept internal.</p>
+  <p><strong>Real-life example:</strong> think of a car's dashboard. The speedometer is public, anyone in the car can look at it. The engine's internal wiring is private, only mechanics working directly on the engine (the same class) can touch it.</p>
+  <ul>
+    <li><strong>public:</strong> accessible from any class, in any package. e.g. a car's model, meant to be freely readable.</li>
+    <li><strong>private:</strong> accessible only inside the same class. e.g. a car's color, if you want it hidden and only changeable through the Car class's own methods.</li>
+    <li><strong>protected:</strong> accessible within the same package, and by subclasses even in other packages. e.g. a car's year, visible to related classes but not the whole program.</li>
+    <li><strong>default</strong> (no keyword written): accessible only within the same package. This is what you get automatically if you don't specify an access modifier at all.</li>
+  </ul>
+  <p><strong>Logic:</strong> go from most restrictive to least when deciding: start private, and only widen to protected or public if something outside the class genuinely needs direct access.</p>
+
+  <h2>Non-access modifiers</h2>
+  <p>These don't control who can see something, they change how it behaves.</p>
+  <ul>
+    <li><strong>static:</strong> belongs to the class itself, not to any one object. Shared across every instance, and usable without creating an object at all. Example: a totalCarsCreated counter that every Car object contributes to and shares.</li>
+    <li><strong>final:</strong> locks something down. A final variable can't be reassigned, a final method can't be overridden by a subclass, a final class can't be extended at all. Example: a maxSpeed constant that should never change once set.</li>
+    <li><strong>abstract:</strong> used on classes and methods that are meant to be a template, not a finished thing. An abstract class can't be instantiated directly, it exists only to be extended. An abstract method has no body, it must be implemented by whichever subclass extends it.</li>
+  </ul>
+  <p><strong>Real-life example:</strong> Shape is abstract, you can never have a plain, generic "shape" object in real life, only specific shapes. Its draw() method is also abstract, since how you draw a circle and how you draw a square are completely different, so each subclass has to supply its own version.</p>
+  <p><strong>Logic:</strong> if a method's implementation genuinely differs per subclass and there's no sensible default, make it abstract and force every subclass to define its own version rather than guessing at a shared one.</p>
+</article>

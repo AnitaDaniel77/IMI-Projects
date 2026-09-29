@@ -1,0 +1,54 @@
+<article>
+  <h1>Module 1: Object-Oriented Programming Basics</h1>
+
+  <h2>Objects and Classes</h2>
+  <p>An object is a specific instance with its own values, like one particular red sports car that can be driven and honked. A class is the blueprint those objects come from, it defines what properties and methods every car has, without being any one car itself.</p>
+  <p><strong>Real-life example:</strong> the class is the car factory's design spec. Every car built from it is an object with the same kind of features, but its own color, speed and mileage.</p>
+  <p><strong>Logic:</strong> define the shape once (the class), then stamp out as many objects from it as needed, each filling that shape with its own values.</p>
+  <pre><code>class Car:
+    color
+    speed
+
+    function drive():
+        print color + " car is driving"
+
+myCar = new Car()
+myCar.color = "red"
+myCar.speed = 180
+myCar.drive()  // prints: red car is driving</code></pre>
+
+  <h2>Properties and Methods</h2>
+  <p>Properties are what an object has (color, speed, model). Methods are what an object does (drive, honk, park). Every object made from the same class shares the same set of properties and methods, but fills them in with its own values.</p>
+
+  <h2>Inheritance</h2>
+  <p>Inheritance lets a new class reuse an existing class's properties and methods, then add or specialise its own, like a family tree where a child inherits traits from a parent but can also have its own.</p>
+  <p><strong>Real-life example:</strong> an electric car and a sports car are both still cars, so they inherit color, speed and drive() from Car, but the electric car adds batteryLife and the sports car adds a boost() method.</p>
+  <p><strong>Logic:</strong> the subclass gets everything the parent class has for free, and only needs to define what's different about it.</p>
+  <pre><code>class ElectricCar extends Car:
+    batteryLife  // extra property only electric cars have
+
+class SportsCar extends Car:
+    function boost():  // extra method only sports cars have
+        print "Accelerating fast!"</code></pre>
+
+  <h2>Encapsulation</h2>
+  <p>Encapsulation bundles an object's data with the methods that operate on it, and hides the internal details behind that bundle so the outside world only sees what it needs to.</p>
+  <p><strong>Real-life example:</strong> a TV remote. You press power, channel or volume, you don't need to know how the signal processing or screen rendering works inside. The remote is the exposed interface, the wiring is hidden.</p>
+  <p><strong>Logic:</strong> keep the sensitive or complicated internal detail private, and expose only the small set of actions the outside world is allowed to use.</p>
+
+  <h2>Polymorphism</h2>
+  <p>Polymorphism means different objects can respond to the same method call in their own way. One method name, many behaviours, depending on which object is actually running it.</p>
+  <p><strong>Real-life example:</strong> a helicopter and a rocket both have a fly() method. Call fly() on the helicopter and it spins its rotor blades; call fly() on the rocket and it fires its engines. Same method name, completely different behaviour underneath.</p>
+  <p><strong>Logic:</strong> code that calls fly() doesn't need to know or care which kind of object it's calling it on, it just trusts each object to know how to fly itself.</p>
+
+  <h2>Applied example: online bookstore</h2>
+  <p>Book is a class with properties like title, author, price, and methods like displayInfo() and applyDiscount(). Customer is a separate class with its own properties (name, email, address) and methods (createAccount(), placeOrder()).</p>
+  <ul>
+    <li><strong>Inheritance:</strong> an Ebook class extends Book and adds a fileFormat property.</li>
+    <li><strong>Encapsulation:</strong> a customer's password is kept as a private property, only accessible through controlled methods, not exposed directly.</li>
+    <li><strong>Polymorphism:</strong> a shared PaymentMethod interface is implemented by both CreditPayment and PayPalPayment, so a customer can pay either way through the same interface.</li>
+  </ul>
+
+  <h2>How to think about it</h2>
+  <p>When a lesson introduces a new OOP concept, the quickest way to check you've actually understood it, not just memorised the definition, is to ask: what real object plays this role, and what would break if this concept weren't here? If encapsulation didn't exist, every class using Book would have to know exactly how price and discount math work internally. If polymorphism didn't exist, you'd need a separate, differently-named method for every payment type instead of one shared payment interface.</p>
+</article>

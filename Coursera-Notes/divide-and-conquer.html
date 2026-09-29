@@ -1,0 +1,35 @@
+<article>
+<h1>Divide and Conquer</h1>
+<p><strong>Course:</strong> Coding Interview Preparation — Module 3</p>
+
+<h2>The paradigm</h2>
+<p>Three steps, two mandatory:</p>
+<ul>
+<li><strong>Divide</strong> (mandatory): split the input into smaller segments</li>
+<li><strong>Conquer</strong> (mandatory): solve each segment individually</li>
+<li><strong>Combine</strong> (optional): merge the solved segments back together</li>
+</ul>
+<p>Combine doesn't apply to every divide-and-conquer problem, but it does for the classic example: merge sort.</p>
+
+<h2>Merge sort as the example</h2>
+<p>Repeatedly halve the array until only single elements remain, then reverse the process — merging pairs back together in sorted order as you go, all the way back up to one fully sorted array.</p>
+
+<h2>Real-life analogy</h2>
+<p>Grocery shopping with three housemates:</p>
+<ul>
+<li>Everyone walking the whole store together for every item = no division at all, slow</li>
+<li>Splitting the list into four sections, one per person = <strong>divide</strong> — faster, but some overlap since items aren't organized</li>
+<li>Sorting the list first (all beverages together, all fruit together) then assigning each person a store zone = a more efficient divide, minimizing overlap</li>
+</ul>
+<p>"A problem shared is a problem halved."</p>
+
+<h2>Why this matters for computers</h2>
+<p>Two concrete advantages:</p>
+<ul>
+<li><strong>Parallelization:</strong> once a problem is divided into independent chunks, different threads, cores, or even separate servers can work on each chunk simultaneously, cutting total time.</li>
+<li><strong>Memory management:</strong> large datasets that can't fit in memory all at once can be processed in smaller chunks instead — and those chunks can even be offloaded to different servers or cloud resources if local memory is constrained.</li>
+</ul>
+
+<h2>Key takeaway</h2>
+<p>Divide and conquer isn't just a sorting trick — it's a general problem-solving framework: break a big problem into smaller, independently solvable pieces, solve each, then (if needed) recombine. This is the same underlying idea behind merge sort, quicksort's partitioning, and recursive tree/graph traversal.</p>
+</article>

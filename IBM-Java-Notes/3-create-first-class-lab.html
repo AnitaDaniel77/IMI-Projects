@@ -1,0 +1,44 @@
+<article>
+  <h1>Lab: Create Your First Class</h1>
+  <p>Goal: build a class from scratch, give it attributes at different access levels, create more than one instance of it, compare their values, and read one attribute in from the user.</p>
+
+  <h2>Defining the class</h2>
+  <p>Start with the attributes the object needs to hold, then add methods that act on them. Attributes usually go private, so nothing outside the class can change them directly, and public methods control how they're read or updated.</p>
+  <p><strong>Real-life example:</strong> a Student record at a school. The student's ID shouldn't be editable by just anyone walking past the front desk, but the school does need a controlled way to look it up or update it, that's what a getter/setter method is for.</p>
+  <p><strong>Logic:</strong> attribute private, expose it through a public method, so the class stays in control of how its own data gets touched.</p>
+  <pre><code>class Student:
+    private name
+    private age
+    public grade   // public on purpose, meant to be freely visible
+
+    function setName(newName):
+        name = newName
+
+    function getName():
+        return name
+
+    function displayInfo():
+        print name + ", age " + age + ", grade " + grade</code></pre>
+
+  <h2>Creating and comparing instances</h2>
+  <p>Each object built from the class gets its own separate copy of the attributes. Setting a value on one object never touches another object of the same class.</p>
+  <p><strong>Real-life example:</strong> two students in the same class use the same report card template (the class), but filling in one student's name and grade doesn't change the other's.</p>
+  <pre><code>studentOne = new Student()
+studentOne.setName("Thabo")
+studentOne.age = 17
+
+studentTwo = new Student()
+studentTwo.setName("Zanele")
+studentTwo.age = 16
+
+// comparing: each object holds its own separate values
+if studentOne.age > studentTwo.age:
+    print studentOne.getName() + " is older"</code></pre>
+
+  <h2>Accepting user input</h2>
+  <p>Instead of hardcoding an attribute's value in the code, the program can ask the person running it to type a value in, and store whatever they enter on the object.</p>
+  <p><strong>Logic:</strong> pause the program, wait for a line of typed input, convert it to the right type if needed (age needs to become a number, not stay as text), then assign it to the object.</p>
+  <pre><code>print "Enter student name: "
+input = read from keyboard
+studentOne.setName(input)</code></pre>
+</article>

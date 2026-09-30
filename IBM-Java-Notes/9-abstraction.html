@@ -1,0 +1,50 @@
+<article>
+  <h1>Module 2: Abstraction</h1>
+
+  <h2>What abstraction is</h2>
+  <p>Abstraction hides unnecessary internal detail and exposes only what's essential, letting you interact with something without needing to know how it works underneath. In Java it's achieved through interfaces and abstract classes.</p>
+  <p><strong>Real-life example:</strong> tapping an app icon on your phone. You tap, it opens, it does what you need. You never think about how the tap gets processed or how data gets pulled from the cloud, all of that complexity is hidden behind one simple action.</p>
+
+  <h2>Interfaces</h2>
+  <p>An interface is a contract, it defines method signatures (no bodies) that any implementing class must provide its own version of. All methods are abstract and public by default. It can also hold constants, default methods, static methods, and nested types, but never instance fields or constructors.</p>
+  <p>A class can implement multiple interfaces, which is how Java gets around not allowing multiple class inheritance, you can't extend two classes, but you can implement several interfaces at once.</p>
+  <p><strong>Real-life example:</strong> a PaymentMethod interface requiring a processPayment() method. CreditCardPayment and PayPalPayment each implement it their own way, but any code that just needs "a way to pay" can work with either through the same interface, without caring which one it actually is.</p>
+  <pre><code>interface Animal:
+    function sound()      // no body, just a signature, a contract
+
+class Dog implements Animal:
+    function sound():
+        return "Woof"
+
+class Cat implements Animal:
+    function sound():
+        return "Meow"</code></pre>
+
+  <h2>Abstract classes</h2>
+  <p>An abstract class can't be instantiated directly, it only exists to be extended. It can mix abstract methods (no body, subclass must implement) with concrete methods (already implemented, inherited as-is or overridden). A class can only extend one abstract class, single inheritance applies here.</p>
+  <p><strong>Real-life example:</strong> a Vehicle abstract class with a shared start() and stop() (concrete, every vehicle does this the same way) but an abstract fuelType() that Car and Truck each have to define for themselves, since a car and a truck don't necessarily run on the same fuel.</p>
+  <pre><code>abstract class Shape:
+    function draw()          // abstract, no body, must be implemented
+
+    function display():      // concrete, shared by every subclass as-is
+        print "Displaying shape"
+
+class Circle extends Shape:
+    function draw():
+        print "Drawing a circle"</code></pre>
+
+  <h2>Interface vs abstract class</h2>
+  <ul>
+    <li><strong>Interface:</strong> only constants and abstract methods, no implementation at all, supports implementing multiple interfaces at once. Best for defining a contract without dictating how it's done.</li>
+    <li><strong>Abstract class:</strong> can hold real fields, plus a mix of abstract and concrete methods, only single inheritance. Best when related classes should share some default behaviour but still be forced to implement specific pieces themselves.</li>
+  </ul>
+  <p><strong>Logic:</strong> reach for an interface when you just need to guarantee "any class that claims to do X must have a method that does X." Reach for an abstract class when several related classes should share actual working code, not just a shared method name.</p>
+
+  <h2>Why abstraction matters</h2>
+  <ul>
+    <li>Simplifies complex systems, hides the messy internal detail so people can focus on what matters.</li>
+    <li>Promotes reusability, abstract classes share common code, interfaces let unrelated classes share the same method signatures.</li>
+    <li>Improves flexibility and maintainability, the internal implementation can change freely as long as the interface it exposes stays the same.</li>
+    <li>Supports polymorphism, objects can be treated as their parent type, letting code work generically across different implementations.</li>
+  </ul>
+</article>

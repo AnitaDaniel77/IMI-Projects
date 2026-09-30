@@ -1,0 +1,64 @@
+<article>
+  <h1>Module 3: Java Collections Framework</h1>
+
+  <h2>What a collection is</h2>
+  <p>A collection is just a group of objects. The Java Collections Framework (JCF) is the set of interfaces and classes Java gives you to store, retrieve, manipulate, and move around that group, instead of you having to manage a plain array by hand.</p>
+  <p><strong>Real-life example:</strong> a shopping trolley. You don't care about a fixed number of slots, you just keep adding items, checking what's in there, and taking things out. The JCF is that trolley, built to actually fit how you work with groups of things.</p>
+
+  <h2>List: ordered, duplicates allowed</h2>
+  <p>A List keeps elements in the order you added them and lets the same value appear more than once. The two common implementations are ArrayList and LinkedList, and they trade off speed differently depending on what you're doing with the list.</p>
+
+  <h3>ArrayList</h3>
+  <p>Backed by a dynamic array. Fast when you're reading an element by its index (random access), slower when you're inserting or removing something from the middle, because everything after that point has to shift.</p>
+  <p><strong>Real-life example:</strong> a numbered row of lockers. Jumping straight to locker 12 is instant, but squeezing a new locker into the middle of the row means physically renumbering everything after it.</p>
+  <pre><code>list fruits = new ArrayList
+fruits.add("Apple")
+fruits.add("Banana")
+fruits.add("Cherry")
+print fruits                    // Apple, Banana, Cherry
+
+firstFruit = fruits.get(0)      // grab by index, fast on an ArrayList
+print firstFruit                // Apple</code></pre>
+
+  <h3>LinkedList</h3>
+  <p>Backed by a doubly linked list, each element points to the one before and after it. Adding or removing elements is efficient since you're just relinking pointers, but reaching an element by index is slower because there's no direct jump, Java has to walk the chain.</p>
+  <p><strong>Real-life example:</strong> a chain of people holding hands in a line. Cutting someone out or adding someone in is quick, you just re-grip hands either side of them, but finding the 7th person means walking down the line one by one.</p>
+  <pre><code>list animals = new LinkedList
+animals.add("Dog")
+animals.add("Cat")
+animals.add("Elephant")
+print animals                   // Dog, Cat, Elephant</code></pre>
+
+  <h2>Set: unordered, no duplicates</h2>
+  <p>A Set refuses duplicate values, adding the same element twice just gets ignored the second time. Two common implementations are HashSet and TreeSet.</p>
+  <ul>
+    <li><strong>HashSet:</strong> no guaranteed order, allows a null value.</li>
+    <li><strong>TreeSet:</strong> keeps elements in sorted order, does not allow null.</li>
+  </ul>
+  <p><strong>Real-life example:</strong> a guest list at the door. Someone trying to check in twice just gets turned away the second time, they're already on the list, a Set behaves the same way with duplicate values.</p>
+  <pre><code>set colors = new HashSet
+colors.add("Red")
+colors.add("Green")
+colors.add("Blue")
+colors.add("Red")               // ignored, Red is already in the set
+print colors                    // Red, Green, Blue in some order</code></pre>
+
+  <h2>Map: unique keys to values</h2>
+  <p>A Map pairs a key to a value, and every key has to be unique, adding a value under a key that already exists overwrites the old value rather than adding a second entry. Two common implementations are HashMap and TreeMap.</p>
+  <ul>
+    <li><strong>HashMap:</strong> allows null values, no guaranteed order.</li>
+    <li><strong>TreeMap:</strong> allows null values, keeps keys in sorted order.</li>
+  </ul>
+  <p><strong>Real-life example:</strong> a phone's contact list. Each contact name is the key, their number is the value, you look someone up by name, not by scrolling through every number in order.</p>
+  <pre><code>map ageMap = new HashMap
+ageMap.put("Alice", 30)
+ageMap.put("Bob", 25)
+ageMap.put("Charlie", 35)
+print ageMap                    // Alice=30, Bob=25, Charlie=35 in some order
+
+aliceAge = ageMap.get("Alice")  // look up by key
+print aliceAge                  // 30</code></pre>
+
+  <h2>Choosing between them</h2>
+  <p><strong>Logic:</strong> need order and duplicates allowed, reach for a List. Reading by index often, ArrayList. Adding/removing often, LinkedList. Need uniqueness with no particular order, HashSet, need it sorted, TreeSet. Need to look values up by a key instead of a position, that's a Map, HashMap if order doesn't matter, TreeMap if you want the keys sorted.</p>
+</article>

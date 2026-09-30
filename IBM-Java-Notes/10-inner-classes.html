@@ -1,0 +1,70 @@
+<article>
+  <h1>Module 2: Inner Classes</h1>
+
+  <h2>What an inner class is</h2>
+  <p>An inner class is a class defined inside another class. Because it lives inside the outer class, it can reach the outer class's fields and methods directly, no need to pass them in.</p>
+  <p><strong>Real-life example:</strong> a Library class with a Book class defined inside it. A book only makes sense in the context of a library holding it, so nesting Book inside Library keeps that relationship obvious in the code instead of scattering two unrelated-looking classes around.</p>
+  <p><strong>Logic:</strong> to use a non-static inner class you first need an outer object, then you build the inner object off that outer instance, the inner class rides along with a specific outer instance and can see its state.</p>
+  <pre><code>class OuterClass:
+    outerVariable = 10
+
+    class InnerClass:
+        function display():
+            print outerVariable   // reaches straight into the outer object
+
+// usage
+outer = new OuterClass()
+inner = outer.new InnerClass()
+inner.display()   // prints 10</code></pre>
+
+  <h2>Non-static inner class</h2>
+  <p>This is the ordinary, most common kind. It's tied to a specific instance of the outer class and can read both static and non-static members of that outer class.</p>
+  <p><strong>Real-life example:</strong> the Book class above, each Book still needs a Library instance behind it since a book belongs to one particular library.</p>
+
+  <h2>Static nested class</h2>
+  <p>Declared with the static keyword. Unlike the non-static version, it does not attach to one outer instance, so it can't reach the outer class's non-static members directly, only static ones. You build it straight off the outer class name, no outer object required.</p>
+  <p><strong>Real-life example:</strong> a StaticNestedClass that only needs a shared, class-level value, like a constant or counter that belongs to the class as a whole rather than to any one object.</p>
+  <pre><code>class OuterClass:
+    static staticVar = 5
+
+    static class StaticNestedClass:
+        function show():
+            print staticVar
+
+// usage, no outer instance needed
+nested = new OuterClass.StaticNestedClass()
+nested.show()   // prints 5</code></pre>
+
+  <h2>Method-local inner class</h2>
+  <p>Defined inside a method body, so it only exists and only gets used within that one method. Nowhere else in the class can see it.</p>
+  <p><strong>Real-life example:</strong> a small helper class you only ever need while one method runs, defining it right there keeps it out of the way of the rest of the class.</p>
+  <pre><code>function myMethod():
+    class MethodLocalInner:
+        function display():
+            print "Inside Method Local Inner Class"
+
+    inner = new MethodLocalInner()
+    inner.display()</code></pre>
+
+  <h2>Anonymous inner class</h2>
+  <p>Has no name at all, and it's created and used in one shot, usually to implement an interface or subclass something on the spot when you know you won't reuse it elsewhere.</p>
+  <p><strong>Real-life example:</strong> a Greeting interface with a greet() method, instead of writing a whole separate class just to implement it once, you implement it inline right where you need it.</p>
+  <pre><code>interface Greeting:
+    function greet()
+
+// implemented inline, no separate named class
+greeting = new Greeting():
+    function greet():
+        print "Hello from Anonymous Inner Class!"
+
+greeting.greet()</code></pre>
+
+  <h2>Why inner classes matter</h2>
+  <ul>
+    <li>Encapsulation, hides implementation detail that only makes sense inside the outer class, keeping it out of the wider codebase.</li>
+    <li>Logical grouping, a class only relevant to its outer class stays nested next to it instead of floating around as an unrelated file.</li>
+    <li>Direct access, an inner class reaches outer class members without needing them passed in as parameters.</li>
+    <li>Event handling, anonymous inner classes are a common shortcut for defining an event listener right where it's needed, instead of writing a separate named class.</li>
+    <li>Data structures, inner classes are a natural fit for things like tree or linked-list nodes that only make sense inside their containing structure.</li>
+  </ul>
+</article>

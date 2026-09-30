@@ -1,0 +1,38 @@
+<article>
+  <h1>Module 3: Lists — ArrayList vs LinkedList</h1>
+
+  <h2>What a list is</h2>
+  <p>A list is a line of numbered boxes. It stores elements in order, allows duplicates, and lets you reach an item by its position. Java gives you two common ways to build one, ArrayList and LinkedList, and picking the right one is about how the list will actually get used, not just what it stores.</p>
+  <p><strong>Real-life example:</strong> a numbered coat check. Every coat has a slot number, coats can repeat in style, and you always know coat #4 is the fourth one handed in, that's what "ordered, duplicates allowed, access by position" means in practice.</p>
+
+  <h2>ArrayList</h2>
+  <p>Backed by a dynamic array, it starts with a default capacity of 10 and grows automatically as you add more elements. Because the data sits in contiguous memory, jumping straight to any index is fast. Inserting or removing an element, especially from the middle, is slower, since everything after it has to shift or the array has to resize.</p>
+  <p><strong>Logic:</strong> import it, create it, then add/get/remove elements by index, and print it with System.out.println like any other object.</p>
+  <p><strong>Real-life example:</strong> a shopping list or contact list, you mostly add to the end and read items back, you rarely need to yank something out of the middle and shuffle everything else. It also works well for stack-like behavior where items get added and removed off one end.</p>
+  <pre><code>import java.util.ArrayList
+
+list = new ArrayList()
+list.add(item)
+value = list.get(index)     // fast, jumps straight to the slot
+list.remove(index)          // slower, shifts everything after it
+print list</code></pre>
+
+  <h2>LinkedList</h2>
+  <p>Backed by a doubly linked list, every element is a node holding a link to the one before it and the one after it. It starts empty, no pre-sized array to grow. Adding or removing a node is fast since it's just relinking pointers either side of it, no shifting. Reaching an element by index is slower, since Java has to walk the chain node by node from one end.</p>
+  <p><strong>Logic:</strong> same shape as ArrayList, import it, create it, then add/get/remove, print it the same way, the interface looks identical, the performance underneath doesn't.</p>
+  <p><strong>Real-life example:</strong> a train of linked carriages. Coupling or uncoupling a carriage in the middle is quick, you just reconnect the couplings either side of it. But counting your way to carriage 7 means walking down the train one by one, there's no jumping straight there. That's also why LinkedLists suit queues, undo history (each state links to the previous one), and anything needing frequent additions/removals from both ends.</p>
+  <pre><code>import java.util.LinkedList
+
+list = new LinkedList()
+list.add(item)               // fast, no shifting needed
+list.remove(item)            // fast, just relinks neighboring nodes
+value = list.get(index)      // slower, walks the chain from one end
+print list</code></pre>
+
+  <h2>Choosing between them</h2>
+  <p><strong>Logic:</strong> ask what the list will do more often, get by index or add/remove. Reads win, ArrayList. Changes win, LinkedList.</p>
+  <ul>
+    <li><strong>ArrayList:</strong> fast access by index, slower to modify, best when the list size stays fairly stable and you're reading a lot.</li>
+    <li><strong>LinkedList:</strong> fast insert/remove, slower to access by index, best for frequent changes, queues, stacks, and undo-style history.</li>
+  </ul>
+</article>

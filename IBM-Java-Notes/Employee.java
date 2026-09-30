@@ -1,43 +1,55 @@
+// Employee class to demonstrate encapsulation
 public class Employee implements Cloneable {
+    // Step 1: Declare private variables for name, age, and salary
+    // Hint: Use appropriate data types (String, int, double)
     private String name;
     private int age;
-    private double salary; // stored as monthly
+    private double salary;
 
-    // no-arg constructor, delegates to the full one with safe defaults
+    // Step 2: Create constructors
+    // 2.1: Create a default constructor that sets name to "Unknown", age to 18, and salary to 0.0
+    // Hint: public Employee()
     public Employee() {
-        this("Unnamed", 18, 0.0);
+        this("Unknown", 18, 0.0);
     }
 
-    // name only, delegates with defaults for age and salary
-    public Employee(String name) {
-        this(name, 18, 0.0);
-    }
-
-    // name and age, delegates with a default salary
+    // 2.2: Create an overloaded constructor that initializes all three variables
+    // Hint: public Employee(String name, int age, double salary)
     public Employee(String name, int age) {
         this(name, age, 0.0);
     }
 
-    // full constructor, all validation lives here since every other constructor delegates to it
     public Employee(String name, int age, double salary) {
         setName(name);
         setAge(age);
         setSalary(salary);
     }
 
+    // Step 3: Create public getter methods for each variable
+    // Hint: Use the format: public returnType getVariableName()
     public String getName() {
         return name;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    // Step 4: Create public setter methods for each variable
+    // Hint: Use the format: public void setVariableName(parameter)
+    // Add validation logic in the setter methods:
+    // - For name: Ensure it is not null or empty
+    // - For age: Ensure it is between 18 and 65 (inclusive)
+    // - For salary: Ensure it is greater than or equal to 0
     public void setName(String name) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
         this.name = name;
-    }
-
-    public int getAge() {
-        return age;
     }
 
     public void setAge(int age) {
@@ -47,10 +59,6 @@ public class Employee implements Cloneable {
         this.age = age;
     }
 
-    public double getSalary() {
-        return salary;
-    }
-
     public void setSalary(double salary) {
         if (salary < 0) {
             throw new IllegalArgumentException("Salary cannot be negative");
@@ -58,10 +66,15 @@ public class Employee implements Cloneable {
         this.salary = salary;
     }
 
+    // Step 5: Create a public method to calculate annual salary (monthly salary * 12)
+    // Hint: public double calculateAnnualSalary()
     public double calculateAnnualSalary() {
         return salary * 12;
     }
 
+    // Step 6: Create a public method to give a raise (percentage)
+    // This method should increase the salary by the given percentage
+    // Hint: public void giveRaise(double percentage)
     public void giveRaise(double percentage) {
         if (percentage <= 0) {
             throw new IllegalArgumentException("Raise percentage must be positive");
@@ -69,19 +82,20 @@ public class Employee implements Cloneable {
         salary = salary + (salary * percentage / 100);
     }
 
-    // makes a separate copy, changing the clone never affects the original
-    @Override
-    public Employee clone() {
-        try {
-            return (Employee) super.clone();
-        } catch (CloneNotSupportedException e) {
-            // won't actually happen, this class implements Cloneable
-            throw new RuntimeException(e);
-        }
+    // Step 7: Create a public method to display employee details
+    // Hint: Use System.out.println() to print name, age, monthly salary, and annual salary
+    public void displayInfo() {
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Monthly salary: R" + salary);
+        System.out.println("Annual salary: R" + calculateAnnualSalary());
     }
 
+    // Step 8: Override the clone method to make Employee objects cloneable
+    // Hint: @Override protected Object clone() throws CloneNotSupportedException
+    // Return super.clone() to create a shallow copy of the object
     @Override
-    public String toString() {
-        return name + ", age " + age + ", monthly salary R" + salary;
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

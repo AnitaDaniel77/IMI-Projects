@@ -1,0 +1,61 @@
+<article>
+  <h1>Module 2: Inheritance</h1>
+
+  <h2>What inheritance is</h2>
+  <p>Inheritance lets one class, the subclass (child), derive properties and methods from another class, the superclass (parent), using the extends keyword. It promotes code reuse, you don't rewrite what the parent already has, and lets you structure related classes into a hierarchy.</p>
+  <p><strong>Real-life example:</strong> a smartphone inherits basic functions like calling and texting from a plain Phone, but adds its own features on top, sensors, apps, a touchscreen, rather than being built from scratch.</p>
+  <p><strong>Logic:</strong> a subclass automatically gets every public and protected member of its superclass, it only needs to define what's new or different, not the whole thing over again.</p>
+
+  <h2>Key terms</h2>
+  <ul>
+    <li><strong>Superclass:</strong> the class being inherited from.</li>
+    <li><strong>Subclass:</strong> the class doing the inheriting.</li>
+    <li><strong>extends:</strong> the keyword that sets up the relationship.</li>
+  </ul>
+  <p>A subclass inherits all public and protected members from its superclass, but not private ones, those stay locked to the superclass itself.</p>
+  <pre><code>class Animal:
+    name
+
+    function eat():
+        print name + " is eating"
+
+class Dog extends Animal:
+    function bark():
+        print name + " is barking"
+
+// Dog inherits eat() automatically, and adds its own bark()
+myDog = new Dog()
+myDog.name = "Buddy"
+myDog.eat()   // inherited
+myDog.bark()  // Dog's own</code></pre>
+
+  <h2>Types of inheritance</h2>
+  <ul>
+    <li><strong>Single:</strong> one class inherits from exactly one superclass. Dog extends Animal.</li>
+    <li><strong>Multilevel:</strong> a chain, a subclass inherits from a subclass. Puppy extends Dog, and Dog extends Animal, so Puppy gets everything from both.</li>
+    <li><strong>Hierarchical:</strong> several subclasses share the same superclass. Dog and Cat both extend Animal independently.</li>
+    <li><strong>Multiple:</strong> one class inheriting from more than one superclass directly. Java doesn't allow this for classes (it would be ambiguous if two parents defined the same method differently), but the same effect is achieved through interfaces instead.</li>
+  </ul>
+  <p><strong>Real-life example:</strong> multilevel is like a family tree, a grandchild inherits traits passed down through a parent, not directly from the grandparent. Hierarchical is like siblings, Dog and Cat are different, but both are still built on the same Animal foundation.</p>
+
+  <h2>Method overriding</h2>
+  <p>A subclass can redefine a method it inherited, giving it its own version instead of using the parent's. Java calls whichever version actually belongs to the real object's type, even if the variable is declared as the parent type.</p>
+  <p><strong>Real-life example:</strong> Animal's sound() might print a generic "Animal makes a sound", but Dog overrides it to print "Dog barks" instead. Even if you write `Animal myDog = new Dog()`, calling sound() still runs Dog's version, because that's what myDog actually is underneath.</p>
+  <p><strong>Logic:</strong> the declared type of the variable decides what you're allowed to call, the actual type of the object decides which version of that method actually runs.</p>
+  <pre><code>class Animal:
+    function sound():
+        print "Animal makes a sound"
+
+class Dog extends Animal:
+    function sound():          // overrides the parent's version
+        print "Dog barks"
+
+myDog = new Dog()  // even if declared as Animal, sound() still runs Dog's version</code></pre>
+
+  <h2>Where this shows up in real systems</h2>
+  <ul>
+    <li><strong>Game development:</strong> characters share common properties (health, position) from a base Character class, but each subclass has its own unique abilities.</li>
+    <li><strong>UI components:</strong> buttons, text boxes, and labels can all inherit shared behaviour from a base component class, while implementing their own specific actions.</li>
+    <li><strong>Data models:</strong> keeps consistency across related entities while still letting each one have its own unique fields.</li>
+  </ul>
+</article>

@@ -2,7 +2,7 @@ public class EmployeeManagementDemo {
     public static void main(String[] args) {
         // testing each overloaded constructor
         Employee e1 = new Employee();
-        Employee e2 = new Employee("Naledi");
+        Employee e2 = new Employee("Naledi", 25);
         Employee e3 = new Employee("Karabo", 29);
         Employee e4 = new Employee("Sipho", 34, 25000.0);
 
@@ -24,7 +24,7 @@ public class EmployeeManagementDemo {
         System.out.println(e4.getName() + " new monthly salary after raise: R" + e4.getSalary());
 
         // cloning, change the clone, confirm the original is untouched
-        Employee e4Clone = e4.clone();
+        Employee e4Clone = (Employee) e4.clone();
         e4Clone.setSalary(30000.0);
         System.out.println("Original: " + e4);
         System.out.println("Clone: " + e4Clone);

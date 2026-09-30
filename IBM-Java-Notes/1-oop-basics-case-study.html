@@ -1,0 +1,37 @@
+<article>
+  <h1>Case Study: Leave Tracking System — Module 1 (OOP Basics)</h1>
+  <p>Building the foundation classes for the running case study: Employee and LeaveRequest, using classes/objects, encapsulation, and constructors.</p>
+
+  <h2>Classes and objects</h2>
+  <p>Employee is the blueprint for a company employee, LeaveRequest is the blueprint for a single time-off request. Each Employee object represents one real person, each LeaveRequest object represents one specific request tied to a specific employee.</p>
+  <p><strong>Real-life example:</strong> same idea as a banking app creating Account objects or a ride-sharing app creating Ride objects, here it's an HR system creating Employee and LeaveRequest objects.</p>
+
+  <h2>Encapsulation</h2>
+  <p>All the real data (employeeId, name, leaveBalance, dates, status) is kept private, and only reachable through public getter/setter methods. The setter for leaveBalance specifically rejects a negative value instead of just accepting it.</p>
+  <p><strong>Real-life example:</strong> a medicine capsule, it holds the medication inside and only exposes what's needed from the outside. Or an ATM, it hides the actual banking operations behind a handful of simple buttons.</p>
+  <p><strong>Logic:</strong> before assigning a new value in a setter, check whether it makes sense first (leaveBalance >= 0), only assign if it passes, otherwise reject and explain why.</p>
+  <pre><code>function setLeaveBalance(newBalance):
+    if newBalance >= 0:
+        leaveBalance = newBalance
+    else:
+        print "Leave balance cannot be negative."</code></pre>
+
+  <h2>Calculating remaining leave</h2>
+  <p>A method that takes the number of days being requested, checks whether the employee actually has that many days left, and returns or applies the result.</p>
+  <p><strong>Logic:</strong> remaining = current balance minus days requested. If remaining would go below zero, the request shouldn't be allowed to reduce the balance, it should be flagged as not enough leave available.</p>
+  <pre><code>function calculateRemainingLeave(daysRequested):
+    remaining = leaveBalance - daysRequested
+    if remaining less than 0:
+        print "Not enough leave balance available."
+        return leaveBalance  // unchanged
+    else:
+        return remaining</code></pre>
+
+  <h2>Constructors</h2>
+  <p>Employee gets a default constructor (sets sensible starting values with no info given) and a parameterized constructor (takes employeeId, name, department, email). LeaveRequest gets a parameterized constructor that always sets status to "Pending" automatically, since a brand new request hasn't been reviewed yet, plus an overloaded version for when no reason is given.</p>
+  <p><strong>Real-life example:</strong> like a new car coming off the assembly line, it needs its VIN, engine, and initial settings configured (the constructor) before it's ready to drive. Here, a LeaveRequest needs its status locked to "Pending" the moment it's created, nobody should be able to create a request that's already "Approved."</p>
+  <p><strong>Logic:</strong> status isn't a constructor parameter at all, it's hardcoded inside the constructor to "Pending" every time, so there's no way to accidentally create a request in the wrong starting state.</p>
+
+  <h2>Objects representing this system</h2>
+  <p>An Employee object holds a person's details and current leave balance. A LeaveRequest object references an Employee object directly (not just an ID), a startDate, endDate, reason, and status. Creating a few of each and calling calculateRemainingLeave() demonstrates the whole flow: an employee requests time off, the system checks their balance, and either approves the deduction or flags it as insufficient.</p>
+</article>

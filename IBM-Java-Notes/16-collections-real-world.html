@@ -1,0 +1,86 @@
+<article>
+  <h1>Module 3: Collections in Real-World Scenarios</h1>
+
+  <h2>Why this matters</h2>
+  <p>Collections aren't just data structures to memorize, each one exists because some real system needed exactly that behavior. Picking the right collection is picking the right tool for how the data actually gets used, not just what it stores.</p>
+  <p><strong>Real-life example:</strong> a filing cabinet with thousands of files. Left disorganized, finding anything is a nightmare. Collections are what keep that cabinet organized as it grows, so the right file comes back quickly when you need it.</p>
+
+  <h2>Library management: ArrayList</h2>
+  <p>A library's book list needs to grow as new books come in, and you mostly just add books and list what's there. An ArrayList handles the resizing for you, no manual array-size management.</p>
+  <p><strong>Logic:</strong> addBook appends a new title to the list, displayBooks loops through and prints everything currently stored.</p>
+  <pre><code>class Library:
+    books = new ArrayList
+
+    function addBook(title):
+        books.add(title)
+
+    function displayBooks():
+        for book in books:
+            print book</code></pre>
+
+  <h2>E-commerce orders: HashMap</h2>
+  <p>An order ID needs to pull up the matching order fast, and there's no need for the orders to be in any particular order, you're always looking one up directly by its ID. A HashMap's near-constant time lookups fit that exactly.</p>
+  <p><strong>Logic:</strong> addOrder stores a customer name keyed by order ID, displayOrders loops over every key and prints the ID with its customer.</p>
+  <pre><code>class OrderSystem:
+    orders = new HashMap
+
+    function addOrder(orderId, customerName):
+        orders.put(orderId, customerName)
+
+    function displayOrders():
+        for orderId in orders.keySet():
+            print orderId + ": " + orders.get(orderId)</code></pre>
+
+  <h2>Employee records: HashSet</h2>
+  <p>Employee records need to stay accurate, meaning no duplicate entries for the same person. A HashSet enforces that automatically, adding the same name twice just doesn't create a second entry.</p>
+  <p><strong>Logic:</strong> addEmployee tries to add a name, the set silently blocks a repeat, displayEmployees prints every unique name on record.</p>
+  <pre><code>class EmployeeSystem:
+    employees = new HashSet
+
+    function addEmployee(name):
+        employees.add(name)          // duplicate name is just ignored
+
+    function displayEmployees():
+        for name in employees:
+            print name</code></pre>
+
+  <h2>Task management: LinkedList</h2>
+  <p>A task list gets tasks added and completed constantly, insertions and removals happening all the time. A LinkedList handles that more efficiently than an ArrayList, since it just relinks nodes instead of shifting everything over.</p>
+  <p><strong>Logic:</strong> addTask appends a new task to the end, completeTask removes and returns the first task (simulating working through the list in order), displayTasks prints what's left.</p>
+  <pre><code>class TaskManager:
+    tasks = new LinkedList
+
+    function addTask(task):
+        tasks.add(task)
+
+    function completeTask():
+        return tasks.removeFirst()   // finishes and removes the oldest task
+
+    function displayTasks():
+        for task in tasks:
+            print task</code></pre>
+
+  <h2>Social media followers: HashMap + HashSet</h2>
+  <p>Each user needs their own follower list, no duplicate followers, and fast lookups both for "who does this user follow" and "is this person already following them." A HashMap keyed by user, where each value is a HashSet of followers, covers both needs at once.</p>
+  <p><strong>Logic:</strong> addFollower looks up (or creates) the user's HashSet of followers and adds the new follower to it, duplicates get blocked by the Set itself. displayFollowers prints everyone following a given user.</p>
+  <pre><code>class FollowerSystem:
+    followers = new HashMap          // username -> HashSet of follower names
+
+    function addFollower(user, follower):
+        if not followers.containsKey(user):
+            followers.put(user, new HashSet)
+        followers.get(user).add(follower)   // duplicate follower is ignored
+
+    function displayFollowers(user):
+        for follower in followers.get(user):
+            print follower</code></pre>
+
+  <h2>Matching the collection to the job</h2>
+  <ul>
+    <li><strong>ArrayList:</strong> a growing list you mostly read and append to, library catalogs, shopping lists.</li>
+    <li><strong>HashMap:</strong> fast lookup by a unique key, order IDs, dictionaries, word counts.</li>
+    <li><strong>HashSet:</strong> uniqueness matters more than order, employee records, deduplicating data.</li>
+    <li><strong>LinkedList:</strong> frequent adding and removing, task queues, undo history.</li>
+    <li><strong>HashMap + HashSet together:</strong> one key needs a whole unique collection behind it, followers per user, tags per item.</li>
+  </ul>
+</article>

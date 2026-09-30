@@ -1,0 +1,48 @@
+<article>
+  <h1>Module 3: HashSet vs TreeSet</h1>
+
+  <h2>What a set is</h2>
+  <p>A set is a collection that stores unique elements, no duplicates allowed. Its whole job is keeping a collection where every item appears once.</p>
+  <p><strong>Real-life example:</strong> a guest list at the door, someone already checked in can't check in a second time, the list only cares whether you're on it, not how many times you tried.</p>
+
+  <h2>HashSet</h2>
+  <p>Backed by a hash table. Basic operations, add, remove, contains, run in constant time, which makes it fast. It doesn't allow duplicates, allows exactly one null element, and doesn't keep elements in any particular order.</p>
+  <p><strong>Logic:</strong> import it, create it, add elements (a duplicate just gets silently ignored), check membership with contains, remove with remove, print it and the order you see isn't guaranteed to mean anything.</p>
+  <p><strong>Real-life example:</strong> unique user IDs in an app, or tracking which items are in stock. You don't care what order they come out in, you care that each one only counts once, and you want the check to be fast.</p>
+  <pre><code>import java.util.HashSet
+
+fruits = new HashSet
+fruits.add("Apple")
+fruits.add("Banana")
+fruits.add("Banana")        // ignored, already in the set
+print fruits                // no guaranteed order
+
+fruits.contains("Apple")    // true
+fruits.remove("Cherry")
+print fruits</code></pre>
+
+  <h2>TreeSet</h2>
+  <p>Backed by a red-black tree instead of a hash table. It also refuses duplicates, but unlike HashSet it keeps elements in sorted order, either their natural ordering or a comparator you give it. Basic operations run in logarithmic time, order log n, slower than HashSet's constant time, and it does not allow a null element at all.</p>
+  <p><strong>Logic:</strong> same shape as HashSet, import, create, add, contains, remove, print, but every time you print it, the elements come out sorted, not in insertion order.</p>
+  <p><strong>Real-life example:</strong> a leaderboard or a sorted list of dates, you want the data to come back already in order, and you're fine trading a bit of speed for that.</p>
+  <pre><code>import java.util.TreeSet
+
+numbers = new TreeSet
+numbers.add(5)
+numbers.add(1)
+numbers.add(3)
+numbers.add(3)              // ignored, 3 is already in the set
+print numbers                // 1, 3, 5, always ascending
+
+numbers.contains(5)          // true
+numbers.remove(8)
+print numbers</code></pre>
+
+  <h2>Choosing between them</h2>
+  <p><strong>Logic:</strong> need speed and don't care about order, HashSet. Need the data sorted and can tolerate it being a bit slower, TreeSet.</p>
+  <ul>
+    <li><strong>HashSet:</strong> faster (constant time), no order, one null allowed. Good for unique user IDs, inventory tracking, deduplicating a list, quickly checking whether a player already has an item.</li>
+    <li><strong>TreeSet:</strong> slower (log n), sorted order, no null allowed. Good for sorted data like names or dates, range queries, leaderboards, or automatically ordering students' grades.</li>
+  </ul>
+  <p>Both exist to kill duplicates, the choice between them comes down to whether you need that sorted order badly enough to pay for it.</p>
+</article>

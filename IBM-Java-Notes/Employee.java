@@ -1,64 +1,87 @@
-public class Employee {
-    // properties, all private: only Employee's own methods touch these directly
-    private int employeeId;
+public class Employee implements Cloneable {
     private String name;
-    private String department;
-    private String email;
-    private int leaveBalance = 20; // annual leave balance in days, default 20
+    private int age;
+    private double salary; // stored as monthly
 
-    // default constructor, sets placeholder values when no info is given
+    // no-arg constructor, delegates to the full one with safe defaults
     public Employee() {
-        this.employeeId = 0;
-        this.name = "unknown";
-        this.department = "unassigned";
-        this.email = "";
+        this("Unnamed", 18, 0.0);
     }
 
-    // parameterized constructor, real employee details supplied
-    public Employee(int employeeId, String name, String department, String email) {
-        this.employeeId = employeeId;
-        this.name = name;
-        this.department = department;
-        this.email = email;
+    // name only, delegates with defaults for age and salary
+    public Employee(String name) {
+        this(name, 18, 0.0);
     }
 
-    // getters
-    public int getEmployeeId() {
-        return employeeId;
+    // name and age, delegates with a default salary
+    public Employee(String name, int age) {
+        this(name, age, 0.0);
+    }
+
+    // full constructor, all validation lives here since every other constructor delegates to it
+    public Employee(String name, int age, double salary) {
+        setName(name);
+        setAge(age);
+        setSalary(salary);
     }
 
     public String getName() {
         return name;
     }
 
-    public String getDepartment() {
-        return department;
+    public void setName(String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Name cannot be empty");
+        }
+        this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public int getAge() {
+        return age;
     }
 
-    public int getLeaveBalance() {
-        return leaveBalance;
+    public void setAge(int age) {
+        if (age < 18 || age > 65) {
+            throw new IllegalArgumentException("Age must be between 18 and 65");
+        }
+        this.age = age;
     }
 
-    // setters, with validation on leaveBalance
-    public void setLeaveBalance(int leaveBalance) {
-        if (leaveBalance >= 0) {
-            this.leaveBalance = leaveBalance;
-        } else {
-            System.out.println("Leave balance cannot be negative.");
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        if (salary < 0) {
+            throw new IllegalArgumentException("Salary cannot be negative");
+        }
+        this.salary = salary;
+    }
+
+    public double calculateAnnualSalary() {
+        return salary * 12;
+    }
+
+    public void giveRaise(double percentage) {
+        if (percentage <= 0) {
+            throw new IllegalArgumentException("Raise percentage must be positive");
+        }
+        salary = salary + (salary * percentage / 100);
+    }
+
+    // makes a separate copy, changing the clone never affects the original
+    @Override
+    public Employee clone() {
+        try {
+            return (Employee) super.clone();
+        } catch (CloneNotSupportedException e) {
+            // won't actually happen, this class implements Cloneable
+            throw new RuntimeException(e);
         }
     }
 
-    // works out what's left after a request, without going negative
-    public int calculateRemainingLeave(int daysRequested) {
-        int remaining = leaveBalance - daysRequested;
-        if (remaining < 0) {
-            System.out.println("Not enough leave balance available.");
-            return leaveBalance;
-        }
-        return remaining;
+    @Override
+    public String toString() {
+        return name + ", age " + age + ", monthly salary R" + salary;
     }
 }

@@ -1,0 +1,41 @@
+<article>
+  <h1>Challenge: Employee Management System</h1>
+  <p>A self-guided build combining everything from Module 1 so far: encapsulation, overloaded constructors, validation, calculated fields, and object cloning.</p>
+
+  <h2>Encapsulation and validation</h2>
+  <p>Name, age, and salary stay private. Setters check the value makes business sense before accepting it, age has to be a realistic working age, salary has to be positive, anything else gets rejected with a clear error instead of silently corrupting the object's state.</p>
+  <p><strong>Real-life example:</strong> an HR system shouldn't let someone type in an age of -5 or a salary of 0 by accident, the same way a form on a website won't accept an invalid email address, it stops you and tells you why.</p>
+  <p><strong>Logic:</strong> validate before assigning, never assign then check. If a setter or constructor gets a bad value, throw an exception rather than quietly storing garbage data, that way the problem surfaces immediately instead of causing confusion three steps later.</p>
+  <pre><code>function setAge(newAge):
+    if newAge less than 18 or newAge greater than 65:
+        throw error "Age must be between 18 and 65"
+    age = newAge</code></pre>
+
+  <h2>Constructor overloading</h2>
+  <p>Different situations need different amounts of starting information. A brand new hire whose salary hasn't been finalised yet might only have a name and age, someone fully onboarded gets all three.</p>
+  <p><strong>Logic:</strong> the constructor with fewer parameters calls the constructor with more parameters, filling in a sensible default for what's missing, so the validation logic only has to live in one place.</p>
+  <pre><code>function Employee(name):
+    call Employee(name, 18, 0.0)   // delegate, fill in defaults
+
+function Employee(name, age, salary):
+    validate and set name, age, salary</code></pre>
+
+  <h2>Calculating annual salary and giving a raise</h2>
+  <p>Salary is stored as a monthly figure, annual salary is just that multiplied out. A raise is a percentage increase applied to the current salary, not a fixed replacement value.</p>
+  <p><strong>Real-life example:</strong> a payslip shows the monthly amount, but HR reports usually need the yearly total, that's calculateAnnualSalary(). A raise announcement like "everyone gets a 5% increase" is exactly giveRaise(5).</p>
+  <pre><code>function calculateAnnualSalary():
+    return salary * 12
+
+function giveRaise(percentage):
+    if percentage less than or equal to 0:
+        throw error "Raise percentage must be positive"
+    salary = salary + (salary * percentage / 100)</code></pre>
+
+  <h2>Cloning</h2>
+  <p>Cloning makes a completely separate copy of an object, so changing the clone's data doesn't touch the original. Java supports this through the Cloneable interface and an overridden clone() method.</p>
+  <p><strong>Real-life example:</strong> promoting someone into a new role where you want to start from their current record as a template, but then adjust the copy (new salary, new title) without altering their original employment record.</p>
+  <p><strong>Logic:</strong> call super.clone() to get a field-by-field copy, then change whatever needs to be different on the copy afterward. Since Employee only holds primitives and an immutable String, a shallow clone is safe here, nothing inside it is a mutable object that both copies could end up secretly sharing.</p>
+
+  <h2>Testing</h2>
+  <p>Testing here means deliberately trying both good and bad inputs: create employees through each constructor, try an invalid age and confirm it's rejected, apply a raise and confirm the salary actually changed, clone an employee and confirm changing the clone leaves the original untouched.</p>
+</article>

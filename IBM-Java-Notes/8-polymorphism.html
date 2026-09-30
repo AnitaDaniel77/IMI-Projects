@@ -1,0 +1,61 @@
+<article>
+  <h1>Module 2: Polymorphism</h1>
+
+  <h2>What polymorphism is</h2>
+  <p>Polymorphism lets objects share the same interface (same method name/call) while each behaves differently based on its own implementation. It's what gives object-oriented code its flexibility, you can write code that works with a general type and trust each specific object to handle it correctly on its own.</p>
+  <p><strong>Real-life example:</strong> a fingerprint. It's one single key, but depending on where you use it, it unlocks your phone, marks attendance, or authorises a payment, same interface (the fingerprint scan), different outcome depending on context.</p>
+  <p>There are two types: compile-time polymorphism (method overloading) and runtime polymorphism (method overriding).</p>
+
+  <h2>Compile-time polymorphism (method overloading)</h2>
+  <p>Multiple methods in the same class share the same name but differ in their parameters, either how many, or what type. Java figures out which one to run at compile time, based on what you pass in.</p>
+  <p><strong>Real-life example:</strong> ordering "a coffee", "a coffee with milk", or "a coffee with milk and sugar" are all valid orders using the same word "coffee", the specifics you give decide which version you actually get.</p>
+  <p><strong>Logic:</strong> the method name stays the same, the signature (parameter types/count) is what makes each version distinct, Java matches your call to the version whose parameter list fits.</p>
+  <pre><code>class MathOperations:
+    function add(a, b):              // two ints
+        return a + b
+
+    function add(a, b, c):           // three ints
+        return a + b + c
+
+    function add(a: double, b: double):  // two doubles
+        return a + b
+
+// which version runs is decided by what you pass in, at compile time
+math.add(2, 3)
+math.add(2, 3, 4)
+math.add(2.5, 3.5)</code></pre>
+
+  <h2>Runtime polymorphism (method overriding)</h2>
+  <p>A subclass provides its own version of a method already defined in its superclass. Which version actually runs is decided at runtime, based on the object's real type, not the type of the variable holding it.</p>
+  <p><strong>Real-life example:</strong> declare a variable as Animal, but assign a Dog to it, calling sound() still runs Dog's "Dog barks" version, not Animal's generic one, because the actual object underneath is a Dog.</p>
+  <p><strong>Logic:</strong> the reference type controls what you're allowed to call, the object's actual type controls which version of that call executes.</p>
+  <pre><code>class Animal:
+    function sound():
+        print "Animal makes a sound"
+
+class Dog extends Animal:
+    function sound():
+        print "Dog barks"
+
+class Cat extends Animal:
+    function sound():
+        print "Cat meows"
+
+myAnimal = new Dog()
+myAnimal.sound()   // prints "Dog barks", decided at runtime by actual object type
+
+myAnimal = new Cat()
+myAnimal.sound()   // now prints "Cat meows"</code></pre>
+
+  <h2>Virtual methods</h2>
+  <p>In Java, every non-static method is "virtual" by default, meaning it can be overridden and Java will always run the subclass's version at runtime if one exists, regardless of the reference type used to call it. There's no special keyword needed to opt into this, it's just how Java behaves.</p>
+
+  <h2>Why polymorphism matters</h2>
+  <ul>
+    <li><strong>Code reusability:</strong> write generic code (like a method that takes an Animal) without needing to know the exact subtype in advance.</li>
+    <li><strong>Decoupling:</strong> the code that uses an interface doesn't need to know how it's implemented, so the two can change somewhat independently.</li>
+    <li><strong>Dynamic behaviour:</strong> useful in complex systems where the right behaviour genuinely depends on the object at runtime, not something you can hardcode upfront.</li>
+    <li><strong>Frameworks:</strong> lets a framework define structure while letting users plug in their own implementations.</li>
+    <li><strong>Maintenance:</strong> changes to one subclass's behaviour don't ripple out and force changes everywhere else that uses the general type.</li>
+  </ul>
+</article>

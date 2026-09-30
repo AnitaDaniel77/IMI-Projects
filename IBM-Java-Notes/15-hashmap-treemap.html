@@ -1,0 +1,48 @@
+<article>
+  <h1>Module 3: HashMap vs TreeMap</h1>
+
+  <h2>What a map is</h2>
+  <p>A map stores key-value pairs. You look a value up by its key instead of by position, and a key can only point to one value at a time, though different keys can point to the same value.</p>
+  <p><strong>Real-life example:</strong> a digital address book where a contact has several nicknames, "Mom," "Mother," "Jane," all pointing to the same phone number. Different keys, same value, that's exactly what a map allows.</p>
+
+  <h2>HashMap</h2>
+  <p>Part of the Java Collections Framework, implementing the Map interface and storing entries in a hash table. Keys get hashed into an index, which gives near-constant time lookups, order of 1, regardless of how many entries are in there. It allows one null key and multiple null values, but the order entries come back in is not guaranteed.</p>
+  <p><strong>Logic:</strong> import it, create it, add entries with put, read a value with get, loop over every key with keySet, check a key exists with containsKey, remove an entry with remove.</p>
+  <p><strong>Real-life example:</strong> counting word frequency in a big block of text, you want to bump a word's count fast every time you see it again, and you don't care what order the words end up printed in.</p>
+  <pre><code>import java.util.HashMap
+
+wordCounts = new HashMap
+wordCounts.put("the", 1)
+wordCounts.put("cat", 1)
+wordCounts.put("the", wordCounts.get("the") + 1)   // "the" seen again, bump the count
+
+for key in wordCounts.keySet():
+    print key + ": " + wordCounts.get(key)
+
+wordCounts.containsKey("cat")   // true
+wordCounts.remove("cat")</code></pre>
+
+  <h2>TreeMap</h2>
+  <p>Also implements Map, but backed by a red-black tree, keeping entries sorted by their key, either natural ordering or a comparator you supply. Being navigable, it gives you methods to move through entries in that sorted order. Lookups run in log n time, slower than HashMap's constant time, and it does not allow a null key.</p>
+  <p><strong>Logic:</strong> same shape as HashMap, import, create, put, get, keySet, containsKey, remove, but every traversal comes out key-ordered, and you get extra methods for things like the smallest or largest key.</p>
+  <p><strong>Real-life example:</strong> a leaderboard that needs to display scores in descending order, or any sorted view where you want the data to come back already in order rather than sorting it yourself afterward.</p>
+  <pre><code>import java.util.TreeMap
+
+scores = new TreeMap
+scores.put("Alice", 90)
+scores.put("Bob", 75)
+scores.put("Charlie", 85)
+
+for key in scores.keySet():     // always comes out in key order
+    print key + ": " + scores.get(key)
+
+scores.containsKey("Bob")       // true
+scores.remove("Bob")</code></pre>
+
+  <h2>Choosing between them</h2>
+  <p><strong>Logic:</strong> need speed and don't care about order, HashMap. Need the entries sorted by key, or need range-style operations like smallest/largest, TreeMap.</p>
+  <ul>
+    <li><strong>HashMap:</strong> faster (near-constant time), unordered, one null key and multiple null values allowed, generally lighter on memory. Good for fast lookups, counting items, dictionaries, large datasets where speed matters more than order.</li>
+    <li><strong>TreeMap:</strong> slower (log n), always sorted by key, no null key allowed, generally heavier on memory. Good for sorted lists, priority-queue-style structures, range queries, and any scenario where iterating in key order matters.</li>
+  </ul>
+</article>

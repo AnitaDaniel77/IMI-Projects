@@ -1,0 +1,48 @@
+<article>
+  <h1>Module 3: Queues</h1>
+
+  <h2>What a queue is</h2>
+  <p>A queue is a collection built around two operations: enqueue, which adds an item to the back, and dequeue, which removes an item from the front. It follows FIFO, first in, first out, whatever got added first is the first thing that comes back out.</p>
+  <p><strong>Real-life example:</strong> a customer service line. The first person to arrive is the first person served, nobody gets pulled from the middle, and newcomers join at the back, not the front.</p>
+
+  <h2>Characteristics</h2>
+  <p>A queue grows or shrinks as you add or remove elements, same as a list. The difference is access, you can't reach in and grab any element you want like you could with an array's index, you only ever get the front element.</p>
+  <p><strong>Logic:</strong> think of it as a one-way door, things enter at the back, exit at the front, and that's the only way in or out.</p>
+
+  <h2>Using a queue in Java</h2>
+  <p>The Queue interface is part of the Java Collections Framework, and LinkedList is a common way to back it, since LinkedList already implements Queue. You enqueue with offer(), dequeue with poll(), which removes and returns the front element in one step.</p>
+  <pre><code>import java.util.LinkedList
+import java.util.Queue
+
+queue = new LinkedList as a Queue
+queue.offer("Apple")            // enqueue, adds to the back
+queue.offer("Banana")
+queue.offer("Cherry")
+print queue                     // Apple, Banana, Cherry
+
+queue.poll()                    // dequeue, removes and returns the front item (Apple)
+print queue                     // Banana, Cherry</code></pre>
+
+  <h2>Real-life example: a customer service line</h2>
+  <p>Model customers arriving and being served with a queue. Each offer() call is a customer walking in and joining the back of the line, each poll() call is the counter calling the next customer and removing them from the line.</p>
+  <pre><code>customerQueue = new LinkedList as a Queue
+customerQueue.offer("Customer1")
+customerQueue.offer("Customer2")
+customerQueue.offer("Customer3")
+print customerQueue             // Customer1, Customer2, Customer3, all waiting
+
+customerQueue.poll()            // serves Customer1, removes them
+print customerQueue             // Customer2, Customer3 still waiting
+
+customerQueue.poll()            // serves Customer2, removes them
+print customerQueue             // Customer3 remains</code></pre>
+
+  <h2>Why queues matter</h2>
+  <ul>
+    <li>Task scheduling, operating systems process tasks in the order they arrived.</li>
+    <li>Print spooling, print jobs sit in a queue and print in the order they were sent.</li>
+    <li>Breadth-first search (BFS), graph algorithms use a queue to explore nodes layer by layer instead of jumping around.</li>
+    <li>Real-time data processing, chat servers and stock trading platforms handle incoming data streams in the order they arrive.</li>
+  </ul>
+  <p><strong>Logic:</strong> reach for a queue whenever order of arrival matters and you only ever need to deal with "what's next," not "give me item number 5."</p>
+</article>

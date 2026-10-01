@@ -1,0 +1,72 @@
+<article>
+  <h1>Module 4: Byte Streams</h1>
+
+  <h2>What a byte stream is</h2>
+  <p>A byte stream reads or writes raw bytes, no interpretation, no encoding, just the data as-is. That makes it versatile enough to handle any file type, text, images, video, since it never tries to make sense of what the bytes mean.</p>
+  <p><strong>Real-life example:</strong> a conveyor belt moving raw materials through a factory. The belt doesn't care whether it's carrying steel or plastic, it just moves whatever's on it, a byte stream moves whatever bytes are in the file the same way.</p>
+
+  <h2>The core classes</h2>
+  <p>InputStream and OutputStream are abstract classes, the superclasses every byte-reading or byte-writing class builds on. FileInputStream reads bytes straight from a file, FileOutputStream writes bytes straight to one. Wrapping either in BufferedInputStream or BufferedOutputStream adds buffering, which improves performance by reducing how often the program has to hit the disk directly.</p>
+  <p><strong>Logic:</strong> InputStream/OutputStream are the blueprint, FileInputStream/FileOutputStream are the concrete file-based implementation, Buffered versions wrap those to make them faster.</p>
+
+  <h2>Reading with FileInputStream</h2>
+  <p>read() pulls one byte at a time from the file. When there's nothing left, it returns -1, that's the signal to stop. Each byte gets cast to a char before printing so it displays as text. The stream has to be closed afterward, typically in a finally block, so the resource gets released even if something goes wrong partway through.</p>
+  <pre><code>import java.io.FileInputStream
+import java.io.IOException
+
+try:
+    input = new FileInputStream("data.txt")
+    byteValue = input.read()
+    while byteValue != -1:
+        print (char) byteValue
+        byteValue = input.read()
+catch IOException e:
+    print "Error reading file: " + e.getMessage()
+finally:
+    input.close()                 // runs no matter what, even if an error occurred</code></pre>
+
+  <h2>Writing with FileOutputStream</h2>
+  <p>write() sends either a single byte or a whole byte array to the file. Once the data's written, the stream gets closed, again typically inside a finally block, to make sure the resource is released properly.</p>
+  <pre><code>import java.io.FileOutputStream
+import java.io.IOException
+
+try:
+    output = new FileOutputStream("data.txt")
+    output.write(byteValue)        // one byte
+    output.write(byteArray)        // or a whole array of bytes at once
+catch IOException e:
+    print "Error writing file: " + e.getMessage()
+finally:
+    output.close()</code></pre>
+
+  <h2>Real-life example: copying a file byte by byte</h2>
+  <p>Open the source file with FileInputStream and the destination with FileOutputStream, then loop, reading one byte and immediately writing it to the output, until read() returns -1. Close both streams when done.</p>
+  <pre><code>input = new FileInputStream("source.txt")
+output = new FileOutputStream("destination.txt")
+
+byteValue = input.read()
+while byteValue != -1:
+    output.write(byteValue)
+    byteValue = input.read()
+
+input.close()
+output.close()</code></pre>
+
+  <h2>Where byte streams get used</h2>
+  <ul>
+    <li>Reading and writing binary files, images, videos, anything that isn't plain text.</li>
+    <li>Network programming, sending and receiving binary data over sockets.</li>
+    <li>Serialization, converting an object into bytes for storage or transmission.</li>
+    <li>Multimedia applications, processing audio, video, or image data.</li>
+  </ul>
+
+  <h2>Byte streams vs character streams</h2>
+  <table>
+    <tr><th></th><th>Byte streams</th><th>Character streams</th></tr>
+    <tr><td>Base classes</td><td>InputStream / OutputStream</td><td>Reader / Writer</td></tr>
+    <tr><td>Common subclasses</td><td>FileInputStream / FileOutputStream</td><td>FileReader / FileWriter</td></tr>
+    <tr><td>Handles</td><td>Raw bytes, no encoding</td><td>Characters, uses encoding</td></tr>
+    <tr><td>Best for</td><td>Binary files, images, audio</td><td>Text files</td></tr>
+  </table>
+  <p><strong>Logic:</strong> if the file is meant to be read as human text, use a character stream, it handles the encoding for you. If the file is binary, or you genuinely don't care what the bytes represent, byte streams are the right tool, no encoding gets in the way.</p>
+</article>

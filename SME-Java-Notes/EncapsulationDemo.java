@@ -21,8 +21,8 @@ public class EncapsulationDemo {
         //        v
         //   private balance   <--- only methods inside the class touch this
 
-        BankAccount account = new BankAccount("Ada", 100.0);
-        System.out.println(account.summary()); // Ada: 100.0
+        BankAccount account = new BankAccount("Anita", 100.0);
+        System.out.println(account.summary()); // Anita: 100.0
 
         // GETTERS AND SETTERS
         // getter — read the value safely.
@@ -32,10 +32,10 @@ public class EncapsulationDemo {
         System.out.println("Balance: " + account.getBalance());
 
         account.deposit(50);
-        System.out.println("After deposit 50: " + account.summary()); // Ada: 150.0
+        System.out.println("After deposit 50: " + account.summary()); // Anita: 150.0
 
         account.withdraw(20);
-        System.out.println("After withdraw 20: " + account.summary()); // Ada: 130.0
+        System.out.println("After withdraw 20: " + account.summary()); // Anita: 130.0
 
         // VALIDATION INSIDE THE DOOR
         account.setOwner(""); // Rejected: owner must not be empty.

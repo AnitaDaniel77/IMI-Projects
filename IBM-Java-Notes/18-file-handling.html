@@ -1,0 +1,61 @@
+<article>
+  <h1>Module 4: File Handling</h1>
+
+  <h2>Why file handling matters</h2>
+  <p>Without it, every bit of progress a program makes disappears the moment it closes. File handling is how Java reads from and writes to files on disk, using classes from the java.io package, so data survives past the program's runtime.</p>
+  <p><strong>Real-life example:</strong> saving a document in a word processor. Close the app without saving and the work is gone, save it and it's sitting on disk waiting for you next time, that persistence is exactly what file handling gives a program.</p>
+  <p><strong>Logic:</strong> it's not just about not losing data, it also lets separate programs or users share data through a common file, and lets an app read its own settings from a config file instead of hardcoding them.</p>
+
+  <h2>The File class</h2>
+  <p>Represents a file or directory path, and gives you methods to create, delete, or check properties on it, exists, isDirectory, length, that kind of thing. Creating a File object does not create an actual file on disk, it's just a reference to a path, the file itself may or may not exist yet.</p>
+  <p><strong>Real-life example:</strong> writing down an address on paper doesn't build the house there, it just points at the location. A File object is the address, not the house.</p>
+  <pre><code>import java.io.File
+
+file = new File("notes.txt")       // just a path reference, doesn't create anything
+if file.exists():
+    print "File Exists"
+else:
+    print "File Does Not Exist"</code></pre>
+
+  <h2>Writing to a file</h2>
+  <p>Writing saves data from the program onto a storage device so it's still there after the program ends. FileWriter handles the actual output, creating the file if it's missing or overwriting it if it already exists. Wrapping it in a BufferedWriter makes the writing more efficient, especially for larger amounts of data. The whole thing sits inside a try block since file operations can throw an IOException, and the writer has to be closed afterward to actually save the data and free up the resource.</p>
+  <p><strong>Real-life example:</strong> FileWriter is like writing a note by hand one line at a time, BufferedWriter is like typing it up first and sending the whole page to print at once, fewer trips, more efficient for anything beyond a tiny note.</p>
+  <pre><code>import java.io.FileWriter
+import java.io.BufferedWriter
+import java.io.IOException
+
+try:
+    writer = new BufferedWriter(new FileWriter("notes.txt"))
+    writer.write("First line")
+    writer.newLine()
+    writer.close()                  // saves the data, releases the resource
+catch IOException e:
+    print "Error writing to file: " + e.getMessage()</code></pre>
+
+  <h2>Reading from a file</h2>
+  <p>Reading retrieves and processes data already sitting on disk. FileReader reads character by character, and wrapping it in a BufferedReader lets you read line by line instead, which is more efficient for anything bigger than a trivial file. Same shape as writing, try block for the IOException, loop until there's nothing left to read, close the reader when done.</p>
+  <p><strong>Real-life example:</strong> FileReader is reading a book letter by letter, BufferedReader is reading it line by line, same book, far less tedious.</p>
+  <pre><code>import java.io.FileReader
+import java.io.BufferedReader
+import java.io.IOException
+
+try:
+    reader = new BufferedReader(new FileReader("notes.txt"))
+    line = reader.readLine()
+    while line is not null:
+        print line
+        line = reader.readLine()
+    reader.close()                  // releases the resource
+catch IOException e:
+    print "Error reading file: " + e.getMessage()</code></pre>
+
+  <h2>Comparing the classes</h2>
+  <ul>
+    <li><strong>File:</strong> represents a path, manages existence/creation/deletion, doesn't actually read or write content.</li>
+    <li><strong>FileReader:</strong> basic character-stream reading, fine for small, simple text files.</li>
+    <li><strong>BufferedReader:</strong> wraps FileReader, reads line by line, much more efficient for larger files.</li>
+    <li><strong>FileWriter:</strong> basic character-stream writing, fine for simple text output.</li>
+    <li><strong>BufferedWriter:</strong> wraps FileWriter, more efficient for writing larger volumes of data.</li>
+  </ul>
+  <p><strong>Logic:</strong> use the plain Reader/Writer when the file is small and simple, reach for the Buffered version as soon as size or performance starts to matter, since the buffered one always needs to wrap the plain one rather than replace it.</p>
+</article>

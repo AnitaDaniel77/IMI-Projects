@@ -1,0 +1,69 @@
+<article>
+  <h1>Module 4: Managing Directories</h1>
+
+  <h2>Why directory management matters</h2>
+  <p>A directory is a folder that holds files and other folders, giving data a structure instead of a dumping ground. Without that structure, an application handling any real volume of data turns into a mess fast.</p>
+  <p><strong>Real-life example:</strong> a store with nothing on the right shelf. You can't find anything, staff can't restock properly, everything slows down. Directories are the shelving system that keeps a filesystem usable as it grows.</p>
+
+  <h2>java.io.File: the traditional way</h2>
+  <p>Creating, listing, and deleting directories can all be done through the File class.</p>
+  <ul>
+    <li><strong>Creating:</strong> mkdirs() creates the directory and any missing parent directories along the way, worth checking first whether it already exists to avoid conflicts.</li>
+    <li><strong>Listing:</strong> list() returns an array of the names of files and subdirectories inside it. Worth checking the result isn't null, since an empty or nonexistent directory can return null instead of an empty array.</li>
+    <li><strong>Deleting:</strong> delete() only works if the directory is empty, and only after confirming it exists. It returns true on success, so the program can tell the developer whether the directory still had files in it or simply didn't exist.</li>
+  </ul>
+  <p><strong>Real-life example:</strong> mkdirs() is like building a whole shelf unit at once, frame and all, instead of needing each shelf built separately first.</p>
+  <pre><code>import java.io.File
+
+dir = new File("Documents/Reports")
+if not dir.exists():
+    dir.mkdirs()                    // creates Documents AND Reports if neither exists
+
+contents = dir.list()
+if contents is not null:
+    for name in contents:
+        print name
+
+if dir.exists():
+    success = dir.delete()          // only works if dir is empty
+    print success</code></pre>
+
+  <h2>java.nio.file: the newer way</h2>
+  <p>NIO, New Input/Output, is a more modern alternative that performs better on large files or frequent operations and gives cleaner error handling. Paths.get() builds a Path object representing the directory, and Files.createDirectories() creates it along with any missing parent directories, throwing an IOException if it fails, say the directory already exists or permissions are wrong, letting the program handle that failure properly instead of just getting a boolean back.</p>
+  <p><strong>Logic:</strong> File gives you a boolean and leaves you to figure out why something failed, NIO throws a real exception with real information, that's the core difference in how they handle errors.</p>
+  <pre><code>import java.nio.file.Paths
+import java.nio.file.Files
+import java.nio.file.Path
+import java.io.IOException
+
+path = Paths.get("Documents/Invoices")
+try:
+    Files.createDirectories(path)   // creates all missing parent folders too
+catch IOException e:
+    print "Could not create directory: " + e.getMessage()</code></pre>
+
+  <h2>Real-life example: a document management system</h2>
+  <p>An app that lets users upload and organize documents by category, reports, invoices, letters, needs exactly these three operations: create a category folder, list what's inside one, and delete a folder once it's no longer needed.</p>
+  <pre><code>function createDirectory(path):
+    dir = new File(path)
+    if not dir.exists():
+        dir.mkdirs()
+
+function listDirectoryContents(path):
+    dir = new File(path)
+    contents = dir.list()
+    if contents is not null:
+        for name in contents:
+            print name
+
+function deleteDirectory(path):
+    dir = new File(path)
+    if dir.exists():
+        dir.delete()                // still only works if dir is empty</code></pre>
+
+  <h2>File vs NIO, quick pick</h2>
+  <ul>
+    <li><strong>java.io.File:</strong> simpler, familiar, fine for small or occasional directory work.</li>
+    <li><strong>java.nio.file:</strong> better performance on large-scale or frequent operations, more informative error handling through exceptions rather than booleans.</li>
+  </ul>
+</article>

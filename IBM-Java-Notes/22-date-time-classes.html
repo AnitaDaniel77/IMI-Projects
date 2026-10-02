@@ -1,0 +1,49 @@
+<article>
+  <h1>Module 4: Java Date and Time Classes</h1>
+
+  <h2>Why date and time handling matters</h2>
+  <p>Any real application eventually needs to work with dates or times, logging when something happened, scheduling an event, just showing today's date. Java handles all of this through the java.time package, a modern replacement for the older, clunkier Date and Calendar classes.</p>
+  <p><strong>Real-life example:</strong> a calendar app, a logging system, even just a clock widget, all of them need a reliable, consistent way to read and display dates and times, that's exactly what java.time provides.</p>
+
+  <h2>LocalDate — just the date</h2>
+  <p>Retrieves a date in year, month, day format, no time, no timezone. Good for anything where only the calendar date matters.</p>
+  <p><strong>Real-life example:</strong> a birthday. You care that it's the 14th of March, not what time of day it currently is or what timezone you're in.</p>
+  <pre><code>import java.time.LocalDate
+
+today = LocalDate.now()          // pulls the current date from the system clock
+print "Today's Date: " + today  // format: YYYY-MM-DD</code></pre>
+
+  <h2>LocalTime — just the time</h2>
+  <p>Retrieves hours, minutes, seconds, no date, no timezone awareness.</p>
+  <p><strong>Real-life example:</strong> setting an alarm clock or timing a race, you only care about the clock reading, the date and timezone are irrelevant to the task.</p>
+  <pre><code>import java.time.LocalTime
+
+now = LocalTime.now()
+print "Current Time: " + now</code></pre>
+
+  <h2>LocalDateTime — date and time together</h2>
+  <p>Combines both LocalDate and LocalTime into one, still no timezone.</p>
+  <p><strong>Real-life example:</strong> scheduling a meeting with people in the same office, down the hall, same timezone, so there's no need to track one separately.</p>
+  <pre><code>import java.time.LocalDateTime
+
+now = LocalDateTime.now()
+print "Current Date and Time: " + now   // includes hours, minutes, seconds, nanoseconds</code></pre>
+
+  <h2>ZonedDateTime — date, time, and timezone</h2>
+  <p>Adds timezone awareness on top of date and time, the only one of the four that knows where in the world it is.</p>
+  <p><strong>Real-life example:</strong> an airline flight schedule or a meeting across multiple timezones, you can't coordinate those without knowing which timezone each time belongs to.</p>
+  <pre><code>import java.time.ZonedDateTime
+
+now = ZonedDateTime.now()
+print "Current Date, Time, and Zone: " + now   // format: yyyy-MM-dd HH:mm:ss plus timezone</code></pre>
+
+  <h2>Choosing between them</h2>
+  <p><strong>Logic:</strong> ask what you actually need to track. Just a calendar date, LocalDate. Just a clock time, LocalTime. Both together but always in one place/timezone, LocalDateTime. Both together across different timezones, ZonedDateTime.</p>
+  <ul>
+    <li><strong>LocalDate:</strong> year, month, day only.</li>
+    <li><strong>LocalTime:</strong> hours, minutes, seconds only.</li>
+    <li><strong>LocalDateTime:</strong> date and time, no timezone.</li>
+    <li><strong>ZonedDateTime:</strong> date, time, and timezone.</li>
+  </ul>
+  <p>All four follow the same pattern: import the class, call its now() method to pull the current value from the system clock, then print it with a label.</p>
+</article>

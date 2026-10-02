@@ -1,0 +1,63 @@
+<article>
+  <h1>Module 4: Formatting Dates</h1>
+
+  <h2>What formatting a date means</h2>
+  <p>A date object on its own isn't automatically readable to a person, formatting is converting that object into a string that follows a specific pattern. Java handles this through the DateTimeFormatter class, part of the java.time package introduced in Java 8 as the modern replacement for the older java.util.Date and java.util.Calendar classes.</p>
+  <p><strong>Real-life example:</strong> a birthdate stored as 1990-05-15 means nothing warm to a user, formatted as "Tuesday, May 15th, 1990" it reads like something a person actually wrote. Same date, different purpose, raw for storage, formatted for display.</p>
+
+  <h2>Common patterns</h2>
+  <ul>
+    <li>dd/MM/yyyy, day first, then month, then year.</li>
+    <li>yyyy/MM/dd, year first, then month, then day.</li>
+    <li>MM/dd/yyyy, month first, then day, then year.</li>
+    <li>EEEE, MMM d, yyyy, full weekday name, short month, day, full year.</li>
+  </ul>
+  <p><strong>Logic:</strong> which pattern to use depends on region and context, South Africa tends toward day-first, the US toward month-first, and a log file or database usually wants the unambiguous year-first order.</p>
+
+  <h2>Formatting a LocalDate</h2>
+  <p>The shape is always the same: import the classes, get the date, define a formatter with your pattern, call format() on the date passing that formatter, print the result.</p>
+  <pre><code>import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+
+today = LocalDate.now()
+formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+formatted = today.format(formatter)
+print formatted                     // e.g. 02/10/2026</code></pre>
+
+  <h2>Where date formatting gets used</h2>
+  <ul>
+    <li>User interfaces, dates need to read naturally for whoever's looking at the screen.</li>
+    <li>Databases, many expect a specific date format to store values correctly.</li>
+    <li>Logging, a consistently formatted timestamp makes it possible to trace what happened when.</li>
+  </ul>
+
+  <h2>Real-life example: a registration system asking for a birthdate</h2>
+  <p>Ask for a name and a birthdate, parse the birthdate string into a real LocalDate object, then format that object into something friendly to show back to the user.</p>
+  <p><strong>Logic:</strong> parse() goes the opposite direction from format(), format() turns a date object into a string, parse() turns a string back into a date object, you need parse() first because the user typed plain text, not an actual LocalDate.</p>
+  <pre><code>import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.Scanner
+
+scanner = new Scanner(System.in)
+print "Enter your name:"
+name = scanner.nextLine()
+
+print "Enter your birthdate (yyyy-MM-dd):"
+input = scanner.nextLine()
+birthdate = LocalDate.parse(input)        // turns the typed string into a real LocalDate
+
+formatter = DateTimeFormatter.ofPattern("EEEE, MMM d, yyyy")
+formatted = birthdate.format(formatter)
+
+print "Hello " + name + ", your birthdate is " + formatted
+scanner.close()</code></pre>
+  <p>Typing John Doe and 1990-05-15 prints: "Hello John Doe, your birthdate is Tuesday, May 15th, 1990."</p>
+
+  <h2>Which class to reach for</h2>
+  <ul>
+    <li><strong>LocalDate:</strong> just the date.</li>
+    <li><strong>LocalTime:</strong> just the time.</li>
+    <li><strong>LocalDateTime:</strong> date and time together, no timezone.</li>
+    <li><strong>ZonedDateTime:</strong> date, time, and timezone, for anything spanning regions.</li>
+  </ul>
+</article>

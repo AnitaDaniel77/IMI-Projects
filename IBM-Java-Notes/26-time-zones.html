@@ -1,0 +1,42 @@
+<article>
+  <h1>Module 4: Working with Time Zones</h1>
+
+  <h2>Why time zones matter</h2>
+  <p>A time zone is a region that shares the same standard time, defined by its offset from UTC, Coordinated Universal Time. UTC-5 means that region's clock sits 5 hours behind UTC. Any application with users spread across locations has to account for this, or someone ends up joining a meeting in the middle of the night without realizing it.</p>
+  <p><strong>Real-life example:</strong> a meeting organizer who forgets time zones and schedules a call at 9am their time, not realizing it's 2am somewhere else. Time zone handling exists specifically to stop that from happening.</p>
+  <p><strong>Logic:</strong> beyond scheduling, consistent timestamps also matter for data integrity, a log file or database recording the same moment two different ways depending on server location is a bug waiting to surface.</p>
+
+  <h2>The four core classes</h2>
+  <ul>
+    <li><strong>ZoneId:</strong> a time zone identifier, like "America/New_York" or "Europe/London". Created with ZoneId.of().</li>
+    <li><strong>ZonedDateTime:</strong> date and time combined with a specific time zone, representing one exact moment as seen from that zone.</li>
+    <li><strong>ZoneOffset:</strong> a fixed offset from UTC, no zone rules (like daylight saving) involved, useful when you need precise, rule-free time math.</li>
+    <li><strong>OffsetDateTime:</strong> date-time plus a UTC offset, but without the full time zone identity, handy for things like database storage where you only need the offset, not the zone's name or rules.</li>
+  </ul>
+  <p><strong>Real-life example:</strong> ZoneId is like saying "New York", ZonedDateTime is "3pm in New York on March 5th", ZoneOffset is just "-5 hours from UTC" with no city attached, OffsetDateTime is "3pm, -5 hours from UTC" without caring which city that happens to be.</p>
+  <pre><code>import java.time.ZoneId
+import java.time.ZonedDateTime
+
+newYorkZone = ZoneId.of("America/New_York")
+newYorkTime = ZonedDateTime.now(newYorkZone)
+print newYorkTime</code></pre>
+
+  <h2>Real-life example: scheduling across time zones</h2>
+  <p>An online conference platform needs to take one meeting time in UTC and show every participant their own local version of it.</p>
+  <p><strong>Logic:</strong> parse the meeting time once in UTC, that's the single source of truth, then for each participant's zone, convert that same instant into their local time with withZoneSameInstant(). The actual moment never changes, only how it's displayed.</p>
+  <pre><code>import java.time.ZonedDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+
+meetingTimeUTC = ZonedDateTime.parse("2026-10-06T14:00:00Z")
+participantZones = ["America/New_York", "Europe/London", "Asia/Kolkata", "Australia/Sydney"]
+formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss z")
+
+print "Meeting time (UTC): " + meetingTimeUTC.format(formatter)
+
+for zoneName in participantZones:
+    zone = ZoneId.of(zoneName)
+    localTime = meetingTimeUTC.withZoneSameInstant(zone)   // same instant, different zone's view of it
+    print zoneName + ": " + localTime.format(formatter)</code></pre>
+  <p><strong>Real-life example:</strong> a 2pm UTC meeting isn't 2pm everywhere, withZoneSameInstant() is what turns that one fixed moment into "10am in New York," "3pm in London," "7:30pm in Kolkata," and "1am in Sydney", same meeting, four honest local times.</p>
+</article>

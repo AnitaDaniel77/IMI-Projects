@@ -1,0 +1,36 @@
+<article>
+  <h1>Module 4: Format a Given Date and Time (Lab, Part 2)</h1>
+
+  <h2>Letting the user choose the format</h2>
+  <p>Part 1 printed the date and time in Java's default format. This part lets the user type their own pattern, dd/MM/yyyy, HH:mm:ss, whatever they want, and the program builds a DateTimeFormatter from that input and applies it.</p>
+  <p><strong>Logic:</strong> DateTimeFormatter.ofPattern() takes a pattern string and turns it into a formatter object, then calling format() on a date/time with that formatter produces the string in that shape. Same two-step process every time, build the formatter, apply it.</p>
+
+  <h2>LocalDateTime: the third piece</h2>
+  <p>Alongside LocalDate and LocalTime from Part 1, this lab introduces LocalDateTime, which holds both the date and the time together in one object.</p>
+  <p><strong>Real-life example:</strong> a calendar invite needs both, "the 14th" alone isn't a meeting, neither is "3pm" alone, LocalDateTime is the combined "14th at 3pm."</p>
+
+  <h2>Pattern letters used here</h2>
+  <ul>
+    <li><strong>Date:</strong> dd (day), M/MM/MMM/MMMM (month as number, padded number, short name, full name), yy/yyyy (2 or 4-digit year).</li>
+    <li><strong>Time:</strong> H/HH (24-hour, padded), h/hh (12-hour, padded), m/mm (minute, padded), s/ss (second, padded).</li>
+  </ul>
+  <p><strong>Logic:</strong> lowercase vs uppercase and single vs doubled letters change the output, "M" gives a bare month number, "MM" zero-pads it, "MMM" spells the abbreviation, "MMMM" spells it out in full, worth testing a pattern once before relying on it.</p>
+
+  <h2>Reading a custom format from the user</h2>
+  <pre><code>today = LocalDate.now()
+read formatInput from user          // e.g. "dd MM yy"
+formatter = DateTimeFormatter.ofPattern(formatInput)
+print "The date is " + today.format(formatter)
+
+now = LocalTime.now()
+read timeFormatInput from user      // e.g. "hh:mm:ss"
+timeFormatter = DateTimeFormatter.ofPattern(timeFormatInput)
+print "The time is " + now.format(timeFormatter)
+
+nowDateTime = LocalDateTime.now()
+print nowDateTime                   // default format first, for comparison
+read dateTimeFormatInput from user  // e.g. "yyyy, dd MMM hh:mm"
+dateTimeFormatter = DateTimeFormatter.ofPattern(dateTimeFormatInput)
+print "The date and time is " + nowDateTime.format(dateTimeFormatter)</code></pre>
+  <p><strong>Real-life example:</strong> typing "dd MM yy" turns 2026-10-02 into "02 10 26", typing "yyyy, dd MMM hh:mm" turns the same moment into "2026, 02 Oct 11:44", same underlying date and time, the pattern is just a different lens on it.</p>
+</article>

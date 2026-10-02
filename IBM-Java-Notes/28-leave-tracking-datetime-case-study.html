@@ -1,0 +1,99 @@
+<article>
+  <h1>Module 4: Date and Time Case Study — Leave Tracking System</h1>
+
+  <h2>Why this case study</h2>
+  <p>A Leave Tracking System needs date and time handling for several real jobs at once: recording when a leave request starts and ends, calculating how many days that covers, timestamping approvals, and tracking balances over time. It's a good single scenario to see how LocalDate, LocalDateTime, formatting, time zones, date math, and parsing all work together instead of in isolation.</p>
+
+  <h2>Recording the leave period with LocalDate</h2>
+  <p>A leave request needs a start and end date, not a time, someone's off work for whole days, not specific hours. LocalDate fits that exactly. Period.between() calculates the gap between two dates, and adding 1 to getDays() makes the range inclusive of both the start and end day.</p>
+  <p><strong>Real-life example:</strong> leave from the 3rd to the 5th is 3 days off, not 2, that's why the calculation adds 1, Period.between() alone would only count the days strictly between them.</p>
+  <pre><code>class LeaveRequest:
+    startDate = LocalDate
+    endDate = LocalDate
+
+    function getLeaveDuration():
+        return Period.between(startDate, endDate).getDays() + 1   // inclusive of both ends</code></pre>
+
+  <h2>Timestamping with LocalDateTime</h2>
+  <p>Unlike the leave dates themselves, knowing exactly when a request was created needs both date and time, down to the second, LocalDateTime.now() captures that moment, and a DateTimeFormatter turns it into something readable for display.</p>
+  <pre><code>class LeaveRequest:
+    createdAt = LocalDateTime
+
+    constructor(...):
+        createdAt = LocalDateTime.now()      // captured the instant the request was made
+
+    function getCreationTimestamp():
+        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        return createdAt.format(formatter)</code></pre>
+
+  <h2>Formatting the same date differently depending on audience</h2>
+  <p>The same LocalDate needs to look different depending on where it's shown, a UI wants something friendly, a database wants something unambiguous, a report might follow a regional standard. One date, three formatters, three outputs.</p>
+  <pre><code>function formatForDisplay(date):     // "April 15, 2023"
+    formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy")
+    return date.format(formatter)
+
+function formatForStorage(date):     // "2023-04-15"
+    return date.format(DateTimeFormatter.ISO_LOCAL_DATE)
+
+function formatForReport(date):      // "15/04/2023"
+    formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+    return date.format(formatter)</code></pre>
+  <p><strong>Real-life example:</strong> the exact same leave date shows up as "April 15, 2023" on the employee's screen, gets stored as "2023-04-15" in the database, and prints as "15/04/2023" on a compliance report, same date, three jobs, three formats.</p>
+
+  <h2>Time zones for a company with multiple offices</h2>
+  <p>Approval timestamps get stored in UTC, one consistent reference point, then converted to whichever timezone the viewer needs when displaying them. withZoneSameInstant() does the conversion, the underlying moment never changes, only which clock it's read against.</p>
+  <pre><code>function getLocalApprovalTime(request, timeZone):
+    utcTime = request.getApprovalTimestamp()           // stored in UTC
+    localTime = utcTime.withZoneSameInstant(ZoneId.of(timeZone))
+    formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss z")
+    return localTime.format(formatter)</code></pre>
+  <p><strong>Real-life example:</strong> a manager in Johannesburg approves leave at a timestamp stored as UTC, an employee in London and one in Lagos both see that same approval converted into their own local time, nobody has to do the math themselves.</p>
+
+  <h2>Calculating date differences for leave balances</h2>
+  <p>Two different calculations matter here: counting only business days (skipping weekends) for how much leave was actually used, and counting the days left until accrued leave expires.</p>
+  <p><strong>Logic:</strong> getDayOfWeek().getValue() returns 1 for Monday through 7 for Sunday, so checking it's less than 6 filters out Saturday and Sunday, walking the range one day at a time with plusDays(1) and counting only the weekday hits.</p>
+  <pre><code>function calculateBusinessDays(startDate, endDate):
+    businessDays = 0
+    currentDate = startDate
+    while not currentDate.isAfter(endDate):
+        if currentDate.getDayOfWeek().getValue() < 6:    // 1-5 is Mon-Fri, 6-7 is weekend
+            businessDays += 1
+        currentDate = currentDate.plusDays(1)
+    return businessDays
+
+function daysUntilExpiration(leaveDate, expirationDays):
+    expirationDate = leaveDate.plusDays(expirationDays)
+    return ChronoUnit.DAYS.between(LocalDate.now(), expirationDate)</code></pre>
+
+  <h2>Parsing dates safely from user input and imports</h2>
+  <p>User-typed dates and dates coming from a CSV import are just strings until something parses them, and that parsing has to handle the input being wrong or in an unexpected format, without crashing the program.</p>
+  <p><strong>Logic:</strong> wrap the parse in a try/catch for DateTimeParseException, for CSV imports where the format isn't guaranteed, loop through a list of known formats and try each one until one succeeds, only failing if none of them match.</p>
+  <pre><code>function parseInputDate(dateString):
+    try:
+        formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
+        return LocalDate.parse(dateString, formatter)
+    catch DateTimeParseException:
+        print "Invalid date format. Please use MM/DD/YYYY."
+        return null
+
+function parseFromCsv(dateString):
+    formats = ["yyyy-MM-dd", "MM/dd/yyyy", "dd-MM-yyyy"]
+    for format in formats:
+        try:
+            formatter = DateTimeFormatter.ofPattern(format)
+            return LocalDate.parse(dateString, formatter)
+        catch DateTimeParseException:
+            continue                      // try the next format
+    print "Error parsing date: " + dateString
+    return null</code></pre>
+
+  <h2>Practical tasks this case study points to</h2>
+  <ul>
+    <li>Replace string dates in LeaveRequest with real LocalDate objects.</li>
+    <li>Add timestamps for request creation and for approval/denial.</li>
+    <li>Validate that end dates aren't before start dates.</li>
+    <li>Convert stored UTC approval times into each employee's local time.</li>
+    <li>Calculate business days and leave expiration windows.</li>
+    <li>Safely parse dates from form input and CSV imports, handling multiple possible formats.</li>
+  </ul>
+</article>

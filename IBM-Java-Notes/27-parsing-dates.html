@@ -1,0 +1,66 @@
+<article>
+  <h1>Module 4: Parsing Dates from Strings</h1>
+
+  <h2>What parsing means</h2>
+  <p>Type a date like "21 02 2030" into a website and the system just sees characters, it has no idea that's a day, a month, and a year until something interprets it. Parsing is that interpretation step, analyzing a string and extracting the structured meaning behind it, turning raw text into an actual date object the program can work with.</p>
+  <p><strong>Real-life example:</strong> handing someone a note that says "21 02 2030" means nothing until they recognize the pattern as a date, parsing is the program doing that same recognition.</p>
+
+  <h2>Basic parsing with LocalDate</h2>
+  <p>DateTimeFormatter defines the pattern a string is expected to follow, and LocalDate.parse() uses that pattern to convert the string into a real LocalDate object. The pattern has to match the string's actual shape, or parsing fails.</p>
+  <pre><code>import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+
+dateString = "2030-02-21"
+formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+date = LocalDate.parse(dateString, formatter)
+print date</code></pre>
+
+  <h2>Matching a different format</h2>
+  <p>Same idea, different pattern, the formatter just needs to mirror whatever order the string is actually in.</p>
+  <pre><code>dateString = "21/02/2030"
+formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+date = LocalDate.parse(dateString, formatter)
+print date</code></pre>
+  <p><strong>Real-life example:</strong> a South African form giving a date as "21/02/2030" and a US form giving the same date as "02/21/2030" are the same underlying date, parsing with the right pattern is what makes either one usable.</p>
+  <p><strong>Logic:</strong> to parse both a date and a time together instead of just a date, use LocalDateTime.parse() the same way, just with a pattern that covers both parts.</p>
+
+  <h2>Extracting a date from a sentence</h2>
+  <p>Real text doesn't always hand you a clean date string, sometimes it's buried in a sentence. One approach, locate a known marker word (like "on"), then take the text up to the next full stop, and parse just that piece.</p>
+  <pre><code>sentence = "The event is scheduled on 2030-02-21."
+formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+
+startIndex = sentence.indexOf("on") + 3          // skip past "on "
+endIndex = sentence.indexOf(".")
+dateText = sentence.substring(startIndex, endIndex)
+
+try:
+    date = LocalDate.parse(dateText, formatter)
+    print date
+catch exception:
+    print "Could not parse date"</code></pre>
+
+  <h2>Extracting multiple dates from a string</h2>
+  <p>When a string holds several dates separated by commas or "and", split on those delimiters first, trim whitespace off each piece, then try to parse each one individually, catching and reporting any piece that doesn't match the pattern.</p>
+  <pre><code>text = "2030-02-21, 2030-03-15 and 2030-04-10"
+parts = text.split(",| and ")                    // split on comma or " and "
+
+for part in parts:
+    trimmed = part.trim()
+    try:
+        date = LocalDate.parse(trimmed, formatter)
+        print date
+    catch exception:
+        print "Invalid date: " + trimmed</code></pre>
+
+  <h2>Extracting dates from mixed content</h2>
+  <p>When dates are scattered through ordinary text with no clear delimiter, split the string into individual words, then check each word against a regex matching the expected pattern (yyyy-MM-dd shaped), parsing only the words that actually match.</p>
+  <pre><code>text = "Meet me on 2030-02-21 for lunch and again 2030-03-15 maybe"
+words = text.split(" ")
+pattern = "\\d{4}-\\d{2}-\\d{2}"                 // matches yyyy-MM-dd shaped text
+
+for word in words:
+    if word matches pattern:
+        date = LocalDate.parse(word, formatter)
+        print date</code></pre>
+  <p><strong>Real-life example:</strong> scanning an email for any dates mentioned, the dates aren't labeled or separated cleanly, a regex is what picks them out of ordinary sentences so they can actually be parsed.</p>
+</article>

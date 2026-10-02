@@ -1,0 +1,26 @@
+<article>
+  <h1>Module 4: Format a Given Date and Time (Lab, Part 1)</h1>
+  <p>This lab's learning objectives cover retrieving the current date/time, displaying in standard formats, parsing different input formats, adding/subtracting days, and converting between timezones, this first part only covers retrieving and printing the current date and time. Looks like there's more to come, send the rest when you have it.</p>
+
+  <h2>LocalDate and LocalTime: getting the current date/time</h2>
+  <p>LocalDate and LocalTime live in the java.time package, each handling one half of the picture, LocalDate just the calendar date, LocalTime just the clock reading. Both have a static now() method that pulls straight from the system clock, no need to construct an instance manually.</p>
+  <p><strong>Real-life example:</strong> a wall clock only shows the time, a calendar only shows the date, LocalTime and LocalDate are that same split, each one doing a single job rather than trying to cover both.</p>
+  <p><strong>Logic:</strong> now() is a static method, called on the class itself (LocalDate.now()), not on an instance, because there's nothing to configure, it just asks the system clock what time it is right now.</p>
+  <pre><code>import java.time.LocalDate
+import java.time.LocalTime
+
+print "The date is " + LocalDate.now()
+print "The time is " + LocalTime.now()</code></pre>
+
+  <h2>Project setup for this lab</h2>
+  <pre><code>mkdir my_datetime_proj
+mkdir -p my_datetime_proj/src
+mkdir -p my_datetime_proj/classes
+mkdir -p my_datetime_proj/test
+cd my_datetime_proj
+touch src/DateTimePrinter.java</code></pre>
+  <p>Compiling puts the .class file in classes, separate from the source in src, and CLASSPATH tells the JVM where to find those compiled classes when running the program.</p>
+  <pre><code>javac -d classes src/DateTimePrinter.java
+export CLASSPATH=$CLASSPATH:/home/project/my_datetime_proj/classes
+java DateTimePrinter</code></pre>
+</article>

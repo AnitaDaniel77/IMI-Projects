@@ -1,0 +1,127 @@
+<article>
+  <h1>SME Session E12 Java, Part 4: SOLID — Liskov Substitution, Interface Segregation, Dependency Inversion</h1>
+
+  <h2>L: Liskov Substitution Principle</h2>
+  <p>If code expects a parent type, any subtype has to work in its place without surprising the caller. A subclass that quietly breaks the promises its parent makes is not a valid substitute, even if it compiles and runs.</p>
+  <p><strong>Real-life example:</strong> if you're driving a rented car, you should be able to swap it for a different car and keep driving the same way. A subclass that changes the rules on you mid-drive is the Liskov violation, not a case of "it's technically still a car."</p>
+  <p><strong>Logic:</strong> the giveaway is a subclass overriding a method in a way that changes what the caller can rely on. The classic trap is Square extending Rectangle, since forcing width and height to always match breaks any code that set them independently expecting an independent result.</p>
+  <pre><code>// BEFORE - looks fine, breaks
+class BrokenRectangle:
+    width, height
+
+    function setWidth(width):
+        this.width = width
+
+    function setHeight(height):
+        this.height = height
+
+    function area():
+        return width * height
+
+class BrokenSquare extends BrokenRectangle:
+    function setWidth(width):
+        this.width = width
+        this.height = width   // secretly changes height too
+
+    function setHeight(height):
+        this.width = height
+        this.height = height  // secretly changes width too
+
+// usage
+rect = new BrokenSquare()        // caller only knows it's a BrokenRectangle
+rect.setWidth(5)
+rect.setHeight(4)
+print rect.area()                // caller expects 20, square logic silently forces both sides to 4, prints 16</code></pre>
+  <p><strong>Real-life example:</strong> this is the vehicle analogy breaking down, if swapping in the "square" version of a rectangle means your previous instructions get silently overwritten, you can no longer trust the substitution.</p>
+  <pre><code>// AFTER - safe substitution
+interface Shape:
+    function area()
+
+class SafeRectangle implements Shape:
+    width, height
+
+    constructor(width, height):
+        this.width = width
+        this.height = height
+
+    function area():
+        return width * height
+
+class SafeSquare implements Shape:
+    side
+
+    constructor(side):
+        this.side = side
+
+    function area():
+        return side * side
+
+function printArea(shape):          // works with anything that implements Shape
+    print shape.area()
+
+printArea(new SafeRectangle(5, 4))  // 20, every time
+printArea(new SafeSquare(4))        // 16, and nobody's surprised by it</code></pre>
+  <p>Rectangle and Square stop pretending to be each other and become siblings under a shared Shape interface instead. Any code written against Shape can swap in either one safely, since neither one secretly rewrites what the other promised.</p>
+
+  <h2>I: Interface Segregation Principle</h2>
+  <p>Clients shouldn't be forced to depend on methods they don't use. A big do-everything interface drags unrelated behaviour along with it, so a class implementing it has to fill in methods it has no real use for.</p>
+  <p><strong>Real-life example:</strong> a universal remote control with fifty buttons when you only ever press three. A smaller, purpose-built remote with just the buttons you need beats one bloated interface trying to cover every device at once.</p>
+  <p><strong>Logic:</strong> the question to ask when a class is forced to implement a method it doesn't support is whether that method belongs in a smaller, more specific interface instead of the big one it currently lives in.</p>
+  <pre><code>abstract class PaymentMethod:
+    function vatCalculation():
+        return 15               // default VAT, fine for most payment methods
+
+interface MakePayments:
+    function makePayment()
+
+class PayPal extends PaymentMethod implements MakePayments:
+    function vatCalculation():
+        return 20                // PayPal has its own VAT rule, overrides the default
+
+    function makePayment():
+        throw UnsupportedOperationException("Unimplemented method 'makePayment'")</code></pre>
+  <p><strong>Real-life example:</strong> splitting MakePayments out as its own interface means a payment method that can't actually process a payment (a loyalty points balance, say) doesn't have to carry a fake or broken makePayment method just to satisfy one bloated PaymentMethod contract.</p>
+
+  <h2>D: Dependency Inversion Principle</h2>
+  <p>High-level policy shouldn't depend on low-level detail, both should depend on an abstraction instead. A class that hard-codes the concrete thing it talks to can only ever do it that one way.</p>
+  <p><strong>Real-life example:</strong> a NotificationService that hard-codes EmailSender can't add SMS without editing NotificationService itself. Point it at an abstraction instead, and plugging in a new channel becomes a matter of handing it a different implementation, not rewriting the class.</p>
+  <pre><code>// BEFORE - tied to one concrete sender
+class EmailSenderOnly:
+    function send(message):
+        print "[email] " + message
+
+class RigidNotifier:
+    email = new EmailSenderOnly()      // locked in at construction, can't be swapped
+
+    function notifyUser(message):
+        email.send(message)</code></pre>
+  <pre><code>// AFTER - depends on an abstraction instead
+interface MessageSender:
+    function send(message)
+
+class EmailSender implements MessageSender:
+    function send(message):
+        print "[email] " + message
+
+class FlexibleNotifier:
+    sender                              // any MessageSender, decided from outside
+
+    constructor(sender):
+        this.sender = sender
+
+    function notifyUser(message):
+        sender.send(message)
+
+// usage
+notifier = new FlexibleNotifier(new EmailSender())
+notifier.notifyUser("Welcome!")         // swap in an SmsSender later with zero changes to FlexibleNotifier</code></pre>
+  <p>Email and SMS become things that get plugged in from the outside rather than choices baked into the notifier itself. The notifier only needs to know it's talking to something that can send a message, not which one.</p>
+
+  <h2>Why this set of three matters together</h2>
+  <ul>
+    <li>LSP keeps a subclass trustworthy, a caller using the parent type should never get surprised by the subclass's behaviour.</li>
+    <li>ISP keeps interfaces honest, a class should only have to implement what it actually does.</li>
+    <li>DIP keeps high-level code from being welded to one specific low-level implementation, so swapping that implementation doesn't mean rewriting the code that uses it.</li>
+    <li>All three push toward the same outcome as SRP and OCP before them: code that's easy to extend without having to go back and rewrite what already works.</li>
+  </ul>
+</article>

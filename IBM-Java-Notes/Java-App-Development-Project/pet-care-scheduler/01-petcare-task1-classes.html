@@ -1,0 +1,61 @@
+<article>
+  <h1>PetCare Scheduler: Task 1, The Object Blueprint Classes</h1>
+
+  <h2>What the instructions ask for</h2>
+  <p>Two classes. Appointment is built first because Pet holds a list of appointments. Appointment needs a type, a date and time, and optional notes. Pet needs an ID, name, species or breed, age, owner name, contact info, registration date and a list of appointments. Both classes need getters and setters where they make sense, and Appointment must override toString().</p>
+
+  <h2>Appointment class</h2>
+  <p>An appointment is one booking, like "vaccination on 14 Nov at 09:30". The date and time are stored as one LocalDateTime, because an appointment needs both and a single value is easy to compare later. Notes are optional, so there are two constructors: one with notes and one without that defaults to an empty string. All three fields get a getter and a setter, because a booking can be rescheduled or its notes corrected.</p>
+  <p><strong>Real-life example:</strong> a clinic diary entry. It always has a reason and a slot, the notes column is often blank, and the receptionist can change any of it.</p>
+  <pre><code>class Appointment:
+    private type
+    private dateTime        // LocalDateTime
+    private notes
+
+    constructor(type, dateTime, notes):
+        set all three fields
+
+    constructor(type, dateTime):
+        call the first constructor with notes = ""
+
+    getters and setters for type, dateTime, notes
+
+    toString():
+        return type + " on " + dateTime formatted as "yyyy-MM-dd HH:mm" + notes if any</code></pre>
+
+  <h2>Pet class</h2>
+  <p>The registration date is set automatically with LocalDate.now() in the constructor, so the user never types it. The appointments live in an ArrayList, which keeps them in the order they were added. The age rule (no negatives) lives in setAge(), and the constructor calls it, so the check exists in one place only.</p>
+  <p>The ID and registration date have getters but no setters, because neither should change after registration. addAppointment() is the only way to add to the list, and getAppointments() returns a read-only view so outside code can't edit the list directly.</p>
+  <p><strong>Real-life example:</strong> a pet file at the vet. The owner can update their phone number, but the file number and the day it was opened never change, and the front desk adds pages without replacing the folder.</p>
+  <pre><code>class Pet:
+    private id, name, species, age, ownerName, contactInfo
+    private registrationDate       // LocalDate
+    private appointments           // ArrayList of Appointment
+
+    constructor(id, name, species, age, ownerName, contactInfo):
+        set id, name, species, ownerName, contactInfo
+        setAge(age)                // rule is checked here
+        registrationDate = today
+        appointments = empty list
+
+    setAge(age):
+        if age is negative: throw IllegalArgumentException
+        this.age = age
+
+    addAppointment(appointment):
+        add it to the list
+
+    getAppointments():
+        return a read-only view of the list
+
+    getters for all fields
+    setters for name, species, age, ownerName, contactInfo
+    no setters for id, registrationDate, appointments</code></pre>
+
+  <h2>Tips for reading this logic</h2>
+  <ul>
+    <li>Read constructors first. They tell you what a valid object needs.</li>
+    <li>For each field ask who is allowed to change it. If nobody, it gets a getter and no setter.</li>
+    <li>A pet owns many appointments, so Pet holds a list of Appointment. That is the whole relationship.</li>
+  </ul>
+</article>

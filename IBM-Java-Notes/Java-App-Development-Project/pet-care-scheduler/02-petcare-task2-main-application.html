@@ -1,0 +1,56 @@
+<article>
+  <h1>PetCare Scheduler: Task 2, The Main Application</h1>
+
+  <h2>What the instructions ask for</h2>
+  <p>A console class that loads existing data when it starts (in a private method), then keeps showing a menu and acting on the user's choice until they quit. It must cover registering pets, scheduling appointments, storing data, displaying records and generating reports, without crashing on bad input.</p>
+
+  <h2>Imports and the Scanner</h2>
+  <p>The class needs java.io for files, java.util for Scanner, Map and HashMap, and the pet and appointment classes from the same folder. One static Scanner reads from System.in, and every method shares it. Making two Scanners on the same input is a classic bug, so there is only one.</p>
+  <p><strong>Real-life example:</strong> one receptionist at the front desk taking every request, instead of several people all trying to listen to the same caller.</p>
+
+  <h2>The collection</h2>
+  <p>Pets go in a HashMap keyed by pet ID. That gives fast lookup by ID and makes a duplicate ID easy to spot with containsKey(). The appointments are not in a second collection, because each Pet already holds its own list. Together, the map of pets and their lists hold every Pet and every Appointment.</p>
+  <p><strong>Real-life example:</strong> a filing cabinet with one folder per pet number. Each folder already has that pet's appointment pages inside.</p>
+
+  <h2>Loading data</h2>
+  <p>loadData() is private because only the program itself should decide when to load. It tries to open the saved file and read the whole map back. If the file doesn't exist yet, that's normal on a first run, so it prints a message and starts empty. Any other problem (corrupted file) prints an error and the app still starts.</p>
+  <pre><code>private loadData():
+    try open "pets.ser" for reading
+        pets = read the saved map from the file
+        print "Data loaded."
+    catch file not found:
+        print "No saved data found. Starting fresh."
+    catch other read problem:
+        print the error message</code></pre>
+
+  <h2>The menu loop</h2>
+  <p>A boolean flag keeps a while loop running. Each pass prints the menu, reads a choice as a String, and a switch sends it to the matching method. A default case handles anything else. The switch is inside a try/catch, so one unexpected error ends that action, not the program.</p>
+  <p><strong>Real-life example:</strong> an ATM screen. It keeps coming back to the main menu after every action until you choose to leave.</p>
+  <pre><code>main():
+    loadData()
+    running = true
+    while running:
+        print the menu
+        choice = read a line
+        try:
+            switch choice:
+                1: registerPet()
+                2: scheduleAppointment()
+                3: displayPets()
+                4: displayPetAppointments()
+                5: displayUpcomingAppointments()
+                6: displayAppointmentHistory()
+                7: generateReports()
+                8: saveData()
+                9: saveData(), running = false, print goodbye
+                default: print "Invalid choice"
+        catch any unexpected error:
+            print the message and carry on</code></pre>
+
+  <h2>Tips for reading this logic</h2>
+  <ul>
+    <li>Read main() like a table of contents. Each case is a chapter, and each method is that chapter's content.</li>
+    <li>The loop only ends when running becomes false, so find the case that sets it.</li>
+    <li>Stubs let you test the menu now and fill the methods in one at a time.</li>
+  </ul>
+</article>

@@ -1,0 +1,91 @@
+<article>
+  <h1>PetCare Scheduler: Task 3, The Input Handling Methods</h1>
+
+  <h2>Lab step 1: registerPet()</h2>
+  <p>Collects the pet's details and adds the pet to the HashMap. The ID is checked first with containsKey(), so a duplicate stops the whole registration before anything else is asked. Name, species, owner and contact use a small helper that keeps asking until the answer isn't empty. Age loops until it is a whole number of 0 or more. The registration date is never typed, because the Pet constructor sets it with LocalDate.now(), so there is no date input to get wrong.</p>
+  <p>Integer.parseInt throws NumberFormatException for text like "abc". That is a kind of IllegalArgumentException, so catching IllegalArgumentException covers both the text case and the negative case in one place.</p>
+  <p><strong>Real-life example:</strong> a vet's reception form. The receptionist won't accept a blank name, and won't accept "-3 years" for an age.</p>
+  <pre><code>registerPet():
+    id = ask until not empty
+    if id already in pets: print error, stop
+    name, species = ask until not empty
+    repeat:
+        read age as a whole number
+        if not a number or negative: print error and ask again
+    owner, contact = ask until not empty
+    pet = new Pet(...)
+    pets.put(id, pet)
+    print "registered on" + pet's registration date</code></pre>
+
+  <h2>Lab step 2: scheduleAppointment()</h2>
+  <p>Three validations, in the order the lab lists them. First, the pet ID must exist, otherwise the method stops. Second, the type must be one of vet visit, vaccination or grooming. The input is lowercased and trimmed, then checked against a fixed list, so "Vet Visit" still works. Third, the date and time must parse in the format yyyy-MM-dd HH:mm and must be after now.</p>
+  <p>The formatter uses STRICT mode with the pattern letter u. In normal mode Java quietly turns 30 February into 28 February. In strict mode it rejects it as invalid, which is what we want from user input. Notes are optional, so pressing Enter leaves them empty.</p>
+  <p><strong>Real-life example:</strong> booking at a clinic. They check the pet is on file, that you picked a service they offer, and that the slot isn't in the past.</p>
+  <pre><code>scheduleAppointment():
+    id = ask
+    pet = pets.get(id)
+    if pet is missing: print error, stop
+    repeat: ask for type, lowercase it, until it is in the allowed list
+    repeat:
+        ask for date and time
+        try to parse with strict yyyy-MM-dd HH:mm
+        if parse fails: print format hint
+        else if not after now: print "must be in the future"
+        else: stop repeating
+    notes = ask (can be empty)
+    pet.addAppointment(new Appointment(type, dateTime, notes))
+    print confirmation</code></pre>
+
+  <h2>Lab step 3: saveData()</h2>
+  <p>Writes the whole pets map to pets.ser with an ObjectOutputStream. Because every Pet holds its own appointments and everything is Serializable, one writeObject call saves all pets and all appointments together. try-with-resources closes the file automatically. It returns true or false so main can tell whether the save worked.</p>
+  <p><strong>Real-life example:</strong> photocopying the entire filing cabinet in one go and keeping the copy somewhere safe.</p>
+  <pre><code>saveData():
+    try open "pets.ser" for writing
+        write the pets map
+        print "Data saved."
+        return true
+    catch problem writing:
+        print error
+        return false</code></pre>
+
+  <h2>Lab step 4: the display methods</h2>
+  <p>All four methods read from the same data and differ in what they filter. HashMap has no useful order, so a helper sorts pets by ID and another sorts a pet's appointments by date, which keeps the output steady between runs.</p>
+  <p>displayPets() prints every pet. displayPetAppointments() asks for an ID and prints that pet's appointments in date order. displayUpcomingAppointments() prints appointments after now for every pet. displayAppointmentHistory() prints appointments before now for every pet, with a "none" line when a pet has no history.</p>
+  <p><strong>Real-life example:</strong> the same diary viewed three ways: everything for one pet, everything still to come, and everything already done.</p>
+  <pre><code>upcoming: for each pet, for each appointment:
+    if appointment time is after now: print it
+
+history: for each pet:
+    print pet heading
+    for each appointment:
+        if appointment time is before now: print it
+    if none printed: print "No past appointments."</code></pre>
+
+  <h2>Lab step 5: generateReports()</h2>
+  <p>Two reports. The first lists appointments between now and seven days from now. The second finds pets overdue for a vet visit: for each pet it looks through the past "vet visit" appointments, keeps the most recent one, and flags the pet if there is none, or if it is older than six months (now minus 6 months). A newly registered pet with no visit yet shows up as overdue, which matches the lab's example of "no vet visit in the last 6 months".</p>
+  <p><strong>Real-life example:</strong> the clinic's morning checklist: who is coming in this week, and who we should phone because they haven't been in for ages.</p>
+  <pre><code>generateReports():
+    now = current date and time
+    nextWeek = now + 7 days
+    sixMonthsAgo = now - 6 months
+
+    report 1: for each pet, for each appointment:
+        if time is after now and not after nextWeek: print it
+
+    report 2: for each pet:
+        lastVisit = nothing
+        for each appointment that is a "vet visit" and in the past:
+            keep the latest time as lastVisit
+        if lastVisit is nothing or before sixMonthsAgo:
+            print the pet as overdue</code></pre>
+
+  <h2>Lab step 6: the switch in main()</h2>
+  <p>Each case calls one method. Case 8 saves. Case 9 saves and only exits if the save worked.</p>
+
+  <h2>Tips for reading this logic</h2>
+  <ul>
+    <li>Every handler has the same shape: ask, validate, act, confirm. Find those four parts in each method.</li>
+    <li>A while(true) loop with a break is the "keep asking until valid" pattern. The break is the only way out.</li>
+    <li>For the date checks, picture a timeline with now in the middle: before now is history, after now is upcoming.</li>
+  </ul>
+</article>

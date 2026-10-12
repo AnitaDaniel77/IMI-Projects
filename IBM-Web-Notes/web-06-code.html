@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Customer Details</title>
+  <!-- Meta tags give search engines information about the page -->
+  <meta name="description" content="Simple form that shows HTML5 input validation and web storage">
+  <meta name="keywords" content="HTML5, form, web storage, practice">
+</head>
+<body>
+  <!-- HTML5 structural elements: header, main, footer -->
+  <header>
+    <h1>Customer Details</h1>
+  </header>
+
+  <main>
+    <!-- The browser checks the form before it calls saveDetails -->
+    <form onsubmit="saveDetails(event)">
+      <label for="email">Email:</label>
+      <!-- type="email" is validated automatically -->
+      <input type="email" id="email" required>
+      <br><br>
+      <label for="amount">Amount (R):</label>
+      <!-- type="number" only accepts numbers -->
+      <input type="number" id="amount" min="0" required>
+      <br><br>
+      <button type="submit">Save</button>
+    </form>
+
+    <!-- Saved details appear here -->
+    <p id="saved"></p>
+  </main>
+
+  <footer>
+    &copy; 2026 anitadaniel@icloud.com
+  </footer>
+
+  <!-- Loads the JavaScript file from the same folder -->
+  <script src="web-06-code.js"></script>
+</body>
+</html>

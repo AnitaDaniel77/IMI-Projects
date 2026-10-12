@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML Management and Support</title>
+</head>
+<body>
+  <h1>HTML Management and Support</h1>
+
+  <h2>What the instructor is teaching</h2>
+  <p>The video's goals are to list HTML document API properties and methods, describe how scripting is enabled in browsers, and describe browser support for HTML5 features. The transcript focuses on the key themes of the HTML5 specification and why HTML5 suits web applications.</p>
+
+  <h2>Key themes of HTML5</h2>
+  <ul>
+    <li>The syntax is compatible with HTML4 and XHTML1 documents, and browsers handle older deployed content the same way.</li>
+    <li>It separates the rules for user agents (browsers) from the rules for authors (page writers). Browsers still support older elements and attributes, but several were removed for authors to simplify the language.</li>
+    <li>It adds elements and APIs for web applications, such as video and audio elements and an API for offline applications.</li>
+  </ul>
+
+  <h2>Why HTML suits web applications</h2>
+  <ul>
+    <li>Many kinds of devices have built-in browsers that support HTML5.</li>
+    <li>APIs improve the user experience with animation, drawing, audio and video.</li>
+    <li>Using HTML and CSS instead of many images gives faster page load times.</li>
+    <li>Search engine optimization: meta tags give search engines information, and keywords from HTML attributes improve how visible a site is in results.</li>
+  </ul>
+
+  <h2>HTML5 elements and features</h2>
+  <ul>
+    <li>New structural elements define the logical structure of a page.</li>
+    <li>New APIs such as canvas, audio and video handle graphics and embedded content.</li>
+    <li>New input types such as email, datetime and number. The browser validates the field automatically, with no custom validation script.</li>
+    <li>Web storage APIs let you store data in the browser.</li>
+    <li>Web workers run heavy, non-interactive processing without blocking what the user is doing on the page.</li>
+  </ul>
+
+  <h2>Logic</h2>
+  <pre>
+USER fills in a field of type email or number
+BROWSER checks the value against the input type
+IF the value is not valid:
+    BROWSER shows an error, no script needed
+ELSE:
+    SCRIPT stores the value in web storage
+    PAGE can read it again later
+
+HEAVY task (big calculation):
+    hand it to a web worker
+    page stays responsive
+  </pre>
+
+  <h2>Real-life example</h2>
+  <p>Think of an online banking form. The email field refuses "anita@" without any extra code, because the browser already knows what an email looks like. A web worker is like a back-office team crunching a big report while the teller still serves the next customer. Web storage is the app remembering your last entered email so you do not type it again.</p>
+
+  <h2>Tips for understanding</h2>
+  <ul>
+    <li>Think of HTML5 as backward compatible. Old pages still work, and new features are added on top.</li>
+    <li>Pick the right input type first, because the browser then does the validation for you.</li>
+    <li>Meta tags are for search engines, not for the person looking at the page.</li>
+    <li>Remember the split: web storage keeps data, web workers do heavy work, canvas draws.</li>
+  </ul>
+</body>
+</html>

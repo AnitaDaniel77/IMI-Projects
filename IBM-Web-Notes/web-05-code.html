@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+
+  <head>
+    <title>HTML Demo</title>
+    <style>
+      /* Exercise 2: background changed from tan to grey */
+      body {
+        background-color: grey
+      }
+
+      /* Exercise 2: font changed from arial to times */
+      p {
+        font-family: times;
+        font-size: 15px;
+        color: white;
+      }
+
+      /* Exercise 2: div width changed from 300px to 400px */
+      div {
+        background-color: white;
+        width: 400px;
+        color: black;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Exercise 1: Tom replaced with my name -->
+    <h1>
+      Welcome to Anita's home page
+    </h1>
+    <hr>
+    <p>
+      I am on my way to become a great cloud application developer.
+    </p>
+    <div>
+      I know a little bit of html, css and javascript.<br>
+      Check out the javascript I have written by clicking the buttons below.
+    </div><br>
+    <!-- Each button calls one function from the script below -->
+    <button onclick="hello()">
+      Wish
+    </button>
+    <button onclick="showtime()">
+      Show Time
+    </button>
+    <hr>
+    <footer>
+      &copy; 2020 tom@abcd.com
+    </footer>
+
+    <script>
+      // Exercise 3: message changed to "Good Day"
+      function hello() {
+        alert("Good Day");
+      }
+
+      // Exercise 3: shows the current date and time
+      function showtime() {
+        var now = new Date();
+        alert(now);
+      }
+    </script>
+  </body>
+
+</html>

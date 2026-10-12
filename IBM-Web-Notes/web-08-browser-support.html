@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Browser Support</title>
+</head>
+<body>
+  <h1>HTML5 Browser Support</h1>
+
+  <h2>What the instructor is teaching</h2>
+  <p>Three goals: explain how browsers support HTML5 features, list which browsers support which features, and define a browser support table.</p>
+
+  <h2>How browsers support HTML5</h2>
+  <p>Not every browser fully supports every feature in the HTML5 and CSS3 specifications, and older versions miss some features. Browser makers keep adding support in new versions. The video suggests Google Chrome for the widest HTML5 support.</p>
+
+  <h2>Browser support tables</h2>
+  <p>A support table shows which browsers support which features, and it helps when you build pages. The video points to caniuse.com for HTML5 and CSS3 tables. In a table the numbers are browser versions and the colour is the level of support: green is full support, olive is partial, red is none.</p>
+
+  <h2>The input type="date" example</h2>
+  <ul>
+    <li>Chrome shows a calendar for entering the date.</li>
+    <li>Edge shows spinning boxes. The date format differs (yyyy-mm-dd compared with mm/dd/yyyy).</li>
+    <li>Firefox shows a plain text field, which can cause input format and validation problems.</li>
+    <li>In the video's support table, Edge, Chrome and Opera were green, and Internet Explorer and Safari were red.</li>
+  </ul>
+  <p>These results are from when the video was made. Support changes as browsers add features, so check caniuse.com again before you rely on a feature.</p>
+
+  <h2>Checking support with JavaScript</h2>
+  <p>Create the element with document.createElement(), passing the element type, and the DOM object gets created. If the browser does not support that element, the object only has the common properties, with nothing specific to the element. Test for a known property or method of the element. If it is missing, the browser does not fully support that tag yet, and you can fall back to a default behaviour such as a normal text field. For the date example, create an input, set its type to "date", and see whether it keeps the value. A browser that does not support it shows a regular text field.</p>
+
+  <h2>Logic</h2>
+  <pre>
+CREATE an input element in memory
+SET its type to "date"
+IF the type is still "date":
+    browser supports it, use the date picker
+ELSE:
+    browser fell back to a text field
+    SHOW a hint about the format (yyyy-mm-dd)
+  </pre>
+
+  <h2>Real-life example</h2>
+  <p>It is like a bank building one app for customers with different phones. Newer phones can show a calendar picker, older ones only show a typing box. The app checks what the phone can do and gives the older phone a clear instruction on how to type the date, so nobody gets stuck.</p>
+
+  <h2>Tips for understanding</h2>
+  <ul>
+    <li>Do not assume your own browser is the same as your users' browsers.</li>
+    <li>Check a feature on caniuse.com before you depend on it.</li>
+    <li>Always plan a fallback, so the page still works when a feature is missing.</li>
+    <li>Support tables go out of date, so look at the current one.</li>
+  </ul>
+</body>
+</html>

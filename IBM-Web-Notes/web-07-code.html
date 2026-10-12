@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML Scripting Practice</title>
+</head>
+<body>
+  <h1>Text Checker</h1>
+
+  <!-- Input with an id so the script can find it -->
+  <input type="text" id="textField1">
+  <button onclick="textChecker()">Submit</button>
+
+  <hr>
+
+  <!-- Shows counts found with the document accessors -->
+  <button onclick="pageInfo()">Page Info</button>
+  <p>Paragraph one.</p>
+  <p>Paragraph two.</p>
+
+  <hr>
+
+  <!-- sandbox blocks the embedded content from running scripts -->
+  <iframe sandbox srcdoc="<p>This content is sandboxed.</p>"></iframe>
+
+  <!-- Loads the JavaScript file from the same folder -->
+  <script src="web-07-code.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML Scripting</title>
+</head>
+<body>
+  <h1>HTML Scripting</h1>
+
+  <h2>What the instructor is teaching</h2>
+  <p>Three goals: define scripting, explain how browsers enable scripting, and identify DOM tree accessors.</p>
+
+  <h2>What scripting is</h2>
+  <p>Scripting, usually JavaScript, can sit inside the page in a script tag or in a separate file that the page calls. It makes browsing more interactive and is used for form validation, changing the content of a site while it is open, and manipulating images. Scripting can be turned off, so the advice is to use it but not rely on it.</p>
+
+  <h2>When scripting is enabled</h2>
+  <p>Scripting is enabled for a browser context when the browser supports scripting and the user has scripting turned on.</p>
+
+  <h2>Sandboxing</h2>
+  <p>HTML5 defines a sandboxed media type, which adds extra content restrictions and is meant for hosting untrusted content. A sandboxed browsing context can be set for the whole page or as an attribute on embedded objects. An embedded object without the sandbox attribute gets the same permissions as the rest of your page. That lets a third-party vendor run scripts with your permissions, which is one way adverts end up in your application. So put the sandbox attribute on any tag that holds an embedded object. Sandboxes help you manage iframe mash-ups, which are pages that pull content from more than one site.</p>
+
+  <h2>The Document object and DOM tree accessors</h2>
+  <p>Each HTML document loaded into a browser page becomes a Document object, which a script can use to reach every element on the page. The DOM tree accessors are the document APIs for this, and they all start with the word document.</p>
+  <ul>
+    <li>document.head returns the first head element that is a child of the html element, or null if there is none.</li>
+    <li>document.images returns an HTMLCollection of the image elements.</li>
+    <li>document.scripts returns an HTMLCollection of the script elements.</li>
+    <li>document.getElementById('id') takes one required parameter, the id attribute of the element you want.</li>
+    <li>document.getElementsByTagName('tag') takes one required parameter, the tag name, and returns a nodelist of all matching elements.</li>
+  </ul>
+  <p>The video's example: when Submit is clicked, a function called textChecker runs. It uses getElementById('textField1') to read what was typed in the input field into a variable, tests whether anything was typed, and shows an alert with the result. Typing "Test" and clicking Submit shows the result in an alert box on the same page.</p>
+
+  <h2>Logic</h2>
+  <pre>
+USER clicks Submit
+FUNCTION textChecker runs:
+    GET the input element with id "textField1"
+    READ its value into a variable
+    IF the value is empty:
+        ALERT "Nothing was typed"
+    ELSE:
+        ALERT "You typed: " + value
+  </pre>
+
+  <h2>Real-life example</h2>
+  <p>The Document object is like the directory board of a bank branch. getElementById is asking for one specific person by their staff number, and getElementsByTagName is asking for everyone with the title "teller". The sandbox is a visitor's badge for a contractor in the branch: they can work in one area, but not open the safe.</p>
+
+  <h2>Tips for understanding</h2>
+  <ul>
+    <li>The id is unique to one element, so getElementById gives one answer. A tag name can match many, so getElementsByTagName gives a list.</li>
+    <li>Give the input an id in the HTML first, then use the same id in the script.</li>
+    <li>The collections from document.images and document.scripts work like lists, so you can ask for their length.</li>
+    <li>Always sandbox embedded content you do not control.</li>
+  </ul>
+</body>
+</html>

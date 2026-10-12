@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML Features</title>
+</head>
+<body>
+  <h1>HTML Features</h1>
+
+  <h2>What the instructor is teaching</h2>
+  <p>Three goals: list HTML5 features, describe the DOM tree, and explain when to use XML and when to use HTML.</p>
+
+  <h2>HTML5 features</h2>
+  <ul>
+    <li>Ways to categorize a page into sections.</li>
+    <li>Tools for data management, drawing, video and audio.</li>
+    <li>Cross-browser applications for the web and portable devices.</li>
+    <li>More flexible, interactive and engaging sites, closer to a desktop application.</li>
+    <li>Works with APIs, so the experience is uniform across platforms and devices.</li>
+  </ul>
+
+  <h2>Structure of an HTML5 document</h2>
+  <p>The !DOCTYPE line is not a tag. It tells the browser which version of HTML the page uses. It is not required, but if you include it, it must be the first line. The html tag is the root element and contains everything except the doctype. Inside it are two elements. The head holds the title, scripts, style, style sheet links, meta information and browser support information. The body holds everything displayed on the page.</p>
+
+  <h2>The DOM tree</h2>
+  <p>A browser (the user agent) parses the markup and turns it into a DOM (Document Object Model) tree, which is an in-memory copy of the document. Its nodes include the DOCTYPE node, elements such as headers and paragraphs, text nodes and comment nodes.</p>
+  <pre>
+DOCTYPE
+html
+ +-- head
+ |    +-- title -> text "Sample page"
+ +-- body
+      +-- h1 -> text
+      +-- p  -> text
+  </pre>
+
+  <h2>HTML or XML syntax</h2>
+  <p>Both use the same tags. An XML document has an XML declaration on its first line and must be sent with an XML content type such as application/xml, so an XML processor parses it. An HTML document uses a text/html content type and is parsed with HTML rules. Which you choose depends on your use. For example, you might use XSLT to create other documents from your pages. People are about equally divided on it.</p>
+  <ul>
+    <li>XHTML tags must be lowercase. HTML does not care about case.</li>
+    <li>XHTML must be well-formed: every element has an end tag, every attribute has a value, and values are in single or double quotes.</li>
+    <li>If an XML parser meets bad syntax, it stops processing.</li>
+    <li>HTML tolerates different case, unmatched quotes and unclosed elements, so it is less rigorous.</li>
+  </ul>
+
+  <h2>Logic</h2>
+  <pre>
+READ the markup
+BUILD the DOM tree (doctype, elements, text, comments)
+IF the document is sent as text/html:
+    PARSE with forgiving HTML rules
+ELSE IF it is sent as an XML type:
+    PARSE with strict XML rules
+    IF anything is not well-formed:
+        STOP processing
+  </pre>
+
+  <h2>Real-life example</h2>
+  <p>HTML is like a branch consultant who accepts a slightly wrongly filled form and sorts it out. XHTML is like an automated compliance system that rejects the whole form if one field is missing. The DOM tree is the digital record of the form that the system builds after reading it.</p>
+
+  <h2>Tips for understanding</h2>
+  <ul>
+    <li>Picture the page as a family tree: html is the parent, head and body are the children.</li>
+    <li>Remember the split: head is information about the page, body is what people see.</li>
+    <li>When you write XHTML, close every tag and quote every value, then it will not break.</li>
+    <li>For this course, plain HTML5 is enough. XHTML is good to know.</li>
+  </ul>
+</body>
+</html>

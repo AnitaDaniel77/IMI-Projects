@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SME E12 Java: SafePay Lesson 1</title>
+</head>
+<body>
+  <h1>SafePay Lesson 1: From a CSV File to Java Objects</h1>
+  <p>SME Session E12 Java, led by Hilbert Muchatibaya, 13 October 2026. The lesson follows one batch of payment data from a text file into Java objects and stops at a successful import. Fraud rules, risk categories, databases and web APIs come in later lessons.</p>
+
+  <h2>The raw file</h2>
+  <p>SafePay starts with a comma-separated values (CSV) file, data/transactions.csv. A CSV file is plain text. Each line is one record, and commas separate the fields on that line. There is no Java type information in the file, so a spreadsheet, a text editor and a Java program all see the same characters.</p>
+  <p>The first line is the header. It does not describe a payment. It names the columns so a reader knows what each later field means: transaction_id, customer_id, amount, currency, location, timestamp. Every data row uses those names in the same order.</p>
+
+  <h2>What each column means</h2>
+  <ul>
+    <li>transaction_id: the identifier of one payment, such as TX001.</li>
+    <li>customer_id: the customer who made the payment, such as C101.</li>
+    <li>amount: how much money moved, written as text that looks like a decimal number.</li>
+    <li>currency: the currency code, such as ZAR.</li>
+    <li>location: where the payment was recorded, such as Cape Town.</li>
+    <li>timestamp: when it was recorded, in an ISO-style local date and time such as 2026-10-13T09:00:00.</li>
+  </ul>
+
+  <h2>Why the values arrive as text</h2>
+  <p>A CSV stores characters. 250.00 is the characters 2, 5, 0, a dot, 0 and 0, not yet a Java number. The timestamp is a string of digits and separators, not yet a LocalDateTime. The program must decide, column by column, which text gets converted and which stays text.</p>
+  <ul>
+    <li>transaction_id and customer_id stay strings. They are labels, even when they contain digits.</li>
+    <li>amount is converted to BigDecimal, because money needs an exact decimal value.</li>
+    <li>currency and location stay strings.</li>
+    <li>timestamp is converted to LocalDateTime.</li>
+  </ul>
+
+  <h2>A value that cannot be parsed, and a value that can</h2>
+  <p>Two rows are deliberately unusual, and they teach different ideas.</p>
+  <p>TX006 has the amount "invalid". Those letters are not a decimal number, so converting them to BigDecimal fails. That is a parsing failure: the text cannot become the Java type the column needs. The program reports the line number and the field, then continues with the other rows.</p>
+  <p>TX003 has the amount -50.00. The minus sign is part of a normal decimal number, so it converts and gives a negative BigDecimal. The row is syntactically valid. Whether SafePay should accept a negative payment is a business question, and this lesson does not answer it.</p>
+  <p>Parsing asks: can this text become the required Java type? Business validation asks: does this value make sense for SafePay? Only the first question belongs in Lesson 1.</p>
+
+  <h2>Raw data, structured rows and a domain model</h2>
+  <p>The file holds raw text. Splitting each line on commas gives structured rows of fields. Converting the fields gives a Transaction object, the domain model that the rest of the program will use. The Transaction class has final fields for the six values and one constructor that sets them all, so an object cannot be changed after it is created.</p>
+
+  <h2>The classes in the lesson</h2>
+  <ul>
+    <li>Transaction: one payment read from the file and converted into Java types.</li>
+    <li>CsvTransactionReader: reads the file and maps each parsable row to a Transaction. Rows that cannot be converted are recorded as errors, so the other rows can still be imported. It splits each line on commas, which is enough for the lesson file. It does not understand quotes, a comma inside a field, or a value that spans several lines.</li>
+    <li>Main: starts the import and prints the results.</li>
+  </ul>
+  <p>The reader uses constants for the header text, the column count and each column position (TRANSACTION_ID_COLUMN = 0, CUSTOMER_ID_COLUMN = 1 and so on), so there are no unexplained numbers in the code. It keeps problems in an errors list that Main can read with getErrors(). The read method uses try-with-resources, so the file closes when the block finishes, and it declares throws IOException. IOException extends Exception, so it is a checked exception, and Main must catch it or declare it.</p>
+
+  <h2>Logic</h2>
+  <pre>
+read(file):
+    CLEAR the errors list
+    OPEN the file (closes itself when finished)
+    READ the first line as the header
+    IF the file is empty:
+        ADD error "file is empty", RETURN empty list
+    IF the header is not the expected header:
+        ADD error "unexpected header", RETURN empty list
+
+    FOR each remaining line (line number starts at 1 for the header):
+        ADD 1 to the line number
+        IF the line is blank:
+            SKIP it
+        transaction = parseRow(line, lineNumber)
+        IF transaction is not null:
+            ADD it to the list
+
+    RETURN the list
+
+parseRow(line, lineNumber):
+    SPLIT the line on commas
+    IF the column count is not 6:
+        ADD error, RETURN null
+    TRIM each field
+    TRY to convert amount to BigDecimal
+        IF it fails: ADD error with line number and value, RETURN null
+    TRY to convert timestamp to LocalDateTime
+        IF it fails: ADD error with line number and value, RETURN null
+    RETURN a new Transaction from the six values
+  </pre>
+
+  <h2>Real-life example</h2>
+  <p>Think of a clerk receiving a printed batch of payments from another branch. The first line tells the clerk what each column means. Then the clerk types each row into the system. If one row has the word "invalid" where the amount should be, the clerk writes down the line number and carries on with the rest. A negative amount is still a number, so the clerk types it in. Whether it is allowed is a decision for the compliance team later.</p>
+
+  <h2>Tips for understanding</h2>
+  <ul>
+    <li>Say it in two steps: first "can this text become the type?", then "does this value make sense?".</li>
+    <li>Follow one row through the program: line, fields, converted values, Transaction object.</li>
+    <li>Count the line number from the header as line 1, so the first data row is line 2, and the TX006 error says Line 7.</li>
+    <li>Collecting errors in a list instead of stopping means one bad row does not lose the whole batch.</li>
+  </ul>
+</body>
+</html>

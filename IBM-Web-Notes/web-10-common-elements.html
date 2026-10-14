@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Common HTML Elements</title>
+</head>
+<body>
+  <h1>Common HTML Elements</h1>
+
+  <h2>What the reading is teaching</h2>
+  <p>After this reading you can use titles and headings to label information, insert text with the paragraph element, insert line breaks, add links to other sections and pages, create lists, add a table of data and insert an image.</p>
+
+  <h2>HTML setup</h2>
+  <p>A document starts with the DOCTYPE. All content sits inside the html tag, which splits into head and body. The head holds the metadata about the page. The body holds the content shown to the user. An empty document has the doctype, an html tag, an empty head and an empty body.</p>
+
+  <h2>Browser tab title</h2>
+  <p>The page title shows on the browser tab. You set it with the title tag, which goes inside the head.</p>
+
+  <h2>Page headings</h2>
+  <p>Headings split information into sections. HTML has six levels, h1 to h6. The number is the level of importance, so h1 is the largest and h6 the smallest. They go in the body.</p>
+
+  <h2>Adding text</h2>
+  <p>The p tag stands for paragraph and holds any text, from one word to a ten-page essay. It goes in the body.</p>
+
+  <h2>Line breaks</h2>
+  <p>The br tag ends one line and continues the text on a new line, which is useful for addresses. It is not a container tag, so it has no end tag.</p>
+
+  <h2>Links</h2>
+  <ul>
+    <li>The a tag defines a hyperlink, and the href attribute holds the destination address. The link text is what the user clicks.</li>
+    <li>By default the destination opens in the current tab. Adding target="_blank" opens it in a new tab.</li>
+    <li>A link to the top of the same page can be href="#" or href="#top".</li>
+    <li>To link to a section of the same page, give that section an id and point to it with href="#id".</li>
+  </ul>
+
+  <h2>Lists</h2>
+  <p>Use ol for a numbered (ordered) list and ul for a bulleted (unordered) list. Each point is wrapped in an li tag, the same tag for both kinds of list.</p>
+
+  <h2>Tables</h2>
+  <p>The table tag creates the table. Each row is a tr (table row). Headings use th (table heading) and each data cell uses td (table data).</p>
+
+  <h2>Images</h2>
+  <p>The img tag adds an image, from the internet or from a local file. The src attribute holds the URL, or the file path relative to your HTML file for a local image. The alt attribute is required. It gives alternative text for when the image cannot load and for screen readers. Width and height are optional and are in pixels.</p>
+
+  <h2>Logic</h2>
+  <pre>
+FOR each piece of content on the page:
+    IF it is a title for a section:        use h1 to h6
+    ELSE IF it is normal text:             use p
+    ELSE IF it needs to start a new line:  use br
+    ELSE IF it goes somewhere else:        use a with href
+    ELSE IF it is a set of points:         use ul or ol with li
+    ELSE IF it is rows and columns:        use table, tr, th, td
+    ELSE IF it is a picture:               use img with src and alt
+  </pre>
+
+  <h2>Real-life example</h2>
+  <p>Picture a printed bank statement. The bank name is the h1, section titles such as "Recent Transactions" are h2s, the explanation is a paragraph, the list of fees is a list, the transactions are a table, and the bank logo is an image. A link at the bottom that says "Back to top" is like the index tab that jumps you to the first page.</p>
+
+  <h2>Tips for understanding</h2>
+  <ul>
+    <li>Choose the heading level by importance, not by how big it looks. You can change the size later with CSS.</li>
+    <li>Use alt text on every image, it helps people using screen readers.</li>
+    <li>Each list item needs its own li, and the li must sit inside a ul or ol.</li>
+    <li>For a link to a section, the id after the # must match the id on the section exactly.</li>
+    <li>Use the reading as a reference page when you build your portfolio.</li>
+  </ul>
+</body>
+</html>

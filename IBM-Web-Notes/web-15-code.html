@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Input Types Demo</title>
+</head>
+<body>
+    <h1>Open Your Savings Plan</h1>
+
+    <form id="demo-form">
+        <fieldset>
+            <legend>Your details</legend>
+
+            <!-- email: browser checks the format -->
+            <label for="email">Email</label><br>
+            <input type="email" id="email" placeholder="name@example.com" required><br><br>
+
+            <!-- tel: needs a pattern to check anything -->
+            <label for="phone">Cellphone</label><br>
+            <input type="tel" id="phone" pattern="0[0-9]{9}" title="10 digits starting with 0" placeholder="0821234567" required><br><br>
+
+            <!-- url -->
+            <label for="site">Website</label><br>
+            <input type="url" id="site" placeholder="https://example.com"><br><br>
+
+            <!-- list ties this box to the datalist below -->
+            <label for="branch">Preferred branch</label><br>
+            <input type="text" id="branch" list="branches" placeholder="Start typing a branch">
+            <datalist id="branches">
+                <option value="Brakpan">
+                <option value="Braamfontein">
+                <option value="Sandton">
+                <option value="Stellenbosch">
+            </datalist><br><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Your plan</legend>
+
+            <!-- number: only 5 to 10 allowed -->
+            <label for="term">Fixed deposit term (years, 5 to 10)</label><br>
+            <input type="number" id="term" min="5" max="10" step="1" value="5"><br><br>
+
+            <!-- range: slider shows no value on its own -->
+            <label for="goal">Savings goal</label><br>
+            <input type="range" id="goal" min="0" max="10000" step="500" value="2000">
+            <span id="goal-value">R2000</span><br><br>
+
+            <!-- date and datetime-local -->
+            <label for="start">Debit order start date</label><br>
+            <input type="date" id="start"><br><br>
+
+            <label for="appointment">Branch appointment</label><br>
+            <input type="datetime-local" id="appointment"><br><br>
+
+            <!-- color: falls back to a text box in older browsers -->
+            <label for="card-colour">Card colour</label><br>
+            <input type="color" id="card-colour" value="#0a6ebd"><br><br>
+
+            <!-- search -->
+            <label for="find">Search transactions</label><br>
+            <input type="search" id="find" placeholder="e.g. groceries"><br><br>
+        </fieldset>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- result of the submit check shows here -->
+    <p id="message"></p>
+
+    <script src="web-15-code.js"></script>
+</body>
+</html>

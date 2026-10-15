@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HTML5 Input Element Attributes</title>
+</head>
+<body>
+
+<h1>HTML5 Input Element Attributes</h1>
+<p>IBM HTML, CSS and JavaScript course, Module 2 lecture. Code is in web-15-code.html and web-15-code.js.</p>
+
+<h2>What the lecture covers</h2>
+<p>The input tag changes what it does based on its type attribute. HTML5 added new types (color, date, datetime-local, email, number, range, search, tel, url) and new attributes (list, placeholder, required). Used well, the browser does a lot of the checking for you before the form is ever sent. The lecture ends on what to do when a browser does not support these features: validation fallback.</p>
+
+<h2>The input types</h2>
+<table border="1">
+<tr><th>Type</th><th>What the user gets</th><th>Banking example</th></tr>
+<tr><td>color</td><td>A colour picker. Unsupported browsers show a plain text box where a colour name or code can be typed.</td><td>Choosing the colour of a new virtual card</td></tr>
+<tr><td>date</td><td>Year, month and day control, with no time zone</td><td>Debit order start date</td></tr>
+<tr><td>datetime-local</td><td>Date plus time (hour, minute, AM or PM), no time zone, shown as a calendar in Chrome</td><td>Booking a branch appointment</td></tr>
+<tr><td>email</td><td>Looks like normal text, but warns when the format is wrong</td><td>Statement delivery address</td></tr>
+<tr><td>number</td><td>Numbers only, with optional minimum, maximum and step</td><td>Fixed deposit term in years, from 5 to 10</td></tr>
+<tr><td>range</td><td>A slider between a minimum and a maximum. It shows no value, so JavaScript is needed to display it.</td><td>A savings goal slider</td></tr>
+<tr><td>search</td><td>Works like text, mostly different in style (rounded corners in Safari, history of past searches in WebKit browsers)</td><td>Searching your transaction history</td></tr>
+<tr><td>tel</td><td>Just a text box. It does not force digits only, because phone numbers can have plus signs and hyphens. Add a pattern if you want the browser to check it.</td><td>Cellphone number for one-time PINs</td></tr>
+<tr><td>url</td><td>Checks that a web address is correctly formatted</td><td>Website address on a business account application</td></tr>
+</table>
+
+<h2>The attributes</h2>
+<p>The list attribute links an input to a datalist, which holds option entries. The options are only suggestions, so it works as auto-complete and the user can still type something else. This is different from a select dropdown, where the user must pick one of the choices.</p>
+<p>The placeholder attribute shows a faint example of the format inside an empty box. It is a hint only. If the user leaves the box alone, the placeholder text is not sent with the form.</p>
+<p>The required attribute means the user must type something before the form can be sent. A placeholder does not count as typed text, so a field with a placeholder and the required attribute still blocks the form.</p>
+<p>Real-life example: on a branch deposit slip, the printed hint "e.g. 0821234567" in light grey is the placeholder. The red asterisk next to a box that cannot stay empty is required. The branch name that auto-completes as you type is the datalist.</p>
+
+<h2>Validation fallback</h2>
+<p>Not every browser supports every HTML5 input feature. If the browser does not understand a type, it shows a plain text box instead, so the checking never happens. Three ways to cover this, in the lecture:</p>
+<ul>
+<li>Use JavaScript or a library such as jQuery to add the checks.</li>
+<li>Assume browsers will catch up and leave final validation to the server.</li>
+<li>Attach a validation function to the form's submit event, so every field is checked at the moment of sending.</li>
+</ul>
+<p>Real-life example: the teller at the branch checks your ID in person (browser check), but the bank's back office checks it again before the account opens (server check). You never rely on only one of them, because the browser check can be skipped or faked.</p>
+
+<h2>Logic</h2>
+<p>Choose the most specific type for each field. That gives the user the right keyboard or picker for free and gives the browser something to validate. Add required to the fields that cannot be empty and a placeholder to show the format. Then add a JavaScript check on submit as a safety net, and treat the server as the final authority.</p>
+
+<h2>Pseudocode</h2>
+<pre>
+START form
+    FOR each field
+        choose the input type that matches the data
+            colour, date, date and time, email, number, slider, search, phone, web address
+        add a hint (placeholder) showing the format
+        IF the field cannot be empty
+            mark it required
+    branch field gets a list of suggestions (datalist)
+    slider shows no number by itself
+        ON slider move
+            copy the slider value into a label next to it
+END form
+
+ON form submit
+    stop the form from being sent
+    problems = empty list
+    IF email has no "@" or no "."
+        add "email looks wrong" to problems
+    IF phone is not 10 digits starting with 0
+        add "phone must be 10 digits" to problems
+    IF problems is empty
+        show "all good"
+    ELSE
+        show all the problems
+</pre>
+
+<h2>Tips for understanding the logic</h2>
+<ul>
+<li>If a new input type shows as a plain text box in a browser, that is the fallback in action. Nothing is broken.</li>
+<li>Type "abc" into the email box and press submit. If the browser complains before your own code runs, native validation is working.</li>
+<li>Number checks the value is a number. Pattern checks the shape of text. Use pattern with tel, because tel on its own checks nothing.</li>
+<li>The placeholder is not a value. If the box looks filled but required still stops you, that is why.</li>
+<li>Never trust only the browser. A user can switch off JavaScript or send the data directly, so the server must validate too.</li>
+</ul>
+
+</body>
+</html>

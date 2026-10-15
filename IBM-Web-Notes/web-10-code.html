@@ -1,76 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <!-- Title shows on the browser tab -->
-  <title>My Account Page</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab: Creating a Simple Web Page</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 860px; margin: 40px auto; padding: 0 16px; line-height: 1.6; color: #222; }
+  h1 { border-bottom: 3px solid #0a6ebd; padding-bottom: 6px; }
+  h2 { color: #0a6ebd; margin-top: 32px; }
+  pre { background: #f4f6f8; border-left: 4px solid #0a6ebd; padding: 12px 14px; overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+  th, td { border: 1px solid #ccc; padding: 8px 10px; text-align: left; vertical-align: top; }
+  th { background: #e8f1fa; }
+  .box { background: #fff8e5; border-left: 4px solid #e0a800; padding: 10px 14px; margin: 14px 0; }
+</style>
 </head>
 <body>
-  <!-- Headings: h1 is the main title, h2 are sections -->
-  <h1 id="top">My Account Page</h1>
 
-  <!-- Links to sections on this same page -->
-  <p>
-    <a href="#fees">Fees</a> |
-    <a href="#transactions">Transactions</a>
-  </p>
+<h1>Lab: Creating a Simple Web Page</h1>
+<p>IBM Web Development course, Module 1 hands-on lab. Built a fan page for Thomas J. Watson Sr. that uses most of the basic HTML building blocks on one page. Code is in <code>web-11-code.html</code>.</p>
 
-  <!-- Paragraph with line breaks for an address -->
-  <p>
-    Anita Daniel<br>
-    Edenvale<br>
-    Gauteng
-  </p>
+<h2>What the lab covers</h2>
+<p>One page, built top to bottom in the same order the browser reads it: document setup, title, heading, image, paragraph with a link, list, table, then a feedback form. Each piece is a separate element, and the finished page is just those pieces stacked.</p>
 
-  <h2 id="fees">Fees</h2>
+<h2>The elements and what each one does</h2>
+<table>
+  <tr><th>Element</th><th>Job on the page</th></tr>
+  <tr><td>DOCTYPE</td><td>Tells the browser this is an HTML5 document, so it doesn't fall back to old rendering rules.</td></tr>
+  <tr><td>html, head, body</td><td>html wraps everything. head holds information about the page (title). body holds what the visitor sees.</td></tr>
+  <tr><td>title</td><td>The text on the browser tab. Also what search results show.</td></tr>
+  <tr><td>h1, h2</td><td>Headings. h1 is the main one, h2 is a section under it.</td></tr>
+  <tr><td>img</td><td>Shows a picture. src is where the file lives, width and height set the size, alt describes it in words.</td></tr>
+  <tr><td>p and a</td><td>A paragraph, with a link inside it. href is the address the link goes to.</td></tr>
+  <tr><td>ul and li</td><td>An unordered (bullet) list. Each li is one bullet.</td></tr>
+  <tr><td>table, tr, th, td</td><td>A grid. tr is a row, th is a header cell, td is a data cell.</td></tr>
+  <tr><td>form, fieldset, legend</td><td>The form is the container. fieldset groups the fields and legend names the group.</td></tr>
+  <tr><td>label and input</td><td>The label names a field. The input is where the visitor types. They connect through for and id.</td></tr>
+  <tr><td>textarea</td><td>A multi-line box for longer text like comments.</td></tr>
+  <tr><td>button</td><td>Sends the form when type is submit.</td></tr>
+</table>
 
-  <!-- Unordered list: order doesn't matter -->
-  <ul>
-    <li>Monthly fee</li>
-    <li>ATM withdrawal fee</li>
-    <li>SMS notification fee</li>
-  </ul>
+<h2>Logic behind the page</h2>
+<p>The browser reads the file from the top and draws each element in order. Elements that sit inside others (li inside ul, td inside tr inside table) must be closed in the reverse order they were opened. If the nesting is wrong, the browser guesses, and the page can look broken without any error message.</p>
+<p>The form works in two stages. First the browser checks the rules on the fields (required, email format) before anything leaves the computer. Only if every rule passes does it package the field values by their name attributes and send them to the address in action, using the method.</p>
 
-  <h3>How to dispute a charge</h3>
+<h2>Pseudocode</h2>
+<pre>
+START page
+    declare document type as HTML5
+    OPEN html
+        OPEN head
+            set tab title to "Thomas J. Watson Sr - Fan Page"
+        CLOSE head
+        OPEN body
+            show main heading "Thomas J. Watson"
+            show image from the web address, 300 x 300, with a text description
+            show paragraph about Watson
+                inside the paragraph, make "IBM" a link to ibm.com
+            show bullet list of 4 facts
+            show main heading "IBM Growth Over Years"
+            show table
+                header row: Year, Employees, Gross Income
+                FOR each of 3 years (1925, 1930, 1935)
+                    add a row with the year, employees and income
+            show section heading "Insights Submission Form"
+            OPEN form (send to /submit-feedback using POST)
+                group fields under the legend
+                name field: text, required
+                email field: email format, required
+                comments field: multi-line, optional
+                submit button
+            CLOSE form
+        CLOSE body
+    CLOSE html
+END page
 
-  <!-- Ordered list: the steps have an order -->
-  <ol>
-    <li>Find the charge in your statement</li>
-    <li>Note the date and amount</li>
-    <li>Contact the bank</li>
-  </ol>
+ON submit clicked
+    IF name is empty OR email is empty OR email format is wrong
+        stop and show the browser's message
+    ELSE
+        send name, email, comments to /submit-feedback
+</pre>
 
-  <h2 id="transactions">Transactions</h2>
+<h2>Real-life banking example</h2>
+<p>Think of the Capitec app's "contact us" screen. The heading is the screen title. The table is like a statement: header row with Date, Description, Amount, then one row per transaction. The bullet list is the list of things you can do on that screen, where the order doesn't matter. The feedback form is the complaint form: name and email are required because the bank can't reply without them, and the comments box is optional because some people only want to be called back.</p>
+<p>The email check matters in banking for the same reason. A typo like "anita@gmail" bounces, and the customer never hears back. The browser catching that before submit saves a wasted request.</p>
 
-  <!-- Table: th for headings, td for data -->
-  <table border="1">
-    <tr>
-      <th>Date</th>
-      <th>Description</th>
-      <th>Amount</th>
-    </tr>
-    <tr>
-      <td>2026-10-01</td>
-      <td>Groceries</td>
-      <td>R450</td>
-    </tr>
-    <tr>
-      <td>2026-10-03</td>
-      <td>Airtime</td>
-      <td>R100</td>
-    </tr>
-  </table>
+<h2>Tips for understanding the logic</h2>
+<div class="box">
+<p>Read the page like a document outline. If you removed all the tags, would the order of content still make sense? If yes, the structure is sound.</p>
+<p>Use th for column titles and td for data, even if both look the same. Screen readers announce th as a header, which is how a blind customer would know which column a number belongs to.</p>
+<p>The label's <code>for</code> must match the input's <code>id</code> exactly. When it does, clicking the label puts the cursor in the field. It's the quickest way to test you wired it correctly.</p>
+<p>The <code>name</code> attribute on an input is what the server receives. Without it, the field shows on screen but its value is never sent.</p>
+<p>The lab used two h1 elements. That works, but one h1 per page with h2 for sections is the better habit, and it's worth switching to when you build your own pages.</p>
+</div>
 
-  <!-- Image: put any picture at images/logo.png to see it; if it is missing the alt text shows -->
-  <h2>Logo</h2>
-  <img src="images/logo.png" alt="Bank logo" width="150" height="150">
+<h2>Things I noticed</h2>
+<p>The lab left alt off the image, so I added it. Without alt, a broken link shows nothing and a screen reader says nothing.</p>
+<p>Live Server only serves files. It has no code listening at /submit-feedback, so submitting the form fails locally. Handling that route is back-end work (in Java, a Spring controller), which is where this course eventually leads.</p>
+<p>The lab ends with a section on adding links to other pages. That's the next piece.</p>
 
-  <!-- Link that opens in a new tab -->
-  <p>
-    <a href="https://www.ibm.com" target="_blank">IBM (opens in a new tab)</a>
-  </p>
-
-  <!-- Link to the top of the page -->
-  <p><a href="#top">Back to top</a></p>
 </body>
 </html>

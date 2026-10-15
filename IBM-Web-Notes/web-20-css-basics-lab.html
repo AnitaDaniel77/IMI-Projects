@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lab: CSS Basics, Styling Your Web Page</title>
+</head>
+<body>
+
+<h1>Lab: CSS Basics, Styling Your Web Page</h1>
+<p>IBM HTML, CSS and JavaScript course, Module 2 hands-on lab. Code is in the web-20 files: solarsystem, inline-css, internal-css, external-css (with its CSS file) and converter (with its CSS file).</p>
+
+<h2>What the lab covers</h2>
+<p>Three jobs. First, style a Solar System page using all three ways of applying CSS. Second, practise each way on its own in three small files. Third, style the Unit Converter from the previous lab so it looks like a real app. The lab note says the styled converter files are reused in next week's lab on validating a JavaScript form, so keep both of them.</p>
+
+<h2>Part 1: the Solar System page</h2>
+<p>The page starts as plain HTML: a heading, an image, two paragraphs and a table. Styling is added step by step.</p>
+<table border="1">
+<tr><th>Step</th><th>Way used</th><th>What changes</th></tr>
+<tr><td>Heading font</td><td>Inline, on the h1</td><td>Font family set to cursive, then the font size set to 70 pixels</td></tr>
+<tr><td>Page background</td><td>Inline, on the body</td><td>Background colour set to wheat</td></tr>
+<tr><td>Heading colour</td><td>Inline, on the h1</td><td>Colour set with RGB values (139, 0, 0 is dark red)</td></tr>
+<tr><td>Table borders</td><td>Internal, in a style block in the head</td><td>One rule gives the table, the header cells and the data cells a 2 pixel solid black border</td></tr>
+<tr><td>Header row highlight</td><td>Inline, on the first row</td><td>Yellow background on the whole row, so each header cell does not need its own style</td></tr>
+</table>
+<p>Colours can be given as a name, or as RGB, HEX, HSL, RGBA or HSLA values. RGB mixes red, green and blue from 0 to 255, so rgb(0,0,0) is black and rgb(255,255,255) is white. A border needs a width, a style and a colour, and tables have no border until CSS adds one. Font family can be a generic family such as cursive, a named font such as Arial, or a list with fallbacks separated by commas.</p>
+<p>Real-life example: this is a school notice board. Inline CSS is a coloured sticker on one notice. Internal CSS is the rule for the whole board ("every table has a black frame"). Setting colour on the row instead of each cell is like colouring the whole header line of a timetable at once.</p>
+
+<h2>Part 2: the three practice files</h2>
+<p>Inline: a blue centred heading and a green 18 pixel paragraph, with styles written in the style attribute. Internal: a style block that gives the h2 a Verdana font and a border, and the list items a blue 18 pixel font. External: a separate CSS file linked in the head, styling an h3 in dark green and a table with a black border and light blue background. The external version is the cleanest way and the one used for whole websites.</p>
+
+<h2>Part 3: styling the Unit Converter</h2>
+<p>The page is styled in layers, from the outside in. The HTML needed new class names so the CSS can find the elements.</p>
+<table border="1">
+<tr><th>Area</th><th>Styling decisions</th></tr>
+<tr><td>Whole page</td><td>Every element gets a 10 pixel margin and the page background is black</td></tr>
+<tr><td>Home block (title and menu)</td><td>A medium purple background that sits flush with the window edges (negative margins), with 1 cm of padding below. The title floats left in light purple at 30 pixels with 2 cm left padding. The menu floats right with 1 cm right padding.</td></tr>
+<tr><td>Menu buttons</td><td>Light grey text on dark purple, 10 pixel margin and padding, tiny rounded corners (1 mm), 20 pixel text, no underline. On hover: white text, bolder weight, a purple background.</td></tr>
+<tr><td>Conversion cards</td><td>Each one is a white 600 by 400 pixel card with a thick coloured top border (green for temperature, coral for weight, cyan for distance), rounded corners and flex display so the content sits centred</td></tr>
+<tr><td>Inside a card</td><td>The figure floats left at 200 pixels wide, the caption is black, 17 pixels and centred, the legend is 30 pixels and bolder</td></tr>
+<tr><td>Convert buttons</td><td>20 pixel text, light green, pill shape (40 pixel radius), 15 pixel side padding, and the cursor turns into a pointer on hover</td></tr>
+<tr><td>Home icon</td><td>A 40 pixel cyan circle fixed to the left edge, 40 pixels above the bottom of the window, so it stays put while scrolling</td></tr>
+<tr><td>Footer</td><td>Light pink background with a 20 pixel top margin</td></tr>
+</table>
+<p>HTML changes needed: link the style file in the head; give the div in the nav the class topdiv; give the three menu buttons the class topmenu; give the three sections two classes each (b plus temperature, weight or distance); give the go-home div the class iconbutton. The b class holds what all three cards share, and the second class holds what is different. Note the lab's text has a typo, "temperatue".</p>
+<p>My reading of the grid instruction: the lab says the conversion sections should be grid-based, with items centred. The cards themselves must be flex boxes, so I made the wrapper that holds the three cards the grid. That centres the cards on the page without breaking the floating title and menu in the home block.</p>
+<p>Real-life example: this is the card layout of a banking app dashboard. The coloured top strip tells you which account type you are on, like the colour of a debit card. The floating home icon is the always-visible home button at the bottom corner of the app.</p>
+
+<h2>Logic</h2>
+<p>Style from general to specific. First the rules that apply to everything (margin, background). Then each big block (home, cards, footer). Then the small parts inside (buttons, captions, legends). Use a shared class for what repeats and a second class for what differs. For hover effects, write a second rule for the same element with the hover condition added.</p>
+
+<h2>Pseudocode</h2>
+<pre>
+Part 1: Solar System page
+    heading: cursive font, 70 pixels, dark red (RGB)
+    body: wheat background
+    internal style block: table, header cells, data cells -> 2px solid black border
+    header row: yellow background
+
+Part 2: practice files
+    inline file: heading blue and centred; paragraph 18px green (style on each element)
+    internal file: style block in head; h2 Verdana with border; list items 18px blue
+    external file: separate CSS file linked in head; h3 dark green left; table black border, light blue background
+
+Part 3: Unit Converter
+    EVERYTHING: margin 10px; page background black
+    home block: purple background, sits flush with window edges, 1cm bottom padding
+        title floats left: 30px, light purple, 2cm left padding
+        menu wrapper floats right: 1cm right padding
+        menu buttons: grey on dark purple, rounded 1mm, 20px, no underline
+        ON hover: white, bolder, purple background
+    wrapper of the cards: grid, items centred, 50px left margin
+    each card (class b): thick top border, rounded, white, 600 x 400, flex, 25px top and bottom margin
+        card 1 border colour = green, card 2 = coral, card 3 = cyan
+        figure floats left 200px; image 200px; caption black 17px centred
+        legend 30px bolder
+        Convert button: 20px, light green, pill shape, 15px side padding
+        ON hover: pointer cursor
+    home icon (class iconbutton): 40px cyan circle, flex-centred, fixed at left, 40px from bottom
+        its image 30px wide
+    footer: light pink, 20px top margin
+</pre>
+
+<h2>Tips for understanding the logic</h2>
+<ul>
+<li>With a black page background, any text that has no colour of its own is black on black and looks missing. If something disappears, check its colour first.</li>
+<li>Floated elements are taken out of the normal flow, so their parent can collapse to nothing. That is why my home block uses overflow hidden, which makes it wrap around its floats.</li>
+<li>Fixed position is measured against the browser window, not the page. That is what keeps the home icon in place while you scroll.</li>
+<li>Use units on purpose. Pixels are exact on screen, cm and mm are physical sizes, and percentages follow the parent.</li>
+<li>Open the browser's dev tools, click an element and look at the Styles panel. It shows which rule applied, and which ones lost and were crossed out.</li>
+<li>Do one card first, check it, then do the other two. A mistake in the shared b class affects all three cards at once.</li>
+</ul>
+
+</body>
+</html>

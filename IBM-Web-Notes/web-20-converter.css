@@ -1,0 +1,150 @@
+/* 10px margin on every element */
+* {
+    margin: 10px;
+}
+
+/* black page */
+body {
+    background-color: black;
+}
+
+/* ---------- home block ---------- */
+
+/* sits flush with the window edges */
+#home {
+    margin: -1px -1px 0 -1px;
+    padding-bottom: 1cm;
+    background-color: mediumpurple;
+    /* wraps around the floats */
+    overflow: hidden;
+}
+
+#home header {
+    font-size: 30px;
+    color: #f3e8ff;
+    float: left;
+    padding-left: 2cm;
+}
+
+.topdiv {
+    float: right;
+    padding-right: 1cm;
+}
+
+/* menu buttons, normal state */
+.topmenu {
+    color: lightgray;
+    background-color: #4b0082;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 1mm;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+/* menu buttons, hover state */
+.topmenu:hover {
+    color: white;
+    font-weight: bolder;
+    background-color: purple;
+    text-decoration: none;
+}
+
+/* ---------- conversion cards ---------- */
+
+/* wrapper is the grid, cards sit centred in it */
+#all-conversion-sections {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    margin-left: 50px;
+}
+
+/* shared card style */
+.b {
+    border-top-style: solid;
+    border-top-width: 20px;
+    border-radius: 10px;
+    background-color: white;
+    width: 600px;
+    height: 400px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* own top border colour per card */
+.temperature {
+    border-top-color: green;
+}
+
+.weight {
+    border-top-color: coral;
+}
+
+.distance {
+    border-top-color: cyan;
+}
+
+figure {
+    float: left;
+    justify-self: auto;
+    width: 200px;
+}
+
+figure img {
+    width: 200px;
+}
+
+figcaption {
+    color: black;
+    font-size: 17px;
+    text-align: center;
+}
+
+legend {
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+/* convert buttons, only inside the cards */
+#all-conversion-sections button {
+    font-size: 20px;
+    border: 2px solid transparent;
+    border-radius: 40px;
+    width: fit-content;
+    background-color: lightgreen;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#all-conversion-sections button:hover {
+    cursor: pointer;
+}
+
+/* ---------- floating home button ---------- */
+
+.iconbutton {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    background-color: cyan;
+    /* stays put while scrolling */
+    position: fixed;
+    left: 0;
+    bottom: 40px;
+}
+
+.iconbutton img {
+    width: 30px;
+}
+
+footer {
+    background-color: lightpink;
+    margin-top: 20px;
+}

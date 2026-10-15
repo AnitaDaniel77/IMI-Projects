@@ -1,0 +1,16 @@
+/* dark green heading, left aligned */
+h3 {
+    color: darkgreen;
+    text-align: left;
+}
+
+/* table frame and light blue background */
+table {
+    border: 1px solid black;
+    background-color: lightblue;
+}
+
+/* lines between the cells */
+td {
+    border: 1px solid black;
+}

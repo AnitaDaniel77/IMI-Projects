@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lab: Unit Conversion using HTML5 Structural Elements</title>
+</head>
+<body>
+
+<h1>Lab: Unit Conversion using HTML5 Structural Elements</h1>
+<p>IBM HTML, CSS and JavaScript course, Module 2 hands-on lab. Built a unit converter page with three sections: Celsius to Fahrenheit, kilograms to pounds and kilometres to miles. Code is in web-14-code.html.</p>
+
+<h2>What the lab covers</h2>
+<p>The lab uses the structural elements from the lecture on one real page: header, nav, section, article, figure and figcaption, aside and footer. The page only has the layout so far. The Convert buttons do nothing yet, because the calculation script and the styling come later in the course.</p>
+
+<h2>How the page is built</h2>
+<p>The page has a top block (home) with a title and a menu of three buttons. Under it sits a wrapper holding three sections, one per conversion. Each section is built the same way: a figure with a picture and caption on top, an article holding the form fields, and an aside with the formula so the user can do the sum by hand. At the bottom there is a home button that jumps back to the top, and a footer.</p>
+<p>Real-life example: this is a currency converter on a banking site. The menu buttons are the tabs (Rand to Dollar, Rand to Euro, Rand to Pound). Each tab has a picture, an input for the amount, a Convert button and an output. The side note says "Rand amount divided by the exchange rate", so the customer can check the answer.</p>
+
+<h2>Why each element was chosen</h2>
+<table border="1">
+<tr><th>Element</th><th>Where it is used</th><th>Why</th></tr>
+<tr><td>section</td><td>Home, temperature, weight, distance</td><td>Each one is a themed part of the page</td></tr>
+<tr><td>header</td><td>"Unit Conversions" title</td><td>Introductory content at the top</td></tr>
+<tr><td>nav</td><td>The three buttons</td><td>They only move the user around the page</td></tr>
+<tr><td>figure and figcaption</td><td>Picture with its caption in each section</td><td>Self-contained image the section refers to</td></tr>
+<tr><td>article</td><td>The form for each conversion</td><td>Each converter makes sense on its own</td></tr>
+<tr><td>aside</td><td>The formula under each converter</td><td>Related help that does not change how the converter works</td></tr>
+<tr><td>footer</td><td>Course message at the bottom</td><td>Closing information</td></tr>
+<tr><td>div</td><td>Wrappers: all-conversion-sections, tmp, wgt, dst, go-home</td><td>Plain grouping, no special meaning</td></tr>
+</table>
+
+<h2>How the in-page links work</h2>
+<p>Each menu button sits inside a link that points to a section's id with a hash in front. Clicking it scrolls the page to the element with that id. The home button at the bottom does the same thing back to the top section. This only works when each id is unique on the page.</p>
+
+<h2>Logic</h2>
+<p>Build from the outside in. First the shell of the page, then the top block, then one converter fully, then copy its structure for the next two. The three converters are identical except for the labels, the picture and the formula, so once one works the others are copy and change.</p>
+
+<h2>Pseudocode</h2>
+<pre>
+START page
+    top block (home)
+        header: "Unit Conversions"
+        navigation
+            button to Temperature section
+            button to Weight section
+            button to Distance section
+
+    wrapper for all converters
+        FOR each of Temperature, Weight, Distance
+            section with its own unique id
+                group
+                    figure: picture and caption
+                    article
+                        fieldset with a legend
+                            label and number input (the value to convert)
+                            Convert button
+                            number input (the result) and its label
+                    aside: formula for doing it by hand
+
+    home button: link back to the top block
+    footer: course message
+END page
+
+FORMULAS (used later when scripting is added)
+    fahrenheit = celsius x 9 / 5 + 32
+    pounds = kilograms x 2.205
+    miles = kilometres / 1.609
+</pre>
+
+<h2>Tips for understanding the logic</h2>
+<ul>
+<li>Read the page by its element names only. Header, nav, section, article, aside, footer should tell the story of the page without reading any text.</li>
+<li>Every id must be unique. The lab reuses the words temperature, weight and distance as both a section id and a button id. The links still work because the section comes first, but the scripts added later would grab the wrong element. In my code the buttons have their own ids.</li>
+<li>A label's for must match its input's id. Click the label text. If the cursor jumps into the field, it is wired correctly.</li>
+<li>Build one converter completely and check it in Live Server before copying it. A mistake copied three times is three fixes.</li>
+<li>Always give images alt text, so a broken image link or a screen reader still says what the picture is.</li>
+</ul>
+
+</body>
+</html>

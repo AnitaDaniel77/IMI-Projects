@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HTML Fieldset and Legend Tags</title>
+</head>
+<body>
+
+<h1>HTML Fieldset and Legend Tags</h1>
+<p>IBM HTML, CSS and JavaScript course, Module 2 reading. Code is in web-16-code.html.</p>
+
+<h2>What the reading covers</h2>
+<p>Two tags that live inside a form: fieldset, which groups related form controls, and legend, which gives that group a title.</p>
+
+<h2>fieldset</h2>
+<p>A fieldset wraps related controls so a long form is split into clear groups. Browsers usually draw a frame around the group. Any kind of element can go inside, but it is mostly used for input fields. It matters most in large forms, where grouping makes the form easier to read and easier to move through.</p>
+<table border="1">
+<tr><th>Attribute</th><th>What it does</th></tr>
+<tr><td>disabled</td><td>Switches off every control inside the fieldset. They are greyed out, cannot be used, and are not sent with the form.</td></tr>
+<tr><td>form</td><td>Names the id of the form the fieldset belongs to, so a fieldset can be tied to a form even when it sits outside it in the code</td></tr>
+<tr><td>name</td><td>Gives the fieldset a name</td></tr>
+</table>
+
+<h2>legend</h2>
+<p>A legend is the caption of the fieldset. It must be the first thing inside the fieldset. The browser draws it in the frame's top border. Without it the group is still a group, but nobody knows what it is for.</p>
+
+<h2>Real-life example</h2>
+<p>A paper account-opening form at a branch has boxes with headings: Personal Details, Employment Details, For Bank Use Only. The box is the fieldset and the heading printed on it is the legend. The "For Bank Use Only" box being greyed out for the customer is a disabled fieldset.</p>
+
+<h2>Logic</h2>
+<p>Look at the form and ask which fields belong together. Each group becomes a fieldset, and each fieldset gets a legend that names the group. If a whole group should not be used (or should not be sent), disable the fieldset instead of disabling each field one by one.</p>
+
+<h2>Pseudocode</h2>
+<pre>
+START form
+    group 1 (fieldset) named personal_details
+        title (legend): "Personal Details"
+        first name field
+        last name field
+        email field
+        phone field
+
+    group 2 (fieldset) named professional_details
+        title (legend): "Professional Details"
+        occupation field
+        company field
+        start date field
+        end date field
+
+    group 3 (fieldset) named office_use, switched off (disabled)
+        title (legend): "For Bank Use Only"
+        reference number field
+
+    submit button
+END form
+
+RULES
+    the title (legend) must be the first thing inside its group
+    a disabled group switches off every field inside it
+    every field has a label whose "for" matches the field's id
+</pre>
+
+<h2>Tips for understanding the logic</h2>
+<ul>
+<li>Squint at the page. If you can see clear boxes with titles, the fieldsets are doing their job.</li>
+<li>A fieldset groups, a legend names. If you add a fieldset, add its legend right away.</li>
+<li>Test the disabled attribute by trying to click into a field inside the disabled group. If the cursor will not go in, it works.</li>
+<li>Disabled fields are not sent when the form is submitted. If you want a value shown but still sent, that needs a different approach.</li>
+<li>Screen readers read the legend before each field in the group, which is why a clear legend text helps users who cannot see the box.</li>
+</ul>
+
+</body>
+</html>

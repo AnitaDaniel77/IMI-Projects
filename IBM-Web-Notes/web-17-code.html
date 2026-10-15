@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Demo</title>
+
+    <!-- external CSS, linked first -->
+    <link rel="stylesheet" href="web-17-code.css">
+
+    <!-- internal CSS, overrides external for these classes -->
+    <style>
+        .level-internal, .level-inline {
+            color: #2e8b57;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <h1>Styling HTML with CSS</h1>
+
+        <h2>Which layer wins?</h2>
+        <p class="level-external">Blue: styled by the external file only.</p>
+        <p class="level-internal">Green: external says blue, the internal block overrides it.</p>
+        <!-- inline beats both -->
+        <p class="level-inline" style="color: #c0392b;">Red: inline overrides internal and external.</p>
+
+        <h2>Fixed or fluid?</h2>
+        <!-- fixed: 400px, never changes -->
+        <div class="fixed-box">Fixed box, 400px wide. Resize the window and it stays put.</div>
+        <br>
+        <!-- fluid: 50% of the window, moves with it -->
+        <div class="fluid-box">Fluid box, 50% wide. Resize the window and it follows.</div>
+
+        <h2>Selectors</h2>
+        <p>This paragraph is styled by its tag name.</p>
+        <p id="special">This paragraph is styled by its id.</p>
+        <p class="alert">This paragraph is styled by a class.</p>
+    </div>
+</body>
+</html>

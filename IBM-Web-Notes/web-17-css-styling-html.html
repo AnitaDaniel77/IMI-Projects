@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CSS: Styling HTML</title>
+</head>
+<body>
+
+<h1>CSS: Styling HTML</h1>
+<p>IBM HTML, CSS and JavaScript course, Module 2 lecture. Code is in web-17-code.html and web-17-code.css.</p>
+
+<h2>What CSS is</h2>
+<p>CSS (Cascading Style Sheets) is a style sheet language that describes how HTML elements look. HTML holds the content and CSS is the design laid over it. Together with JavaScript they let developers build pages that work on desktop and mobile without plug-ins such as Flash. HTML can also be read out by a speech synthesizer for visually impaired people, which is one advantage of HTML over plug-ins.</p>
+<p>Real-life example: HTML is the text of a bank statement. CSS is the layout, the bank colours and the font. Strip the design away and the numbers are all still there, so a screen reader can read them out.</p>
+
+<h2>Why it is called cascading</h2>
+<p>One set of rules can give every element on every page the same look. Child and descendant elements usually inherit styles from their parent, so a font set on the body flows down through the whole page. There are exceptions to inheritance, so check the result.</p>
+
+<h2>Why data and design are kept separate</h2>
+<p>HTML sends the data and CSS applies the design. Separation lets people with special accessibility needs view the page without your design, and lets search engines index the content without the design getting in the way.</p>
+
+<h2>What CSS can control</h2>
+<p>Fonts, text, colours, backgrounds, sizes, borders, spacing, positioning, visual effects, tables and lists.</p>
+
+<h2>How a CSS rule is built</h2>
+<p>A rule has a selector (what to style), then a block of property and value pairs (how to style it). The selector can be one of three things:</p>
+<table border="1">
+<tr><th>Selector</th><th>How it is written</th><th>Banking example</th></tr>
+<tr><td>HTML tag name</td><td>The tag name on its own</td><td>Every paragraph on the site</td></tr>
+<tr><td>id</td><td>A hash symbol before the id</td><td>The one logo at the top of the page</td></tr>
+<tr><td>class</td><td>A dot before the class name</td><td>All warning boxes, such as fraud alerts</td></tr>
+</table>
+
+<h2>Start with a base style</h2>
+<p>When designing a site, style the body first. The lecture's base style does these things: an off-white background, black text, no margin or padding so content touches the window edge, text aligned to the left, the default font size and a sans-serif font (a font without the little flicks at the ends of letters).</p>
+<p>Guidelines for values: use RGB hexadecimal values for colours; use pixels, em or percentages for sizes (an em is the font size multiplied by the number); text aligns left, right or centre; floats go left or right; vertical alignment is top, middle or bottom; fonts can be a specific font, a family (serif, sans-serif, monospace) or a downloadable font.</p>
+
+<h2>Fluid versus fixed layout</h2>
+<table border="1">
+<tr><th>Layout</th><th>How sizes are set</th><th>Behaviour</th></tr>
+<tr><td>Fluid</td><td>Percentages and em</td><td>Grows and shrinks with the browser window, operating system and user preferences</td></tr>
+<tr><td>Fixed</td><td>Pixels</td><td>Stays the same size on every browser and system</td></tr>
+</table>
+<p>The right choice depends on the amount and type of content and who the audience is. Real-life example: an internet banking page that has to work on both a phone and a desktop leans fluid. A printed-style statement that must look identical everywhere leans fixed.</p>
+
+<h2>Three ways to connect CSS to HTML</h2>
+<table border="1">
+<tr><th>Way</th><th>Where it goes</th><th>Good for</th><th>Downside</th></tr>
+<tr><td>Inline</td><td>A style attribute on one element</td><td>A single element</td><td>The HTML gets messy fast</td></tr>
+<tr><td>Internal</td><td>A style tag in the head of the page</td><td>A single page</td><td>Mixes non-HTML code into the page, and copying it to every page slows loading</td></tr>
+<tr><td>External</td><td>A separate .css file, linked with a link tag in the head</td><td>The whole website</td><td>None worth noting, and it is the preferred way</td></tr>
+</table>
+<p>You can mix all three, though it is not recommended. When more than one points at the same element, the order of priority is inline first, then internal, then external.</p>
+<p>Real-life example: external CSS is the head office brand guide that every branch follows. Internal CSS is a poster one branch puts up for itself. Inline CSS is a handwritten sticky note on one form. If the sticky note says something different from the brand guide, the note wins for that form only.</p>
+
+<h2>Logic</h2>
+<p>Put the rules that apply everywhere in one external file, start with the body, then add rules for tags, classes and ids as needed. Only use internal or inline CSS for exceptions. When an element looks wrong, ask which of the three layers last told it what colour or size to be.</p>
+
+<h2>Pseudocode</h2>
+<pre>
+START website
+
+    external style file (one for the whole site)
+        rule for body
+            background = off-white
+            text colour = black
+            margin and padding = 0
+            text align = left
+            font size = browser default
+            font = sans-serif
+        rule for headings and tags
+        rule for each class (starts with a dot)
+        rule for each id (starts with a hash)
+
+    FOR each page
+        link to the external style file (in the head)
+        OPTIONAL: internal style block for this page only
+        OPTIONAL: inline style on one element only
+
+    IF an element is told its colour by more than one layer
+        use inline if it exists
+        ELSE use internal if it exists
+        ELSE use external
+
+    sizes
+        IF layout is fluid
+            use percentages or em
+        ELSE IF layout is fixed
+            use pixels
+
+END website
+</pre>
+
+<h2>Tips for understanding the logic</h2>
+<ul>
+<li>Open the page in the browser and switch the CSS file off by renaming it. What is left is the plain HTML, which is what a screen reader or search engine sees.</li>
+<li>Stretch and shrink the browser window. Boxes sized in percentages move, boxes sized in pixels do not. That is fluid versus fixed in one test.</li>
+<li>When a style does not apply, look for another rule that targets the same element. A later rule or a more specific one can beat yours.</li>
+<li>The lecture's simple order (inline, then internal, then external) works when the link tag comes before the style tag in the head. In real life the browser also looks at how specific a selector is and at which rule comes last.</li>
+<li>Keep the link to the style file as the only point where HTML mentions CSS. That one line is what lets you change the whole site's look from one file.</li>
+</ul>
+
+</body>
+</html>

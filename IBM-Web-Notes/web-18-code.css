@@ -1,0 +1,32 @@
+/* tag selector: every h1 */
+h1 {
+    color: #3366cc;
+    font-size: 24px;
+}
+
+/* tag selector: every h2 */
+h2 {
+    color: #333333;
+}
+
+/* tag selector: every paragraph */
+p {
+    font-family: Arial, sans-serif;
+}
+
+/* id selector: only the element with id="header" */
+#header {
+    background-color: #f0f0f0;
+    padding: 10px;
+}
+
+/* class selector: any element with class="highlight" */
+.highlight {
+    background-color: #ffd700;
+    color: #333333;
+}
+
+/* id beats class, so this green wins on the last paragraph */
+#special {
+    background-color: #b7e4c7;
+}

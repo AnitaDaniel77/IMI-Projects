@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CSS Selectors: Tags, IDs and Classes</title>
+</head>
+<body>
+
+<h1>CSS Selectors: Tags, IDs and Classes</h1>
+<p>IBM HTML, CSS and JavaScript course, Module 2 reading. Code is in web-18-code.html and web-18-code.css.</p>
+
+<h2>What a selector is</h2>
+<p>A selector is the pattern in a CSS rule that says which HTML elements the rule applies to. It sets up the link between the elements on the page and the styles applied to them. Selectors matter because they let you target exactly the elements you mean, which keeps the design consistent across the site.</p>
+<p>Real-life example: a branch manager's memo says "all tellers wear the blue shirt" (a tag), "the person at desk 3 wears a name badge" (an id) and "everyone on the fraud team wears a red lanyard" (a class). The memo works because each phrase picks out exactly the people it means.</p>
+
+<h2>The three selectors</h2>
+<table border="1">
+<tr><th>Selector</th><th>How it is written</th><th>What it targets</th><th>Reading example</th></tr>
+<tr><td>Tag</td><td>The HTML tag name on its own</td><td>Every element of that tag on the page</td><td>All h1 headings get a blue colour and a font size of 24 pixels</td></tr>
+<tr><td>ID</td><td>A hash symbol, then the id</td><td>One unique element. An id appears only once per page.</td><td>The element with id header gets a light grey background and 10 pixels of padding</td></tr>
+<tr><td>Class</td><td>A dot, then the class name</td><td>Every element with that class. Many elements can share a class.</td><td>All elements with class highlight get a yellow background and dark text</td></tr>
+</table>
+
+<h2>When to use which</h2>
+<p>Use a tag selector to style a whole group in one go, such as every paragraph. Use an id for the one-of-a-kind element, such as the page header or the logo. Use a class for a pattern you want to reuse on different elements, such as a warning box or a highlighted row. In the same way, one banking page might style all table rows alike (tag), the one account balance box differently (id) and every fraud alert in the same red (class).</p>
+
+<h2>Priority when rules clash</h2>
+<p>This part goes beyond the reading but explains most "why is my style not working" moments. When two rules from the same layer target one element and set the same property, the more specific selector wins. An id is more specific than a class, and a class is more specific than a tag. If they are equally specific, the rule that appears later in the file wins.</p>
+
+<h2>Logic</h2>
+<p>For each thing you want to style, ask: how many elements is this for? All of one kind: tag. Exactly one: id. Some, scattered around the page: class. Write the rule with the matching symbol and put the style properties in the braces.</p>
+
+<h2>Pseudocode</h2>
+<pre>
+RULE TYPE 1: tag selector
+    selector = the tag name (no symbol)
+    applies to = every element with that tag
+    example: all h1 headings -> blue, 24 pixels
+
+RULE TYPE 2: id selector
+    selector = hash symbol + id
+    applies to = the single element with that id
+    example: element with id "header" -> light grey background, 10 pixels padding
+
+RULE TYPE 3: class selector
+    selector = dot + class name
+    applies to = every element listing that class
+    example: elements with class "highlight" -> yellow background, dark text
+
+WHEN two rules set the same property on one element
+    IF one selector is more specific
+        use the more specific one (id, then class, then tag)
+    ELSE
+        use the one that comes later in the file
+</pre>
+
+<h2>Tips for understanding the logic</h2>
+<ul>
+<li>Read the symbol first. No symbol is a tag, a hash is an id, a dot is a class.</li>
+<li>An id belongs to one element. If you want the same look on a second element, you needed a class.</li>
+<li>An element can have more than one class. Separate them with a space in the class attribute and the element gets the styles of all of them.</li>
+<li>If a style does not show, check three things in order: the spelling of the id or class in both files, the symbol in front of it, and whether a more specific rule is overriding it.</li>
+<li>Do not use ids for styling everything. Classes are easier to reuse and harder to get into a fight with.</li>
+</ul>
+
+</body>
+</html>

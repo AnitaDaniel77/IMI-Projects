@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lab: Responsive Web Design with Tailwind and Bootstrap</title>
+</head>
+<body>
+
+<h1>Lab: Responsive Web Design with Tailwind and Bootstrap</h1>
+<p>IBM HTML, CSS and JavaScript course, hands-on lab. Code is in web-21-starter.html, web-21-tailwind.html and web-21-bootstrap.html.</p>
+
+<h2>What the lab covers</h2>
+<p>Responsive design means one page that adjusts to mobile phones, tablets and desktops, so it stays usable on all of them. The lab starts with a plain layout that is not responsive, then makes the same layout responsive twice: once with Tailwind CSS and once with Bootstrap. The layout has six parts: header, navigation bar, main section, aside, article and footer. Each part has its own background colour so the structure is easy to see.</p>
+<p>Real-life example: a bank statement on your phone shows the account summary, then the transactions, then the offers, stacked one under the other. On a laptop the same three parts sit side by side. The menu on the phone folds into a hamburger icon. Same content, different arrangement.</p>
+
+<h2>Exercise 1: the starter page and why it fails</h2>
+<p>The starter uses plain CSS. The three middle parts sit in a row using flexbox, with fixed padding and no rules for narrow screens. Open it in the browser's developer tools with the device toolbar switched on (Ctrl+Shift+I, then Ctrl+Shift+M). Pick a phone size. The three parts stay squeezed in one row and can overflow, because nothing tells the page what to do on a small screen.</p>
+
+<h2>Exercise 2: Tailwind CSS</h2>
+<p>Tailwind is utility-first. Responsiveness comes from prefixes on the classes. A class with no prefix applies on every screen size. A class with the md prefix applies only from the medium breakpoint (768 pixels) upwards.</p>
+<table border="1">
+<tr><th>Classes</th><th>What they do</th></tr>
+<tr><td>flex and flex-col</td><td>Turn on flexbox and stack the children in a column</td></tr>
+<tr><td>md and flex-row</td><td>From medium screens up, switch to a row, so the parts sit side by side</td></tr>
+<tr><td>w-full</td><td>Width 100% of the parent, so each part fills the screen on a phone</td></tr>
+<tr><td>md and w-1/4</td><td>From medium screens up, width 25%</td></tr>
+<tr><td>flex-grow</td><td>The main section takes all the space left over</td></tr>
+<tr><td>p-4</td><td>Padding of 1rem (16 pixels) on all sides</td></tr>
+<tr><td>bg-red-500 and similar</td><td>Background colours</td></tr>
+<tr><td>min-h-screen</td><td>Makes an element at least as tall as the window (explained in the lab, but not used in its code)</td></tr>
+</table>
+<p>Result: on a phone the aside, main section and article stack vertically. On a tablet or desktop they sit side by side with the main section in the middle.</p>
+
+<h2>Exercise 3: Bootstrap</h2>
+<p>Bootstrap gives ready-made components and a 12-column grid. A row holds columns, and each column says how many of the 12 columns it takes at each screen size. The page also needs Bootstrap's CSS and its JavaScript bundle, because the hamburger menu uses a small script to open and close.</p>
+<table border="1">
+<tr><th>Classes</th><th>What they do</th></tr>
+<tr><td>col-12</td><td>Full width on every screen, so the parts stack on a phone</td></tr>
+<tr><td>col-md-3 and col-md-6</td><td>From medium screens up: 3 of 12 columns (25%) for the aside and article, 6 of 12 (50%) for the main section</td></tr>
+<tr><td>navbar and navbar-expand-lg</td><td>A navigation bar that shows the links in a row on large screens and folds them into a hamburger button on smaller ones</td></tr>
+<tr><td>navbar-toggler and navbar-toggler-icon</td><td>The hamburger button and its three-line icon</td></tr>
+<tr><td>p-3</td><td>Padding of 1rem on all sides</td></tr>
+<tr><td>bg-danger, bg-primary, bg-warning, bg-success</td><td>Ready-made background colours</td></tr>
+</table>
+
+<h2>Exercise 4: Tailwind compared with Bootstrap</h2>
+<table border="1">
+<tr><th>Feature</th><th>Tailwind CSS</th><th>Bootstrap</th></tr>
+<tr><td>Approach</td><td>Utility-first, allows full customisation</td><td>Predefined components and styles</td></tr>
+<tr><td>Customisation</td><td>High level of flexibility</td><td>Limited, relies on pre-designed components</td></tr>
+<tr><td>Learning curve</td><td>Steeper, needs an understanding of CSS</td><td>Easier, built-in classes and components</td></tr>
+<tr><td>File size</td><td>Smaller, because unused styles can be purged</td><td>Larger, because all components are included by default</td></tr>
+<tr><td>Design control</td><td>Full control over design and layout</td><td>Limited without overriding default styles</td></tr>
+<tr><td>Grid</td><td>Flexbox-based</td><td>12-column grid with predefined widths</td></tr>
+<tr><td>Components</td><td>No pre-designed components</td><td>Buttons, modals, forms and more</td></tr>
+</table>
+<p>Real-life example: Tailwind is a box of building blocks that you assemble into your own design. Bootstrap is a set of prefabricated rooms that you place and join together.</p>
+
+<h2>Logic</h2>
+<p>Design for the smallest screen first. With no prefix, every element is full width and stacked. Then, at the breakpoint where there is room, add the side-by-side layout. In Tailwind that is the md prefix on the width and direction classes. In Bootstrap that is col-md-something next to col-12. The viewport meta tag in the head is what lets phones use their real screen width at all, so it must be there.</p>
+
+<h2>Pseudocode</h2>
+<pre>
+START page
+    head: tell the phone to use its real screen width (viewport setting)
+    head: load the framework (Tailwind style file, or Bootstrap style file and script)
+
+    header
+    navigation bar
+        IF Bootstrap
+            large screens: links shown in a row
+            smaller screens: links hidden behind a hamburger button
+    middle area with 3 parts: aside, main section, article
+
+    footer
+END page
+
+LAYOUT RULES for the middle area
+    DEFAULT (phones)
+        each part = full width
+        parts stack top to bottom
+    IF screen is 768 pixels or wider (medium)
+        parts sit side by side
+        aside = 25% wide
+        main section = fills the rest (Tailwind) or 50% (Bootstrap)
+        article = 25% wide
+</pre>
+
+<h2>Tips for understanding the logic</h2>
+<ul>
+<li>Read prefixed classes as "from this size up". The md prefix on a width class means "from 768 pixels wide and larger, use this width".</li>
+<li>The classes with no prefix are the phone version. Add the prefixed ones to grow the layout for bigger screens.</li>
+<li>Test with the device toolbar in the browser and drag the width slowly. Watch for the exact point the layout flips. That point is the breakpoint.</li>
+<li>If the layout looks desktop-sized on a phone, check for the viewport meta tag first.</li>
+<li>Bootstrap columns in one row should add up to 12 or less. 3 plus 6 plus 3 is exactly 12.</li>
+<li>Both frameworks load from the internet in these files. No connection means no styles.</li>
+</ul>
+
+</body>
+</html>

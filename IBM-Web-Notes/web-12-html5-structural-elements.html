@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HTML5 Tags and Structural Elements</title>
+</head>
+<body>
+
+<h1>HTML5 Tags and Structural Elements</h1>
+<p>IBM HTML, CSS and JavaScript course, Module 2. Code is in web-12-code.html.</p>
+
+<h2>What the lecture covers</h2>
+<p>HTML5 added tags with names that say what they do, such as audio for sound and canvas for graphics. The lecture focuses on the structural ones, which describe the parts of a page: article, section, header, footer, aside, figure, figcaption and nav. It also covers the comment tag, which lets you leave notes in the code that the browser never shows (unless someone views the source).</p>
+
+<h2>div versus semantic elements</h2>
+<p>A div is a plain box. It groups content and says nothing about what is inside. It existed before HTML5 and is still a good starting point for splitting a page into areas you want to style differently. A p says "this is a paragraph", a nav says "this is navigation". That meaning is called semantics. HTML5 lets you replace most generic divs with elements that name their job.</p>
+<p>Real-life example: a branch floor plan. A div is a room with no sign on the door. A semantic element is a room labelled Reception, Tellers or Manager's Office. Both are rooms, but the labelled ones let anyone, including a screen reader or a search engine, find their way around.</p>
+
+<h2>The structural elements</h2>
+<table border="1">
+<tr><th>Element</th><th>What it marks</th><th>Banking example</th></tr>
+<tr><td>header</td><td>The heading area of a page or of an article</td><td>The top of a statement: bank logo, account holder, statement date</td></tr>
+<tr><td>footer</td><td>The bottom area of a page or section</td><td>The bottom of an app screen: terms, contact number, copyright</td></tr>
+<tr><td>article</td><td>A self-contained block that makes sense on its own</td><td>One news story on the bank's blog</td></tr>
+<tr><td>section</td><td>A logical split inside a page or article</td><td>The chapters in the online help: Cards, Savings, Loans</td></tr>
+<tr><td>aside</td><td>Extra content related to the main text</td><td>A side note beside a loan article: "Check your credit score first"</td></tr>
+<tr><td>figure and figcaption</td><td>A self-contained image, diagram or code block, plus its caption</td><td>A chart of monthly savings with the caption "Savings growth, 2026"</td></tr>
+<tr><td>nav</td><td>A group of navigation links</td><td>The app's bottom menu: Home, Transact, Cards, Profile</td></tr>
+</table>
+
+<h2>Navigation versus grouping elements</h2>
+<p>The lecture ends by separating two jobs. Nav is only for navigation links, the ones that move you around the site or between pages of an app. Aside, figure and figcaption are grouping elements: they bundle content that belongs together or sits next to the main discussion. A link list in a sidebar that moves you around the site belongs in nav. A "related reading" note belongs in aside.</p>
+
+<h2>Logic</h2>
+<p>Think of the page as an outline, from the biggest container down to the smallest. A page has a menu (nav), one or more articles, and a footer. An article has its own header and is split into sections. Sections hold the text, figures and asides. When you can describe a block in plain words ("this is the page menu", "this is a side note"), there is probably an element with that exact name.</p>
+
+<h2>Pseudocode</h2>
+<pre>
+START page
+    show navigation group
+        link to Tips section
+        link to Fees section
+    show article
+        article header
+            title
+            author and date
+        section "Tips"
+            heading
+            paragraph
+            figure
+                content (a code snippet or image)
+                caption
+        section "Fees"
+            heading
+            paragraph
+        aside
+            related note
+    end article
+    show page footer
+        copyright text
+END page
+
+RULE: if the block only groups things for styling and has no real meaning
+    use a plain div
+ELSE
+    use the element that names its job
+</pre>
+
+<h2>Tips for understanding the logic</h2>
+<ul>
+<li>Cover the tags and read only the names. If the names tell the story of the page (nav, article, section, aside, footer), the structure is right.</li>
+<li>Ask "could this block be lifted out and still make sense?" If yes, it is an article. If it only makes sense as part of something bigger, it is a section.</li>
+<li>Header and footer are not only for the whole page. An article or a section can have its own.</li>
+<li>Reach for a div last. Use it when no named element fits, usually just to group things for styling.</li>
+<li>A comment is written between the comment markers and is invisible on the page. Use it to explain why a block exists, not to repeat what the tag already says.</li>
+</ul>
+
+</body>
+</html>

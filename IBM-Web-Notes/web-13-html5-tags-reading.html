@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Common HTML5 Tags and Structural Elements (Reading)</title>
+</head>
+<body>
+
+<h1>Common HTML5 Tags and Structural Elements</h1>
+<p>IBM HTML, CSS and JavaScript course, Module 2 reading. Code is in web-13-code.html and web-13-code.js.</p>
+
+<h2>What the reading covers</h2>
+<p>It reviews the structural elements from the lecture (comment, div, section, article, header, footer, aside, figure, figcaption, nav) and adds the elements used to embed media: audio, canvas, embed, track and video.</p>
+
+<h2>Comments and div</h2>
+<p>A comment holds a note for other developers. The browser skips it, so nothing shows on the page. A comment can be one line, many lines, or even contain other tags. A div groups content so you can style it together through a class or an id. The group does not have to be related in meaning. Browsers put a line break before and after a div.</p>
+<p>Real-life example: a comment is a sticky note on a form that says "check ID before approving". The customer never sees it, but the next staff member does. A div is a plain folder you put loose documents into so you can carry them together.</p>
+
+<h2>section versus article</h2>
+<p>A section groups content that shares a theme, and the theme is usually named by a heading right after it opens. An article is stricter. It must make sense on its own, with nothing else on the page around it. Rule of thumb: if you could copy the block into a different website and it would still read properly, it is an article. If not, it is a section.</p>
+<p>Real-life example: one full news story on the bank's blog is an article. The parts inside it ("Faster login", "New limits") are sections of that story.</p>
+
+<h2>header and footer</h2>
+<p>A header holds introductory content: a title, a logo, a menu or a table of contents. A page can have several headers (for example one per article), but a header cannot sit inside another header, a footer or an address element. A footer holds the closing information: copyright, contact details and links.</p>
+<p>Real-life example: the top of a bank statement (logo, account holder, date) is the header. The bottom (contact number, terms, "Capitec Bank is an authorised financial services provider") is the footer.</p>
+
+<h2>Grouping and navigation</h2>
+<table border="1">
+<tr><th>Element</th><th>Job</th><th>Banking example</th></tr>
+<tr><td>aside</td><td>Extra content related to the main text, often shown as a sidebar</td><td>A box beside a loan article defining "interest rate"</td></tr>
+<tr><td>figure</td><td>Self-contained diagram, photo or code that the text refers to</td><td>A chart of monthly spending</td></tr>
+<tr><td>figcaption</td><td>The caption for a figure, first or last inside it</td><td>"Spending per month, 2026"</td></tr>
+<tr><td>nav</td><td>A group of links that move you between pages</td><td>The top menu of the internet banking site</td></tr>
+</table>
+<p>Aside and nav do not change how the page looks. They change how the page is understood, by styling rules and by screen readers, which can skip the navigation block and go straight to the content.</p>
+
+<h2>Embedding content</h2>
+<table border="1">
+<tr><th>Element</th><th>What it does</th><th>Banking example</th></tr>
+<tr><td>audio</td><td>Plays sound. Holds one or more source entries in different formats and the browser uses the first one it supports. Text inside it shows if no format works.</td><td>A recorded fraud-awareness message</td></tr>
+<tr><td>canvas</td><td>An empty drawing area that a script draws on. Text inside it shows if graphics or JavaScript are off.</td><td>A chart drawn live from the customer's spending</td></tr>
+<tr><td>embed</td><td>A container for an external resource such as a media player or plug-in application</td><td>A statement viewer from another page</td></tr>
+<tr><td>track</td><td>Subtitles or captions for audio and video, written in the WebVTT format</td><td>English and isiZulu subtitles on a how-to video</td></tr>
+<tr><td>video</td><td>Plays video, with source entries and track entries inside</td><td>A short "how to use the banking app" clip</td></tr>
+</table>
+<p>The pattern is the same for audio and video: offer several versions, let the browser pick one it can play, and put a plain text message at the end for browsers that cannot play any.</p>
+
+<h2>Logic</h2>
+<p>Pick the most specific element that fits. Self-contained story: article. Themed part of something: section. Intro block: header. Closing block: footer. Side note: aside. Picture or chart with a caption: figure. Group of links: nav. Only when none of these fit, use a div. For media, always give the browser a fallback.</p>
+
+<h2>Pseudocode</h2>
+<pre>
+START page
+    show navigation group with 3 links
+    show article
+        article header with title
+        group wrapper (div)
+            section "Faster login": heading and text
+            section "New limits": heading and text
+        side note (aside) with a definition
+        figure
+            drawing area (canvas)
+            caption
+        article footer with publish note
+    end article
+    show media section
+        audio: try source 1, then source 2, else show fallback text
+        embed another page inside this one
+        video
+            try source
+            add English subtitles track
+            add isiZulu subtitles track
+            else show fallback text
+    end media section
+END page
+
+ON page load
+    find the drawing area
+    get its 2D drawing tool
+    draw a filled square at the top-left, 100 wide and 100 high
+</pre>
+
+<h2>Tips for understanding the logic</h2>
+<ul>
+<li>Read an article like a newspaper. If you remove everything else on the page and the story still works, it is an article.</li>
+<li>A heading right after a section opens is not decoration. It is how you check that the section has one clear theme.</li>
+<li>The canvas does nothing on its own. It is a blank board, and the script is the pen. If the board is empty, check the script first.</li>
+<li>Fallback text inside audio, video and canvas only appears when the browser cannot use the element, so you will not see it in a normal browser. Test it by breaking a file name on purpose.</li>
+<li>Add the controls attribute to audio and video. Without it the player is invisible and the user cannot press play.</li>
+</ul>
+
+</body>
+</html>

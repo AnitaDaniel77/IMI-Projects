@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Common HTML5 Elements Demo</title>
+</head>
+<body>
+    <!-- top menu, the last link goes back to the web-12 demo -->
+    <nav>
+        <div class="menu">
+            <a href="#news">News</a> |
+            <a href="#media">Media</a> |
+            <a href="web-12-code.html">Previous demo</a>
+        </div>
+    </nav>
+
+    <article id="news">
+        <header>
+            <h1>Banking App Update</h1>
+        </header>
+
+        <!-- div just wraps the two sections -->
+        <div>
+            <section id="login">
+                <h2>Faster login</h2>
+                <p>You can now sign in with your fingerprint instead of typing your PIN.</p>
+            </section>
+
+            <section id="limits">
+                <h2>New limits</h2>
+                <p>Daily payment limits can be changed from the app without visiting a branch.</p>
+            </section>
+        </div>
+
+        <!-- side note, not part of the main story -->
+        <aside>
+            <h4>Good to know</h4>
+            <p>A payment limit is the most you can send in one day.</p>
+        </aside>
+
+        <!-- canvas gets drawn on by web-13-code.js -->
+        <figure>
+            <canvas>Your browser does not support the canvas tag.</canvas>
+            <figcaption>A square drawn with canvas</figcaption>
+        </figure>
+
+        <footer>
+            <p>Published today.</p>
+        </footer>
+    </article>
+
+    <section id="media">
+        <h2>Media</h2>
+
+        <!-- browser plays the first format it supports -->
+        <audio controls>
+            <source src="soundtrack.mp3" type="audio/mpeg">
+            <source src="soundtrack.ogg" type="audio/ogg">
+            Your browser does not support the audio formats provided.
+        </audio>
+
+        <!-- loads the earlier demo page inside this one -->
+        <embed type="text/html" src="web-12-code.html" width="500" height="300">
+
+        <!-- subtitles in two languages -->
+        <video controls>
+            <source src="common_html_elements.mp4" type="video/mp4">
+            <track src="english_subtitles.vtt" kind="subtitles" srclang="en" label="English">
+            <track src="zulu_subtitles.vtt" kind="subtitles" srclang="zu" label="isiZulu">
+            Your browser does not support the video tag.
+        </video>
+    </section>
+
+    <script src="web-13-code.js"></script>
+</body>
+</html>

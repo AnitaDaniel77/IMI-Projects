@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CSS Frameworks</title>
+</head>
+<body>
+
+<h1>CSS Frameworks</h1>
+<p>IBM HTML, CSS and JavaScript course, Module 2 lecture. Code is in web-19-code.html, web-19-code.css and web-19-tailwind.html.</p>
+
+<h2>What a CSS framework is</h2>
+<p>A framework is a foundation to build your code on. A CSS framework gives you the tools to put together a basic user interface quickly: navigation bars, forms, grids and other visual elements, and pages that adjust to any screen size. Frameworks have to be chosen at the start of a project, so it helps to know the types before you begin, and to decide which features matter most for the project.</p>
+
+<h2>Three approaches</h2>
+<table border="1">
+<tr><th>Approach</th><th>What it is</th><th>Plus</th><th>Minus</th><th>Real-life example</th></tr>
+<tr><td>No framework (Vanilla CSS)</td><td>You write all the styling yourself</td><td>Full freedom to style anything exactly as you want</td><td>A lot of time and effort, because every component is styled by hand</td><td>Designing a new bank form on blank paper</td></tr>
+<tr><td>Utility-first framework</td><td>Single-purpose classes, each one scoped to one CSS property, added in the class attribute of an element</td><td>Fast, consistent colours, spacing and typography, and still free to build your own look</td><td>HTML gets crowded with classes, the markup grows in size and pages can load slower, and design and content get mixed together</td><td>A box of stationery pieces (stamps, stickers, borders) you stick on each form yourself</td></tr>
+<tr><td>Component framework</td><td>Pre-styled components and templates you add to a page</td><td>Very fast, uniform look, needs little CSS knowledge</td><td>You are limited to what the framework offers, and you carry extra code for components you never use</td><td>Pre-printed forms from head office: quick and consistent, but only the forms they made</td></tr>
+</table>
+
+<h2>Utility-first and Tailwind CSS</h2>
+<p>Instead of writing text-align: center in a style rule, a utility class such as text-center does the same job when placed in the class attribute. Tailwind CSS is the popular example. Its classes are composed together right in the markup.</p>
+<p>Take a dangerous link, such as "Report fraud": underlined, red, and a darker red when hovered. In vanilla CSS you write one rule for the normal state and another for the hover state. In Tailwind you list the classes on the link itself.</p>
+<p>The hover part is a modifier, a prefix that makes a class apply only in a certain situation. The md modifier applies a class only when the screen is wider than 768 pixels (Tailwind's medium screen). An image can be 64 pixels wide by default, 128 on medium screens and 192 on large screens, with all three sizes set in the one element. Modifiers like these make responsive pages quick to build.</p>
+
+<h2>Component frameworks and Bootstrap</h2>
+<p>Bootstrap is the popular component framework, described in the lecture as a feature-packed front-end toolkit for building fast, responsive sites. The same danger link is just one class, link-danger. Bootstrap also supplies buttons, alerts, forms and full templates, from a sign-in page to an entire website. You need only basic CSS knowledge to use it, but you are limited to the components it offers, and it may not have the one you need.</p>
+
+<h2>Logic</h2>
+<p>Choose by asking how much freedom you need against how fast you need to go. A one-off custom design points to vanilla CSS or utility classes. A standard-looking internal tool or prototype points to a component framework. For the same job, the number of lines you write goes down as you move from vanilla to utility to component, and the freedom goes down with it.</p>
+
+<h2>Pseudocode</h2>
+<pre>
+GOAL: show a red "Report fraud" link, darker red on hover
+
+OPTION 1: vanilla CSS
+    write a rule: link is red and underlined
+    write a second rule: link is dark red when hovered
+    apply the class to the link
+
+OPTION 2: utility framework (Tailwind)
+    add classes straight on the link
+        red text, underline, dark red on hover
+
+OPTION 3: component framework (Bootstrap)
+    add the single ready-made class "link-danger"
+
+RESPONSIVE WIDTH with a utility framework
+    default width = 64 pixels
+    IF screen is medium or wider (768 pixels and up)
+        width = 128 pixels
+    IF screen is large or wider
+        width = 192 pixels
+
+DECIDE
+    IF you want full control and have the time
+        use vanilla CSS
+    ELSE IF you want speed but still your own design
+        use a utility framework
+    ELSE IF you want speed and a standard look
+        use a component framework
+</pre>
+
+<h2>Tips for understanding the logic</h2>
+<ul>
+<li>Do the same small job three ways, like the danger link. Seeing the three versions next to each other is the quickest way to feel the difference.</li>
+<li>Read utility classes literally. text-center centres the text. Most names say what they do.</li>
+<li>A modifier prefix such as hover or md is a condition. Read it as "only when".</li>
+<li>If a page loads slowly, long lists of utility classes and unused framework code are two places to look.</li>
+<li>Frameworks like these are loaded from a link on the internet in the demos. No internet, no styles.</li>
+</ul>
+
+</body>
+</html>

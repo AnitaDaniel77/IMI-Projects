@@ -1,0 +1,10 @@
+/* red link with underline */
+.danger-link {
+    color: #dc3545;
+    text-decoration: underline;
+}
+
+/* darker red when hovered */
+.danger-link:hover {
+    color: #a71d2a;
+}

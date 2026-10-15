@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tailwind Demo</title>
+
+    <!-- tailwind play CDN, needs internet -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="p-6">
+    <h1 class="text-2xl font-bold text-center">Danger Link with Tailwind</h1>
+
+    <!-- red, underlined, darker on hover, all in the class attribute -->
+    <p class="mt-4 text-center">
+        <a href="#" class="underline text-red-600 hover:text-red-800">Report fraud</a>
+    </p>
+
+    <h2 class="mt-8 text-xl text-center">Resize the window</h2>
+
+    <!-- 64px by default, 128px from 768px up, 192px on large screens -->
+    <div class="mx-auto mt-4 h-16 w-16 md:w-32 lg:w-48 bg-blue-500"></div>
+</body>
+</html>

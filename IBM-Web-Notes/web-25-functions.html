@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Functions and Types of Functions</title>
+</head>
+<body>
+  <h1>JavaScript Functions and Types of Functions</h1>
+
+  <h2>What a function is</h2>
+  <p>A function is a reusable block of code. You write it once, give it a name, and run it as many times as you need. This keeps code organised, easier to read and easier to maintain. You declare it with the function keyword, a name, parentheses and curly braces holding the code. You run it by calling its name followed by parentheses.</p>
+  <p>Banking example: a function is a standard procedure at the branch, like "print a statement". The teller doesn't invent the steps each time. They follow the same procedure for every customer.</p>
+
+  <h2>Non-parameterized and parameterized</h2>
+  <p>A non-parameterized function takes no input. It does its job on its own, like showing a welcome message. A parameterized function takes one or more inputs, so the same function can work with different values.</p>
+  <p>Banking example: "show the bank's opening hours" needs nothing from you. "Calculate the fee on this amount" needs the amount.</p>
+
+  <h2>Parameters and arguments</h2>
+  <p>Parameters are the variables listed in the function declaration. Arguments are the actual values you pass in when you call it. In add(a, b), a and b are parameters. In add(3, 4), the values 3 and 4 are arguments.</p>
+  <p>Banking example: the parameter is the empty "amount" box on a deposit slip. The argument is the R500 you write in it.</p>
+
+  <h2>Two ways to write a function</h2>
+  <h3>Function declaration</h3>
+  <p>The traditional way. Use the function keyword, then the name and parameters.</p>
+  <h3>Function expression</h3>
+  <p>Create the function and store it in a variable. You call it using the variable's name.</p>
+
+  <h2>Types of functions</h2>
+  <h3>Named function</h3>
+  <p>Has a name, so you call it by that name. Names also appear in the call stack when something breaks, which helps with debugging.</p>
+  <h3>IIFE (immediately invoked function expression)</h3>
+  <p>Defined and run straight away. It keeps its variables in a private scope, so they don't clash with other code or pollute the global scope.</p>
+  <h3>Arrow function</h3>
+  <p>A shorter way to write a function, introduced in ES6. Good for short, simple functions.</p>
+  <h3>Anonymous function</h3>
+  <p>Has no name. Often passed to another function as an argument or stored in a variable. An arrow function without a name is an anonymous function too.</p>
+  <p>Banking example: a named function is a staff member with a name badge. An IIFE is a one-time check done the moment a branch opens. An arrow function is a quick shorthand note. An anonymous function is a temporary worker who does one job and has no badge.</p>
+
+  <h2>Logic and pseudocode</h2>
+  <pre>
+DEFINE showWelcome (no input)
+  SHOW "Welcome to the bank"
+
+DEFINE calculateFee (amount)
+  fee = amount times 0.01
+  GIVE BACK fee
+
+CALL showWelcome
+CALL calculateFee with 500
+  SHOW the result
+
+STORE a function in a variable (function expression)
+CALL it using the variable name
+
+WRITE a short version using an arrow
+RUN a function the moment it is created (IIFE)
+PASS an unnamed function to another function
+  </pre>
+
+  <h2>Tips for understanding</h2>
+  <ul>
+    <li>Think "define now, run later". Declaring a function doesn't run it. Only the call does.</li>
+    <li>If a function shows nothing, check you called it. Forgetting the parentheses is a common miss.</li>
+    <li>Use return when you want a value back. Without it the function gives back undefined.</li>
+    <li>Give functions verb names like calculateFee, so the name says what it does.</li>
+    <li>Read an arrow function from left to right: inputs, arrow, result.</li>
+  </ul>
+
+  <h2>Still to practise</h2>
+  <p>Return values, default parameters and passing functions into other functions.</p>
+</body>
+</html>

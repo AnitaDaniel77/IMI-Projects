@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Introduction to JavaScript and ES6</title>
+</head>
+<body>
+  <h1>Introduction to JavaScript and ES6</h1>
+
+  <h2>What JavaScript does</h2>
+  <p>HTML gives a page its structure and CSS gives it its looks. JavaScript gives it behaviour. The browser downloads the HTML, the CSS and the JavaScript, then runs the JavaScript as instructions for making the page react to the user. It was created in the mid 1990s and runs inside the browser.</p>
+  <p>Banking example: on the Capitec app, you tap "Pay", a message appears and your balance changes without the whole screen reloading. HTML drew the screen, CSS styled it, and JavaScript did the reacting.</p>
+
+  <h2>Two main jobs</h2>
+  <p>Manipulating the DOM means changing the content, structure or style of the page while it's open. Handling events means responding to what the user does, like a click or a mouse move.</p>
+  <p>Banking example: the DOM is the statement on your screen, and JavaScript is the person who can rewrite a line on it. The event is you pressing "Refresh balance".</p>
+
+  <h2>Where JavaScript shows up</h2>
+  <p>Form validation and real-time feedback, loading new content without a reload (a live feed), animations and sliders, and full web apps like Google Docs, Netflix and Trello.</p>
+
+  <h2>ES6</h2>
+  <p>ES6, also called ECMAScript 2015, was a big upgrade to the language. It added new features and syntax that make JavaScript more powerful and easier to write. The lecture only names it, so the features come in later lessons.</p>
+
+  <h2>Two ways to add JavaScript to a page</h2>
+  <h3>In-line</h3>
+  <p>Write the code between script tags inside the body. Putting it in the head can give unexpected results, because the code can run before the page elements exist.</p>
+  <h3>External file</h3>
+  <p>Put the code in its own file, like script.js, and link it with a script tag and a src attribute, just before the closing body tag. This keeps the HTML clean and lets you reuse the file.</p>
+  <p>Banking example: in-line is writing a note on a single payment slip. An external file is a procedures manual that every branch points to.</p>
+  <pre>
+STEP 1  create script.js and write the code in it
+STEP 2  in the HTML, add a script tag with src="script.js"
+STEP 3  place that tag just before the closing body tag
+  </pre>
+
+  <h2>Four ways to show output</h2>
+  <h3>console.log</h3>
+  <p>Prints a value in the developer console. Use it to check values and find errors. Open the console with F12, or right-click the page, choose Inspect, then the Console tab.</p>
+  <p>Banking example: the teller's back-office check. The customer never sees it, but you confirm the numbers are right.</p>
+  <h3>Altering the DOM</h3>
+  <p>Find an element by its id and change what's inside it. The user sees the change on the page.</p>
+  <p>Banking example: the "Available balance" line updating after a deposit.</p>
+  <h3>Dialogs</h3>
+  <p>alert shows a message in a pop-up. confirm asks a yes or no question. prompt asks the user to type text.</p>
+  <p>Banking example: alert is "Payment sent". confirm is "Are you sure you want to transfer R500?". prompt is "Enter your reference".</p>
+
+  <h2>Logic and pseudocode</h2>
+  <pre>
+WHEN the page loads
+  print a message in the console
+
+WHEN the user clicks "Update balance"
+  find the element with id "output"
+  replace its text with the new balance
+
+WHEN the user clicks "Send payment"
+  ASK confirm "Send R500?"
+  IF yes
+    ASK prompt for a reference
+    SHOW alert "Payment sent with reference ..."
+  ELSE
+    SHOW alert "Cancelled"
+  </pre>
+
+  <h2>Tips for understanding</h2>
+  <ul>
+    <li>Read it as "find something, then change something". Almost every DOM line does those two things.</li>
+    <li>Use console.log first when something doesn't work. It tells you whether your code ran and what the value was.</li>
+    <li>If the script can't find an element, check the script tag is at the bottom of the body.</li>
+    <li>confirm gives back true or false, and prompt gives back the typed text (or null if cancelled). Both are answers you can test with an if.</li>
+  </ul>
+
+  <h2>Still to practise</h2>
+  <p>Event handling in more detail and the ES6 features themselves.</p>
+</body>
+</html>

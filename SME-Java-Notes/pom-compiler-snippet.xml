@@ -1,0 +1,9 @@
+<!-- Fork javac and keep parameter names -->
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-compiler-plugin</artifactId>
+  <configuration>
+    <fork>true</fork>
+    <parameters>true</parameters>
+  </configuration>
+</plugin>

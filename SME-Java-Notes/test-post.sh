@@ -1,0 +1,2 @@
+# Send one payment to the running app
+curl -X POST http://localhost:8080/transactions -H "Content-Type: application/json" -d '{"transactionId":"TX001","customerId":"C101","amount":250.00,"currency":"ZAR","location":"Cape Town","timestamp":"2026-10-13T09:00:00"}'

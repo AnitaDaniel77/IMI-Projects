@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SME E12 Java: SafePay Lesson 2</title>
+</head>
+<body>
+  <h1>SME Session E12 Java: SafePay Lesson 2</h1>
+  <p>15 October 2026, 12:22 to 13:09. Presented by Hilbert. Repo: hilbertdev/SafePay</p>
+
+  <h2>What this lesson is about</h2>
+  <p>Lesson 1 read payments from a CSV file. Lesson 2 receives one payment at a time, sent as JSON over HTTP. Spring Boot gives us the pieces: an embedded web server (Tomcat), Spring Web MVC to route requests, and Jackson to turn JSON into a Java object. The domain class Transaction stays the same.</p>
+  <p>Banking example: a customer taps "Pay" in the Capitec app. The app doesn't hand the bank a CSV file. It sends one payment as JSON to an address on the bank's server, and the server decides whether to accept it.</p>
+
+  <h2>The pieces</h2>
+  <h3>Spring Initializr</h3>
+  <p>A website that generates an empty Spring Boot project. Settings used: Maven, Java, Spring Boot 4.1.1, group com.fraud-engine-service, artifact demo. Tick Spring Web so the controller and Tomcat are available.</p>
+  <h3>DemoApplication</h3>
+  <p>The start point. @SpringBootApplication tells Spring to scan the package, find our classes and start Tomcat on port 8080.</p>
+  <h3>application.properties</h3>
+  <p>Settings file. It only holds spring.application.name=demo for now.</p>
+  <h3>RiskController</h3>
+  <p>@RestController marks the class as a web endpoint that returns data, not pages. @PostMapping("/transactions") says: when a POST arrives at /transactions, run this method. @RequestBody tells Spring to read the JSON body and build the Java object from it.</p>
+  <h3>TransactionDto</h3>
+  <p>A small class that mirrors the JSON coming in. DTO means data transfer object. It keeps the outside shape of the data separate from the Transaction domain class.</p>
+
+  <h2>Logic</h2>
+  <pre>
+START the application
+  Spring starts Tomcat on port 8080
+
+WHEN a request arrives
+  IF method is POST and path is /transactions
+    read the JSON body
+    Jackson maps each JSON field to a field on the DTO
+    return the payment back with status 200
+  ELSE IF path is /transactions but method is GET
+    Spring replies 405 Method Not Allowed
+  </pre>
+
+  <h2>Testing it</h2>
+  <p>Run the app, then send the sample payment with curl (TX001, C101, 250.00, ZAR, Cape Town, 2026-10-13T09:00:00). A GET to the same address gives 405, because only POST is mapped. That error means the server is working and you used the wrong verb.</p>
+  <p>Hilbert also had AI generate an index.html with a form that posts the same JSON and shows "Accepted" when the server replies.</p>
+
+  <h2>The bug we hit</h2>
+  <p>The request returned 200 but every field came back empty. Cause: the Java compiler dropped the parameter names, so Jackson couldn't match JSON keys to constructor or method parameters. Fix: make Maven fork the compiler (so it runs as a separate javac) and pass the -parameters flag. Then the TransactionDto was introduced so the controller takes one clear object. A Maven build failure showed at 13:06 while applying the change, and the session ended before the final fix.</p>
+
+  <h2>Tips for understanding</h2>
+  <ul>
+    <li>Read the annotations as instructions to Spring: where to route, what to read, what to return.</li>
+    <li>405 means the address exists but the verb is wrong. 404 means the address doesn't exist.</li>
+    <li>Empty fields with a 200 response almost always means a mapping problem, not a server problem.</li>
+    <li>JSON key names must match the Java field names, including capital letters.</li>
+  </ul>
+
+  <h2>Still to practise</h2>
+  <p>Validating the payment before accepting it, and handing it to the fraud rules from Lesson 1.</p>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Data Types and Variables</title>
+</head>
+<body>
+  <h1>JavaScript Data Types and Variables</h1>
+
+  <h2>What a variable is</h2>
+  <p>A variable is a named storage location that holds a value you can use later in your code. You declare it (reserve a spot in memory) with var, let or const, and you can optionally give it a starting value at the same time. That first assignment is called initialization.</p>
+  <p>Banking example: a variable is a labelled account. The label is "savingsBalance" and the money inside is the value. You can look at it, add to it, or pay from it.</p>
+
+  <h2>The three keywords</h2>
+  <h3>var</h3>
+  <p>The original way. It has function-level scope, so a var is visible everywhere inside the function where it was declared, even outside the block it sits in.</p>
+  <h3>let</h3>
+  <p>Introduced in ES6. It has block-level scope, so it only exists inside the curly braces where it was declared. It can be reassigned but not redeclared in the same block. This is more predictable and causes fewer bugs.</p>
+  <h3>const</h3>
+  <p>Also from ES6, with block-level scope. Once it has a value you can't reassign it or redeclare it. Use it for values that shouldn't change, like a fixed fee or a constant.</p>
+  <p>Banking example: var is a key that opens every room in the branch. let is a key for one room only. const is a sealed envelope: you can read it, but you can't swap what's inside for something else.</p>
+
+  <h2>Naming rules</h2>
+  <p>A name must start with a letter, an underscore or a dollar sign. After that it can contain letters, numbers, underscores and dollar signs. Names are case sensitive, so balance and Balance are two different variables.</p>
+
+  <h2>Data types</h2>
+  <p>JavaScript is dynamically typed. You don't state the type when you declare a variable, because it's worked out at runtime from the value you assign. The same variable can later hold a different type.</p>
+  <h3>Primitive types</h3>
+  <p>String is text in single or double quotes. Number covers whole numbers and decimals. Boolean is true or false. Undefined means declared but with no value yet. Null means an empty value, set on purpose.</p>
+  <h3>Composite types</h3>
+  <p>These hold several values as one unit. An array is a list of values. An object is a collection of key and value pairs.</p>
+  <p>Banking example: string is the account holder's name. Number is the balance. Boolean is "isActive". Undefined is a new account whose limit hasn't been set. Null is "no linked card". An array is the list of the last five transactions. An object is one customer record with name, id and balance.</p>
+
+  <h2>Logic and pseudocode</h2>
+  <pre>
+DECLARE const bankName = "Capitec"
+DECLARE let balance = 1000
+DECLARE a variable with no value (it is undefined)
+
+IF something is true
+  DECLARE let and var inside the block
+  AFTER the block
+    let is gone, var is still available
+
+TRY to change bankName
+  ERROR, const cannot be reassigned
+
+CHANGE balance to 1500, this is fine
+
+STORE a list of amounts in an array
+STORE name, id and balance in an object
+SHOW the type of each value
+  </pre>
+
+  <h2>Tips for understanding</h2>
+  <ul>
+    <li>Default to const. Switch to let only when you know the value will change. Avoid var in new code.</li>
+    <li>Ask "where can I still use this variable?" That's scope. Curly braces are the boundary for let and const.</li>
+    <li>Use typeof to check what a value is when the result surprises you.</li>
+    <li>const stops reassignment, not change inside an array or object. You can still add an item to a const array.</li>
+    <li>undefined means nobody gave it a value. null means somebody emptied it on purpose.</li>
+  </ul>
+
+  <h2>Still to practise</h2>
+  <p>Working with arrays and objects in more depth, and operators on these types.</p>
+</body>
+</html>

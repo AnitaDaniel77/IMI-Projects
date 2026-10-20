@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Array Methods</title>
+</head>
+<body>
+  <h1>JavaScript Array Methods</h1>
+
+  <h2>What they are for</h2>
+  <p>Arrays come with built-in methods for common jobs: going through every element, transforming data, picking out some of it, adding it up, and searching. The five in this lecture are forEach, map, filter, reduce and find. Each one takes a function and runs it on the elements for you, so you don't write the loop yourself.</p>
+  <p>Banking example: you have a month of transactions and you want to print them, pull out the amounts, keep only the big ones, total them, and find one by reference. Five questions, five methods.</p>
+
+  <h2>forEach</h2>
+  <p>Runs a function on every element and gives nothing back. Use it when you want an action for each item, a side effect such as logging or sending a message, and you don't need a new array. The lecture sends a welcome email to each user in a users array by calling a sendWelcomeEmail function with each user's email.</p>
+  <p>Banking example: send an SMS alert to every customer on a list.</p>
+
+  <h2>map</h2>
+  <p>Builds a new array by running a function on each element and collecting the results. The original array isn't changed. Use it to transform data, for example turning an array of product objects into an array of prices or into display messages. The lecture's example logs a message with the name and price of each product using a template string.</p>
+  <p>Banking example: turn a list of transaction objects into a list of just the amounts, or into lines like "Rent: R1200".</p>
+
+  <h2>filter</h2>
+  <p>Builds a new array with only the elements that pass a test. The function returns true to keep an element and false to drop it. The lecture wraps it in a function that takes a list, a minimum price and a maximum price, then loops over the result to print each product in that range.</p>
+  <p>Banking example: show only the transactions between R500 and R2000.</p>
+
+  <h2>reduce</h2>
+  <p>Boils the whole array down to one value. The function receives the running total so far and the current element, and returns the new running total. You give it a starting value, usually 0. The lecture adds up an array of order prices, and its total comes to 160.</p>
+  <p>Banking example: the closing balance, which is every deposit and payment added into one number.</p>
+
+  <h2>find</h2>
+  <p>Returns the first element that matches a condition, and stops looking once it has one. If nothing matches it returns undefined. The lecture searches an employees array for the employee whose id equals 2 and prints the details with a template string.</p>
+  <p>Banking example: look up one customer by their customer number.</p>
+
+  <h2>Logic and pseudocode</h2>
+  <pre>
+FOR EACH customer in customers          forEach
+  SHOW "Alert sent to " + email
+
+NEW LIST amounts = FROM each transaction  map
+  TAKE its amount
+
+NEW LIST big = FROM transactions          filter
+  KEEP only those with amount >= 500
+
+total = START at 0                        reduce
+  FOR each amount, ADD it to the total
+
+match = FIRST transaction where           find
+  reference equals "TX002"
+IF no match, result is undefined
+  </pre>
+
+  <h2>Tips for understanding</h2>
+  <ul>
+    <li>Ask what you want back. Nothing: forEach. A new list of the same length: map. A shorter list: filter. One value: reduce. One item: find.</li>
+    <li>map, filter and reduce don't change the original array. They give you something new, so store the result in a variable.</li>
+    <li>The lecture logs inside map, but map's real job is to return a new array. If you only want to log, forEach is the cleaner choice.</li>
+    <li>In reduce, the first parameter is the running total and the second is the current item. Don't forget the starting value.</li>
+    <li>find gives you the item itself, or undefined. Always check for undefined before using the result.</li>
+  </ul>
+
+  <h2>Still to practise</h2>
+  <p>Chaining methods, such as filter then map then reduce, and some, every and sort.</p>
+</body>
+</html>

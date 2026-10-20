@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Functions and Prototypes</title>
+</head>
+<body>
+  <h1>JavaScript Functions and Prototypes</h1>
+
+  <h2>Parts of a function</h2>
+  <p>A function is a block of code you can call from anywhere in the script once it's declared. It has four parts: the function keyword, a name, parentheses holding optional parameters, and curly braces holding the logic. The last statement can be a return, which hands a value back to whatever called it.</p>
+  <p>Banking example: a function is the "calculate monthly fee" procedure. The teller hands it an amount, it does the steps, and it returns the fee.</p>
+
+  <h2>No types declared</h2>
+  <p>You don't state the data type of the parameters or the return value. JavaScript decides from the values you pass in. The lecture's add function shows it: two numbers get added, two strings get joined together.</p>
+  <p>Banking example: 100 + 50 is a balance of 150. "Cape" + "Town" is a branch name. Same function, different input, different result.</p>
+
+  <h2>Constructor functions and this</h2>
+  <p>A function can act as a blueprint for objects. The lecture's Car function takes make, model and year. You run it with the new keyword, for example new Car with Meridian, Saber GT and 2012, and store the result in a variable. Inside the function, this means the object currently being built. this.model is the property on the new object. model on its own is the parameter that was passed in.</p>
+  <p>Banking example: an Account constructor is the account-opening form. Each new customer gets their own account object, and this.balance is that customer's balance, not anybody else's.</p>
+
+  <h2>Prototypes</h2>
+  <p>Every object made with new inherits from a prototype. If you want a new property on a constructor function, you'd have to edit the function itself. With a prototype you add a property or method in one call, and every object made from that constructor gets it, including objects that already exist. If the prototype changes, all the objects using it pick up the change.</p>
+  <p>In the lecture, a getName method is added to the Car prototype. The existing car c can then call it too, without being rebuilt.</p>
+  <p>Banking example: the bank adds a new "view mini statement" feature. It goes into the shared account template once, and every account, old and new, can use it straight away.</p>
+
+  <h2>Self-executing functions</h2>
+  <p>A normal function waits until you call it. A self-executing function (auto-invocation, also called an IIFE) runs as soon as it's declared. Its variables stay inside it, so they don't clash with the rest of the script. It can be unnamed. It's often used to set up data or build DOM elements when the page loads.</p>
+  <p>Banking example: the opening-routine at a branch. It runs once as the doors open, does its checks in private, and nobody outside sees its working notes.</p>
+
+  <h2>Logic and pseudocode</h2>
+  <pre>
+DEFINE add (a, b)
+  GIVE BACK a + b
+CALL add with 3 and 4          gives 7
+CALL add with "Cape", "Town"   gives "CapeTown"
+
+DEFINE Car (make, model, year)
+  this.make = make
+  this.model = model
+  this.year = year
+CREATE c = new Car("Meridian", "Saber GT", 2012)
+
+ADD getName to the Car prototype
+  GIVE BACK make, model and year of this car
+CALL c.getName    works, even though c existed before
+
+RUN a function the moment it is declared (IIFE)
+  keep its variables private
+  </pre>
+
+  <h2>Tips for understanding</h2>
+  <ul>
+    <li>Read new Car(...) as "build me one car from this blueprint". this is just the car being built.</li>
+    <li>If a method is on the prototype, there's one copy shared by all objects. If it's written inside the constructor, every object gets its own copy.</li>
+    <li>Check whether a name is a parameter or a property. model is the input, this.model is what's stored.</li>
+    <li>Forgetting new is a classic mistake. Without it, this points at the wrong thing and the properties never reach your object.</li>
+    <li>For an IIFE, look for the extra pair of parentheses at the end. That pair is what makes it run.</li>
+  </ul>
+
+  <h2>Still to practise</h2>
+  <p>Writing my own constructor functions and prototype methods without a reference, and ES6 classes, which do the same job with newer syntax.</p>
+</body>
+</html>

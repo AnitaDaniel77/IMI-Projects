@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Introduction to JavaScript Arrays</title>
+</head>
+<body>
+  <h1>Introduction to JavaScript Arrays</h1>
+
+  <h2>What an array is</h2>
+  <p>An array stores a collection of values in one variable. The values can be numbers, strings, objects or even other arrays. Arrays are ordered, so each element sits in a fixed position, and you reach it by its index. Indexes are zero-based: the first element is at 0, the second at 1, and so on.</p>
+  <p>Banking example: an array is your list of recent transactions. The newest payment is at the top, the one before it is second, and you can ask for any line by its position.</p>
+
+  <h2>Creating and reading</h2>
+  <p>Use square brackets with the elements separated by commas. The lecture's example is a fruits array holding apple, banana and cherry. To read an element, put its index in square brackets. fruits at 0 gives apple, fruits at 1 gives banana. The length property tells you how many elements there are, which is 3 here.</p>
+  <p>Banking example: transactions at 0 is the latest payment. transactions.length is how many payments are on the list.</p>
+
+  <h2>Arrays are mutable</h2>
+  <p>You can change, add or remove elements after creating the array. Setting fruits at 2 to strawberry replaces cherry, so the array becomes apple, banana, strawberry.</p>
+  <p>Banking example: correcting one line on a statement after a payment is reversed. The list is the same, one entry changes.</p>
+
+  <h2>Built-in methods</h2>
+  <p>JavaScript gives you ready-made methods: push, pop, shift, unshift, splice, slice, concat, map, filter and more. The lecture shows two. push adds an element to the end, so adding orange gives apple, banana, cherry, orange. pop removes the last element.</p>
+  <p>Banking example: push is a new payment landing at the bottom of the list. pop is removing the last entry. shift and unshift do the same at the front.</p>
+
+  <h2>Arrays inside arrays</h2>
+  <p>An array can hold other arrays. The lecture's matrix has three sub-arrays, each one a row. This is how you model tables and grids, which is any data with rows and columns.</p>
+  <p>Banking example: a month of transactions as rows, with each row holding the date, description and amount.</p>
+
+  <h2>Looping through an array</h2>
+  <p>To process every element, use a for loop or the newer methods: forEach, map, filter and reduce. The lecture names these without going into detail, so they come up in later lessons.</p>
+
+  <h2>Logic and pseudocode</h2>
+  <pre>
+CREATE amounts = [250, 80, 1200]
+READ the first item          amounts[0]  gives 250
+COUNT the items              amounts.length  gives 3
+
+CHANGE the third item to 900 amounts[2] = 900
+ADD 60 to the end            push
+REMOVE the last item         pop
+
+CREATE grid = [[1, 2], [3, 4]]
+READ row 1, column 0         grid[1][0]  gives 3
+
+FOR each amount in amounts
+  SHOW the amount
+  </pre>
+
+  <h2>Tips for understanding</h2>
+  <ul>
+    <li>Count from zero. If an array has 3 items, the last index is 2, so last item is array[length - 1].</li>
+    <li>A const array can still change. const stops you replacing the whole array, not changing what's inside it.</li>
+    <li>push and pop work at the end, shift and unshift work at the front. Say them out loud as "add to end, remove from end".</li>
+    <li>For a nested array, read left to right: grid[1][0] is row 1, then column 0.</li>
+    <li>Index out of range gives undefined, not an error. If you see undefined, check your index first.</li>
+  </ul>
+
+  <h2>Still to practise</h2>
+  <p>forEach, map, filter and reduce, and the methods splice and slice.</p>
+</body>
+</html>

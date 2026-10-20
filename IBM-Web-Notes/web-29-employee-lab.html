@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lab: Display Employee Information using Array Methods</title>
+</head>
+<body>
+  <h1>Lab: Display Employee Information using Array Methods</h1>
+
+  <h2>What the lab builds</h2>
+  <p>A small employee management page. One array holds the employee records, and four buttons each call a function that uses a different array method: display everyone (map), add up salaries (reduce), show only HR staff (filter), and look up one employee by ID (find). The results appear in a div on the page without reloading it.</p>
+  <p>Banking example: a branch staff list. One button shows the full branch team, one totals the monthly payroll, one shows only the staff in a certain department, and one looks up a staff member by employee number.</p>
+
+  <h2>How the page is wired</h2>
+  <p>The HTML has four buttons and an empty div with the id employeesDetails. Each button has an onclick attribute that names the function to run. The script tag sits just before the closing body tag, so the div exists before the JavaScript tries to find it.</p>
+  <p>The employees array holds objects with id, name, age, department and salary. All four functions read from this one array.</p>
+
+  <h2>The four functions</h2>
+  <h3>displayEmployees</h3>
+  <p>Uses map to turn each employee object into a line of HTML (a p tag with the id, name, department and salary), then join to glue the lines into one string. That string is written into the div with innerHTML.</p>
+  <h3>calculateTotalSalaries</h3>
+  <p>Uses reduce with a starting total of 0. For each employee it adds their salary to the running total. The final total is shown in an alert.</p>
+  <h3>displayHREmployees</h3>
+  <p>Uses filter to keep only employees whose department is HR, then map and join to build the lines, and writes them into the div.</p>
+  <h3>findEmployeeById</h3>
+  <p>Uses find to get the first employee whose id matches the one passed in. If one is found it's displayed, otherwise the page shows "no employee has been found with this ID".</p>
+
+  <h2>Practice task</h2>
+  <p>Add a specialization key to every employee object, add a fifth button, and write a function that shows only the employees who specialise in JavaScript. It follows the same pattern as the HR filter: filter by specialization, then map and join to display. If nobody matches, show a message instead of a blank page.</p>
+
+  <h2>Logic and pseudocode</h2>
+  <pre>
+STORE employees = list of objects (id, name, age, department, salary, specialization)
+
+WHEN "Display Employees" is clicked
+  lines = FOR each employee, BUILD one line of HTML     map
+  JOIN the lines into one string
+  PUT the string into the page div
+
+WHEN "Calculate Total Salaries" is clicked
+  total = START at 0, ADD each salary                   reduce
+  SHOW total in an alert
+
+WHEN "Display HR Employees" is clicked
+  hr = KEEP employees where department is HR            filter
+  SHOW them like displayEmployees
+
+WHEN "Find Employee by ID 2" is clicked
+  match = FIRST employee with id 2                      find
+  IF match, SHOW it
+  ELSE SHOW "no employee has been found with this ID"
+
+WHEN "Find JavaScript Specialists" is clicked (practice)
+  list = KEEP employees where specialization is JavaScript   filter
+  IF list is empty, SHOW a message
+  ELSE SHOW them
+  </pre>
+
+  <h2>Tips for understanding</h2>
+  <ul>
+    <li>Read each function as "pick the data, then show it". The array method picks, innerHTML shows.</li>
+    <li>The same line of HTML was repeated in three functions in the lab. A helper function that builds one line keeps them identical and easier to fix.</li>
+    <li>If nothing appears, check the div id matches exactly: employeesDetails.</li>
+    <li>If a button does nothing, check the function name in onclick matches the function in the JS file, letter for letter.</li>
+    <li>filter always returns a list, even an empty one. find returns one item or undefined. That's why the ID search needs an if and the HR filter doesn't.</li>
+    <li>innerHTML replaces what was in the div each time, so each button click shows a fresh result.</li>
+  </ul>
+
+  <h2>Still to practise</h2>
+  <p>Building the display without innerHTML, using createElement, and chaining filter and reduce, for example totalling only the HR salaries.</p>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>web-32: Single Page Portfolio Website</title>
+</head>
+<body>
+  <h1>web-32: Single Page Portfolio Website (Coursera final project)</h1>
+
+  <h2>What the project is</h2>
+  <p>A one-page portfolio built on a starter: HTML for the structure, CSS for the look, and a little JavaScript for the recommendation form. The job was to personalise the starter and fix the small gaps, then prove each change with screenshots. Result: 19/20 (95%).</p>
+  <p>Real-life example: the starter is a furnished flat. You don't build walls, you put your name on the door, hang your photo, and fix the things that don't work yet.</p>
+
+  <h2>The tasks, in order</h2>
+  <ol>
+    <li>Profile: put my name, a pseudo email and a pseudo phone number in the top-left of the purple bar.</li>
+    <li>Navigation: four links (About Me, Project Details, Skills, Recommendations), each pointing at a section id, with bold and underline on hover.</li>
+    <li>About Me: my own photo and an updated intro paragraph.</li>
+    <li>Skills: five skill cards, each with a logo, a name and the experience line.</li>
+    <li>Projects: three projects with a heading and one bullet each.</li>
+    <li>Recommendations: three tiles in the starter's quote format.</li>
+    <li>Form: Submit adds the typed message as a new tile.</li>
+    <li>Popup: a thank-you box that appears after a valid submit, closed with Ok.</li>
+    <li>Home icon: the round arrow button that jumps back to the top.</li>
+  </ol>
+
+  <h2>How the pieces connect</h2>
+  <p>Every nav link uses href="#something". The browser looks for the element with that id and scrolls to it, so the link text and the section id have to match exactly. The home icon works the same way, pointing at the id of the nav bar at the top.</p>
+  <p>Real-life example: the nav bar is a building directory. "Skills, floor 3" only works if floor 3 actually has that name on its door.</p>
+  <p>The form does three things in a row: read the textarea, build a new tile, show the popup. An empty message does nothing, so the popup only appears when there is something to add.</p>
+  <p>Real-life example: a suggestion box with a clerk who throws away blank slips, and only rings the bell when a real one drops in.</p>
+
+  <h2>Pseudocode</h2>
+  <p>Adding a recommendation:</p>
+```
+  WHEN Submit is clicked:
+      text = value of the Message box
+      IF text is empty:
+          do nothing
+      ELSE:
+          tile = new div with class "recommendation"
+          tile content = opening quote + text + closing quote
+          add tile to the end of the recommendations list
+          clear the Message box
+          show popup
+```
+  <p>Popup:</p>
+```
+  showPopup(visible):
+      IF visible is true: make the popup visible
+      ELSE: hide the popup
+  Ok button calls showPopup(false)
+```
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Read the page top to bottom and ask of each section, "what id does it have, and which link points at it?"</li>
+    <li>If a link does nothing, compare the href and the id letter by letter. Case matters.</li>
+    <li>If an image is blank, check the path and the exact file name. Anita.jpeg is not anita.jpg on GitHub or in the lab.</li>
+    <li>If the popup never shows, check that showPopup(true) is called inside the branch that handles a non-empty message.</li>
+    <li>Change one thing, refresh, look. Don't edit five things and then refresh.</li>
+  </ul>
+
+  <h2>Problems I hit</h2>
+  <ul>
+    <li>Photo path mismatch (jpg versus jpeg). Fixed by matching the real file name.</li>
+    <li>Photo was blurry and too big. Fixed by giving it a fixed width and height with object-fit: cover.</li>
+    <li>Skill cards were cut off in screenshots. Fixed by zooming the browser out before capturing.</li>
+  </ul>
+
+  <h2>Screenshot checklist</h2>
+  <p>profile_name, aboutme, nav_bar (with a hover), skills, projects, recommendations, new_recommendation, popup, home_icon, functionality (name, nav and skills row in one shot).</p>
+
+  <h2>Still need more practice with</h2>
+  <p>Writing the form logic from a blank file, since I started from the starter. The next step is to rebuild it from scratch without looking.</p>
+</body>
+</html>

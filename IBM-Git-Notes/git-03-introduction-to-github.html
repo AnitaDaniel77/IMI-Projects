@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>git-03: Introduction to GitHub</title>
+</head>
+<body>
+  <h1>git-03: Introduction to GitHub</h1>
+
+  <h2>What this lesson covers</h2>
+  <p>Why source repositories exist, where Git came from, what makes the Git repository model special, and how GitHub (and GitLab) fit around it.</p>
+
+  <h2>Where Git came from</h2>
+  <p>In the early 2000s, Linux development was managed with a free-to-use tool called BitKeeper. In 2005 BitKeeper became a paid system, which was a problem for Linux developers. Linus Torvalds led a small team that built a replacement in a short time, and that replacement is Git.</p>
+  <p>Real-life example: a community that has always borrowed a free hall for meetings is suddenly told it will cost money. Instead of paying, they build their own hall, and design it exactly around how they meet.</p>
+
+  <h2>What Git had to do (the design goals)</h2>
+  <ul>
+    <li>Strong support for non-linear development. Linux patches were arriving at about 6.7 per second, so many people had to work at once.</li>
+    <li>Distributed development. Each developer has a local copy of the full development history.</li>
+    <li>Compatible with existing systems and protocols, because the Linux community is very varied.</li>
+    <li>Efficient with large projects.</li>
+    <li>Cryptographic authentication of history, so every system can be sure it has identical code and updates.</li>
+    <li>Pluggable merge strategies, because many paths of development lead to complex integration decisions that may need an explicit strategy.</li>
+  </ul>
+  <p>Real-life example: a busy bank branch at month end. Many tellers work at the same time, each with their own set of records, and the records must still match when the day closes. Git was designed for exactly that kind of parallel work.</p>
+
+  <h2>What is special about the Git repository model</h2>
+  <ul>
+    <li>Git is a distributed version-control system, created in 2005 by Linus Torvalds for distributing Linux kernels.</li>
+    <li>It is mainly about tracking source code during development, and it has what's needed to coordinate programmers, track changes and support non-linear workflows.</li>
+    <li>It acts as a central point for collaboration, with a particular focus on agile development methods.</li>
+  </ul>
+
+  <h2>Central versus distributed</h2>
+  <p>In a central version control system, every developer checks code out of one central system and commits back into it. In a distributed one like Git, every developer has a local copy of the full history, and changes are copied from one repository to another. Any developer can act as a hub.</p>
+  <p>Real-life example: a central system is one library with one copy of each book, and everyone queues. Git is every reader owning a full copy of the library, then swapping updates.</p>
+
+  <h2>How teams use it well</h2>
+  <p>When Git is used correctly, the main branch corresponds to the deployable code. Teams continuously integrate the changes that are ready to be released, and work on separate branches in between releases. Git also allows centralised administration with access-level controls for each team.</p>
+  <p>Banking example: main is what's live in production. A new feature lives on its own branch until it's reviewed and tested, then it's merged into main.</p>
+
+  <h2>GitHub</h2>
+  <ul>
+    <li>GitHub is an online hosting service for Git repositories, run by a subsidiary of Microsoft.</li>
+    <li>It has free, professional and enterprise accounts.</li>
+    <li>By August 2019 it held over 100 million repositories.</li>
+    <li>You can use it with a local client such as GitHub Desktop, or directly in the browser through the web interface.</li>
+    <li>IBM Cloud is built on established open-source tools including Git repositories, often called repos.</li>
+  </ul>
+  <p>A repository is a data structure for storing documents, including application source code, that can track and maintain version control.</p>
+
+  <h2>GitLab</h2>
+  <p>GitLab is a complete DevOps platform delivered as a single application. It gives access to Git repositories with source code management. Developers can collaborate by reviewing code and commenting on each other's work, work from their own local copy, branch and merge when needed, and streamline testing and delivery with built-in continuous integration (CI) and continuous delivery (CD).</p>
+
+  <h2>Pseudocode: what happens when two developers work in parallel</h2>
+  ```
+  each developer clones the repository (full history on their machine)
+  developer A creates branch "feature-a"
+  developer B creates branch "feature-b"
+  A and B commit locally, without waiting for each other
+  A pushes feature-a, B pushes feature-b
+  review each branch
+  merge feature-a into main
+  merge feature-b into main
+  IF both changed the same lines: resolve the conflict, then merge
+  ```
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Distributed means every copy is complete. If GitHub disappeared tomorrow, any clone could rebuild the project.</li>
+    <li>Git came first, and GitHub is a service built around it. Don't mix them up in an interview.</li>
+    <li>Main should always be deployable, so don't work on it directly. Branch, then merge.</li>
+    <li>GitHub and GitLab do the same basic job. GitLab adds built-in CI/CD as part of one DevOps platform.</li>
+  </ul>
+
+  <h2>Recap</h2>
+  <p>GitHub is the online hosting service for Git repositories. Repositories store documents, including source code, and let contributors track and maintain version control. Git's model is distributed, focused on tracking source code, and built for coordinating programmers and non-linear work.</p>
+</body>
+</html>

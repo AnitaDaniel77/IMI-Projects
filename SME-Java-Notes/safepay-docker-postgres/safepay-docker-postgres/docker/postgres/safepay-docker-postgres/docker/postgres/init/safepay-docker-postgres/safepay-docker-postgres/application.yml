@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/safepay   # localhost is fine when running outside Docker
+    username: safepay-api
+    password: admin   # demo only, aware this is not production practice
+  jpa:
+    hibernate:
+      ddl-auto: update   # tables created and updated automatically

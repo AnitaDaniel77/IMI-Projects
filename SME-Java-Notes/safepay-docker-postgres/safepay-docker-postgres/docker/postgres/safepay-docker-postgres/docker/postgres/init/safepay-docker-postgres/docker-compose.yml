@@ -1,0 +1,29 @@
+services:
+  postgres:
+    build: ./docker/postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres   # demo only, real secrets come from a secrets manager
+    volumes:
+      - safepay-postgres-data:/var/lib/postgresql/data   # keeps data between restarts
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d safepay"]
+      interval: 5s
+      retries: 10
+
+  safepay-api:
+    build: .   # the Dockerfile in the repo root
+    ports:
+      - "8080:8080"
+    environment:
+      # service name, not localhost, because localhost here means this container
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/safepay
+      SPRING_DATASOURCE_USERNAME: safepay-api
+      SPRING_DATASOURCE_PASSWORD: admin   # demo only
+    depends_on:
+      postgres:
+        condition: service_healthy   # wait until the database is really ready
+
+volumes:
+  safepay-postgres-data:

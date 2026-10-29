@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>git-07: GitHub Branches</title>
+</head>
+<body>
+  <h1>git-07: GitHub Branches</h1>
+
+  <h2>What this lesson covers</h2>
+  <p>What a branch is for, how to create one, how to commit with a good message, how a pull request works, and how to merge changes back into main in the GitHub web interface.</p>
+
+  <h2>What a branch is</h2>
+  <p>Every file in GitHub is stored on a branch. The main branch is the definitive one and holds the deployable version of the code. It's created by default, though any branch can be used as the main, finished version. When I plan a change, I create a new branch and give it a descriptive name. It starts as an exact copy of the original, and as I change things it holds the changed code.</p>
+  <p>Real-life example: a signed contract stays in the safe (main). To suggest changes, I photocopy it, mark up the copy (branch), and only swap it in once everyone agrees.</p>
+  <p>Banking example: main is what's live in the app. A "add-fraud-rule-velocity-check" branch holds the work in progress, and customers never see it until it's merged.</p>
+
+  <h2>Creating a branch</h2>
+  <p>Click the branch dropdown (it says main), type the new branch name in the text box, and select "Create branch".</p>
+
+  <h2>How branches develop</h2>
+  <p>For a simple project it looks like this: start from a common base, then branch while new features are built. Both branches can be changing at the same time. When the two streams of work are ready to join, the latest commit on each branch (its tip) is identified, and the two tips are merged into a third, combined branch. On large projects branches can get very complex, but the idea stays the same.</p>
+  <p>Real-life example: two people editing different chapters of the same report on their own copies, then combining them into one final version.</p>
+
+  <h2>Editing and committing</h2>
+  <p>To change a file: select it, click the pencil icon, make the changes, then commit. A commit says I'm confident the code is a stable platform for the feature, or set of features, I'm working on. Every commit needs a comment that describes the change, and it should be meaningful and descriptive. I can commit to the current branch or create a new branch for it, then click "Commit changes".</p>
+
+  <h2>Good commit messages</h2>
+  <ul>
+    <li>Don't end the message with a period.</li>
+    <li>Keep it under 50 characters.</li>
+    <li>Put the details in the extended description window.</li>
+    <li>Write in the active voice, for example "Add velocity rule" rather than "A velocity rule was added".</li>
+  </ul>
+
+  <h2>Pull requests</h2>
+  <p>A pull request makes my committed changes available for others to review and use. It can follow any commit, even when the code is unfinished. Someone has to approve the changes, either the author or a person assigned within the team. GitHub makes a pull request automatically if I change a branch I don't own. Because the log files can't be changed after the fact, it's always possible to find who approved a merge.</p>
+  <p>Real-life example: handing a drafted letter to your manager. She reads it, asks for fixes or signs it off, and her name stays on the approval.</p>
+
+  <h2>Opening a pull request</h2>
+  <ol>
+    <li>Click "Pull requests", then "New pull request".</li>
+    <li>Select my new branch in the compare box.</li>
+    <li>Scroll down and check the changes are what I want reviewed.</li>
+    <li>Add a title and a description.</li>
+    <li>Click "Create pull request".</li>
+  </ol>
+
+  <h2>Merging</h2>
+  <p>The intent of the Git model is that main is the only deployed code. Developers change files on a branch, and the changes aren't released until they are reviewed, approved and merged back into main. To merge: click "Merge pull request", then "Confirm merge". Once all the changes on a branch are complete, the branch is obsolete and should be deleted.</p>
+
+  <h2>Pseudocode: the whole branch flow</h2>
+  ```
+  create a branch from main with a descriptive name
+  edit files on the branch
+  commit with a short, active-voice message
+  open a pull request (compare my branch with main)
+  add a title and description
+  reviewer checks the changes
+  IF approved: Merge pull request, Confirm merge
+  ELSE: make more commits on the branch
+  delete the branch
+  ```
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Never work directly on main. Branch, change, review, merge.</li>
+    <li>One branch should do one job. A name like "fix-login-error" tells the team what's in it.</li>
+    <li>A commit is local to its branch. Main stays the same until the merge.</li>
+    <li>A pull request is a conversation about the change. The merge is the last click.</li>
+    <li>Delete merged branches, so the branch list only shows work that's still going on.</li>
+  </ul>
+
+  <h2>Recap</h2>
+  <p>All files exist on a branch, and main holds the deployable version. New branches start as exact copies and hold my changes. More than one branch can change at once. Saved changes are commits. Pull requests let others review the commits, and merging brings the approved changes into main.</p>
+</body>
+</html>

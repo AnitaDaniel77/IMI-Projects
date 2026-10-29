@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>git-05: Create and Edit a Repository on the Web</title>
+</head>
+<body>
+  <h1>git-05: Create and Edit a Repository on the Web</h1>
+
+  <h2>What this lesson covers</h2>
+  <p>A hands-on walkthrough in the GitHub web interface: create a repository, edit the README, create a new file in the browser editor, edit it again, and upload files from my own computer. The only prerequisite is a GitHub account that I'm logged in to.</p>
+
+  <h2>1. Create a repository</h2>
+  <p>Click the + icon, then New repository. Then fill in:</p>
+  <ul>
+    <li>A repository name.</li>
+    <li>An optional description.</li>
+    <li>Visibility, public or private.</li>
+    <li>The option to initialise the repository with a README file.</li>
+  </ul>
+  <p>Click Create repository. GitHub takes me to the new repository, and the root folder shows one file, README.md.</p>
+  <p>Real-life example: opening a new project folder and putting a cover sheet on the front that says what's inside.</p>
+
+  <h2>2. Edit the README in the browser</h2>
+  <p>Click the pencil icon to open the online editor and change the text. Nothing is saved to the repository until I commit. Scroll to the "Commit changes" section, add a commit message (and optionally a description), then click Commit changes. Going back to the repository home page by clicking the repository name shows the updated README.</p>
+  <p>Real-life example: editing a Word document does nothing for the team until I click Save. A commit is that Save, with a note saying what I changed and why.</p>
+
+  <h2>3. Create a new file in the web editor</h2>
+  <p>Click Add file, then Create new file. In the video the file is a Python file called firstpython.py. The order is: type the file name, add a comment describing the code, add the code, then commit. The file then appears in the repository listing, with when it was added or changed.</p>
+  <p>To change it later: click the file name, click the pencil icon, make the edits and commit again.</p>
+
+  <h2>4. Upload files from my computer</h2>
+  <p>From the repository home screen click Add file, then Upload files, then Choose your files and pick them from my machine. The upload may take a short time depending on size. When it finishes, click Commit changes and the repository shows the new files.</p>
+  <p>Banking example: a branch uploading scanned forms to the shared records system. They go in as files, and the commit records who added them and when.</p>
+
+  <h2>Pseudocode: the web editing cycle</h2>
+  ```
+  click + then New repository
+  name it, describe it, pick public or private, tick README
+  click Create repository
+
+  to edit a file:
+      open the file
+      click the pencil
+      change the text
+      write a commit message
+      click Commit changes
+
+  to add a file:
+      click Add file
+      IF writing a new file: Create new file, type name and content
+      ELSE: Upload files, choose files from my machine
+      click Commit changes
+  ```
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Every change on GitHub ends with a commit. If I haven't committed, it isn't saved.</li>
+    <li>Write commit messages that say what changed, such as "Add firstpython.py with hello example", not "update".</li>
+    <li>The web editor is good for small edits. For real projects I'll use Git Bash and my own editor.</li>
+    <li>A comment at the top of a file explaining what it does is a habit employers notice.</li>
+    <li>If I upload a file and nothing appears, I probably forgot to click Commit changes at the end.</li>
+  </ul>
+
+  <h2>Recap</h2>
+  <p>I can create a repository, edit files, create new files and upload files, and commit each change, all through the web interface.</p>
+</body>
+</html>

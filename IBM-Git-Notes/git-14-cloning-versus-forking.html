@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Git 14: Cloning versus Forking</title>
+</head>
+<body>
+  <header>
+    <h1>Git 14: Cloning versus Forking</h1>
+    <p>IBM Git and GitHub course, Module 2. After this lesson you can explain the difference between cloning and forking, say when to use each, and describe both workflows.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>1. Local repo and remote repo</h2>
+      <p>A project on GitHub.com lives in a public or private repository. Each developer usually has two copies: the local repo on their own computer and the remote repo on GitHub.com. GitHub lets many developers work on the same code base in parallel by syncing these copies.</p>
+      <p>Analogy: a shared family photo album online (remote) and the copy you keep on your phone (local).</p>
+    </section>
+
+    <section>
+      <h2>2. When to fork</h2>
+      <p>Fork when you want a new or derivative project that starts from an existing one. The lesson's example is Grand Messaging, an existing project. You want Grand Messaging Plus with extra features, so you fork it and build on the existing code instead of starting from nothing.</p>
+      <p>Forking can only be done through the GitHub web interface: open the project page and click Fork. There is no native git command to create a fork.</p>
+      <p>The repo you fork from is the original upstream repository. The forked copy becomes the origin. Developers with access to the origin can clone it to their own machines.</p>
+      <p>Analogy: taking a house plan from an architect and building your own version with an extra room. The architect's plan is upstream, your copy of the plan is origin.</p>
+    </section>
+
+    <section>
+      <h2>3. Working on a fork</h2>
+      <p>After cloning the origin, you create a branch for your change, such as a feature, an enhancement or a bug fix. You commit the changes, push the branch, and ask for it to be merged into main on the origin. Pushing and merging only work on repos where you have write access.</p>
+      <p>Important: the upstream branch you set when pushing (the -u option) is not the same thing as the upstream repository. One is a tracking link for a branch, the other is the original project you forked from.</p>
+    </section>
+
+    <section>
+      <h2>4. Contributing back with a pull request</h2>
+      <p>If you want to contribute changes to the original upstream repo and you do not have write access, you submit a pull request (PR). On GitHub, open the Pull requests tab and choose New pull request. The upstream maintainers review it, give feedback, and merge it unless there are conflicts to resolve.</p>
+      <p>Analogy: handing your essay to the teacher with a note, "please consider adding this." The teacher decides.</p>
+    </section>
+
+    <section>
+      <h2>5. Branch and sync commands</h2>
+      <p>git branch creates a branch. git checkout makes it the active one. git add and git commit save your work. git push sends the branch to the remote, and the first push sets the upstream branch. A maintainer then reviews it before merging into main.</p>
+      <p>git merge takes independent lines of development in separate branches and integrates them into a single branch.</p>
+    </section>
+
+    <section>
+      <h2>6. When to clone</h2>
+      <p>Clone when someone needs the code on their own computer. In the example, a new developer joins to upgrade Grand Messaging to Grand Messaging Plus. You share the remote repo with them, and they clone it. You can clone any public repo, or a private repo you have access to, by clicking Code on the repo page and copying the HTTPS URL, then running git clone with that URL.</p>
+      <p>Clone workflow: the forked repo is the origin. The new developer clones it, creates a new branch, makes changes, saves them with add and commit, and pushes the new branch to the origin for review. A reviewer or maintainer uses git fetch or git pull to get the latest copy, and git diff to compare the changes in the branch. After review they check out main and merge the branch. Anyone with maintainer access can then open a pull request to the original upstream.</p>
+    </section>
+
+    <section>
+      <h2>7. Clone versus fork in one view</h2>
+      <p>Fork creates a copy on GitHub under your account, through the web, to make a derivative project or to contribute to something you cannot write to. Clone creates a copy on your computer, with the git clone command, to work on code locally. In most real projects you do both: fork on GitHub first, then clone your fork.</p>
+      <p>Tip: ask two questions. "Do I need my own version on GitHub?" That is a fork. "Do I need the code on my computer?" That is a clone.</p>
+    </section>
+
+    <section>
+      <h2>8. Pseudocode</h2>
+      <p>Forking workflow:</p>
+```text
+open the upstream project on GitHub (web interface)
+click Fork                         -> your copy on GitHub is now origin
+clone origin to your computer
+create a branch, make changes, add, commit
+push the branch to origin
+if you have no write access to upstream
+    open a pull request from the Pull requests tab
+maintainers review the PR
+    if there are no conflicts, they merge it
+    else ask for changes
+```
+      <p>Reviewing a teammate's branch:</p>
+```text
+fetch (or pull) the latest from origin
+diff main against the new branch   -> see exactly what changed
+if the changes look good
+    checkout main
+    merge the branch into main
+    push main
+```
+    </section>
+
+    <section>
+      <h2>9. Recap</h2>
+      <p>Fork a project to use it as the starting point of a derivative project. The repo you fork from is the upstream repo. Submit a pull request to contribute changes you cannot push directly. Clone to make an identical copy of the remote repo, which is also called the origin. The commands to remember are git branch, git checkout, git add, git commit, git push and git merge.</p>
+    </section>
+  </main>
+</body>
+</html>

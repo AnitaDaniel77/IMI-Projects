@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>git-10: Overview of Git Commands</title>
+</head>
+<body>
+  <h1>git-10: Overview of Git Commands</h1>
+
+  <h2>What this lesson covers</h2>
+  <p>The basic commands for tracking and saving changes and sharing them with others, using the command line instead of the web interface. Two general command line commands (mkdir, cd) and eight Git commands (git init, git add, git commit, git log, git branch, git checkout, git merge, git status).</p>
+
+  <h2>The scenario</h2>
+  <p>A web developer wants to add a new HTML file to improve a web application. He wants to experiment with the code without disturbing the main code. The steps below follow him through it.</p>
+  <p>Real-life example: trying out a new layout for a shop window. You rearrange a mock-up in the back room, and the real window stays untouched until the owner approves it.</p>
+
+  <h2>The commands, in the order they are used</h2>
+  <ol>
+    <li>mkdir MyRepository: "make directory". Creates the project folder.</li>
+    <li>cd MyRepository: moves me into that folder.</li>
+    <li>git init: turns the folder into a Git repository. It sets up the files and data structure Git needs to manage version control.</li>
+    <li>Create index.html with the content I need.</li>
+    <li>git add: moves changes from the working directory to the staging area.</li>
+    <li>git commit with the -m option: saves the staged snapshot to the project with a descriptive message, for example "created a new HTML file".</li>
+    <li>git log: browse the commit history to confirm the commit was recorded.</li>
+    <li>git branch code_list: lists, creates, renames or deletes branches. Here it creates a branch for experimenting in isolation.</li>
+    <li>git checkout code_list: switches to an existing branch so I can develop there.</li>
+    <li>Change index.html on the code_list branch, then git add and git commit again with a message like "updated index.html file in branch".</li>
+    <li>git log on the branch: shows the new commit.</li>
+    <li>git status: shows the state of my files in relation to the repository, such as what is changed, staged or untracked.</li>
+    <li>git checkout main to go back to main, then git merge code_list to bring the branch's changes into main.</li>
+  </ol>
+
+  <h2>Real-life examples for each command</h2>
+  <ul>
+    <li>mkdir and cd: making a new folder in a filing cabinet and opening it.</li>
+    <li>git init: telling the office "start keeping a history of everything in this folder".</li>
+    <li>git add: putting papers in the outbox tray before filing them.</li>
+    <li>git commit: filing the tray with a note saying what's in it.</li>
+    <li>git log: reading the file's list of notes from oldest to newest.</li>
+    <li>git branch and git checkout: photocopying the file, then moving to work at the photocopy's desk.</li>
+    <li>git status: asking "what have I changed but not filed yet?"</li>
+    <li>git merge: stapling the approved changes from the copy into the original.</li>
+  </ul>
+
+  <h2>Pseudocode</h2>
+  ```
+  make a folder and go into it
+  initialize a git repository
+  create index.html
+  add index.html to the staging area
+  commit with a message
+  view the log to confirm the commit
+
+  create a branch called code_list
+  switch to code_list
+  edit index.html
+  add and commit the change
+  view the log and the status
+
+  switch back to main
+  merge code_list into main
+  ```
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>The commands follow the same three places as before: working directory, staging area, repository. add moves from the first to the second, and commit moves from the second to the third.</li>
+    <li>Run git status often. It tells me exactly where I am and what to do next.</li>
+    <li>git branch only creates the branch. git checkout is what moves me onto it, so I always need both.</li>
+    <li>To merge, I stand on the branch I want to receive the changes (main), then name the branch to bring in (code_list).</li>
+    <li>git init in a folder inside another repository creates a nested repo, so I practise in a separate folder.</li>
+    <li>If git init creates a branch called master on my machine, the practice commands still work. I can rename it with git branch -M main.</li>
+  </ul>
+
+  <h2>Recap</h2>
+  <p>mkdir creates a directory and cd moves into it. git init starts a repository, git add stages changes, git commit saves them, git log shows history, git branch creates a branch, git checkout switches branches, git merge brings branches together, and git status shows the state of my working directory.</p>
+</body>
+</html>

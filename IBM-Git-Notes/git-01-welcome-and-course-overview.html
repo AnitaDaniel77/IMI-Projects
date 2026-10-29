@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>git-01: Welcome and Course Overview (Introduction to Git and GitHub)</title>
+</head>
+<body>
+  <h1>git-01: Welcome and Course Overview</h1>
+
+  <h2>What this lesson covers</h2>
+  <p>The welcome video for IBM's Introduction to Git and GitHub, taught by Rav Ahuja (global program director, IBM Skills Network) and Upkar Lidder (senior product manager). It sets out what version control is for, what the four modules cover, and how to get the most from the course. No prior knowledge needed, only basic computer literacy.</p>
+
+  <h2>Git versus GitHub</h2>
+  <p>Git is the tool on your machine that records the history of your files. GitHub is the website that stores a shared copy of that history so a team can work on the same project. You can use Git without GitHub, but GitHub is where collaboration happens: sharing, reviewing and merging each other's work.</p>
+  <p>Real-life example: Git is the "version history" of a document, where every save is kept and you can go back to any of them. GitHub is the shared drive where the whole team keeps the master copy and sees each other's changes.</p>
+  <p>Closer to home: at Capitec, nobody emails a Java file around. Everyone works from the same repository, and a change only goes in once someone has reviewed it. My own IMI Projects repo and the PayNest fork work the same way, only with a team of one.</p>
+
+  <h2>Why employers care</h2>
+  <p>Almost every software team expects Git and GitHub skills, from software engineers and application developers to data scientists and data engineers. Version control is how a team avoids overwriting each other's work and how mistakes get undone.</p>
+  <p>Real-life example: two tellers editing the same paper ledger would tear it. Version control gives each of them a photocopy, then merges the changes at the end.</p>
+
+  <h2>The four modules</h2>
+  <ol>
+    <li>Module 1, the basics: repositories, editing and pushing files on GitHub, and branches. Hands-on: create a GitHub account and a project repository, create branches, and merge a pull request in the web interface.</li>
+    <li>Module 2, Git workflow and commands: branches, forking and cloning public repositories, and collaborating with Git commands. Hands-on: cloning and forking in a GitHub project.</li>
+    <li>Module 3, final project in two parts: one using the GitHub web interface and one using the Git command line. Create a project, add, commit and push files, and share it publicly. Optional topic on GitHub Copilot.</li>
+    <li>Module 4, optional Windows desktop topics: install Git Bash, generate an SSH key, and add it to GitHub.</li>
+  </ol>
+  <p>Real-life example: Module 1 is learning to drive in an empty car park (the web buttons), Module 2 is the real road (commands), and Module 3 is the driving test.</p>
+
+  <h2>Pseudocode: the everyday Git cycle this course builds towards</h2>
+  ```
+  clone the shared repository to my machine
+  create a new branch for my change
+  REPEAT:
+      edit files
+      add the changed files to the staging area
+      commit with a short message
+  push my branch to GitHub
+  open a pull request
+  teammate reviews
+  IF approved: merge into main
+  ELSE: fix the comments and push again
+  ```
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Keep three places in your head: my machine, the staging area, and GitHub. Every command moves work from one place to the next.</li>
+    <li>A branch is a safe copy to experiment on. If it goes wrong, main is untouched.</li>
+    <li>Commit often with small, clear messages, so each commit explains one thing.</li>
+    <li>Run git status all the time. It tells you where you are before you do anything risky.</li>
+  </ul>
+
+  <h2>How to get the most from the course</h2>
+  <p>Watch every video, do the hands-on labs, attempt all quizzes, finish the final project, and build the shareable portfolio. Use the discussion forum when stuck.</p>
+
+  <h2>What I already know and what's new</h2>
+  <p>I already use add, commit and push daily from Git Bash. What's new for me is forking, pull requests and branch workflows, plus setting up an SSH key so I don't type credentials.</p>
+</body>
+</html>

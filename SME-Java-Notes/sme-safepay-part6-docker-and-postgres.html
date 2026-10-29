@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SME Session: SafePay Part 6, Docker and PostgreSQL</title>
+</head>
+<body>
+  <header>
+    <h1>SME Session: SafePay Part 6, Docker and PostgreSQL</h1>
+    <p>Date: 29 October 2026. Facilitator: Hilbert Muchatibaya. Group: E12 Java.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>1. The layers of a computer</h2>
+      <p>A computer is built in layers. Hardware is the physical parts. The kernel is the core of the operating system and the only code that talks to the hardware directly. User space is everything above the kernel: libraries, tools and our programs. A process is one running program, and SafePay is one Java process.</p>
+      <p>Analogy: a block of flats. The foundation is the hardware, the building manager is the kernel, the flats are user space, and one family living in a flat is a process.</p>
+    </section>
+
+    <section>
+      <h2>2. Container versus virtual machine</h2>
+      <p>The difference is which layer gets virtualised. A virtual machine copies the hardware layer and runs a full operating system with its own kernel on top. A container only packages user space and shares the host's kernel. That is why a container starts in seconds and is small.</p>
+      <p>Analogy: a VM is a separate house with its own foundation and plumbing. A container is a flat in a shared building that shares one set of pipes.</p>
+      <p>A container also does not need its own cable or its own network card. Anyone who wants to reach it uses the IP address of your computer plus a port.</p>
+    </section>
+
+    <section>
+      <h2>3. The OSI model, only layers 7, 4 and 3</h2>
+      <p>The OSI model describes how a message travels between two computers in seven layers. We only need three. Layer 7 is the application layer: our HTTP request (POST /transactions) and the PostgreSQL protocol, which JDBC speaks for us. Layer 4 is the port, which says which program on the machine should get the message (8080 for SafePay, 5432 for PostgreSQL). Layer 3 is the IP address, which says which machine.</p>
+      <p>Analogy: posting a parcel. The IP address is the street address, the port is the flat number, and the contents are the application data.</p>
+      <p>Two things follow from this. First, localhost is 127.0.0.1, which means "this machine itself", and inside a container it means that container. Second, "connection refused" usually means no program is listening on that port (layer 4), or a firewall is blocking it.</p>
+      <p>Tip: when a connection fails, ask three questions in order. Right machine (IP)? Right port? Is anything actually listening there?</p>
+    </section>
+
+    <section>
+      <h2>4. H2 for the demo, PostgreSQL for production</h2>
+      <p>H2 is a small database written in Java. It needs no installation and runs inside your application's JVM, either in memory or saved to a file. That makes it perfect for a demo. PostgreSQL and MySQL only become necessary when you take the application to production.</p>
+      <p>Analogy: H2 is a practice kitchen at home, PostgreSQL is the restaurant kitchen.</p>
+      <p>The switch is small because of how SafePay is layered. The domain layer holds the entities and rules (what is a transaction, what is risk). The application layer holds the business steps (read the CSV, bind rows to a class, save). The infrastructure layer is where the outside world lives: the database, Docker, hosting such as AWS. The domain and application layers do not care which database sits underneath, so moving from H2 to PostgreSQL means changing the datasource in application.yml and one dependency in pom.xml.</p>
+    </section>
+
+    <section>
+      <h2>5. Keeping data between runs (a volume)</h2>
+      <p>With H2 in file mode, the URL jdbc:h2:file:./data/safepay-db-version2 saves data to a file on disk. Stop the app, start it again, and the risk history is still there. That saved storage is what we call a database volume. In Docker, a named volume does the same job for the PostgreSQL container, so data survives the container being removed.</p>
+      <p>Analogy: a notebook versus a whiteboard. In-memory data is the whiteboard, wiped when you leave. A volume is the notebook.</p>
+    </section>
+
+    <section>
+      <h2>6. Credentials: demo versus production</h2>
+      <p>A username and password written in application.yml is dangerous. If someone gets into the system, they get the username, the password and the exact address of the database. For a demo it is acceptable, because the database is small and only for testing, but say so out loud and leave a comment in the file that you know it is not production practice.</p>
+      <p>In production the application asks a secrets manager (for example AWS Secrets Manager) for the password at startup, using permissions it has been granted, and logs in by itself. Nothing sensitive sits in the repo. A middle step is reading values from environment variables.</p>
+      <p>Analogy: a key under the doormat versus a safe where the guard checks your ID first.</p>
+    </section>
+
+    <section>
+      <h2>7. A database user for the app, with least privilege</h2>
+      <p>You cannot connect to PostgreSQL without a user. Servers ship with a default admin user (SQL Server has sa), and your application should never use it. Create a dedicated user, for example safepay-api, and give it only what it needs: create, read, update and delete rows, and create tables so migrations can run. In PostgreSQL that means creating a role with login, making it the owner of the safepay database, and granting privileges on the schema, its tables and its sequences.</p>
+      <p>To be extra secure, grant access to specific tables instead of the whole schema. A small service that only reads from the transactions table should not be able to write to anything else.</p>
+      <p>Analogy: staff access cards. The cashier's card opens the till, not the vault.</p>
+      <p>Tip: a hyphenated username like safepay-api must be written in double quotes in SQL.</p>
+    </section>
+
+    <section>
+      <h2>8. The Dockerfile, in two stages</h2>
+      <p>Stage 1 is the build stage. It starts from an image that already has Maven and JDK 21, sets a working folder, copies pom.xml first and then src, and runs mvn -q -DskipTests package to produce the jar in target. Stage 2 starts from a small Java runtime image, creates a non-root user, copies only the jar from stage 1, exposes port 8080 and runs the jar. The compilers and Maven never reach the final image.</p>
+      <p>Analogy: a workshop and a shipping box. You build the chair in the workshop, but you only ship the chair, not the saws.</p>
+      <p>Tip: pom.xml is copied before src so Docker can reuse its cached layers when only your code changes.</p>
+    </section>
+
+    <section>
+      <h2>9. Docker Compose</h2>
+      <p>Compose runs several containers together from one file. SafePay needs two: postgres and safepay-api. The API's compose entry maps port 8080, passes the datasource URL, username and password as environment variables, and says it depends on postgres. Depends_on makes the API wait for the database container before it starts. Starting is not the same as ready, so a healthcheck on postgres makes the API wait until the database accepts connections.</p>
+      <p>Containers on the same compose network reach each other by service name, so the URL is jdbc:postgresql://postgres:5432/safepay, not localhost.</p>
+      <p>Analogy: an event schedule. The caterer must be set up before the guests are let in.</p>
+      <p>The whole stack starts with: docker compose up -d --build</p>
+    </section>
+
+    <section>
+      <h2>10. Pseudocode for the key flows</h2>
+      <p>How a request reaches the database:</p>
+```text
+client sends POST /transactions to machine IP on port 8080   (layers 3 and 4)
+SafePay process receives the HTTP request                    (layer 7)
+application layer validates and builds a Transaction
+repository asks JDBC to save it
+JDBC opens a connection to host:5432 using the datasource URL
+    if nothing is listening on that port
+        throw "connection refused"
+    log in with username and password
+    PostgreSQL stores the row in the safepay database
+return the risk result to the client
+```
+      <p>How the two-stage build works:</p>
+```text
+stage build:
+    start from maven + JDK 21 image
+    copy pom.xml, then src
+    run maven package -> app.jar
+
+stage run:
+    start from small JRE image
+    create non-root user
+    copy app.jar from stage build only
+    expose 8080
+    run java -jar app.jar
+```
+      <p>How compose starts the stack:</p>
+```text
+start postgres container
+    create role safepay-api, make it owner of safepay database
+    mount volume so data survives restarts
+wait until healthcheck says postgres accepts connections
+start safepay-api container
+    read datasource URL, username, password from environment
+    connect to postgres:5432 and run the app
+```
+    </section>
+
+    <section>
+      <h2>11. Working with AI tools</h2>
+      <p>Use plan mode first. Ask for a plan, read it, then build. Work in small iterations with a few file changes per prompt. Do not ask for a whole application with 99 files changed, because you will not be able to track or review it. AI makes some things easier, but the problems in software development have not changed.</p>
+      <p>Hilbert's example prompt: create a Docker image for PostgreSQL, create a user for SafePay called safepay-api with a basic password for the demo, give it CRUD permissions so migrations can run, and add the correct dependency to the pom file. The plan produced a Postgres Dockerfile, an init SQL file, a compose file, a pom.xml swap from H2 to the PostgreSQL driver, and datasource settings in application.yml. Review each diff before keeping it.</p>
+    </section>
+
+    <section>
+      <h2>12. Tips for the Capitec demo</h2>
+      <ul>
+        <li>Explain the layers out loud: domain, application, infrastructure, and say that only infrastructure changes when the database changes.</li>
+        <li>Say why you chose H2 for the demo and that PostgreSQL is the production plan.</li>
+        <li>Add a comment next to the demo password showing you know it is not production practice.</li>
+        <li>Show data surviving a restart (volume or file database).</li>
+        <li>Run the whole stack with one command: docker compose up -d --build.</li>
+        <li>Be ready to explain container versus VM and "connection refused" in one sentence each.</li>
+        <li>Mention least privilege for the database user.</li>
+        <li>Check the .env file to see whether secrets can live there without being committed.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

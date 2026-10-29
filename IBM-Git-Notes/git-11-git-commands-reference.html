@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>git-11: Git Commands Reference</title>
+</head>
+<body>
+  <h1>git-11: Git Commands Reference</h1>
+
+  <h2>What this reading covers</h2>
+  <p>A reference of the Git commands I'll meet in real projects, with what each one does. The exact syntax for every command is in the cheat sheet file git-11-commands-cheatsheet.sh. I grouped them by job so they're easier to remember than one long alphabetical list.</p>
+
+  <h2>1. One-time setup</h2>
+  <ul>
+    <li>git version shows which Git version is installed.</li>
+    <li>git config with global user.name and global user.email sets who I am. It must be done before the first commit, so my commits carry my name and email.</li>
+    <li>gh auth login logs me in to my GitHub account from the GitHub CLI, using a browser or a token, so I can manage repositories and pull requests from the terminal.</li>
+  </ul>
+  <p>Real-life example: signing the visitor book at reception before you're allowed into the building.</p>
+
+  <h2>2. Saving my work</h2>
+  <ul>
+    <li>git add puts changes in the staging area. It can take one file name, a dot for everything new or changed in the current folder, or -A for every change in the whole working tree wherever I'm standing.</li>
+    <li>git diff shows what changed: working directory against the last commit, the last two commits (HEAD~1 and HEAD), or two branches against each other.</li>
+  </ul>
+  <p>Real-life example: git add is choosing which papers go in the envelope, and git diff is checking what's different from last week's copy before you seal it.</p>
+
+  <h2>3. Branches</h2>
+  <ul>
+    <li>git branch lists branches, creates one when given a name, and deletes one with the -d option. To delete a branch, I first switch away from it with git checkout.</li>
+    <li>git checkout main switches to main.</li>
+    <li>git switch is the newer, simpler way to move between branches, and can also create a branch and move to it.</li>
+  </ul>
+  <p>Real-life example: moving between desks in the same office. Each desk has its own pile of work, and the switch is walking over to the next one.</p>
+
+  <h2>4. Working with remotes</h2>
+  <ul>
+    <li>git clone copies a remote repository to my machine, using its URL.</li>
+    <li>git pull fetches changes from the remote and merges them into my current branch. Switch to the branch I want updated first, then pull from origin.</li>
+    <li>git push uploads my local commits to the remote. Switch to the branch I want to push first, then push it to origin.</li>
+    <li>git remote lists the names of my remotes. With -v it also shows their URLs.</li>
+    <li>git remote add origin followed by a URL adds a remote called origin.</li>
+    <li>git remote rename changes a remote's name, for example from origin to upstream.</li>
+    <li>git remote rm removes a remote.</li>
+  </ul>
+  <p>Real-life example: origin is the address of the shared drive. Pull is copying down what colleagues put there, and push is uploading mine.</p>
+
+  <h2>5. Undoing things</h2>
+  <ul>
+    <li>git revert HEAD makes a new commit that undoes the last commit. History stays intact, so it's safe on shared branches.</li>
+    <li>git restore discards changes in a file by restoring it from the staging area or a commit. With the staged option it unstages a file. With the source option it restores from a specific commit.</li>
+    <li>git reset unstages changes. With the hard option and HEAD it throws away every uncommitted change in both the staging area and the working directory, and it can't be recovered.</li>
+  </ul>
+  <p>Banking example: revert is a reversal entry on the ledger. The wrong entry stays visible and a new entry cancels it, so the audit trail is clean. Reset hard is tearing the page out, which is why it's dangerous.</p>
+
+  <h2>6. Sharing work by email (older style, rarely used)</h2>
+  <ul>
+    <li>git format-patch creates patch files from commits, for example the last three, to share by email.</li>
+    <li>git request-pull generates a summary of pending changes, so the upstream maintainer knows what to review.</li>
+    <li>git send-email sends patch files as emails. The name and email must be configured first.</li>
+    <li>git am applies a patch file to my repository.</li>
+  </ul>
+
+  <h2>7. Specialist commands</h2>
+  <ul>
+    <li>git daemon serves repositories over the git:// protocol.</li>
+    <li>git instaweb launches a quick web server to browse a repository.</li>
+    <li>git rerere remembers how I resolved a merge conflict and reuses that fix next time, after setting rerere.enabled to true. It only applies to the same branch and commit conflicts.</li>
+  </ul>
+
+  <h2>Pseudocode: a normal day with these commands</h2>
+  ```
+  switch to the branch I'm working on
+  pull the latest changes from origin
+  edit files
+  check what changed (diff)
+  stage the files (add)
+  commit with a message
+  push the branch to origin
+  IF I committed something wrong: revert the commit
+  IF I only changed a file and want it back: restore it
+  ```
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Learn sections 1 to 5 first. Those are the daily commands, and the rest is occasional.</li>
+    <li>In the reading, the hard option appears as a long dash. In a real terminal it's two ordinary hyphens, written --hard, and the same for --global and --staged. A copy-pasted long dash won't work.</li>
+    <li>Before any reset --hard, commit or back up my work.</li>
+    <li>Pull before I push if others might have changed the branch.</li>
+    <li>Delete a branch only after it's merged, and only from a different branch.</li>
+    <li>When unsure, git status first, then decide.</li>
+  </ul>
+
+  <h2>Recap</h2>
+  <p>Setup with config, save with add and commit, compare with diff, branch with branch, checkout and switch, share with clone, pull and push, manage remotes with the remote commands, and undo with revert, restore and reset.</p>
+</body>
+</html>

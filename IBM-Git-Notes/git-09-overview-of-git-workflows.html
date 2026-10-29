@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>git-09: Overview of Git Workflows</title>
+</head>
+<body>
+  <h1>git-09: Overview of Git Workflows</h1>
+
+  <h2>What this lesson covers</h2>
+  <p>The steps in a Git workflow, shown two ways: joining a team's existing project, and starting a new project from scratch. A clear workflow helps avoid code conflicts and overwriting a teammate's work.</p>
+
+  <h2>Scenario in the video</h2>
+  <p>I join a team building an e-commerce platform and my task is a product recommendation feature. The team uses Git and GitHub, so I need to know how to work with them without breaking anyone's code.</p>
+
+  <h2>Workflow 1: joining an existing project</h2>
+  <ol>
+    <li>Clone the team's repository from GitHub. This copies the code and its complete version history to my computer. The connection from cloning is what lets me push my changes to the remote repository and pull theirs into mine.</li>
+    <li>Create a branch from main and work on it. A branch is an isolated development space based on main, so I can try different ways of coding the feature without touching the main code until it's ready.</li>
+    <li>Develop the feature by changing the project files in my local repository.</li>
+    <li>Move the changed files to the staging area, a temporary space where I collect the files I want Git to save.</li>
+    <li>Commit the staged files to my branch with a clear message, such as "Implemented product recommendation feature". The message gives context to me and my teammates.</li>
+    <li>Push the branch to the remote repository.</li>
+    <li>Create a pull request, which asks the maintainer (the person responsible for managing the repository) to review and approve my changes.</li>
+    <li>After the maintainer merges it, my changes are in main. If I have maintainer access, I review and approve other people's pull requests the same way.</li>
+  </ol>
+  <p>Real-life example: a restaurant kitchen. I cook my new dish on a separate station (branch), put the ingredients out on the pass (staging), plate it with a label saying what it is (commit), and send it to the head chef (pull request). It only goes on the menu (main) once she approves it.</p>
+
+  <h2>Workflow 2: starting a new project from scratch</h2>
+  <ol>
+    <li>Initialize my local project folder as a Git repository, so Git starts tracking changes in it.</li>
+    <li>Select all the files I want tracked and move them to the staging area.</li>
+    <li>Make the initial commit.</li>
+    <li>Create a blank remote repository and link my local repository to it.</li>
+    <li>Push all the project files to the remote repository.</li>
+    <li>Other developers clone it and follow the regular workflow.</li>
+  </ol>
+  <p>Real-life example: setting up a new shared drive. I build the first folder on my own laptop, create the empty shared drive, connect them, upload everything, and then the rest of the team can copy it down and start working.</p>
+
+  <h2>The use case: Anne and John</h2>
+  <ul>
+    <li>Anne, the lead developer, initializes a repository in her working directory, creates the project files, stages them, makes the initial commit, and pushes to a blank remote repository she created.</li>
+    <li>All developers clone it and start working on branches.</li>
+    <li>John builds user authentication. He creates a branch called User Auth from main, completes the feature, commits to that branch, tests it thoroughly, pushes the branch and creates a pull request.</li>
+    <li>Anne reviews and approves it, which merges John's changes into main so everyone can get them. Other developers do the same for their features.</li>
+    <li>When feature development is complete, Anne creates a release branch called Release 1.0 from main in the remote repository.</li>
+    <li>The team pulls the changes to bring their local repositories up to date, then does final testing, bug fixes and documentation updates on the Release 1.0 branch. They commit, push, and create a pull request.</li>
+    <li>Anne reviews and merges it into main and tags the release as Release 1.0.</li>
+  </ul>
+  <p>Banking example: a new feature such as a fraud rule goes on its own branch, is reviewed by a senior developer, and merges into main. When enough features are done, a release branch is cut for final testing before the version goes live.</p>
+
+  <h2>Pseudocode: both workflows</h2>
+  ```
+  JOINING A PROJECT:
+      clone the remote repository
+      create a branch from main
+      edit files
+      stage the changed files
+      commit with a clear message
+      push the branch to the remote
+      create a pull request
+      maintainer reviews and merges into main
+
+  STARTING A PROJECT:
+      initialize a git repository in my folder
+      stage the files I want tracked
+      make the initial commit
+      create a blank remote repository
+      link local repository to remote
+      push everything
+      others clone and use the joining workflow
+
+  RELEASING:
+      create a release branch from main
+      everyone pulls the latest changes
+      test, fix bugs, update documentation on the release branch
+      commit, push, create a pull request
+      merge into main and tag the release
+  ```
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Remember the order: clone, branch, edit, stage, commit, push, pull request. Say it out loud until it flows.</li>
+    <li>Staging is the step beginners skip over. It's the chance to choose exactly what goes into the next commit.</li>
+    <li>Push sends my commits to the remote. Pull brings other people's commits to me. Pull before I start work each day.</li>
+    <li>A tag, like Release 1.0, marks a specific point in history so the team can always find that version again.</li>
+    <li>Joining a project starts with clone. Starting a project starts with initialize.</li>
+  </ul>
+
+  <h2>Recap</h2>
+  <p>When I join a project: clone, branch from main, stage, commit, push, pull request, review and merge. When I start one: initialize, stage, initial commit, create a blank remote, link, push, and let others clone it.</p>
+</body>
+</html>

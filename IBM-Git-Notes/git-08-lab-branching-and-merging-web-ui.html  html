@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>git-08: Lab, Branching and Merging (Web UI)</title>
+</head>
+<body>
+  <h1>git-08: Lab, Branching and Merging (Web UI)</h1>
+
+  <h2>What this lab covers</h2>
+  <p>Creating a branch, committing a new file to it, opening a pull request, and merging it into main, all in the GitHub web interface. About 15 minutes. I need a GitHub account and a repository to practise on.</p>
+  <p>Note from the lab: GitHub's default branch used to be called master. Since 1 October 2020 new repositories use main.</p>
+
+  <h2>1. Create a branch</h2>
+  <p>On the repository's main page, open the branch drop-down (it shows main), type the new branch name, then click "Create branch from main" or press Enter. The lab calls it Child_Branch. The repository now has two branches, and the child starts with all the files that were on main.</p>
+  <p>A change made on the child branch does not show up on main automatically.</p>
+  <p>Real-life example: photocopying a document so I can scribble on the copy. The original on the shelf stays clean.</p>
+
+  <h2>2. Add a file to the branch</h2>
+  <p>With the new branch showing in the drop-down, click Add file, then Create new file. Name it with an extension (the lab uses testchild.py) and add the few lines shown in the lab screenshot. Add an optional description at the bottom and click Commit. The file is now on the child branch only. Switching to main shows no testchild.py yet.</p>
+
+  <h2>3. Open a pull request</h2>
+  <ol>
+    <li>On the child branch click the "Compare &amp; pull request" button.</li>
+    <li>Scroll to the bottom: it lists 1 changed file, with the changes highlighted in green.</li>
+    <li>Scroll up: GitHub is comparing main with the child branch and reports no conflicts.</li>
+    <li>Optionally add a comment, then click "Create pull request".</li>
+  </ol>
+  <p>The pull request is now ready to be merged by a repository administrator. On repositories I create, I am the administrator automatically.</p>
+
+  <h2>4. Merge the pull request</h2>
+  <ol>
+    <li>Click the Pull requests tab to see the pending ones.</li>
+    <li>Open the one I want and review the changes.</li>
+    <li>Click "Merge pull request" (with an optional comment), then click "Confirm merge".</li>
+    <li>Delete the child branch, since its changes are now in main.</li>
+    <li>Check main's file list: testchild.py is now there.</li>
+  </ol>
+  <p>Real-life example: the manager signs the marked-up copy, it replaces the original on the shelf, and the photocopy is thrown away.</p>
+
+  <h2>Pseudocode</h2>
+  ```
+  open my repository
+  open the branch drop-down, type Child_Branch, create it
+  on Child_Branch: Add file, Create new file, commit
+  check main: the new file isn't there yet
+  click Compare and pull request
+  check the changed file and that there are no conflicts
+  Create pull request
+  Pull requests tab, open it, Merge pull request, Confirm merge
+  delete Child_Branch
+  check main: the new file is there
+  ```
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Always check which branch the drop-down shows before I edit anything. Committing to the wrong branch is the most common slip.</li>
+    <li>"No conflicts" means the two branches haven't changed the same lines, so the merge is safe.</li>
+    <li>The branch isn't merged until I click Confirm merge. Creating the pull request is only asking.</li>
+    <li>Deleting the branch afterwards doesn't lose anything. The commits live on in main.</li>
+  </ul>
+
+  <h2>Summary</h2>
+  <p>I can create a branch, commit changes on it, open a pull request and merge it into main.</p>
+</body>
+</html>

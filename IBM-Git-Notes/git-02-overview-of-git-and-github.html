@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>git-02: Overview of Git and GitHub</title>
+</head>
+<body>
+  <h1>git-02: Overview of Git and GitHub</h1>
+
+  <h2>What this lesson covers</h2>
+  <p>What version control is, what Git and GitHub are, and the basic words used for the rest of the course: SSH, repository, fork, pull request, working directory, commit, branch, merge and clone.</p>
+
+  <h2>Version control</h2>
+  <p>A version control system tracks every change to your files. If you make a mistake you can go back to an older version, and a team can work on the same project without overwriting each other.</p>
+  <p>Real-life example from the video: a shopping list that your roommates add to. Without version control you have four copies and a mess to sort out before you go shopping. With version control you see exactly who added what, and the final list is complete.</p>
+  <p>Banking example: a payments rule that someone changed last week and now causes declines. With version control you can see which change did it, who made it, and roll back to the version that worked.</p>
+
+  <h2>Git</h2>
+  <p>Git is free, open-source software (released under the GNU General Public License). It is a distributed version control system, or DVCS: everyone has a full copy of the project and its history on their own computer. When you've made changes, you sync your version to a remote server so others can get it.</p>
+  <p>Real-life example: every roommate keeps their own full copy of the shopping list book, and you sync books at the weekend. If the shared copy is lost, anyone's copy can rebuild it.</p>
+  <p>Git can version more than code: images, documents and many other file types. It also supports branching strategies such as feature branching, to organise and manage development.</p>
+
+  <h2>GitHub</h2>
+  <p>You can use Git alone from the command line with no website at all. GitHub is a web-hosted service for Git repositories, and one of the most popular. Others are GitLab, Bitbucket and Beanstalk.</p>
+  <p>Real-life example: Git is the camera and your photo albums, and GitHub is the online gallery where you share the albums with other people.</p>
+
+  <h2>The basic terms</h2>
+  <ul>
+    <li>SSH (secure shell): a secure way to log in to another computer remotely. Later it's how my machine proves to GitHub who I am without typing a password every time.</li>
+    <li>Repository: the project folder that's set up for version control.</li>
+    <li>Fork: my own copy of someone else's repository on GitHub. Real-life example: photocopying a recipe book so I can change recipes without touching the original.</li>
+    <li>Pull request: asking someone to review and approve my changes before they become final. Real-life example: handing a drafted letter to a manager for sign-off before it goes out.</li>
+    <li>Working directory: the files and folders on my computer that belong to the repository.</li>
+    <li>Commit: a snapshot of the project at one moment, with a short description of what changed. Real-life example: a save point in a video game.</li>
+    <li>Branch: a separate line of development, so I can work on a feature or fix without breaking the main version. Real-life example: drafting changes on a copy of a contract while the signed one stays safe.</li>
+    <li>Merge: combining the changes from one branch into another, usually a feature branch into main.</li>
+    <li>Clone: making a local copy of a remote repository on my computer.</li>
+  </ul>
+
+  <h2>Pseudocode: how the terms fit together</h2>
+  ```
+  clone the remote repository to my computer
+  working directory = the files I now see in the folder
+  create a branch for my feature
+  edit files in the working directory
+  commit the changes (snapshot plus message)
+  push the branch to GitHub
+  open a pull request so someone reviews it
+  IF approved: merge the branch into main
+  ```
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Learn the words as a story, not a list: clone, branch, edit, commit, push, pull request, merge.</li>
+    <li>Clone and fork sound alike. A fork is a copy on GitHub under my account. A clone is a copy on my computer.</li>
+    <li>A commit is local until I push it. Nobody else sees it before then.</li>
+    <li>Git is the tool and GitHub is the service. If a question is about commands on my machine it's Git, and if it's about pull requests on a website it's GitHub.</li>
+  </ul>
+
+  <h2>Recap</h2>
+  <p>Git tracks changes, lets me revert and review history, and supports branching strategies like feature branching. GitHub hosts repositories on the web. The nine basic terms are SSH, repository, fork, pull request, working directory, commit, branch, merge and clone.</p>
+</body>
+</html>

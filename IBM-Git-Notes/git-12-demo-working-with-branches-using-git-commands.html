@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>git-12: Demo, Working with Branches Using Git Commands</title>
+</head>
+<body>
+  <h1>git-12: Demo, Working with Branches Using Git Commands</h1>
+
+  <h2>What this lesson covers</h2>
+  <p>The full branching workflow on the command line: clone a repository, create a branch, switch to it, make a change, check the status, stage, commit, switch back to main, merge, push, and check the status again. The exact commands are in git-12-branch-demo-commands.sh.</p>
+  <p>Branches let a team work on features, experiments and fixes in isolation without disrupting each other's code.</p>
+  <p>Real-life example: several editors working on the same magazine. Each edits their own copy of an article, and only the approved version goes into the printed issue.</p>
+
+  <h2>The demo, step by step</h2>
+  <ol>
+    <li>Clone the repository. On the GitHub page click Code, copy the HTTPS URL, open the terminal, change to the folder where the copy should live, and run git clone with that URL. Then change into the cloned folder.</li>
+    <li>Create a branch with git branch followed by the name. The demo uses PATCH-1-ADDING-HEADERS. The new branch is a copy of the branch I'm currently on.</li>
+    <li>Switch to it with git checkout and the branch name. Creating a branch does not move me onto it automatically.</li>
+    <li>Make a change. The demo adds a welcome header to index.html.</li>
+    <li>Run git status. It highlights that index.html was modified.</li>
+    <li>Stage the change with git add index.html. It's now ready to be committed.</li>
+    <li>Commit with git commit and the -m option, plus a message such as "Added header". The change is now part of the branch's history.</li>
+    <li>Switch back to main with git checkout main. I'm no longer on the patch branch.</li>
+    <li>Merge with git merge and the branch name. The header change is now in index.html on main.</li>
+    <li>Push with git push -u origin main, so the remote repository has the merged change.</li>
+    <li>Run git status once more to confirm the branch is up to date.</li>
+  </ol>
+  <p>Banking example: a developer adds a new message to a payment confirmation screen on its own branch, checks it, then merges it into main and pushes it so the team's shared copy has the change.</p>
+
+  <h2>Why each step exists</h2>
+  <ul>
+    <li>Clone: I need my own copy of the project to work on.</li>
+    <li>Branch and checkout: so the experiment can't break main. Branch creates it and checkout moves me onto it.</li>
+    <li>Status, add, commit: check what I changed, choose what to save, then save it with a message.</li>
+    <li>Checkout main then merge: merging always happens from the branch that receives the change.</li>
+    <li>Push with -u: sends my commits to GitHub, and the -u option remembers origin main as the default, so later a plain push or pull works.</li>
+  </ul>
+
+  <h2>Pseudocode</h2>
+  ```
+  clone the repository and go into the folder
+  create branch PATCH-1-ADDING-HEADERS
+  switch to PATCH-1-ADDING-HEADERS
+  edit index.html (add a header)
+  check status: index.html is modified
+  stage index.html
+  commit with the message "Added header"
+  switch to main
+  merge PATCH-1-ADDING-HEADERS into main
+  push main to origin (set upstream with -u)
+  check status: up to date
+  ```
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Always check which branch I'm on before I edit. git status shows it on the first line.</li>
+    <li>git checkout -b branch-name creates and switches in one go, but learn the two-step version first so you understand what each does.</li>
+    <li>I merge into the branch I'm standing on. So to bring a feature into main, I stand on main first.</li>
+    <li>Use descriptive branch names. PATCH-1-ADDING-HEADERS tells the team what the branch is for.</li>
+    <li>If git push asks me to set an upstream, that's what the -u option does the first time.</li>
+  </ul>
+
+  <h2>Recap</h2>
+  <p>List branches with git branch, create one by adding a name, switch with git checkout, make and stage changes with git status and git add, commit with git commit -m, go back to main, merge, and push to the remote with git push -u origin main.</p>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>git-12: Demo, Working with Branches Using Git Commands</title>
+</head>
+<body>
+  <h1>git-12: Demo, Working with Branches Using Git Commands</h1>
+
+  <h2>What this lesson covers</h2>
+  <p>The full branching workflow on the command line: clone a repository, create a branch, switch to it, make a change, check the status, stage, commit, switch back to main, merge, push, and check the status again. The exact commands are in git-12-branch-demo-commands.sh.</p>
+  <p>Branches let a team work on features, experiments and fixes in isolation without disrupting each other's code.</p>
+  <p>Real-life example: several editors working on the same magazine. Each edits their own copy of an article, and only the approved version goes into the printed issue.</p>
+
+  <h2>The demo, step by step</h2>
+  <ol>
+    <li>Clone the repository. On the GitHub page click Code, copy the HTTPS URL, open the terminal, change to the folder where the copy should live, and run git clone with that URL. Then change into the cloned folder.</li>
+    <li>Create a branch with git branch followed by the name. The demo uses PATCH-1-ADDING-HEADERS. The new branch is a copy of the branch I'm currently on.</li>
+    <li>Switch to it with git checkout and the branch name. Creating a branch does not move me onto it automatically.</li>
+    <li>Make a change. The demo adds a welcome header to index.html.</li>
+    <li>Run git status. It highlights that index.html was modified.</li>
+    <li>Stage the change with git add index.html. It's now ready to be committed.</li>
+    <li>Commit with git commit and the -m option, plus a message such as "Added header". The change is now part of the branch's history.</li>
+    <li>Switch back to main with git checkout main. I'm no longer on the patch branch.</li>
+    <li>Merge with git merge and the branch name. The header change is now in index.html on main.</li>
+    <li>Push with git push -u origin main, so the remote repository has the merged change.</li>
+    <li>Run git status once more to confirm the branch is up to date.</li>
+  </ol>
+  <p>Banking example: a developer adds a new message to a payment confirmation screen on its own branch, checks it, then merges it into main and pushes it so the team's shared copy has the change.</p>
+
+  <h2>Why each step exists</h2>
+  <ul>
+    <li>Clone: I need my own copy of the project to work on.</li>
+    <li>Branch and checkout: so the experiment can't break main. Branch creates it and checkout moves me onto it.</li>
+    <li>Status, add, commit: check what I changed, choose what to save, then save it with a message.</li>
+    <li>Checkout main then merge: merging always happens from the branch that receives the change.</li>
+    <li>Push with -u: sends my commits to GitHub, and the -u option remembers origin main as the default, so later a plain push or pull works.</li>
+  </ul>
+
+  <h2>Pseudocode</h2>
+  ```
+  clone the repository and go into the folder
+  create branch PATCH-1-ADDING-HEADERS
+  switch to PATCH-1-ADDING-HEADERS
+  edit index.html (add a header)
+  check status: index.html is modified
+  stage index.html
+  commit with the message "Added header"
+  switch to main
+  merge PATCH-1-ADDING-HEADERS into main
+  push main to origin (set upstream with -u)
+  check status: up to date
+  ```
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Always check which branch I'm on before I edit. git status shows it on the first line.</li>
+    <li>git checkout -b branch-name creates and switches in one go, but learn the two-step version first so you understand what each does.</li>
+    <li>I merge into the branch I'm standing on. So to bring a feature into main, I stand on main first.</li>
+    <li>Use descriptive branch names. PATCH-1-ADDING-HEADERS tells the team what the branch is for.</li>
+    <li>If git push asks me to set an upstream, that's what the -u option does the first time.</li>
+  </ul>
+
+  <h2>Recap</h2>
+  <p>List branches with git branch, create one by adding a name, switch with git checkout, make and stage changes with git status and git add, commit with git commit -m, go back to main, merge, and push to the remote with git push -u origin main.</p>
+</body>
+</html>

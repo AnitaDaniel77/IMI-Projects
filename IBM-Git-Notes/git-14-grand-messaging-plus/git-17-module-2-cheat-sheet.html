@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Git 17: Module 2 Cheat Sheet, Git Commands and Managing GitHub Projects</title>
+</head>
+<body>
+  <header>
+    <h1>Git 17: Module 2 Cheat Sheet, Git Commands and Managing GitHub Projects</h1>
+    <p>IBM Git and GitHub course, Module 2 reading. The official cheat sheet is alphabetical. These notes regroup it by what you are trying to do, with a few corrections where the sheet is thin.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>1. Set up and inspect</h2>
+      <table>
+        <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td>git --version</td><td>Shows the Git version installed</td></tr>
+          <tr><td>git config --global user.name "Your Name"</td><td>Sets the name on your commits</td></tr>
+          <tr><td>git config --global user.email "you@example.com"</td><td>Sets the email on your commits</td></tr>
+          <tr><td>git init directory</td><td>Creates a new local repository in that directory</td></tr>
+          <tr><td>git clone repository-url</td><td>Copies a remote repository to your computer</td></tr>
+          <tr><td>git status</td><td>Shows your working directory and the staged snapshot</td></tr>
+          <tr><td>git log</td><td>Browses previous changes; git log -p filename shows the changes to one file</td></tr>
+          <tr><td>git diff filename</td><td>Compares changes so others can review your work</td></tr>
+        </tbody>
+      </table>
+      <p>Analogy: moving into a new office. You set your name badge, get a copy of the files, and look around to see what is on the desk.</p>
+    </section>
+
+    <section>
+      <h2>2. Save your work</h2>
+      <table>
+        <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td>git add sample.md</td><td>Stages one file</td></tr>
+          <tr><td>git add .</td><td>Stages all changed files in this folder and below</td></tr>
+          <tr><td>git commit -m "message"</td><td>Saves the staged snapshot to the project history</td></tr>
+        </tbody>
+      </table>
+      <p>Analogy: add is putting items in the box, commit is sealing and labelling it.</p>
+    </section>
+
+    <section>
+      <h2>3. Branches and merging</h2>
+      <table>
+        <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td>git branch new-branch</td><td>Creates an isolated space to make changes</td></tr>
+          <tr><td>git checkout existing-branch</td><td>Switches to a branch</td></tr>
+          <tr><td>git checkout main</td><td>Switches back to main</td></tr>
+          <tr><td>git merge feature_branch</td><td>Merges that branch into the one you are on</td></tr>
+          <tr><td>git merge upstream/main</td><td>Merges the upstream project's main into your current branch</td></tr>
+        </tbody>
+      </table>
+      <p>Analogy: a branch is a draft copy of the report. Merge is pasting the approved changes back into the final one.</p>
+    </section>
+
+    <section>
+      <h2>4. Remotes and syncing</h2>
+      <table>
+        <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td>git remote -v</td><td>Lists the remotes of this repo and their URLs</td></tr>
+          <tr><td>git remote add origin URL</td><td>Adds a remote named origin</td></tr>
+          <tr><td>git remote add upstream URL</td><td>Adds the original repository as upstream</td></tr>
+          <tr><td>git remote rename origin new-origin</td><td>Renames a remote</td></tr>
+          <tr><td>git fetch remote branch</td><td>Downloads changes without merging them</td></tr>
+          <tr><td>git fetch upstream main:upstream-main</td><td>Fetches upstream's main into a local branch named upstream-main</td></tr>
+          <tr><td>git pull origin main</td><td>Fetches from origin and merges into your branch</td></tr>
+          <tr><td>git pull upstream main</td><td>Pulls from the upstream repo into your branch</td></tr>
+          <tr><td>git pull downstream main</td><td>Pulls main from a downstream repo, one that was forked from yours</td></tr>
+          <tr><td>git push origin your_branch_name</td><td>Sends your committed changes to the remote</td></tr>
+        </tbody>
+      </table>
+      <p>Tip: fetch looks, pull looks and merges. When in doubt, fetch first.</p>
+    </section>
+
+    <section>
+      <h2>5. Undo</h2>
+      <table>
+        <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td>git revert HEAD</td><td>Undoes the latest commit by adding a new commit that cancels it</td></tr>
+          <tr><td>git reset HEAD~1</td><td>Moves the branch back one commit</td></tr>
+        </tbody>
+      </table>
+      <p>Two corrections to the sheet. First, the sheet says reset undoes changes in the working directory. By default git reset keeps your files and only unstages the changes. Only git reset --hard throws the changes away, so treat that as destructive. Second, git revert HEAD opens an editor for the message. Adding --no-edit skips that.</p>
+      <p>Analogy: revert is a correction notice published in the next issue. Reset is pulling the page out of the printing run.</p>
+    </section>
+
+    <section>
+      <h2>6. Sharing changes by email or patch</h2>
+      <table>
+        <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td>git request-pull</td><td>Creates a summary of pending changes for your upstream to pull</td></tr>
+          <tr><td>git format-patch -n number_of_commits</td><td>Turns commits into patch files for an email workflow</td></tr>
+          <tr><td>git send-email --to recipient patch-file</td><td>Emails one patch or a set of patches</td></tr>
+          <tr><td>git am &lt; patchfile.patch</td><td>Applies a patch that was emailed to you</td></tr>
+        </tbody>
+      </table>
+      <p>The sheet's request-pull example is incomplete. The real form is git request-pull start-point repository-url end-point, for example git request-pull main https://github.com/you/repo.git feature-x.</p>
+      <p>Analogy: sending tracked changes by email instead of sharing the whole document.</p>
+    </section>
+
+    <section>
+      <h2>7. Hosting and administration tools</h2>
+      <table>
+        <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td>git daemon --reuseaddr --verbose</td><td>Lets others download from your repository anonymously</td></tr>
+          <tr><td>git http-backend</td><td>Server-side Git over HTTP, supporting fetch and push</td></tr>
+          <tr><td>git instaweb -p 8080</td><td>Starts a web front-end for your repositories on port 8080</td></tr>
+          <tr><td>git-shell</td><td>A restricted login shell for users of a shared central repository</td></tr>
+          <tr><td>git rerere</td><td>Reuses a recorded resolution of a previous merge conflict</td></tr>
+        </tbody>
+      </table>
+      <p>These matter mostly to the repository administrator role. The sheet's http-backend example actually shows how to prepare a bare repository (git clone --bare, then git update-server-info) so it can be served over HTTP.</p>
+      <p>Analogy: the building manager's toolkit. Opening the front door to visitors, installing a notice board, and keeping a note of fixes that worked before.</p>
+    </section>
+
+    <section>
+      <h2>8. Pseudocode</h2>
+```text
+set name and email once
+get the project:
+    clone it, or init a new repo
+for every change:
+    checkout a branch
+    edit
+    status, then add, then commit
+share it:
+    fetch and merge to catch up
+    push the branch
+    open a pull request, or send a patch by email
+if something breaks:
+    revert the bad commit (safe)
+    reset only on your own local work (careful)
+```
+    </section>
+  </main>
+</body>
+</html>

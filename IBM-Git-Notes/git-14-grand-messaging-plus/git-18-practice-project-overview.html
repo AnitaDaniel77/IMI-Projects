@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Git 18: Practice Project, Shipping Calculator Scenario and Overview</title>
+</head>
+<body>
+  <header>
+    <h1>Git 18: Practice Project, Shipping Calculator Scenario and Overview</h1>
+    <p>IBM Git and GitHub course, Module 3. This page covers the scenario and the plan for both parts of the practice project.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>1. The scenario</h2>
+      <p>You have joined a logistics company that wants a shipping calculator web application. The goal is a efficient and transparent way to calculate shipping costs and give customers delivery estimates. Several teams work on different products at the same time, so the company uses GitHub for collaboration, version control and project management.</p>
+      <p>Analogy: a shared kitchen where many chefs cook different dishes. GitHub is the whiteboard, the recipe book and the rules on the wall that stop them getting in each other's way.</p>
+    </section>
+
+    <section>
+      <h2>2. Part 1: GitHub UI</h2>
+      <p>Host the company's starter code in a new repository, using the browser only. Beyond the code, follow the open source best practices from this course: a README, a code of conduct, contributing guidelines, and a licence. The repository must be available to the community under the Apache License 2.0.</p>
+      <p>What each file is for. The README tells people what the project is and how to run it. The code of conduct sets the behaviour expected from contributors. The contributing guidelines explain how to suggest changes. The licence tells people what they are legally allowed to do with the code, and Apache 2.0 allows free use, modification and distribution as long as the licence and notices are kept.</p>
+      <p>Analogy: opening a community library. The README is the sign on the door, the code of conduct is the house rules, the contributing guide says how to donate a book, and the licence says what visitors may do with the books.</p>
+    </section>
+
+    <section>
+      <h2>3. Part 2: GitHub CLI</h2>
+      <p>The developers' work has been merged into a global repository, ibm-developer-skills-network/Centralized-repository-shipping_calculations. You fork it, edit some code, add a few files, and open a pull request to contribute back. This is done with git commands in the provided lab environment.</p>
+      <p>This is the same fork and pull request workflow you learned in Module 2. The lab needs a personal access token again so the lab environment can push to your fork. Create a short-lived one, never paste it into a file you commit, and delete it afterwards.</p>
+      <p>Tip: the fork happens in the browser. Everything after that, from clone to push, happens in the terminal. The pull request is opened back in the browser.</p>
+    </section>
+
+    <section>
+      <h2>4. Pseudocode for the whole project</h2>
+```text
+part 1, in the browser:
+    create a new public repository
+    upload the starter shipping calculator code
+    add README
+    add CODE_OF_CONDUCT.md
+    add CONTRIBUTING.md
+    add LICENSE and choose Apache License 2.0
+    check the repo shows the licence and community files
+
+part 2, in the terminal:
+    fork the centralized repository (browser)
+    clone my fork
+    create a branch for my changes
+    edit the code and add the new files
+    add, commit
+    push the branch to my fork
+    open a pull request to the centralized repository (browser)
+```
+    </section>
+
+    <section>
+      <h2>5. Checklist for finishing well</h2>
+      <ul>
+        <li>Use your own repository link in anything you submit, not the sample one.</li>
+        <li>Take screenshots as you go, so you are not hunting for them later.</li>
+        <li>Keep commit messages short and clear, since reviewers read them.</li>
+        <li>Delete the personal access token when Part 2 is done.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

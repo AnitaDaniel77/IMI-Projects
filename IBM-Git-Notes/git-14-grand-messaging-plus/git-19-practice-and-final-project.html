@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Git 19: Practice Project and Final Project</title>
+</head>
+<body>
+  <h1>Git 19: Practice Project and Final Project</h1>
+
+  <h2>1. The big picture</h2>
+  <p>Two projects, same skills. The Practice Project was a shipping calculator (LogisticsShippingRates, then a fork of Centralized-repository-shipping_calculations). The Final Project was graded: a Simple Interest Calculator repo called github-final-project, then a fork of mcino-Introduction-to-Git-and-GitHub. I scored 90 percent (18 out of 20) on the Final Project.</p>
+  <p>Real-life analogy: the Practice Project was a driving lesson in an empty car park. The Final Project was the actual test, with an examiner who checks that every name is spelled exactly right.</p>
+
+  <h2>2. Part 1: building an open source repo on the GitHub website</h2>
+  <p>A good open source repo is more than code. It has a README (what this is), a LICENSE (what others may do with it), a CODE_OF_CONDUCT (how people behave), and CONTRIBUTING (how to help). I picked Apache License 2.0 when creating the repo, and added the Contributor Covenant template for the code of conduct.</p>
+  <p>Real-life analogy: opening a community garden. The README is the sign on the gate, the licence is the rules about taking vegetables home, the code of conduct is "be kind to other gardeners", and CONTRIBUTING is "bring your own spade, all help welcome".</p>
+  <pre>
+IF repo name must be exact THEN copy it from the brief, never retype from memory
+CREATE public repo with README and Apache 2.0 licence
+ADD CODE_OF_CONDUCT.md from the Contributor Covenant template
+ADD CONTRIBUTING.md with the welcome sentence
+ADD the calculator script
+SAVE the URL of every file for submission
+  </pre>
+
+  <h2>3. Part 2: fixing a typo in someone else's project</h2>
+  <p>You cannot push to a project you do not own, so you fork it (web only, no git command), clone your fork, work on a branch, push the branch to your fork, then ask the owner to take the change with a pull request. The fork is origin, the original project is upstream.</p>
+  <p>Real-life analogy: you photocopy a shared recipe book, correct the typo in your copy, then hand the corrected page to the book's owner and ask them to swap it in.</p>
+
+  <h2>4. Branch, commit, merge</h2>
+  <p>I made bug-fix-typo, changed the footer year from 2022 to 2023, committed, pushed, then switched to main and merged. Because main had not moved, git did a fast-forward: it just slid the main label forward, with no extra merge commit. The output said one file changed, which is what the grader checks.</p>
+  <p>Real-life analogy: a fast-forward is like a bookmark moving forward because nobody else read ahead while you were away.</p>
+
+  <h2>5. Revert versus reset</h2>
+  <p>git revert adds a new commit that cancels an earlier commit, so history stays honest and shared branches stay safe. git reset moves the branch pointer back, and with the hard option it destroys work. For anything already pushed, revert is the safe one. I found the commit id with git log, then reverted it on a new branch called bug-fix-revert.</p>
+  <p>Real-life analogy: revert is writing "ignore my previous email" in a new email. Reset is pretending the first email was never sent.</p>
+
+  <h2>6. Why the pull request showed 0 files changed</h2>
+  <p>The branch held two commits, the fix and its revert. They cancel out, so the net difference against main is nothing. GitHub still opened the pull request (number 13184) and the curl check returned my fork as the source. The lab repo closes these pull requests automatically, so a Closed badge is normal.</p>
+
+  <h2>7. Checking branch status</h2>
+  <p>git branch -vv lists every branch with its latest commit and the remote branch it tracks. Main showed "ahead 1" because I merged locally and never pushed main. That is information, not an error.</p>
+
+  <h2>8. Token hygiene</h2>
+  <p>A personal access token is a password that can act on my account. I created it with a short expiry and only the repo scope, typed it at the password prompt (it shows nothing as you type), never pasted it in chat or committed it to a file, and deleted it when the lab ended.</p>
+  <p>Real-life analogy: a spare key for a contractor. Give it for one job, and take it back when they leave.</p>
+
+  <h2>9. Mistakes worth remembering</h2>
+  <ul>
+    <li>I nearly submitted Practice Project work for the Final Project. The names are different, so read the grading page before starting.</li>
+    <li>GitHub said "Couldn't check availability" on the fork name. It was a failed check, not a taken name, and Create fork worked anyway.</li>
+    <li>The log pager shows a colon at the bottom. Press q to leave it.</li>
+    <li>A stuck ">" prompt in the terminal means an unclosed quote. Press Ctrl+C and rerun the commands one at a time.</li>
+    <li>The lab environment is wiped between sessions, so save command output in a text file as you go.</li>
+  </ul>
+
+  <h2>10. Pseudocode for the whole contribution flow</h2>
+  <pre>
+FORK upstream repo on the website
+CLONE my fork to the lab machine
+CREATE branch fix
+EDIT file, STAGE it, COMMIT with a clear message
+PUSH branch to my fork (token as password)
+SWITCH to main, MERGE fix (fast-forward)
+CREATE branch revert
+FIND commit id with the log
+REVERT that commit, PUSH the branch
+OPEN pull request from my fork's revert branch to upstream main
+VERIFY with the API call that the pull request came from my fork
+LIST branches with status, SAVE every output
+DELETE the token
+  </pre>
+
+  <h2>11. Tips for understanding the logic</h2>
+  <p>Always ask three questions before any command: which branch am I on, where does this go (local or my fork or upstream), and can I undo it? If the answer to the last one is no, slow down. Reading the output after every command, even when it looks boring, is how I caught the wrong project name before wasting time.</p>
+</body>
+</html>

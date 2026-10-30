@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Git 16: Module 2 Summary, Git Workflows with Git Commands</title>
+</head>
+<body>
+  <header>
+    <h1>Git 16: Module 2 Summary, Git Workflows with Git Commands</h1>
+    <p>IBM Git and GitHub course, Module 2 recap. This page pulls together the workflow, the roles and the commands from the whole module.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>1. Clone and fork in one line each</h2>
+      <p>GitHub has over 100 million repositories. You can clone a repository and sync changes back to the original. You can also fork a repository to use it as the base of a new project or to work on it independently.</p>
+    </section>
+
+    <section>
+      <h2>2. The GitHub workflow, step by step</h2>
+      <ol>
+        <li>Clone the remote repository, or initialise a new Git repository.</li>
+        <li>Move files to the staging area.</li>
+        <li>Make the initial commit.</li>
+        <li>Create a branch and work on it.</li>
+        <li>Add files to the staging area and commit again.</li>
+        <li>Push the local commits to the remote repository.</li>
+        <li>Create a pull request for review and merging.</li>
+        <li>Use pull to update your local repository.</li>
+      </ol>
+      <p>Analogy: writing a group report. You get a copy of the shared document, draft your section, save versions as you go, send your section in, wait for the team to review, then download the final merged version.</p>
+      <p>Tip: the workflow is a loop. After step 8 you start again at step 4 for the next piece of work.</p>
+    </section>
+
+    <section>
+      <h2>3. The three roles</h2>
+      <p>The developer uses git clone, git pull, git fetch, git push and git request-pull, on top of the commands a solo developer uses. The integrator reviews and integrates other people's changes using git pull, git revert and git push, on top of the developer commands. The repository administrator structures the repository, controls how users interact with it, configures servers for web services and documentation, defines email and index settings, and manages the look and feel of the application.</p>
+    </section>
+
+    <section>
+      <h2>4. The command table, grouped by purpose</h2>
+      <table>
+        <thead>
+          <tr><th>Purpose</th><th>Commands</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Set up</td><td>git --version, git config --global user.name, git config --global user.email, git init, git clone</td></tr>
+          <tr><td>Save work</td><td>git status, git add ., git commit, git log, git diff</td></tr>
+          <tr><td>Branches</td><td>git branch, git checkout, git merge</td></tr>
+          <tr><td>Remotes</td><td>git remote, git remote -v, git remote add origin, git remote add upstream, git remote rename</td></tr>
+          <tr><td>Share and sync</td><td>git push, git pull, git fetch upstream, git merge upstream/main, git pull upstream</td></tr>
+          <tr><td>Undo</td><td>git revert, git reset</td></tr>
+          <tr><td>Share by email or patch</td><td>git request-pull, git format-patch, git send-email, git am</td></tr>
+          <tr><td>Serve and browse</td><td>git daemon, git web, git instaweb</td></tr>
+          <tr><td>Conflict help</td><td>git rerere</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>5. The less familiar commands</h2>
+      <p>git format-patch turns commits into patch files you can send to someone, git send-email sends them by email, and git am applies a received patch to your repository. Analogy: instead of sharing the whole document, you email just the tracked changes.</p>
+      <p>git daemon serves your repositories over the git protocol so others can clone them from your machine. git instaweb (and git web) opens a quick web view of your repository in the browser.</p>
+      <p>git rerere stands for "reuse recorded resolution". Git remembers how you solved a merge conflict once and applies the same fix if the same conflict appears again.</p>
+      <p>git reset moves your branch back and can discard work, especially with --hard, so use it carefully. git revert is the safe undo for shared branches because it adds a new commit that cancels the old one.</p>
+      <p>The table also lists git-pull downstream. The lesson does not explain it, but the idea is pulling work from a repository that was forked from yours (a downstream repo). Treat it as vocabulary rather than a command to memorise.</p>
+    </section>
+
+    <section>
+      <h2>6. Pseudocode</h2>
+```text
+get the code:
+    clone the remote repo           (or git init for a new project)
+
+save the first version:
+    add files to staging
+    commit
+
+for each new piece of work:
+    create a branch and switch to it
+    edit files
+    add and commit
+    push the branch to the remote
+    open a pull request
+    reviewer fetches, diffs and merges
+    pull main to update your local copy
+
+keep a fork current:
+    add upstream as a remote
+    fetch upstream
+    merge upstream/main into main
+```
+    </section>
+
+    <section>
+      <h2>7. Tips for remembering</h2>
+      <p>Group commands by the question they answer. "Where am I?" is status, log and diff. "How do I save?" is add and commit. "How do I share?" is push, pull and fetch. "How do I undo?" is revert and reset. The remote commands are the glue between your computer and GitHub.</p>
+    </section>
+  </main>
+</body>
+</html>

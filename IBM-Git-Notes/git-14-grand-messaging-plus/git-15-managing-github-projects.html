@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Git 15: Managing GitHub Projects</title>
+</head>
+<body>
+  <header>
+    <h1>Git 15: Managing GitHub Projects</h1>
+    <p>IBM Git and GitHub course, Module 2. After this lesson you can name the common roles in a Git project and list the git commands each role uses to communicate with other developers.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>1. Why project management matters</h2>
+      <p>GitHub is a popular platform for version control and project management. Managing a project well keeps collaboration smooth and the repository organised. Three roles show up in most projects: the developer, the integrator and the repository administrator. In a small team one person can wear all three hats.</p>
+      <p>Analogy: a restaurant. The developer cooks, the integrator checks each plate before it leaves the kitchen, and the administrator runs the building, the keys and the rules.</p>
+      <p>You can use git commands in the terminal or a desktop tool such as GitHub Desktop. The ideas are identical.</p>
+    </section>
+
+    <section>
+      <h2>2. The developer</h2>
+      <p>A developer in a group project needs the commands of a standalone developer plus the ones for communicating with others. git clone creates a copy from the upstream, the shared remote repository you want to work on. git pull and git fetch bring in the latest changes so you stay up to date. git push sends your commits to the shared repository when the workflow allows it. git request-pull creates a summary of your changes for the upstream maintainer to pull.</p>
+      <p>Analogy: a student who copies the class notes, checks for updates each morning, and hands in a summary of what they added.</p>
+    </section>
+
+    <section>
+      <h2>3. The integrator</h2>
+      <p>An integrator receives changes made by others, reviews and integrates them, responds to pull requests, and publishes the result for everyone to use. They use everything a developer uses, plus: git pull to merge work from trusted contributors, git revert to undo a bad commit safely, and git push to publish the project from the local repo to the remote repo.</p>
+      <p>Tip: git revert does not erase history. It adds a new commit that undoes the bad one, which is why it is safe on shared branches.</p>
+      <p>Analogy: an editor who accepts articles from writers, removes a faulty one with a correction notice, and then publishes the issue.</p>
+    </section>
+
+    <section>
+      <h2>4. The repository administrator</h2>
+      <p>The administrator decides how the repository is organised and how users interact with it. That includes setting up and maintaining access for developers, configuring the servers for web services and documentation, defining email and index settings, and managing the look and feel of the application. They also manage communities, asset types, relationships, categories and attributes.</p>
+      <p>Administrators can use GitHub Actions to automate software workflows, including continuous integration and continuous delivery (CI/CD). In practice that means every push or pull request automatically builds and tests the code.</p>
+      <p>Analogy: the building manager who hands out keys, sets the rules and installs the alarm that goes off when something breaks.</p>
+    </section>
+
+    <section>
+      <h2>5. Commands by role</h2>
+      <p>Developer: git clone, git pull, git fetch, git push, git request-pull. Integrator: all of those, plus git pull from trusted contributors, git revert and git push to publish. Administrator: mostly works in GitHub settings and GitHub Actions rather than in the terminal.</p>
+      <p>Tip: remember "clone and fetch to receive, push and request-pull to send, revert to fix."</p>
+    </section>
+
+    <section>
+      <h2>6. Pseudocode</h2>
+      <p>One change moving through the three roles:</p>
+```text
+developer:
+    clone the shared repo
+    fetch the latest changes
+    make changes on a branch, commit
+    push the branch, or run request-pull to summarise the changes
+
+integrator:
+    receive the pull request
+    pull the branch and review it
+    if the change is good
+        merge it and push main
+    else if a bad commit slipped in
+        revert that commit and push
+
+administrator:
+    decide who may read or write the repo
+    set up an automated workflow (build and test on every push)
+    keep the repo settings and documentation in order
+```
+    </section>
+
+    <section>
+      <h2>7. Recap</h2>
+      <p>Multiple roles manage a project: developer, integrator and repository administrator. Each role uses different git commands to communicate with collaborators. Developers clone, pull, fetch, push and use request-pull. Integrators review and integrate changes with pull, revert and push. Administrators structure the repository, control access and can automate CI/CD with GitHub Actions.</p>
+    </section>
+  </main>
+</body>
+</html>

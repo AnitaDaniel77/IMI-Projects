@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spring 01: The Spring Framework and its Ecosystem</title>
+</head>
+<body>
+  <h1>Spring 01: The Spring Framework and its Ecosystem</h1>
+
+  <h2>1. What the lesson teaches</h2>
+  <p>By the end of the video I should be able to describe the role of Spring in Java development, name the parts of the Spring ecosystem, and say where Spring is used.</p>
+
+  <h2>2. The problem Spring solves</h2>
+  <p>Rod Johnson created Spring in 2003. Before it, Java developers used Enterprise JavaBeans (EJB), which were heavy and hard to test. In plain Java I create my own objects, wire them together by hand, and build things like security and transactions from scratch. That makes code tightly coupled and hard to reuse. Spring takes over the wiring and gives me ready-made features.</p>
+  <p>Real-life analogy: cooking a meal over an open flame with no tools. You can do it, but every step is manual. Spring is the fitted kitchen, with the oven, fridge and tools already in place so you can focus on the dish.</p>
+
+  <h2>3. The three primary components</h2>
+  <p>Spring Core gives dependency injection and aspect oriented programming. Spring MVC is the web framework, and it separates business logic, the user interface and input handling. Spring AOP handles cross-cutting concerns such as logging and transactions, keeping them out of the business code.</p>
+  <p>Real-life analogy: dependency injection is a waiter bringing the ingredients to the chef, so the chef never goes shopping. AOP is the CCTV in a bank. It watches every room without the tellers having to install a camera themselves.</p>
+
+  <h2>4. The rest of the ecosystem, grouped</h2>
+  <p>Security and data: Spring Security does authentication and access control. Spring JDBC simplifies database work and error handling. Spring Data gives a uniform way to do create, read, update and delete. Spring Session manages user sessions.</p>
+  <p>Web and services: Spring Web Flow handles navigation and state. Spring Web Services builds SOAP services. Spring REST Docs generates documentation snippets so API docs stay in sync with the code. Spring WebFlux is for asynchronous, non-blocking applications.</p>
+  <p>Batch and messaging: Spring Batch runs large jobs in chunks with scheduling. Spring Integration and Spring for Apache Kafka support message-driven and event-driven systems.</p>
+  <p>Fast development and cloud: Spring Boot speeds up setup and deployment, often with an embedded server. Spring CLI is for quick prototypes. Spring Cloud and Spring Cloud Gateway help with distributed systems and routing. Spring Authorization Server gives OAuth 2.0 and OpenID Connect. Spring AI uses plain Java objects as building blocks for AI applications.</p>
+  <p>Real-life analogy: Spring is a hardware store. You don't buy every aisle for one job. You pick the tools the job needs, and everything fits together.</p>
+
+  <h2>5. Where Spring is used</h2>
+  <p>E-commerce uses it for transactions, accounts and payments. Banking uses Spring Security and transaction management for safe operations. Healthcare uses it to keep patient records secure. Social media uses it to scale to millions of users. Spring Boot with Spring MVC and Spring Security is the usual route to secure REST APIs and microservices.</p>
+
+  <h2>6. Spring versus plain Java</h2>
+  <p>Plain Java: I manage dependencies and object lifecycles myself, and I build security and transactions from scratch. Spring: dependency injection automates the wiring, security, transactions and data access are built in, the structure is modular so it scales, AOP keeps the code cleaner, and there is a large community behind it.</p>
+
+  <h2>7. Pseudocode: the idea behind dependency injection</h2>
+
+```text
+PLAIN JAVA
+  checker creates its own rule objects with new
+  checker is now stuck with those exact rules
+
+WITH INJECTION
+  define rules separately
+  hand the rules to the checker when it is created
+  checker only knows the FraudRule interface, not which rules
+
+WITH SPRING
+  mark rules and checker as components
+  Spring finds them, creates them, and hands the rules to the checker
+```
+
+  <h2>8. Tips for understanding</h2>
+  <p>Don't try to memorise the whole ecosystem list. Ask what job each piece does: web, data, security, speed, scale. For my Fraud Rule Engine project, the pieces that matter are Spring Boot (setup), Spring MVC (the REST controllers) and Spring Data (saving transactions and flags). The rest I can look up when a project needs it.</p>
+  <p>Dependency injection is the one idea to really understand, because every later lesson builds on it. If I can explain it as "the object is handed what it needs instead of building it", I'm in good shape.</p>
+</body>
+</html>

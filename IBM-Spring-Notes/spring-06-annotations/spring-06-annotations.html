@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spring 06 - Annotations</title>
+<style>
+  body { font-family: Segoe UI, Arial, sans-serif; max-width: 820px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+  h1 { border-bottom: 3px solid #6db33f; padding-bottom: .3rem; }
+  h2 { margin-top: 2rem; color: #2d5a1b; }
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+  th, td { border: 1px solid #ccc; padding: .45rem .6rem; text-align: left; vertical-align: top; }
+  th { background: #eef6e8; }
+  code, pre { background: #f4f4f4; border-radius: 4px; }
+  code { padding: 0 .25rem; }
+  pre { padding: .8rem; overflow-x: auto; }
+</style>
+</head>
+<body>
+
+<h1>Spring 06: Annotations</h1>
+<p>An annotation is a label on a class, method, field or parameter. It gives Spring metadata, so Spring knows how to create, wire and expose that piece of code without us writing the setup by hand.</p>
+
+<h2>Pseudocode</h2>
+<pre>
+START application
+  Spring scans packages for classes labelled @Component / @Service / @RestController
+  FOR each labelled class
+    create one object (a bean) and keep it in the IoC container
+  FOR each constructor that needs other beans
+    find the matching bean and pass it in (dependency injection)
+  FOR each method labelled @GetMapping
+    register the URL so HTTP requests reach that method
+WAIT for requests
+</pre>
+
+<h2>Common annotations</h2>
+<table>
+<tr><th>Annotation</th><th>What it does</th></tr>
+<tr><td>@Component</td><td>Marks a class as a Spring-managed bean, registered in the IoC container automatically.</td></tr>
+<tr><td>@Controller</td><td>Marks a web controller in an MVC app. Handles HTTP requests and returns a view.</td></tr>
+<tr><td>@RestController</td><td>@Controller plus @ResponseBody. Returns data (JSON) straight to the client.</td></tr>
+<tr><td>@Autowired</td><td>Asks Spring to inject a dependency. A single constructor does not need it.</td></tr>
+<tr><td>@Qualifier</td><td>Picks which bean to inject when several of the same type exist.</td></tr>
+<tr><td>@Configuration</td><td>Marks a class as a source of bean definitions.</td></tr>
+<tr><td>@Bean</td><td>On a method inside a @Configuration class. The return value becomes a bean.</td></tr>
+<tr><td>@RequestMapping</td><td>Maps HTTP requests to a class or method.</td></tr>
+<tr><td>@GetMapping</td><td>Shortcut for a GET @RequestMapping.</td></tr>
+<tr><td>@PathVariable</td><td>Reads a value from the URL path, like the id in /books/7.</td></tr>
+<tr><td>@RequestParam</td><td>Reads a query parameter, like title in /search?title=Dune.</td></tr>
+<tr><td>@ResponseBody</td><td>Writes the return value to the response body instead of looking for a view.</td></tr>
+<tr><td>@Value</td><td>Injects a value from a properties file, environment variable or default.</td></tr>
+<tr><td>@Scope</td><td>Sets bean lifecycle. Singleton (default, one shared object) or prototype (new object per request for the bean).</td></tr>
+</table>
+
+<h2>Where they go</h2>
+<table>
+<tr><th>Level</th><th>Examples</th></tr>
+<tr><td>Class</td><td>@Component, @Service, @Repository, @Controller</td></tr>
+<tr><td>Method</td><td>@Bean, @RequestMapping, @GetMapping</td></tr>
+<tr><td>Field</td><td>@Autowired, @Value, @Qualifier</td></tr>
+<tr><td>Constructor / parameter</td><td>@Autowired, @Qualifier, @PathVariable, @RequestParam</td></tr>
+</table>
+
+<h2>For the Fraud Rule Engine</h2>
+<p>Each fraud rule gets <code>@Component</code> so Spring finds it. The service takes <code>List&lt;FraudRule&gt;</code> in its constructor. The controller is a <code>@RestController</code> with <code>@PostMapping</code> and <code>@GetMapping</code> methods. Thresholds such as the high-amount limit come from <code>@Value</code>, so they live in application.properties and not in the code.</p>
+
+<h2>Example</h2>
+<p>See <code>spring-06-annotations/AnnotationsDemo.java</code>. Run it inside a Spring Boot project, then:</p>
+<pre>
+curl http://localhost:8080/books/7
+curl "http://localhost:8080/search?title=Dune"
+</pre>
+<p>Expected output:</p>
+<pre>
+Book 7 from City Library
+Searching City Library for: Dune
+</pre>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spring 04: How IntelliJ Supports the Spring Framework</title>
+</head>
+<body>
+  <h1>Spring 04: How IntelliJ Supports the Spring Framework</h1>
+
+  <h2>1. What the reading teaches</h2>
+  <p>By the end I should be able to describe which IntelliJ features suit Spring best and list IntelliJ's main competitors. The course uses IntelliJ IDEA Community Edition. Some of the Spring tooling below exists only in the Ultimate Edition, so I need to know which is which.</p>
+
+  <h2>2. The nine aspects that suit Spring</h2>
+  <p>Smart code insight gives completion, inspections and quick navigation that understand Spring. Real-life analogy: a satnav that knows the local roads, not just the map.</p>
+  <p>Built-in tools let me run and test a Spring application inside the IDE, including HTTP requests and database tools. Real-life analogy: a test kitchen in the same building as the restaurant.</p>
+  <p>Customizable run configurations let me set the environment and parameters for running an application. Real-life analogy: saved settings for a car seat and mirrors.</p>
+  <p>The aggregated API view is the Endpoints tool window, which lists the client and server APIs (HTTP and WebSocket) in the project. It is an Ultimate Edition feature. Real-life analogy: the directory board in a building lobby.</p>
+  <p>Framework-specific support adds Spring inspections and quick fixes, such as flagging an autowiring problem before I run anything. Real-life analogy: a spell checker for wiring.</p>
+  <p>Spring Boot support is available in both editions for creating and running Boot projects. The Ultimate Edition adds better navigation, inspections and configuration help, including starters and dependency management.</p>
+  <p>Visual tools for beans and context draw the beans and the application context as diagrams, which makes it easier to understand and debug. Real-life analogy: an org chart showing who reports to whom. This is also Ultimate only.</p>
+  <p>Integration with build tools means Maven and Gradle handle dependencies and builds from inside the IDE.</p>
+  <p>Spring Initializr integration lets me bootstrap a new Spring project from inside the IDE with the dependencies I pick. Real-life analogy: ordering a house with the rooms you chose, already framed.</p>
+
+  <h2>3. IntelliJ's competitors</h2>
+  <p>Eclipse is open source with a big plugin ecosystem, but many people find it less intuitive. NetBeans is open source, popular for Java and web work, with several plugins preinstalled. Visual Studio Code is a light, fast editor with a huge extension marketplace and works with many languages. Spring Tools (STS) is an Eclipse-based IDE built for Spring, with Spring-aware tooling and project templates. PyCharm is JetBrains' IDE for Python, and shares many features with IntelliJ.</p>
+
+  <h2>4. Pseudocode: starting a Spring project</h2>
+
+```text
+OPEN the Spring Initializr (website or inside the IDE)
+CHOOSE Maven, Java 21, a group and artifact name
+ADD dependencies (web, data JPA, H2, validation)
+GENERATE and open the project
+
+LET Maven download the dependencies
+RUN the generated main class
+THEN a web server starts on port 8080
+
+ADD an endpoint, RUN again
+OPEN the endpoint in the browser or with curl
+CHECK the result
+```
+
+  <h2>5. Tips for understanding</h2>
+  <p>The Community versus Ultimate split is the one thing to remember. Community can create and run Spring Boot projects with Maven, which is all I need for now. Ultimate adds the Endpoints window, bean diagrams and Spring-specific inspections.</p>
+  <p>I use VS Code, and it has a close match: the Spring Boot Extension Pack gives Spring Initializr support, Spring Boot tools and a dashboard for running apps. So I lose nothing for my evaluation project by staying with VS Code, and I can try IntelliJ afterwards.</p>
+</body>
+</html>

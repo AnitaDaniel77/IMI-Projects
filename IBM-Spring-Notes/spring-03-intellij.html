@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spring 03: Exploring IntelliJ IDEA Features</title>
+</head>
+<body>
+  <h1>Spring 03: Exploring IntelliJ IDEA Features</h1>
+
+  <h2>1. What the lesson teaches</h2>
+  <p>By the end I should be able to name the features of IntelliJ IDEA Community Edition and explain how its features group into two views: what I need to develop an application, and what I need to maintain it. The lesson's scenario is a company building an HR application that needs one environment to write, edit and manage the code.</p>
+
+  <h2>2. What IntelliJ IDEA is</h2>
+  <p>IntelliJ IDEA is an integrated development environment (IDE) from JetBrains with a strong focus on Java. The Community Edition is free and open source. The Ultimate Edition adds database tools and advanced framework support.</p>
+  <p>Real-life analogy: a fully fitted workshop. The saw, the drill and the workbench are all in one room, so you don't walk around the building to fetch tools.</p>
+
+  <h2>3. The seven core Community features</h2>
+  <p>The interface is clean: a menu bar at the top, the project tool window on the left, the editor in the middle, and tabs at the bottom for tools like the terminal and version control.</p>
+  <p>Code completion suggests what you are about to type, which saves time and cuts typing mistakes. Real-life analogy: predictive text on a phone.</p>
+  <p>Debugging lets me set breakpoints, step through code line by line and inspect variables. Real-life analogy: pausing a film on one frame to check what's in the scene.</p>
+  <p>Version control integration brings Git into the IDE for managing changes, branches and history. Real-life analogy: a document's version history, built into the editor.</p>
+  <p>Refactoring restructures code without changing what it does. Real-life analogy: renovating a kitchen while the house still works the same way.</p>
+  <p>The built-in terminal runs command-line tasks, such as Maven commands, without leaving the IDE. Plugin support lets me add languages, frameworks and tools. Real-life analogy: apps on a phone.</p>
+
+  <h2>4. Features for developing an application</h2>
+  <p>Productive development means tools that remove routine blockers. Fast coding covers machine-learning code completion, live templates (short abbreviations that expand into standard code) and language injection (using several languages in one file). The decompiler turns bytecode back into readable Java, which helps when debugging library code. Search tools find classes, symbols, files and text across the whole project. AI-powered tools include full-line completion, inline prompts and a chat assistant for things like naming and commit messages. The debugger and profiler find bugs and show CPU and memory use.</p>
+  <p>Real-life analogy: the profiler is a health check for the application. The debugger is for finding what's wrong, the profiler is for checking how fit it is.</p>
+
+  <h2>5. Features for maintaining an application</h2>
+  <p>Version control and collaboration cover cloning, branches, history, and pull or merge requests for GitHub and GitLab inside the IDE. Database tools run SQL and connect to live databases, and an HTTP client sends requests to web services. Framework support covers JavaScript frameworks and others. Testing support covers JUnit, TestNG, Cucumber and Selenium, and continuous testing reruns tests when the code changes. Deployment tools offer Kubernetes integration and Docker support, so applications can be run and debugged in containers. Customization covers themes and accessibility, and privacy settings control what data is shared. Database tools and the deeper framework support belong to the Ultimate Edition.</p>
+
+  <h2>6. Pseudocode: my first session in IntelliJ</h2>
+
+```text
+OPEN IntelliJ, choose Open, pick the project folder
+LET it import the Maven project (pom.xml)
+SET the project SDK to Java 21
+RUN the main method with the green arrow
+
+SET a breakpoint inside a loop
+START in debug mode
+STEP through, WATCH the variable change
+
+RENAME a method with refactoring
+CHECK every place that used it was updated
+
+USE the Git panel to see changes and commit
+USE the built-in terminal to run mvn test
+```
+
+  <h2>7. Tips for understanding</h2>
+  <p>Don't try to learn every feature. Group them: write code (completion, templates), find problems (debugger, profiler), manage change (Git, refactoring), and connect to other things (database, Docker, HTTP client). For my daily work as a trainee, the debugger, refactoring, search and the Git panel matter most.</p>
+  <p>Coming from VS Code, most of this already has a match: code completion, debugging, the integrated terminal, Git and extensions all exist there. The difference is that IntelliJ ships with Java support built in, while VS Code needs the Java extension pack added. The Community Edition is enough for Java and Maven Spring Boot projects. The Ultimate Edition adds the Spring and database tooling.</p>
+</body>
+</html>

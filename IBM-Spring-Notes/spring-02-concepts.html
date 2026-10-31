@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spring 02: Essential Spring Concepts</title>
+</head>
+<body>
+  <h1>Spring 02: Essential Spring Concepts</h1>
+
+  <h2>1. What the lesson teaches</h2>
+  <p>By the end I should be able to describe the key Spring ideas (beans, application context, configuration, annotations, dependencies, IoC, dependency injection, autowiring, components and AOP) and say what role each plays. Before Spring, deploying Java meant configuring environments by hand, checking dependencies and hunting for errors. Spring automates most of that.</p>
+
+  <h2>2. Beans</h2>
+  <p>A bean is an object that the Spring IoC container creates and manages. Beans are the building blocks of a Spring application, and each one has one job.</p>
+  <p>Real-life analogy: furniture in a house. The sofa, the table and the bed each serve a purpose, and together they make the house work.</p>
+
+  <h2>3. Application context</h2>
+  <p>The application context is the central manager. It creates the beans, knows their dependencies and looks after them for the life of the application, so every part is available when something asks for it.</p>
+  <p>Real-life analogy: a ready reckoner or a building manager's manual, with instructions for creating and looking after every part of the building.</p>
+
+  <h2>4. Configuration</h2>
+  <p>Configuration tells Spring how to set up the components. It can be written in XML files, in annotations, or in Java classes. Modern projects mostly use annotations and Java classes.</p>
+  <p>Real-life analogy: a building's blueprint. It says what each room is and how it's built.</p>
+
+  <h2>5. Annotations</h2>
+  <p>Annotations are metadata that describe a class or method. For example, the component annotation marks a class as something Spring should manage.</p>
+  <p>Real-life analogy: the label on a product. It tells you what's inside without a separate manual.</p>
+
+  <h2>6. Dependencies</h2>
+  <p>A dependency is an object that another object needs to work. A car needs an engine, so the engine is the car's dependency. In my project, a fraud checker needs fraud rules, so the rules are its dependency.</p>
+
+  <h2>7. Inversion of Control (IoC)</h2>
+  <p>IoC means control moves from my code to the framework. I no longer create and manage the objects my class needs. Spring does it when it builds the beans.</p>
+  <p>Real-life analogy: ordering at a restaurant. You don't cook. The kitchen prepares what you need and brings it to the table.</p>
+
+  <h2>8. Dependency injection (DI)</h2>
+  <p>DI is how IoC is done. Spring hands each object its dependencies at runtime, usually through the constructor, instead of the object building them itself. The car receives its engine when the car bean is created.</p>
+
+  <h2>9. Autowiring</h2>
+  <p>Autowiring lets Spring find the right dependency by type or name and plug it in without me defining the wiring by hand. It uses reflection to match them. With a single constructor, Spring autowires it automatically.</p>
+  <p>Real-life analogy: an automatic coffee machine. Press one button and it does the grinding, heating and pouring.</p>
+
+  <h2>10. Components</h2>
+  <p>A component is a class that the IoC container manages, marked with the component annotation. It's registered as a bean automatically. Services and repositories are specialised kinds of component.</p>
+  <p>Real-life analogy: departments in a company. Each has one responsibility, and together they run the business.</p>
+
+  <h2>11. Aspect-Oriented Programming (AOP)</h2>
+  <p>AOP pulls out concerns that cut across many classes, such as logging, security and transaction management, and keeps them out of the business code. It works alongside object-oriented programming.</p>
+  <p>Real-life analogy: layers on a cake. The flavour and the decoration are added around the cake without changing the cake itself.</p>
+
+  <h2>12. Pseudocode: how it fits together</h2>
+
+```text
+DEFINE rule classes and mark each as a component
+DEFINE the checker class and mark it as a component
+  the checker's constructor asks for "all fraud rules"
+
+START the application
+  Spring scans for components
+  Spring creates a bean for each one
+  Spring sees the checker needs rules (the dependency)
+  Spring injects every rule bean into the checker
+  the application context now holds everything, ready to use
+
+ASK the context for the checker
+  USE it, the rules are already inside
+```
+
+  <h2>13. Tips for understanding</h2>
+  <p>Learn the chain in order: a component becomes a bean, beans live in the application context, and the context injects dependencies into beans. IoC is the idea, dependency injection is how it's done, and autowiring is the automatic version. Each term answers one question: who creates the object, where does it live, and how does it get what it needs.</p>
+  <p>Map it to my project: each fraud rule is a component, the fraud checker is a component that receives all the rules through its constructor, and I never write a single "new" for them.</p>
+</body>
+</html>

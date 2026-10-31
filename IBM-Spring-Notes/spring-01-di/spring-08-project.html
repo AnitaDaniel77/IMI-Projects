@@ -1,0 +1,66 @@
+<h1>Spring 08: Defining a Spring Project</h1>
+
+<h2>The idea</h2>
+<p>Defining a Spring project means setting up the tools, creating a Maven project, adding the Spring libraries as dependencies, and writing a first configuration class, bean and main class.</p>
+<p>Real-life example: you are the head chef writing the order. You list the ingredients (dependencies) and Spring, the kitchen, prepares the dish (the application) from that list.</p>
+
+<h2>Step 1: Set up the environment</h2>
+<p>Install a JDK (Oracle or OpenJDK) and Maven, then check both with java -version and mvn -version. Each must print version details.</p>
+<p>Real-life example: checking the oven and the pans work before you start cooking.</p>
+
+<h2>Step 2: Create the Maven project</h2>
+<p>Either use the command line (set the groupId and artifactId) or an IDE wizard and choose Maven. The groupId is the unique organisation name, the artifactId is the project name.</p>
+
+<h2>Step 3: Know the standard structure</h2>
+<ul>
+  <li>pom.xml at the root: project details, dependencies, build setup.</li>
+  <li>src/main/java: the application code (configuration classes, services, controllers).</li>
+  <li>src/main/resources: config files, HTML, CSS, templates.</li>
+  <li>src/test/java: unit and integration tests, for example with JUnit.</li>
+  <li>src/test/resources: files only the tests need, like mock data.</li>
+</ul>
+<p>Real-life example: a kitchen with labelled shelves. Everyone knows where the ingredients, the tools and the taste-test spoons live, so a new colleague finds things at once.</p>
+
+<h2>Step 4: Add dependencies</h2>
+<p>Add the Spring library to pom.xml (here spring-context, which holds the IoC container). Maven downloads it and everything it needs. The lesson runs mvn clean install for this.</p>
+
+<h2>Step 5: Write the first Spring app</h2>
+<ul>
+  <li>HelloBean: a plain class with one method that prints a message.</li>
+  <li>AppConfig: a class marked @Configuration with a @Bean method that creates the HelloBean.</li>
+  <li>MainApp: starts the Spring container, asks it for the bean and calls the method.</li>
+</ul>
+<p>Real-life example: AppConfig is the menu, HelloBean is the dish, and MainApp is the waiter who asks the kitchen (the container) for it instead of cooking it himself.</p>
+
+<h2>Step 6: Compile and run</h2>
+<p>Build with Maven or run MainApp from the IDE. The console prints the message, which proves Spring created and managed the bean.</p>
+
+<h2>Tips to understand the logic</h2>
+<ul>
+  <li>Notice that MainApp never writes new HelloBean(). Spring creates it, MainApp only asks for it. That is the whole point of IoC.</li>
+  <li>Read it as three questions: what is the bean (HelloBean), who creates it (AppConfig), who uses it (MainApp).</li>
+  <li>If getBean fails, check that the @Bean method exists and that AppConfig was passed to the container.</li>
+</ul>
+
+<h2>Pseudocode</h2>
+```
+CHECK java and mvn are installed
+CREATE maven project (groupId com.example, artifactId spring-project)
+ADD spring-context dependency to pom.xml
+DOWNLOAD dependencies with maven
+
+DEFINE HelloBean with method sayHello()
+  PRINT "Hello World from Spring"
+
+DEFINE AppConfig (@Configuration)
+  @Bean method returns a new HelloBean
+
+MAIN
+  START Spring container using AppConfig
+  GET HelloBean from the container
+  CALL sayHello()
+  CLOSE container
+```
+
+<h2>Example</h2>
+<p>See spring-08-project. Run it with mvn compile exec:java from the project folder.</p>

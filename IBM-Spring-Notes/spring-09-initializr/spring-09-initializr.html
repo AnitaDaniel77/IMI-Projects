@@ -1,0 +1,54 @@
+<h1>Spring 09: Spring Initializr</h1>
+
+<h2>What it is</h2>
+<p>Spring Initializr is a web tool at start.spring.io that generates a ready-to-run Spring Boot project. You choose the options and it builds the folder structure, the pom.xml and the main class for you.</p>
+<p>Real-life example: ordering a meal kit. You pick the dish and the ingredients on a form, and a box arrives with everything measured and labelled, so you start cooking instead of shopping.</p>
+
+<h2>The options, in the order you meet them</h2>
+<ul>
+  <li>Project: Maven or Gradle. We use Maven.</li>
+  <li>Language: Java, Kotlin or Groovy. We use Java.</li>
+  <li>Spring Boot version: pick the latest stable release (not a SNAPSHOT or milestone) to get current features and fixes.</li>
+  <li>Group: the organisation, written like a domain (com.example.course).</li>
+  <li>Artifact and name: the project name. The package name fills in by itself from group and artifact.</li>
+  <li>Packaging: JAR or WAR. JAR for Boot apps, because Boot has the web server built in.</li>
+  <li>Java version: choose one you have installed. I have 21, so I choose 21 even though the lesson shows 23.</li>
+  <li>Dependencies: the libraries you want. Spring Web builds web apps and REST APIs. Spring Data JPA gives database access.</li>
+</ul>
+<p>Real-life example: group, artifact and package are your address on the parcel. The Java version is the oven size, so it must be one your kitchen actually has.</p>
+
+<h2>Explore and Generate</h2>
+<p>Explore shows the generated files in the browser so you can check the structure before downloading. Generate downloads a zip. Extract it and open the folder in your IDE as a Maven project.</p>
+
+<h2>What you get</h2>
+<ul>
+  <li>pom.xml with the Spring Boot parent and the dependencies you chose.</li>
+  <li>A main class annotated with @SpringBootApplication. This is the entry point.</li>
+  <li>src/main/resources/application.properties for settings.</li>
+  <li>A test class in src/test/java.</li>
+  <li>mvnw, the Maven wrapper, so the project builds even without Maven installed.</li>
+</ul>
+
+<h2>Tips to understand it</h2>
+<ul>
+  <li>The only thing you must remember: Initializr writes the pom.xml for you. Choosing a dependency on the website is the same as adding it to the pom by hand.</li>
+  <li>If something is missing later (no web server, no database), the first place to look is the dependencies list.</li>
+  <li>Pick Java 21 here, not the newest in the dropdown, or the build fails on a machine without that JDK.</li>
+</ul>
+
+<h2>Pseudocode</h2>
+```
+OPEN start.spring.io
+CHOOSE Maven, Java, latest stable Boot version
+SET group, artifact (package is filled in)
+CHOOSE packaging JAR and Java 21
+ADD dependency Spring Web
+CLICK Generate -> download zip
+EXTRACT zip
+OPEN in IDE as a Maven project
+RUN the main class
+  Spring Boot starts the app and the built-in web server
+```
+
+<h2>Example</h2>
+<p>See spring-09-initializr. Generate a project named demo with Spring Web, add HelloController, run it and call /hello.</p>

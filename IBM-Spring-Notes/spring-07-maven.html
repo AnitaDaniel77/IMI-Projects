@@ -1,0 +1,56 @@
+<h1>Spring 07: Maven</h1>
+
+<h2>What Maven is</h2>
+<p>Maven is a build and project management tool for Java. It downloads the libraries you need, compiles your code, runs the tests and packages the result into a JAR. You describe the project once in a file called pom.xml and Maven does the rest.</p>
+<p>Real-life example: Maven is a recipe card plus a shopping service. The pom.xml lists the ingredients (dependencies) and the steps (lifecycle), and Maven fetches the ingredients from the shop (Maven Central) and cooks in the right order.</p>
+
+<h2>The five key parts</h2>
+<ul>
+  <li>POM (pom.xml): the project's configuration and the heart of every Maven project.</li>
+  <li>Dependencies: external libraries declared in the POM and downloaded automatically.</li>
+  <li>Repositories: where libraries are stored. Maven Central is the default, others can be added.</li>
+  <li>Build lifecycle: validate, compile, test, package, verify, install, deploy.</li>
+  <li>Plugins: add abilities such as compiling, packaging or generating docs.</li>
+</ul>
+<p>Real-life example: the lifecycle is a production line. A phase only runs after every phase before it has passed, so running mvn install also validates, compiles, tests and packages first.</p>
+
+<h2>Inside pom.xml</h2>
+<ul>
+  <li>project: the root element, defines the XML namespace.</li>
+  <li>modelVersion: the POM format version, almost always 4.0.0.</li>
+  <li>groupId: your organisation, written like a domain (com.example).</li>
+  <li>artifactId: the unique name of the project (spring-demo).</li>
+  <li>version: the edition. SNAPSHOT at the end means still in development.</li>
+  <li>packaging: jar by default, or war.</li>
+  <li>dependencies: each one has groupId, artifactId, version and scope.</li>
+  <li>build: plugins and their goals.</li>
+  <li>repositories: extra places to look for libraries.</li>
+  <li>properties: your own variables, for example the project-wide Java version.</li>
+  <li>profiles: different setups for development and production, switched on from the command line.</li>
+</ul>
+<p>Real-life example: groupId, artifactId and version together are the project's address, like street, house number and flat number. Maven uses them to find exactly one library.</p>
+
+<h2>Maven in IntelliJ</h2>
+<p>New Project, choose Maven, fill in groupId and artifactId. Type "dependency" in pom.xml and autocomplete gives you the tag. The Maven tool window lets you double-click clean, compile or install. In VS Code the same goals run from the terminal.</p>
+
+<h2>Tips to understand it</h2>
+<ul>
+  <li>Read a pom.xml top to bottom as three questions: who am I (group, artifact, version), what do I need (dependencies), how am I built (build and plugins).</li>
+  <li>If a class is "not found", check the dependency first. If the build fails, check which lifecycle phase it stopped at.</li>
+  <li>Phases run in order, so you never need to run compile before test yourself.</li>
+</ul>
+
+<h2>Pseudocode</h2>
+```
+READ pom.xml
+FOR each dependency listed
+  IF not in local repository
+    download from Maven Central
+RUN lifecycle phases up to the one requested
+  validate -> compile -> test -> package -> verify -> install -> deploy
+  STOP at the first phase that fails
+RESULT: a JAR in the target folder
+```
+
+<h2>Example</h2>
+<p>See spring-07-maven/pom.xml and MavenDemo.java. Build with mvn package, then run the class from target/classes.</p>

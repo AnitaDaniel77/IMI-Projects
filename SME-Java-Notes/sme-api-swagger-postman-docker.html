@@ -1,0 +1,105 @@
+<h1>SME Session E12 Java: API Integration, Swagger, Postman and Docker</h1>
+<p>Date: 3 November 2026. Facilitator: Hilbert Muchatibaya.</p>
+
+<h2>Acronyms in this session</h2>
+<ul>
+  <li>API (Application Programming Interface): the doorway one program uses to talk to another.</li>
+  <li>HTTP (HyperText Transfer Protocol): the language browsers and servers use to talk to each other.</li>
+  <li>URL (Uniform Resource Locator): the address of something, like http://localhost:8080/transactions.</li>
+  <li>REST (Representational State Transfer): an API style where each thing has a URL and you act on it with HTTP methods.</li>
+  <li>JSON (JavaScript Object Notation): a text format for sending data, like {"amount": 500}.</li>
+  <li>YAML (YAML Ain't Markup Language): an indented config file format, an alternative to .properties.</li>
+  <li>CSV (Comma-Separated Values): a plain text table with one row per line.</li>
+  <li>UI (User Interface): the screen a person uses.</li>
+  <li>JAR (Java ARchive): one file holding your compiled app.</li>
+  <li>JRE (Java Runtime Environment): the part of Java that runs a program, without the compiler.</li>
+  <li>SQL (Structured Query Language): the language used to talk to databases.</li>
+</ul>
+
+<h2>1. What API integration means</h2>
+<p>Applications live on the internet and they need to talk to each other. Hilbert's example: Facebook needs to call Instagram to get your photos. Each app exposes an API, the other app calls it, gets a reply in JSON, and then shows it on a screen or processes it in the background. In his SafePay example, the app sorts transactions into high, medium and low risk, and other teams use that through its API.</p>
+<p>Real-life example: a restaurant. The menu is the API, because it lists what you can ask for. The waiter carries your order to the kitchen and brings back the plate. You never walk into the kitchen yourself.</p>
+
+<h2>2. Controller and endpoint</h2>
+<p>A controller is a class that receives web requests for one area of the app, like TransactionController. An endpoint is one specific resource and action inside it, like POST /transactions. Hilbert described an endpoint as a specific resource you are trying to access.</p>
+<p>Real-life example: a shop is the controller, and each counter inside it is an endpoint. One counter takes new orders, another looks up an existing order.</p>
+<p>Tip for reading a controller: find the annotation above each method first. It tells you the verb and the address, and the method body is just what happens next.</p>
+
+<h2>3. HTTP methods and why conventions matter</h2>
+<p>GET reads data and changes nothing. POST creates something new. PUT replaces an existing thing entirely. PATCH changes part of a thing. DELETE removes it. HEAD, OPTIONS, TRACE and CONNECT also exist but are used rarely.</p>
+<p>Idempotent means repeating the request leaves the same result. GET, PUT and DELETE are idempotent. POST is not, because sending it twice creates two records.</p>
+<p>Hilbert's point: following these conventions makes your API predictable for other developers. He also warned to prepare for badly written endpoints from other people, such as a GET that secretly changes data, because not everyone follows the rules.</p>
+<p>Useful status codes seen in his controller: 200 OK, 201 Created after a POST, 400 Bad Request when the caller's input is wrong, 404 Not Found when the thing does not exist.</p>
+<p>Real-life example: a library. GET is looking at a book on the shelf, POST is adding a new book, PUT is replacing a book's whole record, PATCH is fixing one typo, DELETE is removing the book from the catalogue.</p>
+
+<h2>4. Spring does the routing for us</h2>
+<p>Hilbert showed a plain Java version of SafePay with no Spring. One handle method checked the request method and the path by hand with if statements, and wrote the JSON reply itself. His comments marked every spot with "SPRING DOES THIS FOR US". In the Spring version, @GetMapping and @PostMapping do that routing under the hood, so you skip the boilerplate (repetitive setup code).</p>
+<p>Real-life example: sorting the post by hand versus having a sorting machine that reads the address and drops each letter in the right bin.</p>
+```text
+handle(request):
+    method = request method
+    path = request address
+    if method is GET and path is /transactions: return the list
+    else if method is POST and path is /transactions: create one, return 201
+    else: return 404 or 405
+```
+<p>The runnable version of this is in ApiRoutingDemo.java.</p>
+
+<h2>5. OpenAPI spec and Swagger UI</h2>
+<p>An OpenAPI spec is a standard description of your API, written as JSON or YAML. It lists every endpoint, what you must send, and what comes back, in a way that works for any programming language. Swagger UI is a web page generated from that spec. It shows each endpoint with a colour-coded method (GET blue, POST green, PUT orange, DELETE red), and it has a Try it out button and an Execute button so anyone can test the API from the browser. It also shows validation errors, such as a required field not provided. Hilbert's summary: Swagger is the interface that documents what your API can do.</p>
+<p>Real-life example: the OpenAPI spec is the written menu with ingredients and prices. Swagger UI is the tablet version where you can place a test order and see what arrives.</p>
+<p>Practice sites he showed: the Swagger Petstore demo and JSONPlaceholder, a free fake API for practising calls.</p>
+<p>Setting it up in Spring Boot: add the springdoc dependency (springdoc-openapi-starter-webmvc-ui) to the pom.xml. His pom showed version 3.2.0. Optionally add a config class with a bean that sets the API title and description. A bean is an object that Spring creates and manages for you. Then run the app. The Swagger page is at localhost:8080/swagger-ui/index.html and the raw spec is at localhost:8080/v3/api-docs. Older tutorials, like the Baeldung one he showed, use a Docket bean with a different library, which is the older approach.</p>
+<p>His SafePay API page showed four endpoints: GET /transactions (list), POST /transactions (create), POST /transactions/import (import from a CSV file), GET /transactions/{id} (get one by its ID).</p>
+```text
+add the springdoc dependency
+(optional) create a config bean with title and description
+run the app
+open /swagger-ui/index.html to read and try the endpoints
+open /v3/api-docs to see the raw spec
+```
+
+<h2>6. Postman</h2>
+<p>Postman is another way to call your API, but more organised. You import the spec from /v3/api-docs and Postman builds a collection, which is a saved folder of ready-made requests, one per endpoint. Postman also does stress testing: you pick an endpoint and tell it to simulate something like 20,000 requests at the same time, to see whether the app copes with traffic like a Black Friday sale.</p>
+<p>Hilbert's tip for extra marks on a back-end project: set up Swagger and the OpenAPI spec, create a Postman collection, take screenshots of both, make sure each endpoint is described, and put it in the README with a high-level overview of what the project does.</p>
+<p>Real-life example: Swagger UI is the demo counter anyone can try. Postman is the testing workshop that keeps all your test orders and can send a thousand at once.</p>
+
+<h2>7. Config files: JSON and YAML</h2>
+<p>His application.yml holds settings in a hierarchy, where indentation shows what sits inside what. It had a risk section with a threshold of 10000.00 and a list of high-risk locations, plus the datasource URL, username, password and the Hibernate setting ddl-auto: update. My own application.properties holds the same kind of thing, just written flat: fraud.rules.high-amount.threshold=10000. Keeping thresholds in config means a rule can change without touching any code. Real passwords stay out of Git.</p>
+<p>Real-life example: YAML is a filing cabinet with drawers and folders. A properties file is one long list of labelled sticky notes.</p>
+
+<h2>8. Docker</h2>
+<p>Docker is the container that holds your software together with everything it needs, so it runs the same on any computer. The delivery chain: build an image (the packaged app), push it to Docker Hub (a shared library of images), and anyone can pull it and run it without installing or configuring anything. Hilbert: the entire purpose of Docker is to ship software across different platforms without worrying about platform-specific requirements. The Docker logo is a ship carrying containers for exactly that reason.</p>
+<p>Real-life example: a shipping container. The ship, train or truck does not matter, because the box and what is in it stay the same.</p>
+
+<h3>Dockerfile</h3>
+<p>A Dockerfile is a set of instructions telling the computer how to build the image. His was a multi-stage build. Stage one starts from an image with Maven and Java 21, copies in the pom.xml and the src folder, and runs mvn package (skipping tests) to build the fat JAR. Stage two starts from a small Java 21 JRE image, creates a non-root user for safety, copies only the finished JAR out of stage one, and runs it. The result is a small final image with no build tools in it. FROM picks the starting image, WORKDIR sets the folder inside the container, COPY brings files in, RUN executes a command.</p>
+```text
+stage 1 (build):
+    start from Maven + Java 21
+    copy pom.xml and src
+    build the JAR
+stage 2 (run):
+    start from small Java 21 JRE
+    create a non-root user
+    copy only the JAR from stage 1
+    run the JAR
+```
+<p>Real-life example: flat-pack furniture. Stage one is the factory with all the tools. Stage two is the box that arrives at your house with only the finished piece.</p>
+
+<h3>Docker Compose</h3>
+<p>docker-compose.yml describes several containers that run together. His had a postgres service (built from ./docker/postgres, port 5432, a password in the environment section, a volume so the data survives restarts) and the API service. One command starts everything: docker compose up -d --build. The -d runs it in the background and --build rebuilds the images first. The first build took about 100 seconds because it downloaded the dependencies. Rebuilds are faster.</p>
+<p>The healthcheck matters. It runs pg_isready every 5 seconds, up to 10 retries, so the API only starts once the database is ready. Earlier in the session his app crashed with "Connection refused" on port 5432 because the database was not up yet. A small SQL script in docker/postgres/init creates the database user the API logs in with and grants it only the rights it needs.</p>
+<p>Once all of it is pushed to the repository, anyone can pull the latest changes and run docker compose with nothing installed except Docker.</p>
+<p>Real-life example: a meal kit. The box has every ingredient and the recipe card, and anyone can cook the same dish.</p>
+```text
+git pull the latest changes
+docker compose up -d --build
+    build the API image from the Dockerfile
+    start postgres and wait until the healthcheck passes
+    start the API
+open localhost:8080/swagger-ui/index.html
+```
+
+<h2>9. What this means for my Fraud Rule Engine</h2>
+<p>Add springdoc and a small OpenAPI config class. Export a Postman collection and keep it in docs. Take Swagger and Postman screenshots for the README. Build a multi-stage Dockerfile. Add a docker-compose.yml with Postgres and a healthcheck. Write a README with a high-level overview of what the service does.</p>

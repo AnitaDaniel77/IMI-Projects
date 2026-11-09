@@ -1,0 +1,90 @@
+<h1>Creating a Spring Boot Application</h1>
+<p>IBM Spring Framework for Java Development, Module 2, Deep Dive into Spring Boot</p>
+
+<h2>What I should be able to do after this lesson</h2>
+<ul>
+  <li>Use Spring Initializr to set up a project with dependencies and settings</li>
+  <li>Build a controller, use annotations, manage data and add logging</li>
+  <li>Run and test the application with Maven or an IDE (Integrated Development Environment, the program I write code in)</li>
+</ul>
+
+<h2>The nine steps (BookFinder example)</h2>
+<p>Real-life example: opening a small shop. First you get the empty shop (Initializr), learn where things go (structure), put up a counter (controller), then add rules, stock records, settings, a test opening and a security camera log.</p>
+
+<h3>Step 1: Set up with Spring Initializr</h3>
+<ul>
+  <li>Go to start.spring.io</li>
+  <li>Project: Maven. Language: Java. Spring Boot: latest stable version</li>
+  <li>Group: com.example. Artifact and Name: BookFinder</li>
+  <li>Dependency: Spring Web (for REST APIs, REST stands for REpresentational State Transfer)</li>
+  <li>Click Generate, download the ZIP and extract it</li>
+</ul>
+
+<h3>Step 2: Understand the structure</h3>
+<ul>
+  <li>src/main/java: the Java source code</li>
+  <li>src/main/resources: configuration, including application.properties</li>
+  <li>pom.xml: dependencies and Maven build settings</li>
+</ul>
+
+<h3>Step 3: Create a simple controller</h3>
+<p>BookController.java goes in the controller package. @RestController says the class answers web requests, and @GetMapping("/book") ties GET requests at /book to the getBook method, which returns a hard-coded book name.</p>
+<p>Real-life example: a shop counter with one sign, "ask here for the book of the day". My fraud engine has the same idea with POST /api/transactions.</p>
+
+<h3>Step 4: Use annotations</h3>
+<ul>
+  <li>@RestController: the class is a RESTful web controller</li>
+  <li>@GetMapping: maps HTTP GET requests to a method (HTTP stands for HyperText Transfer Protocol, the rules of web requests)</li>
+  <li>@PostMapping: maps POST requests, normally used to create things</li>
+</ul>
+
+<h3>Step 5: Getters and setters</h3>
+<p>The Book class in the model package has private title and author, a constructor, getters (read a value) and setters (update a value). This is encapsulation: nobody changes the fields directly.</p>
+<p>Real-life example: a safe deposit box. You ask the bank to open it for you, you do not reach into the vault. In my fraud engine, domain classes have getters only, so a saved payment cannot be changed by accident.</p>
+
+<h3>Step 6: Configure the application</h3>
+<p>In src/main/resources/application.properties, add server.port=8080. This sets the port the embedded server listens on and can be changed per environment.</p>
+
+<h3>Step 7: Run it</h3>
+<ul>
+  <li>In Eclipse: right-click BookFinderApplication.java, Run As, then Java Application (or Spring Boot App)</li>
+  <li>Visit http://localhost:8080/book to see the controller's answer</li>
+  <li>From the terminal: ./mvnw spring-boot:run</li>
+</ul>
+
+<h3>Step 8: Add logging</h3>
+<p>Logging records what the application does so problems are easier to find. Spring Boot uses slf4j (Simple Logging Facade for Java, a common logging interface) with logback as the default logging framework, so no extra dependency is needed. Set levels in application.properties, create a logger in the controller and log inside getBook.</p>
+<p>Real-life example: a security camera log. When something goes wrong at 2 am, you replay what happened. My fraud engine would log each flag raised in the same way.</p>
+
+<h3>Step 9: Run again and check the logs</h3>
+<p>Restart (Shift + F10 in IntelliJ), visit /book, then check the console for the message showing getBook was called.</p>
+
+<h2>Pseudocode</h2>
+
+```
+GENERATE a project at start.spring.io with Spring Web
+OPEN it in the IDE
+CREATE Book (private title and author, constructor, getters and setters)
+CREATE BookController
+  MAP GET /book to getBook
+  LOG "getBook called"
+  RETURN the book's title
+SET server.port and logging level in application.properties
+RUN the application
+OPEN http://localhost:8080/book
+CHECK the console for the log line
+```
+
+<h2>Tips to understand it</h2>
+<ul>
+  <li>The URL is built from three places: the port in application.properties, the class-level path, and the method-level path (/book).</li>
+  <li>If the browser shows an error page, check three things in order: is the app running, is the port right, is the mapping spelled correctly.</li>
+  <li>Use log.info(...) to follow what happens, instead of System.out.println. Logs have levels and can be switched off in production.</li>
+</ul>
+
+<h2>Summary</h2>
+<ul>
+  <li>Initializr generates the project, controllers answer requests, annotations define how</li>
+  <li>Getters and setters protect the data, application.properties holds settings</li>
+  <li>The application runs at /book and logging shows the execution flow</li>
+</ul>

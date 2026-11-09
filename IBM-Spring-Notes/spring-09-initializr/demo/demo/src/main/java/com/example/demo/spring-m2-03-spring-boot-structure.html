@@ -1,0 +1,117 @@
+<h1>Understanding Spring Boot Structure</h1>
+<p>IBM Spring Framework for Java Development, Module 2, Deep Dive into Spring Boot</p>
+
+<h2>What I should be able to do after this lesson</h2>
+<ul>
+  <li>Describe the structure of a Spring Boot project</li>
+  <li>Explain the key annotations and what each one does</li>
+  <li>Explain why configuration lives in files</li>
+  <li>Analyse a real example (the lesson uses an online bookstore, I map it to my fraud engine)</li>
+</ul>
+
+<h2>Project structure</h2>
+<p>Real-life example: a bank branch. Each room has one job (reception, tellers, vault, records), and you always know where to find things. My fraud engine has the same layout.</p>
+
+```
+fraud-rule-engine/
+  pom.xml                      // libraries and build settings (pom = Project Object Model)
+  src/main/java/.../
+    FraudRuleEngineApplication // entry point
+    controller/                // handles web requests
+    service/                   // business logic
+    repository/                // data access
+    domain/                    // entity classes (Transaction, FraudFlag)
+    rule/ dto/ exception/ config/
+  src/main/resources/
+    application.properties     // settings (can also be application.yml)
+    static/                    // CSS, JavaScript, images
+    templates/                 // view templates (Thymeleaf, FreeMarker)
+  src/test/java/...            // tests mirror the main packages
+```
+
+<ul>
+  <li>pom.xml (or build.gradle): dependencies and build configuration</li>
+  <li>Main class: marked with @SpringBootApplication, the entry point</li>
+  <li>controller, service, repository, model (domain): one package per job</li>
+  <li>resources: configuration files plus static and template files for web pages (my fraud engine returns JSON, so it has no templates)</li>
+  <li>test: mirrors the main structure so every component has a test next to its twin</li>
+</ul>
+
+<h2>Annotations</h2>
+<p>An annotation is a sticker on a class or method that tells Spring what it is. Spring reads the stickers and does the wiring.</p>
+
+<h3>@SpringBootApplication</h3>
+<p>Goes on the main class and combines three annotations:</p>
+<ul>
+  <li>@Configuration: this class can define settings and beans</li>
+  <li>@EnableAutoConfiguration: set things up automatically based on the libraries</li>
+  <li>@ComponentScan: search the packages for components, services and controllers</li>
+</ul>
+<p>Real-life example: three jobs on one badge. The caretaker unlocks the building, switches on the lights, and walks every room to see who is there.</p>
+
+<h3>@RestController</h3>
+<p>A class that handles web requests and returns data directly (as JSON). It combines @Controller and @ResponseBody. REST stands for REpresentational State Transfer, a standard way for programs to exchange data over the web.</p>
+<p>Real-life example: the receptionist. My TransactionController receives the payment and passes it on.</p>
+
+<h3>@Service</h3>
+<p>Holds business logic and can be injected into controllers or other services.</p>
+<p>Real-life example: the branch manager. My FraudCheckService saves the payment and runs the rules.</p>
+
+<h3>@Repository</h3>
+<p>Data access: talks to the database, often with Spring Data JPA (Java Persistence API, the standard way Java objects are stored in tables).</p>
+<p>Real-life example: the filing clerk. My TransactionRepository saves and finds payments.</p>
+
+<h3>@Entity</h3>
+<p>A class whose objects are rows in a database table.</p>
+<p>Real-life example: one filled-in form is one row. My Transaction class is the form, and each saved payment is one row.</p>
+
+<h3>@Autowired</h3>
+<p>Tells Spring to supply a dependency automatically, so I never write new on a repository. In my code I do not even need it: with a single constructor, Spring injects the parameters itself (constructor injection).</p>
+<p>Real-life example: the manager asks for a clerk and one is sent, without the manager hiring anyone.</p>
+
+<h3>@RequestMapping and its variations</h3>
+<p>Maps a web address to a method. @GetMapping, @PostMapping, @PutMapping and @DeleteMapping tie a method to one HTTP method (HTTP stands for HyperText Transfer Protocol, the rules of web requests).</p>
+<p>Real-life example: signs on doors. A POST to /api/transactions is the "submit a payment" door, a GET to /api/transactions/{id} is the "look up a payment" door.</p>
+
+<h2>Configuration</h2>
+<ul>
+  <li>Settings live in application.properties or application.yml (YAML stands for YAML Ain't Markup Language, an indented settings format) in the resources folder</li>
+  <li>Switch environments (development, testing, production) by changing settings, not code</li>
+  <li>One central place makes updates and maintenance easier</li>
+  <li>The same files can be reused across projects, which keeps them consistent</li>
+</ul>
+<p>Real-life example: my high-amount limit (10000) and the database file location are both in application.properties. My tests use a separate application-test.properties with an in-memory database, so tests never touch real data.</p>
+
+<h2>The lesson's example mapped to my project</h2>
+<ul>
+  <li>BookController (@RestController) is my TransactionController</li>
+  <li>BookService (@Service) is my FraudCheckService</li>
+  <li>BookRepository (@Repository) is my TransactionRepository</li>
+  <li>Book (@Entity) is my Transaction</li>
+</ul>
+
+<h2>Pseudocode: a request through the layers</h2>
+
+```
+RECEIVE a request at a mapped address       // controller (@RestController, @PostMapping)
+PASS the data to the service                // service (@Service)
+APPLY the business rules
+ASK the repository to save or find          // repository (@Repository)
+STORE or LOAD rows                          // entity (@Entity)
+RETURN the result to the controller
+SEND the response back to the caller
+```
+
+<h2>Tips to understand it</h2>
+<ul>
+  <li>Layers only talk downward: controller to service to repository. A controller never touches the database directly.</li>
+  <li>If I am unsure where code belongs, I ask what its job is: web, business rule, or storage.</li>
+  <li>When Spring "just works", look for the sticker. The annotation is why.</li>
+</ul>
+
+<h2>Summary</h2>
+<ul>
+  <li>The structure separates jobs into packages, with settings in resources and tests mirroring main</li>
+  <li>@SpringBootApplication, @RestController, @Service, @Repository, @Entity, @Autowired and the mapping annotations drive the behaviour</li>
+  <li>Configuration files keep settings out of the code</li>
+</ul>

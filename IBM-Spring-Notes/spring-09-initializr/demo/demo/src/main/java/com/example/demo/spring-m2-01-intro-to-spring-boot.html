@@ -1,0 +1,85 @@
+<h1>Introduction to Spring Boot</h1>
+<p>IBM Spring Framework for Java Development, Module 2, Deep Dive into Spring Boot</p>
+
+<h2>What I should be able to do after this lesson</h2>
+<ul>
+  <li>Explain auto-configuration, embedded servers, actuator and externalized configuration</li>
+  <li>Say how Spring Framework and Spring Boot differ</li>
+  <li>Choose between them for a given project</li>
+</ul>
+
+<h2>Spring Boot in one sentence</h2>
+<p>Spring Boot is the Spring Framework with the setup already done for you, so you spend your time writing the business code.</p>
+<p>Real-life example: opening a coffee shop. Spring Framework is sourcing suppliers, designing the menu and hiring staff yourself. Spring Boot is a franchise where the kitchen, menu and suppliers arrive ready. In my project, the fraud engine has no server setup and no database wiring, only rules.</p>
+
+<h2>Key features</h2>
+<ul>
+  <li>Auto-configuration: sets things up based on the libraries in the project</li>
+  <li>Standalone applications: the web server is inside the app, so it runs by itself</li>
+  <li>Production-ready features: built-in health and monitoring tools</li>
+  <li>Spring Boot CLI (Command Line Interface, typing commands in a terminal): quick prototypes with Groovy scripts</li>
+  <li>Spring Initializr: a website that generates a starter project with the dependencies you choose</li>
+</ul>
+
+<h2>The four core concepts</h2>
+
+<h3>1. Auto-configuration</h3>
+<p>Spring Boot looks at the libraries in the pom.xml and creates the objects (beans) those libraries need.</p>
+<p>Real-life example: I add the H2 database library and Spring Boot sets up the database connection without me writing any connection code. In my fraud engine, that is why there is no database class at all, only repositories.</p>
+
+<h3>2. Embedded server</h3>
+<p>A web server (Tomcat or Jetty) is packaged inside the application, so there is nothing to install or configure outside.</p>
+<p>Real-life example: a portable kitchen. Everything is in the van, so it works wherever you park. My fraud engine started on port 8080 from one command, and the same jar went into a Docker container unchanged.</p>
+
+<h3>3. Actuator</h3>
+<p>Built-in endpoints that report the application's health and metrics.</p>
+<p>Real-life example: the dashboard in a car showing fuel and engine temperature. My fraud engine answers at /actuator/health with status UP, and my CI robot used that to check the container had started.</p>
+
+<h3>4. Externalized configuration</h3>
+<p>Settings live in application.properties or a YAML file (YAML stands for YAML Ain't Markup Language, a simple indented settings format), outside the code.</p>
+<p>Real-life example: playlists for different moods. The songs (code) stay the same, and you switch the playlist (settings) per environment. In my project the high-amount limit of 10000 sits in application.properties, so the bank can change it without a programmer.</p>
+
+<h2>Spring Framework or Spring Boot?</h2>
+<h3>Choose Spring Framework when</h3>
+<ul>
+  <li>The enterprise application is complex and needs detailed control of configuration, security and transactions</li>
+  <li>You are working with a legacy system already built on Spring</li>
+  <li>You have custom infrastructure needs (specific servers, custom transaction setup)</li>
+  <li>You are migrating an old application gradually instead of rewriting it</li>
+</ul>
+<h3>Choose Spring Boot when</h3>
+<ul>
+  <li>You want rapid development with minimal setup</li>
+  <li>You are building microservices (small independent services)</li>
+  <li>You are prototyping or building an MVP (Minimum Viable Product, the smallest version that proves the idea)</li>
+  <li>The target is cloud or containers</li>
+  <li>You are starting a new project from scratch</li>
+</ul>
+<p>Real-life example: Capitec adding a small new service next to old core banking could use Boot. Changing a large, long-running Spring system with custom rules is more likely Framework work.</p>
+
+<h2>Pseudocode: what happens when a Boot app starts</h2>
+
+```
+START the application (main method)
+  READ the libraries listed in pom.xml
+  FOR each library found
+    CREATE the default beans that library needs   // auto-configuration
+  READ application.properties                     // externalized configuration
+  START the embedded web server on port 8080      // embedded server
+  PUBLISH /actuator/health                        // actuator
+  WAIT for requests
+```
+
+<h2>Tips to understand it</h2>
+<ul>
+  <li>Boot does not replace Spring, it sits on top of it. Everything Boot does, Spring can do manually.</li>
+  <li>Ask one question per concept: what did I not have to write? (auto-configuration: bean setup, embedded server: server setup, externalized configuration: hard-coded values)</li>
+  <li>Memory trick: Auto, Embedded, Actuator, External. The first letters spell AEAE, so think "Always Easier, Always Easy".</li>
+</ul>
+
+<h2>Summary</h2>
+<ul>
+  <li>Boot automates configuration and embeds the server, which cuts setup time</li>
+  <li>Four core concepts: auto-configuration, embedded server, actuator, externalized configuration</li>
+  <li>Framework for control and legacy, Boot for speed, microservices, MVPs, cloud and new projects</li>
+</ul>

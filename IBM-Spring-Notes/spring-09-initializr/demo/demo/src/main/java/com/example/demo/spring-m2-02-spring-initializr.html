@@ -1,0 +1,81 @@
+<h1>Using Spring Initializr for Spring Boot</h1>
+<p>IBM Spring Framework for Java Development, Module 2, Deep Dive into Spring Boot</p>
+
+<h2>What I should be able to do after this reading</h2>
+<ul>
+  <li>Define Spring Initializr</li>
+  <li>Explain how to use it to create a Spring Boot project</li>
+</ul>
+
+<h2>What is Spring Initializr?</h2>
+<p>A free website (start.spring.io) where you tick the options you want and it builds a ready-to-use Spring Boot project as a ZIP file. You open that ZIP in your IDE (Integrated Development Environment, the program you write code in, like VS Code or IntelliJ).</p>
+<p>Real-life example: ordering a pizza from a form. You choose the base, size and toppings, and a ready pizza arrives. For my fraud engine I picked my settings and got a project that already had a pom.xml, a main class and the right folders.</p>
+
+<h2>The steps</h2>
+<ol>
+  <li>Open start.spring.io in a browser</li>
+  <li>Fill in the project metadata</li>
+  <li>Choose the project options</li>
+  <li>Add dependencies</li>
+  <li>Press Generate and download the ZIP</li>
+  <li>Extract the ZIP and open the folder in the IDE</li>
+  <li>Run the application</li>
+</ol>
+
+<h2>Project metadata</h2>
+<ul>
+  <li>Group: a reversed domain name you control, like com.example. Mine is com.anitadaniel.</li>
+  <li>Artifact: the project name, like demo. Mine is fraud-rule-engine.</li>
+  <li>Name: the display name</li>
+  <li>Description: one line about the project</li>
+  <li>Package name: the base package for the Java classes, normally built from group and artifact. Mine is com.anitadaniel.fraudengine.</li>
+</ul>
+<p>Real-life example: like a postal address. The group is the street, the artifact is the house number, and the package is the full address that every class is filed under.</p>
+
+<h2>Project options</h2>
+<ul>
+  <li>Project: Maven or Gradle (build tools that download libraries, compile and package the app). I use Maven.</li>
+  <li>Language: Java, Kotlin or Groovy. I use Java.</li>
+  <li>Spring Boot version: choose the latest stable release</li>
+</ul>
+
+<h2>Dependencies (the libraries you add)</h2>
+<ul>
+  <li>Spring Web: web applications and RESTful services (REST stands for REpresentational State Transfer, a standard way for programs to talk over the web)</li>
+  <li>Spring Security: login and permissions (authentication and authorization)</li>
+  <li>Thymeleaf: a template engine that builds HTML pages</li>
+</ul>
+<p>Real-life example: choosing apps when you set up a new phone. You only install what you need. My fraud engine needs web, data storage, validation and health checks, and no login yet.</p>
+
+<h2>Importing and running</h2>
+<ul>
+  <li>IntelliJ: File, then Open, then choose the project folder. Find the class with the main method (for example DemoApplication) and press Run.</li>
+  <li>VS Code or terminal: go to the project folder and run ./mvnw spring-boot:run (Maven) or ./gradlew bootRun (Gradle)</li>
+</ul>
+
+<h2>Pseudocode</h2>
+
+```
+OPEN start.spring.io
+SET group, artifact, name, description, package
+CHOOSE project (Maven or Gradle), language, Spring Boot version
+FOR each library I need
+  ADD it as a dependency
+CLICK Generate and DOWNLOAD the ZIP
+EXTRACT the ZIP and OPEN the folder in the IDE
+RUN the main class, or run ./mvnw spring-boot:run
+```
+
+<h2>Tips to understand it</h2>
+<ul>
+  <li>Initializr only creates the starting point. After that it is a normal Maven project that I edit myself.</li>
+  <li>The dependencies you tick end up as lines in pom.xml. Added one by mistake? Delete its lines, or add one later by editing the pom.</li>
+  <li>The ./mvnw file is the Maven Wrapper. It means I do not need Maven installed, which is how my CI robot built the fraud engine.</li>
+</ul>
+
+<h2>Summary</h2>
+<ul>
+  <li>Initializr is a web form that generates a Spring Boot starter project</li>
+  <li>Metadata names the project, options pick the tools, dependencies pick the libraries</li>
+  <li>Generate, extract, open in the IDE, run</li>
+</ul>

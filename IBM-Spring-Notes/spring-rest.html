@@ -1,0 +1,52 @@
+<h1>Creating REST APIs with Spring Boot</h1>
+
+<h2>What is a REST API?</h2>
+<p>REST stands for Representational State Transfer. It is a way for a client (an app, a browser) to ask a server for a specific resource without knowing how the server works inside. API stands for Application Programming Interface, the doorway the client uses to make the request.</p>
+<p>Real-life example: in the Capitec app you tap "balance". The app does not know how the bank calculates it. It sends a request, the API does the work behind the scenes, and a response comes back. Same idea as booking a flight: you choose what you need, and the airline handles the operations.</p>
+
+<h2>Key components of REST</h2>
+<p>A resource is anything that can be reached over the web, like a book, an account or a customer.</p>
+<p>A URI (Uniform Resource Identifier) is the address of that resource, for example /api/books.</p>
+<p>HTTP methods say what to do with the resource: GET retrieves, POST creates, PUT updates, DELETE removes.</p>
+<p>REST is stateless. Every request carries everything the server needs, and the server does not remember the client between requests.</p>
+<p>Data usually travels as JSON (JavaScript Object Notation), a light text format that is easy to read.</p>
+
+<h2>Why use Spring Boot for REST APIs</h2>
+<p>Less boilerplate code, because auto-configuration sets up components from your dependencies.</p>
+<p>Production features such as health checks, metrics and logging come built in.</p>
+<p>Applications are standalone. An embedded server (Tomcat or Jetty) is packaged inside an executable JAR (Java Archive), so no outside server is needed.</p>
+<p>Maven or Gradle manages dependencies and avoids version clashes. It also works smoothly with Spring Security, Spring Data and Spring Cloud, and has strong community support.</p>
+<p>Annotations used for REST: @RestController, @RequestMapping and @PathVariable.</p>
+
+<h2>Steps to create a REST API</h2>
+<p>1. Generate the project at Spring Initializr: Maven, latest Spring Boot 3.x, Java, packaging JAR, Java 21, and add the Spring Web dependency.</p>
+<p>2. Open the project in your IDE (Integrated Development Environment).</p>
+<p>3. Create the resource class (Book).</p>
+<p>4. Create the controller (BookController) that answers the requests.</p>
+<p>5. Run the application. It starts on port 8080.</p>
+<p>6. Test with a browser, Postman, or cURL: a GET request to http://localhost:8080/api/books. The application must be running first.</p>
+
+<h2>Pseudocode</h2>
+```text
+create a Book class with id, title and author
+
+create a controller class marked as a REST controller
+    all its addresses start with /api
+
+    when someone sends GET /api/books
+        make an empty list
+        add some books to the list
+        return the list (Spring turns it into JSON)
+
+    when someone sends GET /api/books/{id}
+        loop through the books
+        if a book has the same id
+            return that book
+        return nothing if no book matches
+```
+
+<h2>Logic explained</h2>
+<p>@RestController tells Spring this class answers web requests and returns data, not web pages. @RequestMapping("/api") puts /api in front of every address in the class. @GetMapping("/books") links the GET method to the address /api/books. Whatever the method returns, Spring converts to JSON. @PathVariable pulls the value out of the address, so /api/books/2 gives the method the number 2.</p>
+
+<h2>Tips to understand it</h2>
+<p>Read the URL like a sentence: GET (fetch) /api/books (the books). Ask three questions of any endpoint: which resource, which method, what comes back. If the browser shows an error, check first that the application is running and that the address matches the annotation exactly.</p>

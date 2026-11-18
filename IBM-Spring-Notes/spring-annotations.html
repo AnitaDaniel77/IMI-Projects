@@ -1,0 +1,55 @@
+<h1>Annotations, Controllers and Properties in Spring Boot</h1>
+
+<h2>The big picture</h2>
+<p>Think of a smart home. Annotations are the labels on each device that say what it does. Controllers are the remote controls that direct each action. Properties are the settings that customise the environment, like the temperature. Together they make a Spring Boot application work.</p>
+
+<h2>Annotations</h2>
+<p>An annotation is a label starting with @ that gives Spring metadata (information about your code) so it knows how to handle a class or method. This keeps code organised and replaces the old XML (Extensible Markup Language) configuration files, so there is less boilerplate.</p>
+<p>@SpringBootApplication is the key annotation on the main class. It combines three: @Configuration, which lets the class define beans (objects Spring creates and manages), @EnableAutoConfiguration, which sets things up automatically based on the libraries on the classpath (the libraries Java can see), and @ComponentScan, which searches your packages for components and services.</p>
+<p>@RestController marks a class as a REST controller, so it handles HTTP requests and returns JSON or XML. @RequestMapping links a web address to a class or method. @GetMapping, @PostMapping, @PutMapping and @DeleteMapping are shortcuts for handling GET, POST, PUT and DELETE requests.</p>
+
+<h2>Controllers</h2>
+<p>A controller connects the user interface with the backend. It is usually a class marked @RestController, where each method is an endpoint, an address that can be reached over HTTP. Real-life example: a controller is the teller counter at a bank. The customer asks, the teller passes the request to the right department, and hands back the answer.</p>
+
+<h2>Properties</h2>
+<p>Properties are key-value pairs that configure the application, such as the server port or database settings. They live in application.properties (or application.yml, a YAML file, "YAML Ain't Markup Language"). In Java code you read them with the @Value annotation, or with a ConfigurationProperties class when you have many. Real-life example: properties are the branch settings, like opening hours. Change the setting and the branch behaves differently, with no change to the staff.</p>
+
+<h2>The Book Management example</h2>
+<p>1. Create the Book class with title and author, plus getters and setters.</p>
+<p>2. Create BookController, marked @RestController, with @RequestMapping("/api") as the base address.</p>
+<p>3. Add a @GetMapping method that returns the list of books.</p>
+<p>4. Add a @PostMapping method that accepts a Book in the request body, using @RequestBody, and adds it to the list.</p>
+<p>5. In application.properties set the server port to 9090 and add a custom property for the app description.</p>
+<p>6. In the controller, read that property with @Value into a private field and return it from a @GetMapping at /api/info/description.</p>
+<p>7. Run the app on localhost port 9090, add books with cURL POST requests (JSON body, header saying the data is JSON), and fetch them with a GET request.</p>
+
+<h2>Pseudocode</h2>
+```text
+settings file
+    server port is 9090
+    app description is some text
+
+Book class
+    has title and author
+    has an empty constructor, getters and setters
+
+controller class, marked as REST controller, base address /api
+    keep an empty list of books
+    read the description from the settings file into a field
+
+    GET /api/books
+        return the list
+
+    POST /api/books with a book in the body
+        add the book to the list
+        return the book
+
+    GET /api/info/description
+        return the description text
+```
+
+<h2>Logic explained</h2>
+<p>@RequestBody tells Spring to turn the JSON in the request into a Book object. For this to work, Book needs an empty constructor and setters, so Spring can create it and fill in the fields. @Value("${app.description}") tells Spring to look up that key in application.properties when it creates the controller and put the text into the field. The list lives in memory, so the books disappear when the application stops.</p>
+
+<h2>Tips to understand it</h2>
+<p>For each annotation ask: what is Spring being told? @RestController says this class answers requests. @GetMapping says this method answers GET. @Value says fill this field from the settings file. The property key in the annotation must match application.properties letter for letter, so use the exact name your lab gives you. The video writes it as App.Description, and Spring convention is lowercase with dots, like app.description. If the port does not change, check that the file is named application.properties and sits in src/main/resources.</p>

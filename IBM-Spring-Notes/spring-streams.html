@@ -1,0 +1,58 @@
+<h1>Java Streams in Spring Operations</h1>
+
+<h2>What is a stream?</h2>
+<p>A stream is a way to process a collection of data in a pipeline: the data flows through steps (filter, change, sort) and comes out as a result. A stream does not store data and does not change the original list. It reads from a data source such as a collection, an array or an I/O (Input/Output) channel.</p>
+<p>Real-life example: your Capitec statement has hundreds of transactions. You want only the ones above R1000, and only their names. A loop does this with an if inside a for. A stream describes it as a chain: keep the big ones, take the names, gather them into a list.</p>
+
+<h2>Creating a stream</h2>
+<p>From a collection, call .stream() on it. From an array or single values, use Stream.of().</p>
+
+<h2>Intermediate and terminal operations</h2>
+<p>Intermediate operations transform the data but do not run straight away. Examples are filter, map and sorted. They return another stream, so you can chain them.</p>
+<p>Terminal operations start the pipeline and give a final result. Examples are collect, forEach and reduce. A stream can have only one terminal operation, and it comes last.</p>
+<p>Streams use lazy evaluation. Nothing runs until the terminal operation is called, and then only the work that is needed is done. That is why streams can be efficient.</p>
+
+<h2>Core operations</h2>
+<p>filter keeps only the elements that pass a test. The test is a predicate, a yes or no question such as "is the amount above 1000?".</p>
+<p>map changes each element into something else, for example turning a list of transactions into a list of their descriptions.</p>
+<p>sorted puts elements in order, either natural order or a custom comparator (a rule that says which of two items comes first).</p>
+<p>forEach does something with every element, such as printing it. It is terminal.</p>
+
+<h2>Aggregation and reduction</h2>
+<p>collect gathers the results into a List, Set or Map.</p>
+<p>reduce squashes all elements into one value, such as a total, an average or a maximum.</p>
+<p>limit takes only the first few elements, so no more work is done than needed.</p>
+
+<h2>Benefits</h2>
+<p>The code is easier to read, needs fewer loops, avoids unnecessary work through lazy evaluation, and can use several processor cores with parallelStream().</p>
+
+<h2>Pseudocode</h2>
+```text
+make a list of transactions
+
+LOOP WAY
+    make an empty list called big
+    for each transaction in the list
+        if amount is more than 1000
+            add its description to big
+
+STREAM WAY
+    take the list as a stream
+    keep only transactions with amount more than 1000   (filter)
+    change each one into its description                (map)
+    gather the descriptions into a list                 (collect)
+
+OTHER EXAMPLES
+    sort by amount, keep the first 2, print each        (sorted, limit, forEach)
+    take all amounts and add them together              (map, reduce)
+```
+
+<h2>Logic explained</h2>
+<p>The lambda t -> t.getAmount() > 1000 is a tiny method written inline: "given a transaction t, answer true if its amount is above 1000". filter uses it as the test. Transaction::getDescription is a shorter way to write t -> t.getDescription(). reduce(0.0, Double::sum) starts at 0.0 and adds each amount in turn, like a till slip adding up as items are scanned.</p>
+<p>The original list is never changed. Each run of a stream produces a new result.</p>
+
+<h2>Real-life analogy</h2>
+<p>A stream is a conveyor belt in a factory. Filter, map and sorted are stations you set up along the belt, but nothing moves while you only set them up. Collect, forEach or reduce is the power switch at the end. Only when you switch it on do the items flow through all the stations.</p>
+
+<h2>Tips to understand it</h2>
+<p>Read a stream from top to bottom like a recipe: start with the source, then each step, then the final result. Every time you see a dot and a name, ask what comes in and what goes out. If nothing prints or happens, check that the pipeline ends with a terminal operation. Write the loop version first, then turn it into a stream. In real money code the amounts would be BigDecimal, not double.</p>

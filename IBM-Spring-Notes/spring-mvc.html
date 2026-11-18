@@ -1,0 +1,59 @@
+<h1>Introduction to Spring MVC</h1>
+
+<h2>What is Spring MVC?</h2>
+<p>Spring MVC is a web application framework for building scalable web applications. MVC stands for Model View Controller, a pattern that splits the code into three parts by job. This makes the application easier to build, maintain and update. Real-life example: an online bookstore with data management and reports, where the presentation and navigation logic are kept separate from the business logic.</p>
+
+<h2>The three components</h2>
+<p>The Model holds the data and business logic, like the kitchen where the real work happens. For the bookstore it stores book information (title, author, price), manages inventory and processes orders.</p>
+<p>The View is what the user sees in the browser, like the finished dish on the table. It is an HTML page with dynamic content, built with templates such as JSP (JavaServer Pages) or Thymeleaf.</p>
+<p>The Controller is the restaurant manager between the customers and the kitchen. It receives the user's request, uses the Model to process it, and picks the View that shows the result.</p>
+<p>Real-life example from banking: the Model is the core banking records and rules (balances, limits), the View is the statement or app screen you see, and the Controller is the teller who takes your request, checks the records and hands you the right slip.</p>
+
+<h2>How Spring MVC processes a request</h2>
+<p>Take a search for a book. The request passes through five parts.</p>
+<p>1. DispatcherServlet is the reception desk. Every request enters here first. It receives the request, decides which controller should handle it, and makes sure the user gets a response.</p>
+<p>2. HandlerMapping is the restaurant directory. It maps URLs to controllers, so /books/* goes to the BookController and /users/* goes to the UserController.</p>
+<p>3. Controller execution is the manager's decision. The controller works with the Model, prepares the data for display and chooses the view.</p>
+<p>4. ViewResolver is the presentation guide. It turns a view name into a real template, so searchResults becomes searchResults.html.</p>
+<p>5. View rendering is the final presentation. The model data is put into the HTML and sent back to the browser.</p>
+
+<h2>Benefits</h2>
+<p>Separation of concerns: developers work on business logic, designers work on the interface, and controllers manage the flow of data.</p>
+<p>Flexibility: it supports different views (JSP, Thymeleaf, FreeMarker), different responses (HTML, JSON, XML), and works with other Spring projects.</p>
+<p>Testability: controllers can be tested alone, mock objects can stand in for the model, and views can be checked separately.</p>
+
+<h2>Where it is used and why it is popular</h2>
+<p>It is used for e-commerce, financial services, healthcare, education, travel and hospitality, content management systems, ERP (Enterprise Resource Planning), CRM (Customer Relationship Management), social media features, and government services.</p>
+<p>It is popular because it has strong security features, scales to large numbers of users, integrates easily with other systems, performs reliably, has a flexible architecture, and supports database operations well.</p>
+
+<h2>Controller versus REST controller</h2>
+<p>In our earlier REST notes, @RestController returned data (JSON). In MVC, @Controller returns the name of a view, and Spring turns that into a finished HTML page. Same idea of a controller, different kind of answer.</p>
+
+<h2>Pseudocode</h2>
+```text
+Model: Book with title, author and price
+
+Controller, answers GET /search
+    receive the search word (default is empty)
+    make an empty results list
+    for each book in our list
+        if the title contains the search word (ignoring capitals)
+            add it to the results
+    put the results and the search word into the model
+    return the view name "searchResults"
+
+View, searchResults.html
+    show the search word as a heading
+    for each book in the results
+        show title, author and price
+    if there are no results, show "No books found"
+```
+
+<h2>Logic explained</h2>
+<p>The controller never builds HTML. It only fills the model with data and returns a view name. Spring Boot's ViewResolver then looks in the templates folder for a file with that name and .html on the end. Thymeleaf fills the placeholders, such as th:text="${book.title}", with the model data and sends the finished page to the browser. The @RequestParam reads the search word from the address, as in /search?title=java.</p>
+
+<h2>Real-life analogy</h2>
+<p>A restaurant again: the guest (browser) gives the order to reception (DispatcherServlet), who sends them to the right manager (controller). The manager asks the kitchen (model) for the dish, and the presentation team (view) plates it up and sends it out.</p>
+
+<h2>Tips to understand it</h2>
+<p>Follow one request from the browser through the five parts, like following a parcel through a sorting centre. If you see a blank page or a "template not found" error, check that the string the controller returns matches the template file name exactly. Remember: @Controller gives pages, @RestController gives data. For this demo the project needs the Spring Web and Thymeleaf dependencies, which you can tick in Spring Initializr.</p>

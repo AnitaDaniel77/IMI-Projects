@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search results</title>
+</head>
+<body>
+    <!-- show what the user searched for -->
+    <h1>Results for <span th:text="${searchTerm}"></span></h1>
+
+    <!-- one line per book in the results -->
+    <ul>
+        <li th:each="book : ${books}">
+            <span th:text="${book.title}"></span> by
+            <span th:text="${book.author}"></span>, R<span th:text="${book.price}"></span>
+        </li>
+    </ul>
+
+    <!-- shown only when the list is empty -->
+    <p th:if="${#lists.isEmpty(books)}">No books found.</p>
+</body>
+</html>

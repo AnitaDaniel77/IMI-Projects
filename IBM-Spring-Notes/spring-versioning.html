@@ -1,0 +1,51 @@
+<h1>REST API Versioning in Spring Boot</h1>
+
+<h2>Quick recap: REST APIs</h2>
+<p>A REST (Representational State Transfer) API (Application Programming Interface) lets a client ask for resources over HTTP (HyperText Transfer Protocol) using GET, POST, PUT and DELETE, without knowing how the server works inside. Communication is stateless and data usually comes back as JSON or XML. Like a library: you ask for a book without needing to know where it is stored.</p>
+
+<h2>Why version an API?</h2>
+<p>API versioning lets you change your API without breaking the clients that already use it. Real-life example: a banking app is used by thousands of customers, and not everyone updates the app on the same day. If the bank changes what the balance endpoint returns, old app versions would crash. With versioning, the old version keeps working while the new one gets the new features.</p>
+<p>It gives backward compatibility, so existing clients keep working. It allows controlled change, so new features do not disrupt current users. It supports flexible development, so new features and bug fixes can be built in parallel.</p>
+
+<h2>Three common approaches</h2>
+<p>URI versioning puts the version in the address, for example /api/v1/users and /api/v2/users. It is the easiest to see and test, and it is the one used in this lesson.</p>
+<p>Request parameter versioning puts the version in the query, for example /api/users?version=2.</p>
+<p>Header versioning sends the version in a request header, so the address stays the same.</p>
+<p>(URI stands for Uniform Resource Identifier, the address of a resource.)</p>
+
+<h2>URI versioning in Spring Boot</h2>
+<p>1. Create a Spring Boot project in your IDE (Integrated Development Environment) or Spring Initializr, and add the Spring Web dependency.</p>
+<p>2. Create a controller marked @RestController, with a @GetMapping method for each version of an endpoint, for example getGreetingV1 and getGreetingV2.</p>
+<p>3. Run the main method of the application class (VersioningDemoApplication in the video).</p>
+<p>4. Visit the version 1 and version 2 addresses and compare the answers.</p>
+<p>As the API grows, keep each version in its own controller class or package so the code stays clean. The user example has version 1 returning basic user information and version 2 returning more, including an email address.</p>
+
+<h2>Semantic versioning (SemVer)</h2>
+<p>SemVer numbers a release in three parts: major.minor.patch. The major number goes up for breaking changes, where clients may need to change their code. The minor number goes up when a new feature is added without breaking anything. The patch number goes up for small fixes.</p>
+<p>Examples: 1.0.0 is the first release. A bug fix makes it 1.0.1. Adding a backward-compatible feature, such as returning an email, makes it 1.1.0. A breaking change makes it 2.0.0.</p>
+<p>The /v1 and /v2 in the address match the major number. A minor or patch release does not change the address, because nothing breaks. Strictly, adding an email is a minor change, so the video uses v2 mainly to show how two versions run side by side.</p>
+
+<h2>Pseudocode</h2>
+```text
+greeting controller
+    GET /api/v1/greeting  returns the version 1 message
+    GET /api/v2/greeting  returns the version 2 message
+
+user controller for version 1, base address /api/v1/users
+    GET /{id}  returns id and name
+
+user controller for version 2, base address /api/v2/users
+    GET /{id}  returns id, name and email
+
+both versions run at the same time
+old clients keep calling /v1, new clients call /v2
+```
+
+<h2>Logic explained</h2>
+<p>The version is just part of the address, so Spring treats /api/v1/greeting and /api/v2/greeting as two completely separate endpoints. Nothing special is needed beyond giving each one its own mapping. Splitting the user endpoints into UserControllerV1 and UserControllerV2 means that when version 3 arrives, you add a new class and leave the working ones alone. The {id} in the address is read with @PathVariable.</p>
+
+<h2>Real-life analogy</h2>
+<p>A shop that changes its till system keeps the old tills open for a while, so regular customers are not stuck. The old tills are /v1 and the new tills are /v2. Customers move over when they are ready, and the old tills are closed only once nobody uses them.</p>
+
+<h2>Tips to understand it</h2>
+<p>When you read a versioned API, look at the address first, then ask what is different between the two versions. If a new version breaks the answer shape (a field is removed or renamed), it needs a new major version. If you only add something, the old clients are fine. Never change what an existing version returns, because that is exactly what versioning protects against.</p>

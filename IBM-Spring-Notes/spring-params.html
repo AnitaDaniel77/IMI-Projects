@@ -1,0 +1,60 @@
+<h1>Sending and Receiving Data with REST API Parameters</h1>
+
+<h2>What are API parameters?</h2>
+<p>API (Application Programming Interface) parameters are values that give a request extra information. They filter data, identify a resource and control how the server handles the request, which makes requests flexible. Like ordering a pizza: you give the size and toppings so the answer fits what you want.</p>
+
+<h2>The four types of parameters</h2>
+<p>Path parameters are part of the URL (Uniform Resource Locator) and identify one resource, such as /accounts/123, where 123 is the account.</p>
+<p>Query parameters come after a question mark and filter or sort the data, such as ?category=savings&sort=date.</p>
+<p>Request body parameters travel inside the body of a POST or PUT request, usually as JSON, and carry details such as a new customer's name and email.</p>
+<p>Header parameters sit in the HTTP (HyperText Transfer Protocol) headers and carry extra information such as authentication.</p>
+<p>Real-life example from a banking app: the path says which account, the query says "only October, newest first", the body carries the details of a new beneficiary, and the header carries your login token, like showing your ID card at the door.</p>
+
+<h2>HTTP methods and what they do</h2>
+<p>GET retrieves data. Parameters can be added to the URL to filter the answer. In Spring this uses @GetMapping, and @RequestParam reads a value from the URL. In the video the name parameter is optional and defaults to "World".</p>
+<p>POST creates a new resource. The data goes in the request body as JSON. In Spring this uses @PostMapping, and @RequestBody turns the JSON into an object.</p>
+<p>PUT updates an existing resource. It sends the new data in the body plus the identifier of the resource. In Spring this uses @PutMapping, and @PathVariable reads the identifier from the URL.</p>
+<p>DELETE removes a resource, identified by its unique identifier. In Spring this uses @DeleteMapping and @PathVariable.</p>
+<p>Header values are read with the @RequestHeader annotation.</p>
+
+<h2>The book collection example</h2>
+<p>A simple map is used as an in-memory repository: the key is the book id and the value is the Book. GET fetches books, POST adds a book, PUT updates one, and DELETE removes one. Because the books live in memory, they disappear when the application stops.</p>
+
+<h2>Testing with cURL</h2>
+<p>cURL is a command-line tool for sending HTTP requests. For GET, the parameters go in the URL, for example category and sort filters. For POST, the data goes in the body, and the request header says the content type is JSON. Testing confirms each request does what you expect.</p>
+
+<h2>Pseudocode</h2>
+```text
+greeting controller
+    GET /api/greeting?name=Anita
+        name is optional, and defaults to World
+        return "Hello, " + name
+
+book controller, base address /api/books
+    keep a map of id to book, and a counter for the next id
+
+    GET /api/books        return the whole map
+    GET /api/books/{id}   return the book with that id
+
+    POST /api/books       (book in the body)
+        give the book the next id
+        store it in the map
+        return a message with the new id
+
+    PUT /api/books/{id}   (book in the body)
+        if the id is not in the map, say not found
+        otherwise replace the book and say updated
+
+    DELETE /api/books/{id}
+        if the id is not in the map, say not found
+        otherwise remove it and say deleted
+```
+
+<h2>Logic explained</h2>
+<p>The annotation tells Spring where each value comes from. @PathVariable reads it from the address path. @RequestParam reads it from after the question mark. @RequestBody reads it from the JSON in the body. The class-level @RequestMapping("/api/books") means each method only adds what comes after that. The counter gives every new book its own id, so ids are never reused after a delete.</p>
+
+<h2>Real-life analogy</h2>
+<p>Think of a restaurant order slip. The table number is the path parameter, the "no onions, extra sauce" notes are query-style filters, the full list of dishes is the body, and the waiter's badge showing they may take orders is the header.</p>
+
+<h2>Tips to understand it</h2>
+<p>For any endpoint ask: where is each piece of data coming from, the address, the question mark part, or the body? Match the method to the job: read is GET, create is POST, update is PUT, remove is DELETE. If a POST or PUT returns an error, check that the Content-Type header says application/json and that the JSON field names match the Book fields exactly.</p>

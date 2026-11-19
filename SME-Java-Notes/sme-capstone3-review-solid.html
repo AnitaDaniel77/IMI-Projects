@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SME Session 19 Nov 2026: Capstone 3 Review and SOLID</title>
+</head>
+<body>
+  <h1>SME Session 19 Nov 2026: Capstone 3 Review and SOLID</h1>
+  <p>Led by Hilbert Muchatibaya. He reviewed where the cohort lost marks on Capstone 3 and tied the fixes back to the SOLID principles.</p>
+
+  <h2>Acronyms</h2>
+  <ul>
+    <li>SOLID: five design principles. S = Single Responsibility, O = Open/Closed, L = Liskov Substitution, I = Interface Segregation, D = Dependency Inversion.</li>
+    <li>EFT: Electronic Funds Transfer, a bank-to-bank payment.</li>
+    <li>BNPL: Buy Now Pay Later.</li>
+    <li>DI: Dependency Injection, where something else hands your class the objects it needs instead of the class creating them.</li>
+    <li>POM: Project Object Model, the Maven pom.xml file.</li>
+  </ul>
+
+  <h2>What the brief asked for</h2>
+  <ul>
+    <li>A PaymentMethod interface with processPayment(double) and getPaymentType().</li>
+    <li>At least three rails: Card, EFT and Wallet, each printing which rail runs.</li>
+    <li>One checkout path that takes a PaymentMethod, never a concrete class.</li>
+    <li>The total is worked out from the order lines and passed to the rail.</li>
+    <li>On success, print the rail, the amount and "order complete".</li>
+    <li>PaymentProcessor works with any PaymentMethod.</li>
+  </ul>
+  <p>The test the brief gives you: adding BuyNowPayLaterPayment should only need one new class plus wiring in the demo, and the order maths must not change.</p>
+  <p>Polymorphism: code talks to a contract (PaymentMethod) and works with any class that signs it, without knowing which one it got.</p>
+  <p>Real-life example: a card machine accepts Visa, Mastercard or Amex. The shop doesn't need a different till for each one.</p>
+
+  <h2>Where marks were lost</h2>
+  <h3>Code and design</h3>
+  <ul>
+    <li>Rails with no rule of their own, where every rail just returns true.</li>
+    <li>No tests for the failure path, and no tests of the console output.</li>
+    <li>"Order complete" missing on success, or printed on failure.</li>
+    <li>The same amount check repeated in every rail.</li>
+    <li>Money stored as double, with no care at the boundary.</li>
+    <li>The total calculated in two places (Order and a summary).</li>
+    <li>README missing the reasoning for using an interface.</li>
+  </ul>
+  <h3>Build and brief</h3>
+  <ul>
+    <li>Maven Surefire (the plugin that runs tests) not configured, so no proof the tests ran.</li>
+    <li>pom.xml not set to Java 21.</li>
+    <li>The compiled target/ folder committed to Git. It belongs in .gitignore.</li>
+    <li>PaymentMethod written as an abstract class when the brief says interface.</li>
+  </ul>
+  <p>Real-life example: these are the small things an auditor flags, like a missing signature or the wrong form version. The work is fine, but the brief wasn't followed exactly.</p>
+
+  <h2>Each rail owns a business rule</h2>
+  <ul>
+    <li>Card: a limit per payment.</li>
+    <li>EFT: needs a bank reference.</li>
+    <li>Wallet: can't spend more than the balance.</li>
+    <li>BNPL: a credit limit.</li>
+  </ul>
+  <p>Decline, don't throw. A decline is a normal answer, so return false and leave the balance untouched. Don't throw an exception for "balance too low".</p>
+  <p>Real-life example: when your card is declined at a till, the till doesn't crash. It just says "declined" and you try another card.</p>
+
+  <h2>O: Open/Closed Principle</h2>
+  <p>A class should be open for extension but closed for modification. In Hilbert's code, processPayment is final in the parent. It runs the shared amount check once, then calls doProcess, which each rail overrides. Adding a rail never touches the tested parent.</p>
+  <p>Legacy code is code that's been in production a long time, often written by someone who has since left. Changing it means you don't know the full impact, so you'd need full regression testing (retesting everything). Extending it means testers only test the new rail.</p>
+  <p>Real-life example: adding a new branch to a bank doesn't mean rebuilding head office. The new branch follows the same rules and plugs into the same system.</p>
+
+  <h2>I: Interface Segregation Principle</h2>
+  <p>Keep interfaces small and specific. Not every rail can do tap to pay, so tap to pay gets its own small interface, and only rails that support it implement it. The same goes for Refundable.</p>
+  <p>Real-life example: not every client gets a credit card. A savings account doesn't come with a credit limit just because some accounts have one.</p>
+
+  <h2>D: Dependency Inversion Principle</h2>
+  <p>Depend on abstractions (interfaces), not concrete classes. Writing new CardPayment() inside main is a hard dependency. Every "new" tells Java to build that object right now, so if it's broken, the whole app can fail to start.</p>
+  <p>A dependency injection container holds all the rails. When a user picks "Wallet", the app asks the container for the wallet rail. If one rail can't be found, you show a clear message like "failed to resolve card" and the rest of the app keeps working. Spring's constructor injection does this for you (to be covered later).</p>
+  <p>Redundancy works on the same idea: two routers on different networks (say MTN and another provider), so if one fails, traffic switches to the other. No single point of failure.</p>
+  <p>Real-life example: a branch that only has one teller who can open accounts stops opening accounts when she's off sick. If any trained consultant can be called on, the work carries on.</p>
+
+  <h2>Value objects</h2>
+  <p>A value object has no id, can't be changed, and two of them are equal if their values match. An email is just a String until it follows the email format. Money only makes sense as a currency plus an amount. Value objects belong in the domain layer.</p>
+  <p>Real-life example: two R100 notes are the same value. You don't care which one you get. An account is different, because its account number makes it unique (an entity).</p>
+
+  <h2>Entities and the shared folder (to expand later)</h2>
+  <ul>
+    <li>Product, Order and Customer are entities, because each has an id. A parent Entity class can hold what they share, and each one extends it.</li>
+    <li>A shared folder holds helpers every layer needs, like formatting phone numbers.</li>
+  </ul>
+
+  <h2>Pseudocode: payment flow after the fixes</h2>
+  <pre><code>
+SETUP (one place only)
+    register Card, EFT, Wallet, BNPL rails in the resolver
+
+CHECKOUT(selection, orderTotal)
+    method = resolver.resolve(selection)
+    IF method not found
+        print "failed to resolve"
+        STOP
+    paid = method.processPayment(orderTotal)
+        parent: IF amount not above 0 -> reject, return false
+        rail:   apply own rule (limit / reference / balance / credit)
+                IF rule fails -> print decline, return false
+                ELSE -> take payment, return true
+    IF paid
+        print rail, amount, "order complete"
+    ELSE
+        print rail, amount, "payment failed"
+  </code></pre>
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Find the word "final" on processPayment. That one keyword is what stops a rail from skipping the shared check.</li>
+    <li>Search for "new" in the checkout code. If you find a concrete rail there, that's a hard dependency.</li>
+    <li>For every rail, ask what makes it say no. If the answer is "nothing", it needs a rule.</li>
+    <li>Test both paths: one success and one decline per rail, and check what gets printed.</li>
+    <li>The brief's test is the best check: can you add BNPL with one new class and no edits elsewhere?</li>
+  </ul>
+
+  <h2>Homework</h2>
+  <p>Reflect on all five SOLID principles and be able to explain each one using this capstone.</p>
+</body>
+</html>

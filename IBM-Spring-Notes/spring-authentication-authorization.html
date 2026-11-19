@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Authentication and Authorization in Spring</title>
+</head>
+<body>
+  <h1>Authentication and Authorization in Spring</h1>
+
+  <h2>The difference</h2>
+  <p>Authentication checks who you are. Authorization checks what you're allowed to do once you're in.</p>
+  <p>Real-life example: at a high-security building, the iris scan confirms it's you (authentication). Then the system checks which rooms your badge opens (authorization).</p>
+
+  <h2>Acronyms in this lesson</h2>
+  <ul>
+    <li>JAR: Java ARchive, one packaged file that holds the whole app.</li>
+    <li>pom.xml: POM stands for Project Object Model. It's the Maven file that lists your dependencies.</li>
+    <li>URL: Uniform Resource Locator, a web address like /admin/dashboard.</li>
+    <li>RBAC: Role-Based Access Control, permissions grouped under roles.</li>
+  </ul>
+
+  <h2>Step 1: Create the project</h2>
+  <p>On Spring Initializr choose Maven, Java, the latest stable Spring Boot, JAR packaging and your Java version. Add Spring Web and Spring Security, generate, unzip and open it in your IDE.</p>
+  <p>If you forgot Spring Security, add the spring-boot-starter-security dependency to pom.xml later.</p>
+  <p>Real-life example: as soon as Spring Security is added, every page gets locked by default, like a new branch where all doors start locked until you decide which ones open.</p>
+
+  <h2>Step 2: The security config class</h2>
+  <ul>
+    <li>@Configuration: this class sets things up for Spring.</li>
+    <li>@EnableWebSecurity: switches on web security.</li>
+  </ul>
+
+  <h2>Step 3: In-memory users</h2>
+  <p>User details are kept in the app's memory instead of a database. Two users are created:</p>
+  <ul>
+    <li>user / password with role USER</li>
+    <li>admin / adminpass with role ADMIN</li>
+  </ul>
+  <p>Good for testing only. Everything is lost when the app stops, and real apps load users from a database.</p>
+  <p>Real-life example: a guest list written on a whiteboard at the door. Quick for a small event, but it gets wiped at the end of the day.</p>
+
+  <h2>Step 4: URL rules</h2>
+  <ul>
+    <li>/public/** is open to everyone.</li>
+    <li>/user/** needs the USER role.</li>
+    <li>/admin/** needs the ADMIN role.</li>
+    <li>formLogin() means anyone hitting a protected page gets sent to a login form first.</li>
+  </ul>
+  <p>Real-life example: the banking hall is public, the consultant desks are staff only, and the server room is IT only.</p>
+
+  <h2>Authorization concepts</h2>
+  <ul>
+    <li>Roles: broad labels like USER or ADMIN that decide what someone can do.</li>
+    <li>Authorities: specific actions, like READ_ACCOUNT or EDIT_ACCOUNT. A role is really a group of authorities.</li>
+    <li>RBAC: access is given based on the role you hold.</li>
+    <li>Method-level security: @PreAuthorize on a method adds a second check after the URL rule.</li>
+  </ul>
+  <p>Real-life example: "Service Consultant" is a role. "Can reverse a transaction" is an authority that role may or may not include.</p>
+
+  <h2>Step 5: The controller</h2>
+  <ul>
+    <li>/public/hello: no annotation, anyone can see it.</li>
+    <li>/user/profile: @PreAuthorize("hasRole('USER')").</li>
+    <li>/admin/dashboard: @PreAuthorize("hasRole('ADMIN')").</li>
+  </ul>
+
+  <h2>Pseudocode</h2>
+  <pre><code>
+SETUP
+    create user "user" with role USER
+    create user "admin" with role ADMIN
+    rule: /public/** open to all
+    rule: /user/** needs USER
+    rule: /admin/** needs ADMIN
+    turn on login form
+
+WHEN request comes in
+    IF path is public
+        show page
+    ELSE IF not logged in
+        show login form
+        check username and password
+    IF logged in
+        IF role matches URL rule AND method rule
+            show page
+        ELSE
+            return 403 Forbidden
+  </code></pre>
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Ask two questions for every endpoint: who are you, and are you allowed here?</li>
+    <li>hasRole("ADMIN") looks for the authority "ROLE_ADMIN". Spring adds ROLE_ for you.</li>
+    <li>URL rules and @PreAuthorize can both apply. The request has to pass both.</li>
+    <li>@PreAuthorize only works if method security is switched on with @EnableMethodSecurity.</li>
+  </ul>
+
+  <h2>Testing</h2>
+  <p>Run the app, open /public/hello without logging in, then try /user/profile and /admin/dashboard with each user. The "user" account should get 403 on the admin page.</p>
+</body>
+</html>

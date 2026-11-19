@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spring MVC Form Handling and Validation</title>
+</head>
+<body>
+  <h1>Spring MVC Form Handling and Validation</h1>
+
+  <h2>What this lesson covers</h2>
+  <p>How to capture data from an HTML form, bind it to a Java object, show it back to the user, and validate it before it gets processed. MVC stands for Model-View-Controller: the Model holds the data, the View is what the user sees, and the Controller handles requests and connects the two.</p>
+  <p>Example: a bank collects sign-up details from people at a sales conference and needs to load them into the client database without bad data getting in.</p>
+
+  <h2>Step 1: Set up the project</h2>
+  <p>Create a Spring Boot project with Spring Initializr. Add Spring Web (for controllers and HTTP), Thymeleaf (for HTML templates) and Validation (for the annotation rules).</p>
+  <p>Real-life example: like opening a new branch. You need the building (Spring Boot), the counter (Spring Web), the forms clients fill in (Thymeleaf) and the rules for checking them (Validation).</p>
+
+  <h2>Step 2: Create the Model (User class)</h2>
+  <p>A plain Java class with three fields: firstName, lastName and email. Getters and setters let Spring read and fill in the values.</p>
+  <p>Real-life example: the blank account opening form. It has boxes for each detail, but it is just a container for the data.</p>
+
+  <h2>Step 3: Create the Controller</h2>
+  <p>The class gets @Controller so Spring knows it handles web requests and returns view names.</p>
+  <ul>
+    <li>showForm is mapped to GET /userForm. It puts an empty User in the model and returns the view name "userForm".</li>
+    <li>submitForm is mapped to POST /submitForm. @ModelAttribute binds the form fields into a User object. It adds the user to the model and returns "formResult".</li>
+  </ul>
+  <p>Real-life example: the consultant hands you a blank form (GET), then takes it back once filled in and hands you a receipt (POST).</p>
+
+  <h2>Step 4: Create the Thymeleaf templates</h2>
+  <ul>
+    <li>userForm.html: th:action points the form to /submitForm, th:object links it to the user object, and th:field connects each input to a User field.</li>
+    <li>formResult.html: th:text prints the submitted values.</li>
+  </ul>
+  <p>Real-life example: th:field is like labelled boxes on a paper form. Each box only accepts the detail it is labelled for.</p>
+
+  <h2>Step 5: Add validation to the Model</h2>
+  <ul>
+    <li>@NotEmpty: the field cannot be null or empty.</li>
+    <li>@Size: sets a minimum and maximum number of characters.</li>
+    <li>@Email: the value must look like a valid email address.</li>
+  </ul>
+  <p>Each annotation has a message attribute, which is the error the user sees if the rule fails.</p>
+  <p>Real-life example: the rules printed at the bottom of a bank form, like "ID number must be 13 digits". The rules live with the form, not with the teller.</p>
+
+  <h2>Step 6: Handle errors in the Controller</h2>
+  <p>Put @Valid on the User parameter to trigger the checks. BindingResult must come straight after it and holds any errors. If bindingResult.hasErrors() is true, send the user back to userForm.</p>
+  <p>Real-life example: the consultant checks the form before capturing it. If something is missing, they hand it back and point at what to fix.</p>
+
+  <h2>Step 7: Show errors in the form</h2>
+  <p>Under each input, a div uses th:if with #fields.hasErrors('fieldName') to check for an error, and th:errors prints the message.</p>
+  <p>Real-life example: a red note next to the exact box you got wrong, instead of one vague "form invalid" stamp.</p>
+
+  <h2>Pseudocode: full request flow</h2>
+  <pre><code>
+WHEN user opens /userForm
+    create empty User
+    put User in model
+    show userForm page
+
+WHEN user clicks Submit
+    bind form fields into User
+    run validation rules on User
+    IF any rule fails
+        show userForm again with error messages
+    ELSE
+        put User in model
+        show formResult page
+  </code></pre>
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Follow the URL. GET /userForm shows the form, POST /submitForm processes it. Find the matching method each time.</li>
+    <li>The string a controller method returns is the template file name without .html.</li>
+    <li>The name in th:object must match the model attribute name the controller added.</li>
+    <li>BindingResult must sit right after the @Valid parameter or Spring throws an error instead of returning to the form.</li>
+  </ul>
+
+  <h2>Testing</h2>
+  <p>Run the app, go to http://localhost:8080/userForm, submit valid data to see the result page, then submit bad data (blank name, broken email) to check the error messages show next to the right fields.</p>
+</body>
+</html>

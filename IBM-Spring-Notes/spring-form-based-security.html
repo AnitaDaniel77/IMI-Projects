@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Form-Based Security with Spring Security</title>
+</head>
+<body>
+  <h1>Form-Based Security with Spring Security</h1>
+
+  <h2>What this lesson covers</h2>
+  <p>Locking pages behind a custom login form, adding logout, and hashing passwords before they're saved to the database.</p>
+  <p>Real-life example: the Capitec app login. You type your details into the bank's own screen, and the bank never stores your actual PIN in readable form.</p>
+
+  <h2>Acronyms in this lesson</h2>
+  <ul>
+    <li>IDE: Integrated Development Environment, like VS Code or IntelliJ.</li>
+    <li>JPA: Java Persistence API (Application Programming Interface), maps Java classes to database tables.</li>
+    <li>CSRF: Cross-Site Request Forgery, a fake request sent from another site using your logged-in session.</li>
+  </ul>
+
+  <h2>Step 1: Create the project</h2>
+  <p>On start.spring.io choose Maven, Java, the latest stable Spring Boot, group com.example and artifact demo-security. Add Spring Web, Spring Security and Thymeleaf. For the password part you also need Spring Data JPA and a database driver like H2.</p>
+
+  <h2>Step 2: SecurityConfig class</h2>
+  <ul>
+    <li>/public/** is open to everyone.</li>
+    <li>Every other request needs a login.</li>
+    <li>formLogin with loginPage("/login") uses your own login page, and permitAll() lets everyone see it.</li>
+    <li>logout() lets users sign out and ends their session.</li>
+  </ul>
+  <p>Note: the video extends WebSecurityConfigurerAdapter. That class was removed in Spring Security 6 (Spring Boot 3), so the current way is a SecurityFilterChain bean.</p>
+  <p>Real-life example: the login page has to be permitAll, or users would need to log in to see the login page. Like locking the front door key inside the house.</p>
+
+  <h2>Step 3: login.html</h2>
+  <ul>
+    <li>Form with method="post" and action pointing to /login.</li>
+    <li>Inputs named username and password, because those are the names Spring Security looks for.</li>
+    <li>A submit button.</li>
+  </ul>
+  <p>Spring Security handles the POST to /login itself. You don't write a controller method for it, only a GET that shows the page.</p>
+  <p>Real-life example: you fill in the form, but the security guard at the door (Spring Security) does the actual checking, not the receptionist (your controller).</p>
+
+  <h2>Step 4: Run and test</h2>
+  <p>Run DemoSecurityApplication, go to http://localhost:8080, open a protected page and you get redirected to /login. Log in with a valid user.</p>
+
+  <h2>Step 5: Password hashing</h2>
+  <ol>
+    <li>Add the Spring Security dependency.</li>
+    <li>Create a PasswordEncoder bean that returns BCryptPasswordEncoder.</li>
+    <li>In the user service, call passwordEncoder.encode() before saving.</li>
+    <li>Create a JPA entity with id, username and password.</li>
+    <li>Register a user and check the database: the password should look like a random string starting with $2a$.</li>
+  </ol>
+  <p>BCrypt "adapts over time" because you can raise its strength (work factor) as computers get faster. It's hashing, which is one-way, not encryption.</p>
+  <p>Real-life example: shredding a document and keeping only the shredded fingerprint. You can check if a new document matches, but nobody can rebuild the original.</p>
+
+  <h2>Pseudocode: login flow</h2>
+  <pre><code>
+WHEN user opens a protected page
+    IF not logged in
+        redirect to /login
+
+WHEN user submits login form
+    Spring Security finds user by username
+    hash the typed password and compare with stored hash
+    IF match
+        start session, send to the page they wanted
+    ELSE
+        redirect to /login?error
+
+WHEN user clicks logout
+    end session
+    redirect to /login?logout
+  </code></pre>
+
+  <h2>Pseudocode: registration</h2>
+  <pre><code>
+WHEN new user registers
+    hashed = passwordEncoder.encode(plainPassword)
+    create AppUser with username and hashed
+    save AppUser to database
+  </code></pre>
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Use th:action="@{/login}" in the form, not a plain action. Thymeleaf then adds the CSRF token automatically. Without it, the login gets blocked with 403.</li>
+    <li>Never compare passwords with equals(). Use passwordEncoder.matches(typed, stored), because the same password hashes differently each time.</li>
+    <li>I named the entity AppUser so it doesn't clash with Spring Security's own User class.</li>
+  </ul>
+</body>
+</html>

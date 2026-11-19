@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spring Security Overview</title>
+</head>
+<body>
+  <h1>Spring Security Overview</h1>
+
+  <h2>What it is</h2>
+  <p>Spring Security is the part of the Spring framework that handles who can get into an app and what they can do once inside. It also blocks common web attacks. A login page on its own isn't enough. The app also needs to stop forged requests, keep passwords unreadable, and limit access by role.</p>
+  <p>Real-life example: a bank branch doesn't just have a front door lock. It has ID checks, staff-only areas, a vault with limited access, and cameras.</p>
+
+  <h2>Acronyms in this lesson</h2>
+  <ul>
+    <li>HTTP: HyperText Transfer Protocol, how browsers and servers talk.</li>
+    <li>XSS: Cross-Site Scripting, an attacker sneaks script code into a page so it runs in other users' browsers.</li>
+    <li>CSRF: Cross-Site Request Forgery, an attacker tricks a logged-in user's browser into sending a request they didn't mean to send.</li>
+    <li>RBAC: Role-Based Access Control, permissions are given to roles, and users get roles.</li>
+    <li>OAuth 2.0: Open Authorization, lets an app access things on your behalf without getting your password (like "Sign in with Google").</li>
+    <li>LDAP: Lightweight Directory Access Protocol, a company-wide directory of users and groups.</li>
+    <li>OIDC: OpenID Connect, sits on top of OAuth 2.0 and adds proof of who you are.</li>
+    <li>SSO: Single Sign-On, log in once and get into several systems.</li>
+    <li>URL: Uniform Resource Locator, a web address like /admin.</li>
+  </ul>
+
+  <h2>Authentication vs authorization</h2>
+  <p>Authentication checks who you are (username and password checked against stored details). Authorization checks what you're allowed to do after that (admin vs normal user).</p>
+  <p>Real-life example: showing your ID at the branch is authentication. Being allowed into the vault only if you're a vault controller is authorization.</p>
+
+  <h2>HTTP Basic authentication</h2>
+  <p>The username and password are sent in an HTTP header with every request. Simple and fine for internal tools or APIs (Application Programming Interfaces), but it should always run over HTTPS so the details aren't readable in transit.</p>
+  <p>Real-life example: a staff-only internal tool that asks for your details each time you open it.</p>
+
+  <h2>Form-based authentication</h2>
+  <p>The user logs in through an HTML form. Spring Security gives a default login page, and you can swap in your own.</p>
+  <p>Real-life example: the Capitec app login screen.</p>
+
+  <h2>Password storage and encoding</h2>
+  <p>Passwords are never stored as plain text. BCryptPasswordEncoder turns a password into a hash that can't be turned back. At login, the typed password is hashed and compared with the stored hash.</p>
+  <p>Tip: the video calls this encryption, but BCrypt is really hashing. Encryption can be reversed with a key. Hashing is one-way.</p>
+  <p>Real-life example: like a fingerprint. You can match a finger to the print, but you can't rebuild the finger from the print.</p>
+
+  <h2>CSRF protection</h2>
+  <p>Spring Security gives each session a secret token that has to come back with every form submit. A forged request from another site won't have the token, so it gets blocked. It's on by default.</p>
+  <p>Real-life example: a one-time PIN (OTP) sent to your phone. A fraudster can fake the request but not the PIN.</p>
+
+  <h2>Role-based access control</h2>
+  <p>Permissions are tied to roles like ADMIN or USER, and users get roles. Spring Security checks the role before letting a request through.</p>
+  <p>Real-life example: tellers, branch managers and IT support each see different screens in the same banking system.</p>
+
+  <h2>Integration with external systems</h2>
+  <p>Spring Security can hand login off to LDAP, OAuth 2.0 or OIDC, which allows SSO across several apps.</p>
+  <p>Real-life example: logging into your work laptop once and then opening email, Teams and the intranet without logging in again.</p>
+
+  <h2>How Spring Security enforces it</h2>
+  <ul>
+    <li>AuthenticationManager checks credentials, from memory, a database, LDAP or OAuth 2.0.</li>
+    <li>URL-level rules: lock whole paths, like /admin/**.</li>
+    <li>Method-level rules: @PreAuthorize or @Secured on a method.</li>
+    <li>httpBasic() and formLogin() switch on the two login styles.</li>
+    <li>BCryptPasswordEncoder hashes passwords.</li>
+    <li>CSRF tokens are created and checked automatically.</li>
+  </ul>
+
+  <h2>Pseudocode: what happens on each request</h2>
+  <pre><code>
+WHEN a request arrives
+    IF the URL is public
+        let it through
+    ELSE IF user is not logged in
+        send to login page (form) or ask for credentials (basic)
+    ELSE
+        IF user's role is allowed for this URL or method
+            IF request changes data AND CSRF token is missing or wrong
+                block it
+            ELSE
+                let it through
+        ELSE
+            return 403 Forbidden
+
+WHEN user logs in
+    hash the typed password
+    compare with stored hash
+    IF match, start a session
+    ELSE show login error
+  </code></pre>
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Spring Security works like a row of checkpoints (filters) that every request passes before it reaches your controller.</li>
+    <li>Read security rules top to bottom. The first rule that matches wins, so specific paths go before general ones.</li>
+    <li>401 means "I don't know who you are". 403 means "I know who you are, but you're not allowed".</li>
+    <li>Roles in rules are written as "ADMIN", and Spring adds the "ROLE_" prefix behind the scenes.</li>
+  </ul>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>File Upload with Spring MVC and Spring Boot</title>
+</head>
+<body>
+  <h1>File Upload with Spring MVC and Spring Boot</h1>
+
+  <h2>What this lesson covers</h2>
+  <p>How to let a user pick a file in the browser, send it to the server, save it in a folder, and show a status message. MVC stands for Model-View-Controller. JDK is the Java Development Kit (the tools to write and run Java). IDE is an Integrated Development Environment, like VS Code or IntelliJ.</p>
+  <p>Example: a client uploads a payslip or ID copy when applying for a loan online.</p>
+
+  <h2>Prerequisites</h2>
+  <ul>
+    <li>JDK 17 or later, because Spring Boot 3 needs it.</li>
+    <li>A Spring Boot project made with Spring Initializr.</li>
+    <li>An IDE for writing and running the code.</li>
+  </ul>
+
+  <h2>Step 1: Dependencies</h2>
+  <ul>
+    <li>Spring Web: controllers and HTTP (HyperText Transfer Protocol, how the browser and server talk).</li>
+    <li>Thymeleaf: HTML templates the server fills with data.</li>
+    <li>Spring Boot DevTools: restarts the app automatically when you save changes.</li>
+  </ul>
+  <p>Real-life example: DevTools is like a printer that reprints the form every time you correct it, so you don't have to walk back and press print.</p>
+
+  <h2>Step 2: Set size limits in application.properties</h2>
+  <p>Two settings control uploads:</p>
+  <ul>
+    <li>max-file-size: the biggest single file allowed.</li>
+    <li>max-request-size: the biggest total for one request, which matters if several files are sent together.</li>
+  </ul>
+  <p>Multipart means the request is split into parts, so a file can travel with normal form fields.</p>
+  <p>Real-life example: a branch scanner that only accepts documents up to a certain number of pages. Anything bigger gets rejected at the door.</p>
+
+  <h2>Step 3: The controller</h2>
+  <ul>
+    <li>GET / shows the upload page.</li>
+    <li>POST /upload receives the file as a MultipartFile using @RequestParam("file"). The name must match the input's name attribute in the form.</li>
+    <li>If the file is empty, add a message and redirect to the status page.</li>
+    <li>Otherwise read the bytes, build a path inside the uploads folder, write the file, and add a success message.</li>
+    <li>GET /uploadStatus shows the status page.</li>
+  </ul>
+  <p>RedirectAttributes with addFlashAttribute keeps the message alive for one redirect only, then it disappears.</p>
+  <p>Real-life example: a flash attribute is like a sticky note the teller hands you to take to the next counter. Once that counter reads it, it gets thrown away.</p>
+  <p>Note: the uploads folder must exist or the write fails. My code creates it if it's missing.</p>
+
+  <h2>Step 4: Thymeleaf templates</h2>
+  <ul>
+    <li>upload.html: a form with method POST and enctype multipart/form-data, a file input named "file", and a submit button.</li>
+    <li>uploadStatus.html: shows the message with th:text and links back to the upload page.</li>
+  </ul>
+  <p>Without enctype multipart/form-data, the browser only sends the file name, not the file itself.</p>
+  <p>Real-life example: enctype is like choosing "parcel" instead of "letter" at the post office. Pick letter and only the address goes through.</p>
+
+  <h2>Pseudocode: upload flow</h2>
+  <pre><code>
+WHEN user opens /
+    show upload page
+
+WHEN user submits a file to /upload
+    IF file is empty
+        save message "Please select a file"
+        redirect to /uploadStatus
+    TRY
+        make sure uploads folder exists
+        read file bytes
+        build path = uploads folder + original file name
+        write bytes to path
+        save message "Uploaded successfully"
+    CATCH error
+        save message "Upload failed"
+    redirect to /uploadStatus
+
+WHEN /uploadStatus loads
+    show the saved message
+  </code></pre>
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Match names across files: the input name="file" must match @RequestParam("file").</li>
+    <li>"redirect:/uploadStatus" sends the browser to a new URL. A plain "uploadStatus" just shows the template without changing the URL.</li>
+    <li>Redirecting after a POST stops the file uploading twice if the user refreshes the page.</li>
+    <li>Follow the try/catch: anything that touches the disk can fail, so it sits inside try.</li>
+  </ul>
+
+  <h2>Running it</h2>
+  <p>Run from the IDE or with mvn spring-boot:run (mvn is Maven, the build tool), then go to http://localhost:8080/.</p>
+</body>
+</html>

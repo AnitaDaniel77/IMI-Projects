@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Java Development with Databases: Course Overview</title>
+</head>
+<body>
+  <h1>Java Development with Databases: Course Overview</h1>
+  <p>Planned for 4 weeks, one module per week. Prerequisites (all done): Intro to Software Engineering, Java Programming for Beginners, Spring Framework for Java Development, plus Git and GitHub.</p>
+
+  <h2>Acronyms</h2>
+  <ul>
+    <li>CRUD: Create, Read, Update, Delete.</li>
+    <li>JDBC: Java Database Connectivity, Java's built-in way to run SQL against a database.</li>
+    <li>JPA: Java Persistence API, the standard for mapping Java classes to tables.</li>
+    <li>ORM: Object-Relational Mapping, rows become objects and objects become rows.</li>
+    <li>SQL: Structured Query Language, works on tables and columns.</li>
+    <li>HQL: Hibernate Query Language, like SQL but written against Java class and field names instead of table and column names.</li>
+    <li>NoSQL: databases without fixed tables, like MongoDB.</li>
+    <li>REST: an API style using GET, POST, PUT and DELETE.</li>
+    <li>CLI: Command Line Interface, typing commands in a terminal instead of clicking.</li>
+    <li>MySQL: a popular free relational database.</li>
+  </ul>
+
+  <h2>Course objectives</h2>
+  <ul>
+    <li>Understand databases and their role in apps.</li>
+    <li>Do basic CRUD with JDBC.</li>
+    <li>Create and tune connection pools.</li>
+    <li>Use Spring Boot abstraction to make database work simpler.</li>
+    <li>Expose CRUD through REST APIs.</li>
+    <li>Understand JPA and configure Hibernate in Spring Boot.</li>
+    <li>Handle entity relationships (one-to-many, many-to-many) with Hibernate.</li>
+    <li>Know the difference between HQL and SQL.</li>
+    <li>Do CRUD with NoSQL databases and configure them in Spring Boot.</li>
+  </ul>
+
+  <h2>Connection pools</h2>
+  <p>Opening a database connection is slow. A connection pool opens a few connections up front and lends them out, so each request doesn't have to open a new one.</p>
+  <p>Real-life example: a branch keeps a few pens chained at the counter. Clients borrow one and give it back, instead of every client being handed a brand-new pen.</p>
+
+  <h2>Abstraction</h2>
+  <p>Your code talks to an interface like ClientRepository with methods such as save and findById. What's behind it can change (a HashMap, JDBC, JPA, MongoDB) without touching the code that uses it. This is Dependency Inversion again, from the SME session.</p>
+  <p>Real-life example: you deposit money at any Capitec branch the same way, even though the systems behind the counter may differ.</p>
+
+  <h2>SQL vs HQL</h2>
+  <p>SQL: SELECT * FROM client WHERE client_name = 'Anita' (table and column names).</p>
+  <p>HQL: FROM Client c WHERE c.name = 'Anita' (class and field names).</p>
+  <p>Real-life example: SQL asks the filing cabinet by drawer label, while HQL asks by the client's name as you know it in the app.</p>
+
+  <h2>Modules</h2>
+  <ol>
+    <li>Fundamentals of databases and JDBC: design basics, connections, CRUD in code.</li>
+    <li>Spring Boot for database apps: configuration, Spring Data JPA, REST APIs.</li>
+    <li>Hibernate and other databases: relationships, caching, query optimisation, NoSQL, graph and time series databases.</li>
+    <li>Final project: the back end for an admin-only retail management system with Java, Spring Boot, Hibernate, MySQL (structured data) and a NoSQL database (unstructured data).</li>
+  </ol>
+
+  <h2>Tools (all free)</h2>
+  <ul>
+    <li>Postman: send test requests to your API without building a front end.</li>
+    <li>Spring Boot, Spring Data, JDBC and Spring Initializr.</li>
+    <li>MySQL CLI and Mongo CLI: terminals for each database.</li>
+    <li>IBM Skills Network Cloud IDE.</li>
+  </ul>
+
+  <h2>Pseudocode: the same CRUD at different layers</h2>
+  <pre><code>
+APP CODE:   repository.save(client)
+                |
+INTERFACE:  ClientRepository (save, findById, update, delete)
+                |
+BEHIND IT (pick one, app code doesn't change):
+    in-memory  -> put in a HashMap
+    JDBC       -> run INSERT INTO client ...
+    JPA        -> entityManager.persist(client)
+    MongoDB    -> insert a document
+  </code></pre>
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Every topic in this course is CRUD done a different way. Map each new tool back to Create, Read, Update and Delete.</li>
+    <li>Structured data with fixed fields (orders, stores) goes in MySQL. Flexible or changing data (product reviews, logs) suits NoSQL.</li>
+    <li>Write to the interface first, then plug in the implementation.</li>
+  </ul>
+</body>
+</html>

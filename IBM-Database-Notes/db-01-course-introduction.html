@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Java Development with Databases: Course Introduction</title>
+</head>
+<body>
+  <h1>Java Development with Databases: Course Introduction</h1>
+  <p>Course 8 of the IBM Java Developer Professional Certificate. Four modules of about 3 to 4 hours each, plus a final project and final exam.</p>
+
+  <h2>Acronyms</h2>
+  <ul>
+    <li>SQL: Structured Query Language, the language used to ask a relational database for data or change it.</li>
+    <li>JDBC: Java Database Connectivity, Java's built-in way to connect to a database and run SQL.</li>
+    <li>JPA: Java Persistence API (Application Programming Interface), a standard for mapping Java classes to database tables.</li>
+    <li>ORM: Object-Relational Mapping, turning table rows into Java objects and back without writing all the SQL yourself.</li>
+    <li>CRUD: Create, Read, Update, Delete, the four basic things you do with data.</li>
+    <li>NoSQL: "Not only SQL", databases that don't store data in tables with fixed columns.</li>
+    <li>REST: Representational State Transfer, an API style using GET, POST, PUT and DELETE.</li>
+  </ul>
+
+  <h2>Why databases matter</h2>
+  <p>Almost every real app stores data in a database, from banking systems to social media. A Java developer needs to connect to databases, read and write data efficiently, and keep it working as the app grows.</p>
+  <p>Real-life example: the Capitec app is only useful because every balance, transaction and beneficiary is stored safely in a database behind it.</p>
+
+  <h2>Module 1: Fundamentals of databases and JDBC</h2>
+  <p>Relational database basics, database design, connecting Java to a database with JDBC, and doing CRUD in code.</p>
+  <p>Real-life example: a relational database is like a set of linked spreadsheets. A Clients table and an Accounts table are joined by the client's ID.</p>
+
+  <h2>Module 2: Spring Boot for database applications</h2>
+  <p>Configuring Spring Boot with a database, using Spring Data JPA for CRUD, and exposing that data through REST APIs.</p>
+  <p>Real-life example: Spring Data JPA is like a filing clerk. You say "save this client" or "find client 42", and the clerk handles the filing cabinet for you.</p>
+
+  <h2>Module 3: Hibernate and other databases</h2>
+  <p>Hibernate as an ORM framework, entity relationships, caching, query optimisation, and other kinds of storage: NoSQL (MongoDB), graph (Neo4j) and time series (InfluxDB).</p>
+  <ul>
+    <li>MongoDB stores documents (JSON-like records), so it's good for flexible data.</li>
+    <li>Neo4j stores nodes and connections, so it's good for relationships like "who sent money to whom".</li>
+    <li>InfluxDB stores readings over time, so it's good for things like server metrics every second.</li>
+  </ul>
+  <p>Real-life example: caching is like a teller keeping the most-used forms on the desk instead of walking to the storeroom every time.</p>
+
+  <h2>Module 4: Final project</h2>
+  <p>Acting as a back-end developer for a warehouse distribution company that supplies retail stores. You'll build the back end with Java, Spring Boot and Hibernate, using MySQL plus MongoDB, for admin users who:</p>
+  <ul>
+    <li>create and maintain store records</li>
+    <li>manage the product catalogue</li>
+    <li>monitor stock levels</li>
+    <li>place customer orders</li>
+    <li>run SQL procedures to analyse sales and inventory</li>
+  </ul>
+
+  <h2>Pseudocode: how a Java app talks to a database</h2>
+  <pre><code>
+OPEN a connection using URL, username, password
+PREPARE an SQL statement with placeholders
+FILL IN the placeholder values
+RUN the statement
+IF it was a SELECT
+    LOOP through each result row
+        read the columns into a Java object
+CLOSE the connection
+  </code></pre>
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>The course builds up in layers: plain JDBC first, then JPA and Hibernate, which write most of that JDBC for you.</li>
+    <li>Learn the plain JDBC steps well, so you understand what Spring is doing behind the scenes later.</li>
+    <li>Always use placeholders (?) in SQL instead of joining strings, to protect against SQL injection.</li>
+    <li>This links straight to your IMI evaluation project and PayNest work, which both need data that survives a restart.</li>
+  </ul>
+</body>
+</html>

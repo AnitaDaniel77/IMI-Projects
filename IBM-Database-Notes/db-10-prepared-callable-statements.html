@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Prepared and Callable Statements in JDBC</title>
+</head>
+<body>
+  <h1>Prepared and Callable Statements in JDBC</h1>
+
+  <h2>Acronyms</h2>
+  <ul>
+    <li>JDBC: Java Database Connectivity.</li>
+    <li>SQL injection: an attack where someone types SQL into an input box so your query does something you didn't intend.</li>
+    <li>IN / OUT parameter: IN sends a value into a stored procedure. OUT receives a value back from it.</li>
+  </ul>
+
+  <h2>Why not just Statement?</h2>
+  <p>A plain Statement glues the values straight into the SQL text. That's open to SQL injection, and the database has to re-read the SQL every time, which is slower for repeated queries.</p>
+  <p>Injection example: if a name box gets the input ' OR '1'='1, a glued query becomes WHERE Author = '' OR '1'='1', which returns every row.</p>
+  <p>Real-life example: a teller who reads the client's form out loud and does whatever it says, including a scribbled "and give me the vault key".</p>
+
+  <h2>PreparedStatement</h2>
+  <p>The SQL has ? placeholders, and the values are filled in separately with setString, setDouble, setInt and so on. The number shows the position: 1 is the first ?, 2 is the second.</p>
+  <ul>
+    <li>Prevents SQL injection, because values are treated as data, never as code.</li>
+    <li>Faster for repeats, because the database prepares and caches the query once.</li>
+    <li>Reusable: the same query with different values.</li>
+  </ul>
+  <p>executeUpdate() is for INSERT, UPDATE and DELETE, and returns how many rows changed. executeQuery() is for SELECT and returns a ResultSet.</p>
+  <p>Real-life example: a printed form with blank boxes. The client can only fill in the boxes, they can't change the form's instructions.</p>
+
+  <h2>Getting the generated key</h2>
+  <p>When the ID is AUTO_INCREMENT, pass Statement.RETURN_GENERATED_KEYS to prepareStatement, then read getGeneratedKeys() after the insert. You need that new ID to link other records to it, like adding order items to a new order.</p>
+  <p>Real-life example: opening an account and immediately getting the new account number, so you can link a debit card to it.</p>
+
+  <h2>CallableStatement</h2>
+  <p>Calls a stored procedure using {CALL ProcedureName(?, ?)}.</p>
+  <ul>
+    <li>IN parameters: set them with setString and similar, the same as PreparedStatement.</li>
+    <li>OUT parameters: tell JDBC the type first with registerOutParameter(2, Types.DOUBLE), run execute(), then read the value with getDouble(2).</li>
+    <li>If the procedure returns rows, use executeQuery() and loop through the ResultSet.</li>
+  </ul>
+  <p>Real-life example: asking head office to run month-end interest. You hand over the account type (IN), and they hand back the total interest paid (OUT).</p>
+
+  <h2>Statement vs PreparedStatement vs CallableStatement</h2>
+  <ul>
+    <li>Statement: fixed SQL with no user input. Simple, but unsafe with input.</li>
+    <li>PreparedStatement: any SQL with values. Safe, fast and reusable. This should be your default.</li>
+    <li>CallableStatement: running stored procedures, including OUT values.</li>
+  </ul>
+
+  <h2>Error handling</h2>
+  <p>Use try-with-resources so statements and connections always close, and catch SQLException so a missing table or bad query shows a clear message instead of crashing the app.</p>
+
+  <h2>Pseudocode: insert, then link</h2>
+  <pre><code>
+PREPARE "INSERT INTO Books (Title, Author, Price) VALUES (?, ?, ?)" asking for generated keys
+SET 1 = title, 2 = author, 3 = price
+RUN executeUpdate
+READ generated key -> newId
+PREPARE "UPDATE Books SET Price = ? WHERE BookID = ?"
+SET 1 = new price, 2 = newId
+RUN executeUpdate
+  </code></pre>
+
+  <h2>Pseudocode: procedure with OUT</h2>
+  <pre><code>
+PREPARE CALL GetAveragePrice(?, ?)
+SET IN 1 = author
+REGISTER OUT 2 as DOUBLE
+EXECUTE
+READ OUT 2 -> average
+  </code></pre>
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Count the question marks, and you should have the same number of set calls.</li>
+    <li>Placeholder numbers start at 1, not 0.</li>
+    <li>registerOutParameter must come before execute().</li>
+    <li>Never build SQL with + and user input. Always use ?.</li>
+  </ul>
+</body>
+</html>

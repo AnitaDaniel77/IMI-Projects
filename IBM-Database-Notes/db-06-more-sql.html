@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>More SQL: Grouping, Joins, Subqueries, Window Functions and CTEs</title>
+</head>
+<body>
+  <h1>More SQL</h1>
+
+  <h2>Acronyms</h2>
+  <ul>
+    <li>SQL: Structured Query Language.</li>
+    <li>CTE: Common Table Expression, a named temporary result you define with WITH and then use like a table.</li>
+    <li>DESC / ASC: descending (biggest first) and ascending (smallest first).</li>
+  </ul>
+
+  <h2>GROUP BY and HAVING</h2>
+  <p>GROUP BY puts rows with the same value into one group, so you can total, count or average each group. HAVING filters those groups after they've been totalled. WHERE filters single rows before grouping.</p>
+  <p>Example: total sales per product gives Laptop 2200 and Smartphone 1200. Adding HAVING SUM(Amount) > 1500 keeps only Laptop.</p>
+  <p>Real-life example: GROUP BY is sorting the day's transactions into a pile per branch and adding up each pile. HAVING is then keeping only the branches that did more than R1 million.</p>
+
+  <h2>ORDER BY</h2>
+  <p>Sorts the results. ORDER BY TotalSales DESC puts the biggest first.</p>
+  <p>Real-life example: a leaderboard of top-performing consultants.</p>
+
+  <h2>Joins</h2>
+  <ul>
+    <li>INNER JOIN: only rows that match in both tables. Customers who placed orders gives Alice and Bob.</li>
+    <li>LEFT JOIN: every row from the left table, plus the match if there is one, otherwise NULL. Charlie shows with NULL because he has no orders.</li>
+    <li>SELF JOIN: a table joined to itself, using two aliases. Employees and their managers come from the same table.</li>
+  </ul>
+  <p>Real-life example: INNER JOIN is clients who have a loan. LEFT JOIN is all clients, with their loan if they have one. SELF JOIN is a staff list where each person's team leader is also on the same list.</p>
+
+  <h2>Subqueries</h2>
+  <p>A query inside another query. The inner one runs first and its result feeds the outer one. Example: find the IDs with orders over 600, then get those customers' names, which gives Bob.</p>
+  <p>Real-life example: first get the list of accounts flagged for fraud, then pull the clients who own those accounts.</p>
+
+  <h2>Window functions</h2>
+  <p>They calculate across related rows but keep every row, unlike GROUP BY, which squashes rows together.</p>
+  <ul>
+    <li>ROW_NUMBER() OVER (ORDER BY Amount DESC) numbers rows 1, 2, 3 by amount.</li>
+    <li>SUM(Amount) OVER (PARTITION BY Region) shows each row with its region's total next to it.</li>
+  </ul>
+  <p>Real-life example: every consultant's sales listed individually, with their branch total in an extra column beside each name.</p>
+
+  <h2>CTEs</h2>
+  <p>WITH name AS (query) creates a named, temporary result that only exists for that one statement. It makes complex queries readable, avoids repeating subqueries, and supports recursive queries for tree data like org charts. You can chain several CTEs, such as RegionalSales and RegionalTargets, then join them.</p>
+  <p>Real-life example: doing the rough calculations on a scratch pad first, giving each one a name, then writing the final report from those named results.</p>
+
+  <h2>Mistakes in the reading</h2>
+  <ul>
+    <li>The PARTITION BY output only shows 3 rows and says West is 1200. There are 4 rows, and West is 1200 + 700 = 1900.</li>
+    <li>The regional targets output also says West 1200 when it should be 1900.</li>
+    <li>The ROW_NUMBER example selects Name from Orders, but Orders has no Name column, so it needs a join to Customers. Also, Rank is a reserved word in MySQL 8, so use a different alias like RowNum.</li>
+  </ul>
+  <p>The .sql file has the corrected versions.</p>
+
+  <h2>Pseudocode: GROUP BY then HAVING then ORDER BY</h2>
+  <pre><code>
+FOR each sale
+    add amount to its product's running total
+FOR each product total
+    IF total > 1500 keep it (HAVING)
+SORT kept totals from biggest to smallest (ORDER BY DESC)
+  </code></pre>
+
+  <h2>Pseudocode: LEFT JOIN</h2>
+  <pre><code>
+FOR each customer
+    found = false
+    FOR each order
+        IF order.customerId == customer.id
+            print name and amount, found = true
+    IF not found
+        print name and NULL
+  </code></pre>
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>SQL runs in this order: FROM and JOIN, then WHERE, GROUP BY, HAVING, SELECT, and ORDER BY last. That's why HAVING can use SUM but WHERE can't.</li>
+    <li>If you see NULLs after a join, you used a LEFT JOIN and some rows had no match.</li>
+    <li>GROUP BY reduces the number of rows. Window functions don't.</li>
+    <li>Read a subquery from the inside out.</li>
+  </ul>
+</body>
+</html>
+=\

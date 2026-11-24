@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SQL: DDL, DML and Procedures</title>
+</head>
+<body>
+  <h1>SQL: DDL, DML and Procedures</h1>
+
+  <h2>Acronyms</h2>
+  <ul>
+    <li>SQL: Structured Query Language, the standard language for relational databases.</li>
+    <li>DDL: Data Definition Language, commands that build or change the structure (tables).</li>
+    <li>DML: Data Manipulation Language, commands that work with the data inside tables.</li>
+    <li>DQL: Data Query Language, just SELECT, for reading data. It's often grouped with DML.</li>
+  </ul>
+
+  <h2>DDL: building the structure</h2>
+  <ul>
+    <li>CREATE: make a new table or other object.</li>
+    <li>ALTER: change an existing table, like adding a column.</li>
+    <li>DROP: delete a table completely, structure and data.</li>
+  </ul>
+  <p>In the bookstore example, CREATE makes a Books table with book_id (primary key), title (NOT NULL, so it can't be empty), author and price. ALTER ... ADD adds a publication_year column, and DROP removes the whole table.</p>
+  <p>Real-life example: DDL is building and renovating the filing cabinet. CREATE builds it, ALTER adds a new drawer, and DROP throws the whole cabinet out.</p>
+
+  <h2>DML: working with the data</h2>
+  <ul>
+    <li>INSERT: add a new row.</li>
+    <li>UPDATE ... SET ... WHERE: change existing rows.</li>
+    <li>DELETE ... WHERE: remove rows.</li>
+    <li>SELECT ... WHERE: read rows. WHERE acts as the filter.</li>
+  </ul>
+  <p>Real-life example: DML is what happens to the files inside the cabinet. Opening a new client file is INSERT, changing a cellphone number is UPDATE, closing an account is DELETE, and looking a client up is SELECT.</p>
+
+  <h2>Stored procedures</h2>
+  <p>A reusable set of SQL statements saved inside the database, like a function in Java. It can take inputs, do the work and return a result. You create it with CREATE PROCEDURE and run it with CALL.</p>
+  <p>Why use them:</p>
+  <ul>
+    <li>Automate repeated jobs, like monthly reports.</li>
+    <li>Keep complex business logic in one place, like discounts or validation.</li>
+    <li>Better performance, because less data travels between the app and the database.</li>
+  </ul>
+  <p>Real-life example: month-end interest. Instead of the app pulling every account, working out interest and sending it all back, one procedure inside the database does it in a single call.</p>
+
+  <h2>Real-world uses</h2>
+  <ul>
+    <li>University: DDL to set up Students, Courses and Enrolments, and ALTER to update course details.</li>
+    <li>E-commerce: DML to insert orders, delete cancelled ones and update delivery status.</li>
+    <li>Banking: a procedure that calculates monthly interest by account type and rate.</li>
+  </ul>
+
+  <h2>Pseudocode: the bookstore lifecycle</h2>
+  <pre><code>
+DDL
+    CREATE table Books (id PK, title required, author, price)
+    ALTER Books ADD publication_year
+
+DML
+    INSERT a new book
+    UPDATE price WHERE id = 1
+    SELECT books WHERE author = 'X'
+    DELETE book WHERE id = 2
+
+PROCEDURE
+    CREATE total_book_value: SELECT SUM(price) FROM Books
+    CALL total_book_value
+  </code></pre>
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>DDL changes the shape of the table. DML changes what's inside it.</li>
+    <li>Always use WHERE with UPDATE and DELETE. Without it, every row gets changed or deleted.</li>
+    <li>DROP TABLE deletes everything and can't be undone. DELETE without WHERE empties the table but keeps its structure.</li>
+    <li>A stored procedure is just a saved method that lives in the database instead of in your Java code.</li>
+  </ul>
+</body>
+</html>

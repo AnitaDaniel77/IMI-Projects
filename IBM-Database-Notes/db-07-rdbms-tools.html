@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RDBMS Tools</title>
+</head>
+<body>
+  <h1>RDBMS Tools</h1>
+
+  <h2>Acronyms</h2>
+  <ul>
+    <li>RDBMS: Relational Database Management System.</li>
+    <li>GUI: Graphical User Interface, a tool you click around in.</li>
+    <li>CLI: Command Line Interface, a tool you type commands into.</li>
+    <li>IDE: Integrated Development Environment, like VS Code or IntelliJ.</li>
+    <li>DBA: Database Administrator, the person who looks after the database servers.</li>
+    <li>ER diagram: Entity-Relationship diagram, a picture of the tables and how they link.</li>
+  </ul>
+
+  <h2>Why tools matter</h2>
+  <p>SQL is the language, but tools make it easier to design tables, run queries, see results, and manage the server.</p>
+  <p>Real-life example: you can count cash by hand, but a note counter is faster and makes fewer mistakes. Same job, better tool.</p>
+
+  <h2>GUI tools</h2>
+  <ul>
+    <li>MySQL Workbench (free): for MySQL. Schema design, SQL editor, data modelling and server settings. Good for beginners.</li>
+    <li>pgAdmin (free): for PostgreSQL. Visual query tool, server dashboard and user roles.</li>
+    <li>DBeaver Community (free): works with almost any database (MySQL, PostgreSQL, SQLite, Oracle, SQL Server). ER diagrams, import and export.</li>
+    <li>HeidiSQL (free, Windows): light and fast, mainly for MySQL and MariaDB.</li>
+    <li>TablePlus (paid, limited free trial): polished and fast, supports many databases.</li>
+  </ul>
+  <p>Real-life example: a GUI tool is like using the banking app instead of USSD codes. You see everything laid out and click through it.</p>
+
+  <h2>CLI tools (all free)</h2>
+  <ul>
+    <li>mysql: MySQL's terminal client. Run SQL, back up with mysqldump, and manage users.</li>
+    <li>psql: PostgreSQL's terminal client, with tab-completion and query history.</li>
+    <li>sqlite3: shell for SQLite files. No setup at all, so it's great for quick tests.</li>
+  </ul>
+  <p>Best for automation, scripts, and remote or cloud servers where there's no screen to click on, like the Coursera Cloud IDE labs.</p>
+  <p>Real-life example: USSD on an old phone. No visuals, but it works anywhere and it's quick once you know the codes.</p>
+
+  <h2>IDE database tools</h2>
+  <ul>
+    <li>VS Code (free): add the SQLTools extension plus its MySQL or PostgreSQL driver, or SQLite Viewer. You can write Java and run SQL in the same editor.</li>
+    <li>IntelliJ IDEA: the database tools are only in the paid Ultimate edition, not the free Community edition.</li>
+    <li>DataGrip: JetBrains' full database IDE. Check the current licence, because it's paid for commercial use.</li>
+  </ul>
+
+  <h2>Which tool for which job</h2>
+  <ul>
+    <li>MySQL schemas: MySQL Workbench or DBeaver.</li>
+    <li>PostgreSQL: pgAdmin or DBeaver.</li>
+    <li>Many different databases: DBeaver.</li>
+    <li>Quick and light: HeidiSQL or sqlite3.</li>
+    <li>Remote servers and scripts: mysql or psql.</li>
+    <li>Inside your editor: VS Code with SQLTools.</li>
+  </ul>
+
+  <h2>My free setup</h2>
+  <p>VS Code with SQLTools for day-to-day work, DBeaver Community when I want ER diagrams or to browse data, and the mysql CLI in the Coursera labs. The reading's advice is to know at least one GUI and one CLI tool.</p>
+
+  <h2>Pseudocode: what every tool does when you connect</h2>
+  <pre><code>
+ASK for host, port, database name, username, password
+OPEN a connection using the right driver
+IF connection fails
+    show the error (wrong password, server off, no driver)
+ELSE
+    read the database details (name, version)
+    list the tables in the sidebar
+    let the user run SQL and show results in a grid
+  </code></pre>
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>All these tools send the same SQL to the same database. They only differ in how you type it and how they show the results.</li>
+    <li>"No suitable driver" means Java or the tool doesn't have the connector for that database installed.</li>
+    <li>Port 3306 is MySQL's default, and 5432 is PostgreSQL's.</li>
+  </ul>
+</body>
+</html>

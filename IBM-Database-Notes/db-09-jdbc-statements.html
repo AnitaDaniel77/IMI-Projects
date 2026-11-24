@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JDBC Statements in Java</title>
+</head>
+<body>
+  <h1>JDBC Statements in Java</h1>
+
+  <h2>Acronyms</h2>
+  <ul>
+    <li>JDBC: Java Database Connectivity.</li>
+    <li>ASC / DESC: ascending (A to Z, small to big) and descending (big to small).</li>
+    <li>NULL: no value at all. It's not 0 and not an empty string, it's "unknown".</li>
+  </ul>
+
+  <h2>Statement and ResultSet</h2>
+  <p>A Statement sends SQL to the database. executeQuery() is for SELECT and returns a ResultSet. executeUpdate() is for INSERT, UPDATE, DELETE and CREATE, and returns how many rows changed.</p>
+  <p>A ResultSet is a cursor over the rows. next() moves to the next row and returns false when there are none left. getInt, getString and getDouble read a column from the current row by name.</p>
+  <p>Real-life example: a ResultSet is like a printed statement where your finger points at one line. next() moves your finger down one line, and the getters read the columns on that line.</p>
+
+  <h2>WHERE: filtering</h2>
+  <p>Only returns rows that match a condition, like books by "Author X".</p>
+  <p>Real-life example: searching transactions for one merchant instead of reading the whole history.</p>
+
+  <h2>ORDER BY: sorting</h2>
+  <p>ORDER BY Price DESC puts the most expensive first. ASC is the default. With two columns, like ORDER BY Price DESC, Title ASC, it sorts by price first and then by title for books with the same price.</p>
+  <p>Real-life example: sorting a payment list by amount, then alphabetically when two amounts match.</p>
+
+  <h2>LIMIT: top lists and paging</h2>
+  <p>LIMIT 5 returns only 5 rows. Combined with ORDER BY, you get a top 5 list. SQL Server uses TOP 5 instead.</p>
+  <p>Real-life example: "your last 10 transactions" on the app home screen.</p>
+
+  <h2>GROUP BY with COUNT, SUM and AVG</h2>
+  <p>Groups rows with the same value and calculates per group, like COUNT(*) of books per author. Useful for summary reports.</p>
+  <p>Real-life example: number of accounts opened per branch this month.</p>
+
+  <h2>JOIN</h2>
+  <p>INNER JOIN ... ON combines rows from two tables where the linking columns match, like Books.PublisherID = Publishers.PublisherID.</p>
+  <p>Real-life example: showing each debit order with the company name, by matching the company ID.</p>
+
+  <h2>IS NULL and IS NOT NULL</h2>
+  <p>Find rows with a missing value (IS NULL) or with a value (IS NOT NULL). You can't use = NULL, because it never matches.</p>
+  <p>In Java, getDouble() returns 0.0 for a NULL column, so call wasNull() straight after to check whether it was really empty or really 0.</p>
+  <p>Real-life example: a client with no cellphone number on file isn't the same as a cellphone number of 0. NULL means "not captured yet".</p>
+
+  <h2>Error handling</h2>
+  <p>Wrap database code in try-with-resources and catch SQLException. getMessage() explains the problem, getSQLState() gives a standard code, and getErrorCode() gives the database's own code. Those are useful for searching for the error.</p>
+
+  <h2>Statement vs PreparedStatement</h2>
+  <p>A plain Statement is fine for fixed SQL. When values come from a user, use PreparedStatement with ? placeholders, so input can't change the SQL (SQL injection).</p>
+
+  <h2>Pseudocode</h2>
+  <pre><code>
+OPEN connection, CREATE statement
+RUN query -> get ResultSet
+WHILE resultSet.next() is true
+    read columns from current row
+    print them
+IF anything fails
+    CATCH SQLException, print message and codes
+connection and statement close automatically
+  </code></pre>
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>The cursor starts before the first row, which is why you call next() before reading.</li>
+    <li>Column names in getString("Title") must match the SELECT or an alias, otherwise you get an SQLException.</li>
+    <li>SELECT means executeQuery. Anything that changes data means executeUpdate.</li>
+    <li>Use IS NULL, never = NULL.</li>
+  </ul>
+</body>
+</html>

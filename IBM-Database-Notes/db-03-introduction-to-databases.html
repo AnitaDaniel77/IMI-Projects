@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Introduction to Databases</title>
+</head>
+<body>
+  <h1>Introduction to Databases</h1>
+
+  <h2>Acronyms</h2>
+  <ul>
+    <li>SQL: Structured Query Language, used to read and change data in relational databases.</li>
+    <li>NoSQL: "Not only SQL", databases that don't use fixed tables.</li>
+    <li>IoT: Internet of Things, devices like smart meters and sensors that send data over the internet.</li>
+  </ul>
+
+  <h2>What a database is</h2>
+  <p>An organised collection of data that's stored and managed electronically. It's built so you can quickly find one record or analyse millions.</p>
+  <p>Real-life example: a digital filing cabinet. Capitec stores every client, account and transaction in one, so your balance shows up the moment you open the app.</p>
+
+  <h2>Why not just use files?</h2>
+  <p>Files work for small apps but get slow and error-prone as data grows. Databases give you:</p>
+  <ul>
+    <li>Efficient retrieval: they're built to find specific data fast, even in huge datasets.</li>
+    <li>Data integrity: data stays accurate and consistent, even with many users at once.</li>
+    <li>Scalability: they handle more data as the app grows.</li>
+    <li>Security: built-in access control and protection for sensitive data.</li>
+  </ul>
+  <p>Real-life example: keeping client records in one Excel file works for a single branch. Once there are 900 branches and millions of clients updating at the same time, you need a database.</p>
+
+  <h2>Types of databases</h2>
+  <ul>
+    <li>Relational: tables with rows and columns, linked to each other and queried with SQL. Example: a Students table and an Enrolments table. Use it for structured data like inventory or accounts (MySQL).</li>
+    <li>NoSQL: flexible storage as key-value pairs, documents or graphs. Example: MongoDB for logs and user activity.</li>
+    <li>Graph: built for complex relationships, like social networks and recommendations (Netflix "because you watched").</li>
+    <li>Time series: timestamped data like server logs, stock prices or sensor readings (InfluxDB for a weather app).</li>
+  </ul>
+  <p>Real-life example: client accounts belong in relational tables, the app's click logs suit NoSQL, a fraud ring of linked accounts suits a graph, and ATM cash levels every minute suit time series.</p>
+
+  <h2>Transactions</h2>
+  <p>A transaction is a group of steps that must all succeed together or not happen at all. If anything fails partway through, the database rolls back to how things were before.</p>
+  <p>Real-life example: a transfer takes money out of your account and puts it into your friend's. If the second step fails, the first is undone, so the money never just disappears.</p>
+
+  <h2>Concurrent access</h2>
+  <p>Many users can read and write at the same time without corrupting the data.</p>
+  <p>Real-life example: thousands of people buying concert tickets at once, and no seat gets sold twice.</p>
+
+  <h2>Real-world uses</h2>
+  <ul>
+    <li>E-commerce: product catalogues, orders and payments (Amazon).</li>
+    <li>Healthcare: patient records and appointments.</li>
+    <li>Entertainment: shows and user preferences (Netflix).</li>
+    <li>Finance: accounts, transactions and fraud detection.</li>
+  </ul>
+
+  <h2>Pseudocode: a money transfer as a transaction</h2>
+  <pre><code>
+START transaction
+    IF from-account balance is less than amount
+        ROLLBACK, stop
+    subtract amount from from-account
+    add amount to to-account
+    IF any step failed
+        ROLLBACK (put everything back)
+    ELSE
+        COMMIT (make it permanent)
+  </code></pre>
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Pick the database type by the shape of your data: fixed fields, flexible documents, relationships or timestamps.</li>
+    <li>Think of a transaction as all or nothing. There's no halfway state.</li>
+    <li>Commit means "save for real". Rollback means "undo everything since start".</li>
+  </ul>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Understanding RDBMS with Examples</title>
+</head>
+<body>
+  <h1>Understanding RDBMS with Examples</h1>
+
+  <h2>Acronyms</h2>
+  <ul>
+    <li>RDBMS: Relational Database Management System, software that stores data in linked tables (MySQL, PostgreSQL, Oracle).</li>
+    <li>PK: Primary Key, the column that uniquely identifies each row.</li>
+    <li>FK: Foreign Key, a column that points to another table's primary key.</li>
+    <li>SQL: Structured Query Language.</li>
+  </ul>
+
+  <h2>Tables, rows and columns</h2>
+  <p>An RDBMS stores data in tables, like a grid. Each row is one record, and each column is one field.</p>
+  <p>Real-life example: a client table where each row is one client and the columns are ID number, name, cellphone and branch.</p>
+
+  <h2>Primary key</h2>
+  <p>A column (or set of columns) that uniquely identifies each row. It stops duplicate records. Example: studentId.</p>
+  <p>Real-life example: your account number. No two clients share one.</p>
+
+  <h2>Foreign key</h2>
+  <p>A column in one table that points to the primary key of another table, which creates a relationship. Example: studentId in the Enrolments table points to the Students table. That way, student details aren't copied into every enrolment.</p>
+  <p>Real-life example: a transaction record stores your account number, not your whole name and address, and the account number links back to your full details.</p>
+
+  <h2>Schema</h2>
+  <p>The blueprint of the database: which tables exist, their columns and data types, the relationships between them, and constraints like PKs, FKs and validation rules.</p>
+  <p>Real-life example: the architect's plan of a branch, showing the rooms, what goes in each one and which doors connect them.</p>
+
+  <h2>Normalisation</h2>
+  <p>Splitting data into smaller, related tables to stop repetition and keep it accurate. Instead of typing "Databases" in every enrolment row, keep it once in a Courses table and store only the courseId in Enrolments.</p>
+  <p>Real-life example: if the branch name is typed into every client row and the branch gets renamed, you'd have to fix thousands of rows. With a separate Branch table, you change it once.</p>
+
+  <h2>Index</h2>
+  <p>Speeds up searches, like the index at the back of a book. Without one, the database checks every row (a full table scan). The trade-off is that inserts and updates get slightly slower, because the index has to be updated too.</p>
+  <p>Real-life example: finding a client by ID number in an indexed system is instant. Without the index, it's like flipping through every paper file in the branch.</p>
+
+  <h2>Relationships</h2>
+  <ul>
+    <li>One-to-one: each person has one passport, and each passport belongs to one person.</li>
+    <li>One-to-many: one customer places many orders, and each order belongs to one customer.</li>
+    <li>Many-to-many: students take many courses, and courses have many students. This needs a join table (Enrolments) in the middle.</li>
+  </ul>
+  <p>Real-life example: one client has many accounts (one-to-many). An account can have several signatories and a person can sign on several accounts (many-to-many, with a join table).</p>
+
+  <h2>When to use RDBMS vs NoSQL</h2>
+  <p>RDBMS suits structured data where relationships and accuracy matter: e-commerce orders, healthcare records and banking. NoSQL (MongoDB) suits unstructured or fast-changing, real-time data, but it doesn't have the strict structure and relationships.</p>
+
+  <h2>Pseudocode: enrolling a student safely</h2>
+  <pre><code>
+ADD student
+    IF studentId already exists -> reject (primary key)
+    ELSE save row, update index
+
+ENROLL(studentId, courseId)
+    IF student not found OR course not found -> reject (foreign key)
+    ELSE add row to enrolments join table
+
+FIND courses for a student (like a JOIN)
+    FOR each enrolment with this studentId
+        look up the course by courseId
+        print course title
+  </code></pre>
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Ask "what makes this row unique?" That's your primary key.</li>
+    <li>Ask "does this column point somewhere else?" That's a foreign key.</li>
+    <li>If you see the same text repeated in many rows, normalise it into its own table.</li>
+    <li>Index the columns you search by most often, not every column.</li>
+    <li>A many-to-many relationship always needs a join table in the middle.</li>
+  </ul>
+</body>
+</html>

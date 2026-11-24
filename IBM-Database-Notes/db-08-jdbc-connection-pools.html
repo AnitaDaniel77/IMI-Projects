@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JDBC, Connections and Connection Pools</title>
+</head>
+<body>
+  <h1>JDBC, Connections and Connection Pools</h1>
+
+  <h2>Acronyms</h2>
+  <ul>
+    <li>JDBC: Java Database Connectivity, Java's standard way to talk to relational databases.</li>
+    <li>API: Application Programming Interface, a set of classes and methods you call.</li>
+    <li>DBCP: Database Connection Pooling, Apache Commons' library for connection pools.</li>
+    <li>URL: here it means the database address, like jdbc:mysql://localhost:3306/shop.</li>
+  </ul>
+
+  <h2>What JDBC is</h2>
+  <p>A standard Java API that lets your code connect to MySQL, PostgreSQL, Oracle and others, run SQL, and read the results. It's the bridge between Java and the database.</p>
+  <p>Real-life example: a translator between you and a client who speaks another language. You speak Java, the database speaks SQL, and JDBC passes the messages both ways.</p>
+
+  <h2>JDBC architecture</h2>
+  <ul>
+    <li>DriverManager: keeps track of the drivers and opens connections.</li>
+    <li>Driver: the database-specific piece, like the MySQL driver or PostgreSQL driver.</li>
+    <li>Connection: the open line to the database, where everything starts.</li>
+    <li>Statement / PreparedStatement: carry your SQL to the database. PreparedStatement uses ? placeholders and is safer.</li>
+    <li>ResultSet: holds the rows that come back.</li>
+  </ul>
+  <p>Flow: Java app, then JDBC API, then DriverManager, then the right Driver, then the database. Statement runs the SQL, and ResultSet brings the rows back.</p>
+  <p>Real-life example: DriverManager is the switchboard, the driver is the right phone line for that office, the connection is the call, the statement is what you say, and the ResultSet is their answer.</p>
+
+  <h2>Connecting with JDBC</h2>
+  <ol>
+    <li>Add the driver, for MySQL the mysql-connector-j dependency in pom.xml.</li>
+    <li>Call DriverManager.getConnection(url, user, password) inside try-with-resources, so the connection closes itself even if there's an error.</li>
+    <li>Catch SQLException, so a database problem doesn't crash the program.</li>
+  </ol>
+
+  <h2>The problem without a pool</h2>
+  <p>If every request opens and closes its own connection:</p>
+  <ul>
+    <li>High latency: opening a connection is slow, so every request waits.</li>
+    <li>Resource exhaustion: the database only allows so many connections, and it runs out.</li>
+    <li>Scalability issues: more users means more failures and lost sales.</li>
+  </ul>
+
+  <h2>Connection pooling</h2>
+  <p>Open a set of connections up front. Each request borrows one and gives it back when done, so nobody opens a new one each time. You get better performance, use fewer resources, and can handle more users.</p>
+  <p>Real-life example: a branch has a few consultants on duty. Clients take the next free consultant, and when they're done that consultant helps the next client. You don't hire and fire a consultant for every client.</p>
+
+  <h2>Apache Commons DBCP</h2>
+  <ul>
+    <li>BasicDataSource: the pool object.</li>
+    <li>setInitialSize: how many connections to open at startup.</li>
+    <li>setMaxTotal: the most connections allowed at once.</li>
+    <li>getConnection(): borrow one. Calling close() on it gives it back to the pool instead of really closing it.</li>
+  </ul>
+
+  <h2>Pool tips for real systems</h2>
+  <ul>
+    <li>Size it from traffic: for example, start at 50 and allow up to 200 at peak times.</li>
+    <li>Handle idle connections, timeouts and failures, so connections don't leak.</li>
+    <li>Monitor the pool and tune the settings as usage changes.</li>
+  </ul>
+  <p>Spring Boot uses a pool called HikariCP by default, so you get pooling automatically there.</p>
+
+  <h2>Pseudocode: borrowing from a pool</h2>
+  <pre><code>
+AT STARTUP
+    open N connections, put them in the pool
+
+WHEN a request comes in
+    IF a free connection exists
+        take it, run the SQL, read results
+        give it back to the pool
+    ELSE
+        wait (or open a new one if under the max)
+
+AT SHUTDOWN
+    close every connection in the pool
+  </code></pre>
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>DriverManager gives you a brand-new connection each time. A pool gives you a recycled one.</li>
+    <li>With a pool, conn.close() means "give back", not "destroy".</li>
+    <li>Always use try-with-resources, or connections leak and the pool runs dry.</li>
+    <li>"No suitable driver" means the driver dependency is missing.</li>
+  </ul>
+</body>
+</html>
+

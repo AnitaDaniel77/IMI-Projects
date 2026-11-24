@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CRUD Operations using JDBC</title>
+</head>
+<body>
+  <h1>CRUD Operations using JDBC</h1>
+
+  <h2>Acronyms</h2>
+  <ul>
+    <li>CRUD: Create, Read, Update, Delete, the four basic things any app does with data.</li>
+    <li>JDBC: Java Database Connectivity.</li>
+    <li>OFFSET: how many rows to skip before LIMIT starts counting.</li>
+  </ul>
+
+  <h2>The bookstore example</h2>
+  <ul>
+    <li>Create: add new titles.</li>
+    <li>Read: search by title, author or genre.</li>
+    <li>Update: change prices for promotions.</li>
+    <li>Delete: remove out-of-print books.</li>
+  </ul>
+  <p>The Books table has BookID, Title, Author, Price, Genre, PublicationDate and PublisherID.</p>
+  <p>Real-life example: CRUD on client records is opening an account, looking a client up, updating their address and closing an account.</p>
+
+  <h2>Connecting first</h2>
+  <p>Use DriverManager.getConnection(url, user, password) inside try-with-resources, and catch SQLException if the connection fails.</p>
+
+  <h2>Create: three ways</h2>
+  <ul>
+    <li>Statement: values typed straight into the SQL. Easy to read, but open to SQL injection. Only use it for fixed values.</li>
+    <li>PreparedStatement: ? placeholders filled with setString, setDouble, setDate and setInt. Secure and reusable.</li>
+    <li>CallableStatement: runs a stored procedure (AddBook) with the same set methods. Use it when the insert logic lives in the database.</li>
+  </ul>
+  <p>PreparedStatement runs SQL directly, while CallableStatement runs a saved procedure. Otherwise the Java code looks almost the same.</p>
+  <p>Real-life example: Statement is a teller writing whatever the client says on a blank page. PreparedStatement is a proper form with boxes. CallableStatement is sending the form to head office, which has its own process.</p>
+
+  <h2>Read</h2>
+  <ul>
+    <li>All books: SELECT with a plain Statement is fine, because there's no user input.</li>
+    <li>By genre: PreparedStatement with WHERE Genre = ?.</li>
+    <li>Pagination: ORDER BY Price DESC LIMIT ? OFFSET ?. Page 1 skips 0 rows, and page 2 skips one page's worth.</li>
+  </ul>
+  <p>Real-life example: the app shows 10 transactions at a time, and "Load more" fetches the next 10 by skipping the first 10.</p>
+
+  <h2>Update</h2>
+  <p>UPDATE Books SET Price = ? WHERE Title = ?. executeUpdate() returns how many rows changed, and 0 means nothing matched.</p>
+  <p>Real-life example: changing the interest rate on one product, not every product.</p>
+
+  <h2>Delete</h2>
+  <p>DELETE FROM Books WHERE Genre = ? removes every book in that genre. Always include WHERE.</p>
+  <p>Real-life example: closing all dormant accounts of one type, not every account in the bank.</p>
+
+  <h2>Best practices</h2>
+  <ul>
+    <li>Handle exceptions gracefully with try-catch around database calls.</li>
+    <li>Manage resources with try-with-resources, so connections, statements and result sets close.</li>
+    <li>Log errors with messages that explain what failed.</li>
+    <li>Validate input before running queries, like a blank title or a negative price.</li>
+    <li>Prefer PreparedStatement whenever any value comes from outside.</li>
+  </ul>
+
+  <h2>Pseudocode: pagination</h2>
+  <pre><code>
+offset = (page - 1) * pageSize
+QUERY books ORDER BY price DESC LIMIT pageSize OFFSET offset
+FOR each row
+    print title and price
+  </code></pre>
+
+  <h2>Pseudocode: safe create</h2>
+  <pre><code>
+IF title is blank OR price is negative
+    show message, stop
+PREPARE insert with 6 placeholders
+SET each placeholder
+RUN executeUpdate
+PRINT rows added
+  </code></pre>
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Match each CRUD letter to its method: Create, Update and Delete use executeUpdate, and Read uses executeQuery.</li>
+    <li>Check the number executeUpdate returns. It tells you whether anything actually happened.</li>
+    <li>Page 1 means OFFSET 0. Off-by-one mistakes here are common.</li>
+    <li>Statement is only for SQL that never contains outside values.</li>
+  </ul>
+</body>
+</html>

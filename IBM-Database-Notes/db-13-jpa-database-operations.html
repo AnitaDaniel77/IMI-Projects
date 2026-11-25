@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Using JPA for Database Operations</title>
+</head>
+<body>
+  <h1>Using JPA for Database Operations</h1>
+
+  <h2>Acronyms</h2>
+  <ul>
+    <li>JPA: Jakarta (formerly Java) Persistence API. It's a specification, a set of rules for saving Java objects to a database.</li>
+    <li>ORM: Object-Relational Mapping, turning table rows into Java objects and back.</li>
+    <li>JPQL: Java Persistence Query Language, queries written against classes and fields instead of tables and columns.</li>
+    <li>DDL: Data Definition Language (CREATE, ALTER). ddl-auto lets Hibernate run DDL for you.</li>
+    <li>Hibernate: the library that actually does the work JPA describes. JPA is the rulebook, Hibernate is the player.</li>
+  </ul>
+
+  <h2>What JPA is</h2>
+  <p>JPA maps Java classes (entities) to database tables, so you work with objects instead of writing SQL and reading ResultSets by hand.</p>
+  <ul>
+    <li>Abstraction over SQL: call save() instead of writing INSERT.</li>
+    <li>Entity management: JPA handles persisting, merging and deleting objects.</li>
+    <li>Simplified querying: JPQL, or method names that Spring turns into queries.</li>
+  </ul>
+  <p>Real-life example: with JDBC you fill in every field of a paper form yourself. With JPA you hand over the client's file and the system captures it.</p>
+
+  <h2>JDBC vs JPA</h2>
+  <ul>
+    <li>JDBC: you open connections, write SQL, set ? values, loop through the ResultSet and build the objects yourself. Lots of repeated code.</li>
+    <li>JPA: you describe the class with annotations, and the repository gives you save, findById, findAll and deleteById for free.</li>
+    <li>JDBC SQL is often tied to one database. JPA is database independent, so switching from MySQL to PostgreSQL is mostly a settings change.</li>
+  </ul>
+  <p>Real-life example: JDBC is driving a manual car, where you control everything. JPA is an automatic, where you still steer but the gears are handled for you.</p>
+
+  <h2>Why use it</h2>
+  <ul>
+    <li>Less boilerplate code.</li>
+    <li>Classes map straight to tables: a Book class maps to a books table.</li>
+    <li>Database independence.</li>
+    <li>Automatic schema management with ddl-auto.</li>
+    <li>Easier maintenance, because changes to the data model live in the entity class.</li>
+    <li>Built into Spring Boot through spring-boot-starter-data-jpa.</li>
+  </ul>
+
+  <h2>ddl-auto options</h2>
+  <ul>
+    <li>update: creates missing tables and columns, keeps the data. Good for development.</li>
+    <li>create: drops and recreates the tables on every start, which wipes all data.</li>
+    <li>validate: only checks the tables match the entities and fails if not. Safe for production.</li>
+    <li>none: does nothing. Use with proper migration tools in production.</li>
+  </ul>
+  <p>Never use create or update on a live database. A wrong field rename could drop or change real data.</p>
+
+  <h2>Setup steps</h2>
+  <ol>
+    <li>Add spring-boot-starter-data-jpa and mysql-connector-j to pom.xml.</li>
+    <li>Configure the datasource and JPA settings in application.properties.</li>
+    <li>Define an entity: @Entity on the class, @Id on the primary key, and @GeneratedValue for how the ID is made.</li>
+    <li>Create a repository: an interface that extends JpaRepository&lt;Book, Long&gt;, meaning the entity type and the ID type.</li>
+  </ol>
+
+  <h2>Best practices</h2>
+  <ul>
+    <li>Keep entities simple, with only the fields that belong in the table.</li>
+    <li>Use clear names that match the business (Book, title, author).</li>
+    <li>Use the built-in repository methods before writing custom queries.</li>
+  </ul>
+
+  <h2>Pseudocode: saving a book with JPA</h2>
+  <pre><code>
+CREATE new Book object
+SET title, author, price
+CALL repository.save(book)
+    JPA builds the INSERT for you
+    database creates the id
+    id is copied back into the book object
+CALL repository.findAll()
+    JPA builds the SELECT and turns rows into Book objects
+  </code></pre>
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>You never write the repository class. Spring creates it at startup from the interface.</li>
+    <li>The &lt;Book, Long&gt; in JpaRepository must match the entity and its @Id type.</li>
+    <li>Turn on show-sql to see the exact SQL JPA runs. It's the best way to learn what's happening.</li>
+    <li>Entities need a no-argument constructor, because JPA creates the objects itself.</li>
+  </ul>
+</body>
+</html>

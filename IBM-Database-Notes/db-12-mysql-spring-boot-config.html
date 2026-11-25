@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Configuring a MySQL Database in Spring Boot</title>
+</head>
+<body>
+  <h1>Configuring a MySQL Database in Spring Boot</h1>
+
+  <h2>Acronyms</h2>
+  <ul>
+    <li>JDBC: Java Database Connectivity.</li>
+    <li>SLF4J: Simple Logging Facade for Java, the logging "front desk" your code talks to.</li>
+    <li>Logback: the logging engine behind SLF4J that actually writes the logs. Spring Boot uses both by default.</li>
+    <li>ELK: Elasticsearch, Logstash and Kibana, tools that collect, search and display logs.</li>
+    <li>dev / prod: the development (your laptop) and production (live) environments.</li>
+  </ul>
+
+  <h2>Step 1: Add the dependencies</h2>
+  <p>In pom.xml, in the project root, add the MySQL driver (mysql-connector-j). Add spring-boot-starter-jdbc or spring-boot-starter-data-jpa so Spring creates the DataSource, and spring-boot-starter-actuator for health checks.</p>
+  <p>Real-life example: you can't phone another country without the right SIM. The MySQL driver is Java's SIM for MySQL.</p>
+
+  <h2>Step 2: Connection properties</h2>
+  <p>In src/main/resources/application.properties, set spring.datasource.url (where the database is), plus spring.datasource.username and spring.datasource.password. Spring Boot reads these and builds the connection pool (HikariCP) for you.</p>
+  <p>Real-life example: the branch address and the vault code, written in one central place instead of on every teller's desk.</p>
+
+  <h2>Step 3: Profiles for dev and prod</h2>
+  <p>Keep separate settings per environment in application-dev.properties and application-prod.properties. Choose one with spring.profiles.active=dev.</p>
+  <p>Correction: the video says "application.prod.properties", but the file name must use a dash: application-prod.properties.</p>
+  <p>Real-life example: a training environment and the live banking system use different databases, so a trainee's test payment never touches real money.</p>
+
+  <h2>Step 4: Logging without leaking secrets</h2>
+  <p>Set log levels in application.properties. Never put passwords, tokens or ID numbers in logs. Ways to stay safe:</p>
+  <ul>
+    <li>Use environment variables, like ${DB_PASSWORD}, instead of hard-coded passwords.</li>
+    <li>Lower the log detail in production (INFO or WARN, not DEBUG).</li>
+    <li>Use filters or redaction libraries to mask sensitive fields.</li>
+    <li>Configure secure appenders (where logs get written).</li>
+    <li>Use log tools like ELK or Splunk that can clean logs and enforce policy.</li>
+  </ul>
+  <p>Real-life example: a call recording that bleeps out the client's PIN. You keep the useful conversation and lose the secret.</p>
+
+  <h2>Step 5: schema.sql and data.sql</h2>
+  <p>Put them in src/main/resources. schema.sql creates the tables, and data.sql adds starter rows.</p>
+  <p>Correction: Spring Boot only runs these by itself for in-memory databases like H2. For MySQL you must add spring.sql.init.mode=always.</p>
+  <p>Real-life example: schema.sql builds the shelves, and data.sql puts the first stock on them.</p>
+
+  <h2>Step 6: Check the connection</h2>
+  <p>Run SHOW DATABASES and SHOW TABLES from Java and print the results. If they print, the app can reach MySQL. Use Spring's DataSource instead of hard-coding the URL and password like the video does.</p>
+
+  <h2>Step 7: Health check with Actuator</h2>
+  <p>Add spring-boot-starter-actuator, expose the health endpoint, then open http://localhost:8080/actuator/health. You should see "status": "UP", with the database listed as MySQL.</p>
+  <p>Real-life example: the green light on a card machine that tells you it's online before you try to swipe.</p>
+
+  <h2>Pseudocode: app startup with a database</h2>
+  <pre><code>
+READ application.properties
+READ application-{active profile}.properties (overrides)
+REPLACE ${DB_USERNAME}, ${DB_PASSWORD} with environment variables
+BUILD connection pool from datasource settings
+IF sql.init.mode = always
+    RUN schema.sql, then data.sql
+RUN startup checks (list databases and tables)
+EXPOSE /actuator/health -> UP or DOWN
+  </code></pre>
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Profile files only hold what changes. Shared settings stay in application.properties.</li>
+    <li>If a password shows up anywhere in Git, change it. Git history keeps it even after you delete it.</li>
+    <li>"Communications link failure" usually means MySQL isn't running or the port is wrong.</li>
+    <li>Health "DOWN" with details turned on tells you exactly which part failed.</li>
+  </ul>
+</body>
+</html>

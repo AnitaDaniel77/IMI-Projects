@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Setting Up a RESTful API for CRUD</title>
+</head>
+<body>
+  <h1>Setting Up a RESTful API for CRUD</h1>
+
+  <h2>Acronyms</h2>
+  <ul>
+    <li>REST: Representational State Transfer, a style for web APIs where each URL is a resource and HTTP methods say what to do with it.</li>
+    <li>API: Application Programming Interface, the endpoints other apps call.</li>
+    <li>CRUD: Create, Read, Update, Delete.</li>
+    <li>HTTP: HyperText Transfer Protocol.</li>
+    <li>JSON: JavaScript Object Notation, the text format the API sends back.</li>
+    <li>cURL: Client URL, a command-line tool for sending requests to an API.</li>
+    <li>SLF4J: Simple Logging Facade for Java. Logback is the engine behind it.</li>
+  </ul>
+
+  <h2>What a RESTful API is</h2>
+  <p>Clients like browsers and mobile apps talk to the server using HTTP methods. Each method maps to a CRUD action:</p>
+  <ul>
+    <li>GET: read data.</li>
+    <li>POST: create new data.</li>
+    <li>PUT: update existing data.</li>
+    <li>DELETE: remove data.</li>
+  </ul>
+  <p>Spring Boot makes this quick: @RestController defines endpoints, JPA talks to the database without raw SQL, and validation checks input.</p>
+  <p>Real-life example: ordering food on an app. The app (client) sends your order to the restaurant's API, which saves it and sends back a confirmation.</p>
+
+  <h2>Serialisation</h2>
+  <p>Turning Java objects into JSON so they can travel over the network. Spring Boot does it automatically with the Jackson library.</p>
+  <p>Real-life example: packing a parcel into a standard box so any courier can carry it.</p>
+
+  <h2>Structured responses</h2>
+  <p>Instead of returning raw objects, wrap every response in an ApiResponse with three fields:</p>
+  <ul>
+    <li>status: did it work (true or false).</li>
+    <li>message: a short description of what happened.</li>
+    <li>data: the actual payload, or null.</li>
+  </ul>
+  <p>Every endpoint then answers in the same shape, which makes front-end code simpler.</p>
+  <p>Real-life example: a bank statement always has the same layout, whether you made one transaction or a hundred.</p>
+
+  <h2>HTTP headers</h2>
+  <ul>
+    <li>Accept (request): the format the client wants back, like application/json.</li>
+    <li>Authorization (request): login credentials or a token.</li>
+    <li>Content-Type (both): the format of the body being sent.</li>
+  </ul>
+  <p>Real-life example: the label on a parcel, saying what's inside and who's allowed to open it.</p>
+
+  <h2>Status codes</h2>
+  <ul>
+    <li>200 OK: success.</li>
+    <li>201 Created: a new resource was added.</li>
+    <li>400 Bad Request: invalid input.</li>
+    <li>401 Unauthorized: you need to log in.</li>
+    <li>403 Forbidden: logged in, but not allowed.</li>
+    <li>404 Not Found: the resource doesn't exist.</li>
+    <li>500 Internal Server Error: something broke on the server.</li>
+  </ul>
+  <p>Real-life example: 2xx is "done", 4xx is "you need to fix something", 5xx is "our system is down, sorry".</p>
+
+  <h2>Best practices</h2>
+  <ul>
+    <li>Name endpoints after resources, not actions: /api/books, not /getAllBooks.</li>
+    <li>Let the HTTP method say the action.</li>
+    <li>Use pagination so you never send thousands of rows at once.</li>
+    <li>Log activity and turn on SQL logging while developing.</li>
+  </ul>
+
+  <h2>Pagination</h2>
+  <p>Add a Pageable parameter. The caller sends page, size and sort, for example /api/books/paged?page=0&amp;size=5&amp;sort=title,asc gives the first 5 books sorted by title. Page numbers start at 0.</p>
+  <p>Real-life example: the app shows 10 transactions at a time with a "Load more" button.</p>
+
+  <h2>Testing with cURL</h2>
+  <p>cURL sends requests from the terminal, so you can test the API without building a front end. -X sets the method, -H sets a header, and -d sends the data.</p>
+
+  <h2>Pseudocode: GET one book</h2>
+  <pre><code>
+LOG "fetching book id"
+book = repository.findById(id)
+IF book exists
+    RETURN 200 with ApiResponse(true, "Book found", book)
+ELSE
+    RETURN 404 with ApiResponse(false, "Book not found", null)
+  </code></pre>
+
+  <h2>Pseudocode: POST a book</h2>
+  <pre><code>
+VALIDATE the JSON body (@Valid)
+IF invalid -> 400 (handled by the global error handler)
+saved = repository.save(book)
+RETURN 201 with ApiResponse(true, "Book created", saved)
+  </code></pre>
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Read an endpoint as METHOD + URL: "GET /api/books/3" means "read book 3".</li>
+    <li>Check the status code first, then the body.</li>
+    <li>ResponseEntity lets you choose the status code and the body together.</li>
+    <li>If cURL gets a 401, Spring Security is switched on. Log in or permit the endpoint while testing.</li>
+  </ul>
+</body>
+</html>

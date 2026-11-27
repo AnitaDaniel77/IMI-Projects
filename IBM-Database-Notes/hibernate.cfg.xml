@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<!-- Settings Hibernate reads at startup -->
+<hibernate-configuration>
+    <session-factory>
+        <!-- Where the database is and how to log in -->
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bookstore</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">your_password</property>
+
+        <!-- Create or update tables to match the entities (dev only) -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!-- Print the SQL Hibernate generates -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+
+        <!-- Which classes are entities -->
+        <mapping class="com.example.bookstore.HibernateBook"/>
+    </session-factory>
+</hibernate-configuration>

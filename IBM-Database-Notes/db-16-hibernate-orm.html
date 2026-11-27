@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Introduction to Hibernate and ORM</title>
+</head>
+<body>
+  <h1>Introduction to Hibernate and ORM</h1>
+
+  <h2>Acronyms</h2>
+  <ul>
+    <li>ORM: Object-Relational Mapping, using Java objects instead of writing SQL to work with tables.</li>
+    <li>JDBC: Java Database Connectivity, the manual way, where you write every query.</li>
+    <li>HQL: Hibernate Query Language, queries written against classes and fields, not tables and columns.</li>
+    <li>CRUD: Create, Read, Update, Delete.</li>
+    <li>CMS: Content Management System, like a blog or news site backend.</li>
+    <li>JPA: Jakarta Persistence API, the standard rulebook. Hibernate is the most popular library that follows it.</li>
+  </ul>
+
+  <h2>Why ORM</h2>
+  <p>With JDBC you write complex queries, map every ResultSet row to an object by hand, repeat the same CRUD code, and manage relationships yourself. ORM bridges objects and tables so you save and load Java objects and the SQL is generated for you.</p>
+  <p>Real-life example: JDBC is translating every sentence yourself. ORM is a translator who sits between you and the client.</p>
+
+  <h2>Hibernate</h2>
+  <p>An open-source ORM framework for Java. It generates the SQL and manages relationships like one-to-many and many-to-many.</p>
+  <p>Advantages:</p>
+  <ul>
+    <li>Database independence: change the dialect, not your code.</li>
+    <li>Less boilerplate: no repeated SQL for CRUD.</li>
+    <li>Caching: reuses data it has already loaded.</li>
+    <li>Lazy and eager loading: you control when related data is fetched.</li>
+  </ul>
+
+  <h2>Lazy vs eager loading</h2>
+  <p>Lazy: related data loads only when you actually ask for it. Eager: related data loads straight away with the main object.</p>
+  <p>Real-life example: lazy is opening a client's file and only pulling their transaction history if you need it. Eager is pulling the whole history every time, just in case.</p>
+
+  <h2>Architecture</h2>
+  <ul>
+    <li>Configuration: loads settings from hibernate.cfg.xml.</li>
+    <li>SessionFactory: built once. Holds the connection settings and hands out sessions. Expensive to create.</li>
+    <li>Session: short-lived, one per request or unit of work. Does the CRUD.</li>
+    <li>Transaction: groups operations so they all commit or all roll back.</li>
+    <li>Query / HQL / Criteria API: ways to fetch data. Hibernate turns them into database-specific SQL.</li>
+    <li>Entity classes: Java classes mapped to tables.</li>
+  </ul>
+  <p>Real-life example: the SessionFactory is the bank's head office, set up once. A Session is one teller shift. A Transaction is one client's full set of actions that either all go through or none do.</p>
+
+  <h2>Entity states</h2>
+  <ul>
+    <li>Transient: a new object Hibernate doesn't know about yet (new Book()).</li>
+    <li>Persistent: linked to an open session. Changes are synced to the database automatically on commit.</li>
+    <li>Detached: the session closed, so it still represents a row but changes aren't tracked any more.</li>
+  </ul>
+  <p>Real-life example: a form you've filled in but not handed over (transient), a form the teller is busy capturing (persistent), and your copy you took home (detached).</p>
+
+  <h2>Workflow</h2>
+  <ol>
+    <li>Load configuration.</li>
+    <li>Build the SessionFactory.</li>
+    <li>Open a Session.</li>
+    <li>Begin a Transaction.</li>
+    <li>Work with entities (save, get, update, query).</li>
+    <li>Commit (or roll back on error). Hibernate flushes changes to the database.</li>
+    <li>Close the Session.</li>
+  </ol>
+
+  <h2>Mapping annotations</h2>
+  <ul>
+    <li>@Entity: this class is a table.</li>
+    <li>@Table(name = "books"): the exact table name.</li>
+    <li>@Id: the primary key.</li>
+    <li>@GeneratedValue(strategy = GenerationType.IDENTITY): the database generates the ID.</li>
+    <li>@Column(nullable = false, length = 100): column rules, like required and maximum length.</li>
+  </ul>
+
+  <h2>Real-world uses</h2>
+  <ul>
+    <li>E-commerce: large catalogues with products linked to categories and orders, lazy loading for speed.</li>
+    <li>Employee systems: hierarchies, payroll, inheritance mapping for different employee types, caching.</li>
+    <li>Finance: transactions that must be atomic, plus connection pooling and dialects.</li>
+    <li>CMS: articles and tags with HQL queries and eager fetching.</li>
+  </ul>
+
+  <h2>Pseudocode: saving and reading a book</h2>
+  <pre><code>
+AT STARTUP
+    factory = build SessionFactory from hibernate.cfg.xml
+
+SAVE
+    open session
+    begin transaction
+    book = new Book (transient)
+    session.persist(book) (now persistent)
+    commit (Hibernate writes the INSERT)
+    close session (book is now detached)
+
+READ
+    open session
+    book = session.get(Book, id)
+    close session
+
+AT SHUTDOWN
+    close factory
+  </code></pre>
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>One SessionFactory for the whole app, many short Sessions.</li>
+    <li>Always close the Session, ideally with try-with-resources.</li>
+    <li>If anything fails inside a transaction, roll back.</li>
+    <li>Spring Boot and Spring Data JPA do all of this for you. Seeing it by hand helps you understand what's underneath.</li>
+  </ul>
+</body>
+</html>

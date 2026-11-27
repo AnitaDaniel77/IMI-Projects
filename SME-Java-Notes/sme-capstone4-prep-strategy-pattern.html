@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SME Session 26 Nov 2026: Capstone 4 Prep, Smart Rail Selection and Transaction Risk</title>
+</head>
+<body>
+  <h1>SME Session 26 Nov 2026: Capstone 4 Prep</h1>
+  <p>Led by Hilbert Muchatibaya. Topic: smart rail selection and transaction risk, using the strategy pattern.</p>
+
+  <h2>Acronyms</h2>
+  <ul>
+    <li>EFT: Electronic Funds Transfer, a bank-to-bank payment.</li>
+    <li>RTGS: Real-Time Gross Settlement, a rail for very large payments that settle immediately.</li>
+    <li>BNPL: Buy Now Pay Later.</li>
+    <li>DRY: Don't Repeat Yourself.</li>
+    <li>SOLID: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion.</li>
+    <li>AWS: Amazon Web Services, a cloud provider.</li>
+  </ul>
+
+  <h2>Where we are</h2>
+  <ul>
+    <li>Capstone 3 answered HOW we pay: one PaymentMethod contract, many rails (card, EFT, wallet). Each rail owns a rule and a decline returns false.</li>
+    <li>Capstone 4 adds a layer above that: choosing the provider. It continues in your own Capstone 3 repo, where you add the routing skeleton.</li>
+  </ul>
+  <p>Real-life example: Capstone 3 built the tills. Capstone 4 adds the floor manager who tells each client which till to go to.</p>
+
+  <h2>The three new questions for every payment</h2>
+  <ol>
+    <li>Which provider should process it, for this amount and bank?</li>
+    <li>What risk level applies before the money moves?</li>
+    <li>Why was that decision taken? It must be traceable.</li>
+  </ol>
+
+  <h2>Smart rail selection</h2>
+  <p>Based on things like the amount, the origin and the destination, the system offers a better rail, for example EFT instead of wallet, or BNPL. Done well, the merchant pays lower fees and the platform makes more profit.</p>
+  <p>Real-life example: a navigation app with one car and one destination, but you choose fastest, shortest or avoid tolls. The app has a route strategy and hands the calculation to it.</p>
+
+  <h2>Transaction risk</h2>
+  <p>Rules score or block a transaction. For example, a large amount from a certain origin with no ID provided gets blocked. Check the risk work in the safe pay repository from about a month ago.</p>
+  <p>Fraud score idea: 0 to 5, one point per check passed (who you are, card details and so on). A score of 4 or more unlocks certain rails. The report can be built step by step with the Builder pattern, adding each check as it passes.</p>
+  <p>Real-life example: opening an account. Each document you bring ticks a box, and only with enough ticks can you get a credit card.</p>
+
+  <h2>The strategy pattern</h2>
+  <ul>
+    <li>Put each way of deciding behind an interface.</li>
+    <li>Swap the decision without changing the code that uses it.</li>
+    <li>You've done this already: PaymentMethod is a strategy for how to pay.</li>
+    <li>Capstone 4 uses it again: each routing rule is one way of deciding.</li>
+  </ul>
+  <p>The four parts (GeeksforGeeks sorting example):</p>
+  <ul>
+    <li>Client: asks for the work (main, or an API request).</li>
+    <li>Context: holds a strategy and hands the work to it (SortingContext, PaymentRailSelector).</li>
+    <li>Strategy interface: the contract (SortingStrategy, PaymentRailStrategy).</li>
+    <li>Concrete strategies: the real implementations (BubbleSort, QuickSort, MergeSort, or Wallet, Card, EFT, RTGS).</li>
+  </ul>
+
+  <h2>How it all fits together</h2>
+  <ul>
+    <li>Interface: the contract every strategy honours. PaymentMethod in Capstone 3, RoutingRule now.</li>
+    <li>Polymorphism: the same call, different behaviour. The calling code never changes.</li>
+    <li>Inheritance: "is-a", sharing code through a parent class. Strategies don't need it.</li>
+    <li>Strategy: the engine HAS a swappable strategy, so you change behaviour without rewriting the engine.</li>
+  </ul>
+
+  <h2>Hilbert's demo: amount bands</h2>
+  <ul>
+    <li>Wallet: up to R500</li>
+    <li>Card: above R500 up to R10,000</li>
+    <li>EFT: above R10,000 up to R100,000</li>
+    <li>RTGS: above R100,000</li>
+  </ul>
+  <p>The selector loops through the list and takes the first rail whose supports() is true, so the list order is the priority. If nothing matches, it throws. His suggested upgrade is to check every option and take the one with the lowest risk. The bands in his demo don't overlap, but once you add rules on the user or the bank, they can, and then you need a tie-break.</p>
+  <p>Design question he left for the cohort: does supports() live on the PaymentMethod parent, or on each rail? Each rail may apply its rules differently, so he leans towards each rail owning its own.</p>
+
+  <h2>Orchestrator: microservice vs monolith</h2>
+  <ul>
+    <li>Microservice: the orchestrator is a separate project in front, like a traffic controller, sending each payment to the BNPL, crypto, EFT, card or wallet service.</li>
+    <li>Monolith: one application holds everything. PayNest is a monolith.</li>
+  </ul>
+
+  <h2>Other principles</h2>
+  <ul>
+    <li>DRY: if you copy-paste the same logic twice, move it into a base class or helper method.</li>
+    <li>Capability interfaces: BankSettlement (settlementTime, getBankReference) is only implemented by EFT. Interface Segregation again.</li>
+    <li>Single Responsibility scales beyond Java: no service that does 20 things.</li>
+    <li>Failover and redundancy: don't tie yourself to one provider. The AWS and Microsoft outages took businesses down, so build a fallback.</li>
+    <li>Architecture comes before prompting AI tools. You still make the design decisions.</li>
+  </ul>
+
+  <h2>Advice for the capstone</h2>
+  <ul>
+    <li>Read the brief for the small requirements, the "nooks and crannies".</li>
+    <li>Do exactly what the rubric asks. Build extra ideas separately and send them to Hilbert directly.</li>
+    <li>Concepts (SOLID, DRY, clean architecture) matter more than any one language, but submit Java for marks.</li>
+    <li>In interviews, knowing how a system works matters more than remembering an exception's name.</li>
+  </ul>
+
+  <h2>Pseudocode: routing a payment</h2>
+  <pre><code>
+CREATE order (reject if id blank or amount not above 0)
+BUILD fraud report: add one point per check passed
+
+FIRST MATCH
+    FOR each rail in priority order
+        IF rail supports order and score
+            RETURN decision(rail, "first match")
+    RETURN decision(NONE, "no rail supports")
+
+LOWEST RISK
+    best = none
+    FOR each rail
+        IF rail supports order and score
+            IF best is none OR rail risk lower than best risk
+                best = rail
+    RETURN decision(best, "lowest risk") or NONE
+
+PAY on the chosen rail, keep the decision as the trace
+  </code></pre>
+
+  <h2>Tips for understanding the logic</h2>
+  <ul>
+    <li>Find the context (the selector). It never names a specific rail, it only loops over the interface.</li>
+    <li>Adding a rail should mean one new class and one line in the list. If you edit the selector, Open/Closed is broken.</li>
+    <li>Ask "what if two rules match?" and "what if none match?" for every design.</li>
+    <li>The RoutingDecision record is your answer to "why was that decision taken?".</li>
+  </ul>
+
+    <h2>Update from Hilbert (27 Nov email)</h2>
+  <ul>
+    <li>Wallet vs EFT was only an example of the strategy pattern.</li>
+    <li>Capstone 4: RoutingRule classes evaluate a Transaction, and the routing engine selects a provider. Keep routing rules separate from payment methods.</li>
+    <li>Transaction only has amount, bank and timestamp. No location fields or merchant-specific rules.</li>
+    <li>Working demo: BRIDGE section of Capstone3Debrief.java in hilbertdev/paynest. Use it to learn the pattern, not as the solution.</li>
+    <li>The Java file in these notes shows the session demo, not the Capstone 4 design.</li>
+  </ul>
+</body>
+</html>
+
